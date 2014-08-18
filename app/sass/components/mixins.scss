@@ -1,0 +1,62 @@
+/**
+@mixin cssTriangle
+Creates a css triangle http://cssarrowplease.com
+@param size - size of the triangle
+@param borderWidth - width of the border
+@param borderColor - color of the border
+@param position - where the arrow should appear (top, right, bottom, left)
+@param bg - background color of the triangle
+Usage: @include css-triangle(10px, 1px, #ccc, right, #000);
+**/
+@mixin css-triangle($size, $borderWidth, $borderColor, $position, $bg:#fff) {
+  position:relative;
+  background:$bg;
+  border:$borderWidth solid $borderColor;
+
+  $d:top;
+  $margin:left;
+
+  @if $position == top {
+    $d: bottom;
+  } @else if $position == bottom {
+    $d: top;
+  } @else if $position == left {
+    $d: right;
+  } @else {
+    $d: left;
+  }
+
+  @if $position == top or $position == bottom {
+    $margin: left;
+  } @else {
+    $margin: top;
+  }
+
+  &:after, &:before {
+    #{$d}: 100%;
+    border: solid transparent;
+    content: " ";
+    width:0;
+    height:0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:after {
+    border-color: rgba(119, 100, 213, 0);
+    border-#{$d}-color: $bg;
+    border-width: $size;
+    #{$margin}: 50%;
+    margin-#{$margin}: -$size;
+    z-index:3;
+  }
+
+  &:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-#{$d}-color: $borderColor;
+    border-width: $size + (round($borderWidth*1.41421356));
+    #{$margin}: 50%;
+    margin-#{$margin}: -($size + (round($borderWidth*1.41421356)));
+    z-index:2;
+  }
+}

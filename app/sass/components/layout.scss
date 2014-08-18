@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+}
+
+div.layout {
+  $grid-columns: $layout-columns;
+  @include fill-parent;
+
+  > header {
+    @include fill-parent;
+    height: $header-height;
+    background-color: $header-bg-color;
+    position: fixed;
+    .title, .search {
+      color: $header-title-color;
+      font-size: $header-title-size;
+      position: relative;
+    }
+    .title {
+      background-color: $header-title-bg-color;
+      @include span-columns($layout-menu-col);
+      @include pad(($header-height - $header-title-size)/8 $header-height/8);
+    }
+    .search {
+      @include span-columns($layout-main-col-r);
+      @include pad(($header-height - $header-title-size)/8 $header-height/4);
+    }
+  }
+
+  > aside, > .main {
+    top: $header-height;
+  }
+
+  > aside {
+    @include span-columns($layout-menu-col);
+    background-color: $layout-side-bg-color;
+    position: fixed;
+    min-height: 100%;
+    color: $layout-side-color;
+    .modules {
+      @include row();
+      li {
+        float: left;
+      }
+    }
+    .controllers {
+      li {
+        @include row();
+        @include pad($layout-menu-size/4 $layout-menu-size/2);
+        font-size: $layout-menu-size;
+        &:hover {
+          background-color: $layout-side-bg-hover-color;
+          cursor: pointer;
+        }
+        &.active {
+          background-color: $layout-side-bg-highlight-color;
+          color: $layout-side-highlight-color;
+        }
+      }
+    }
+  }
+
+  > .main {
+    @include span-columns($layout-main-col-w);
+    @include shift($layout-menu-col);
+    position: relative;
+  }
+}

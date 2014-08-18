@@ -1,0 +1,8 @@
+<aside ng-controller="MenuCtrl">
+    <ul class="modules">
+        <li ng-repeat="module in modules" ng-class="{true: 'active'}[module.active]">{{module.id}}</li>
+    </ul>
+    <ul class="controllers">
+        <li ng-repeat="section in sections" ng-class="{true: 'active'}[section.active]">{{section.title}}</li>
+    </ul>
+</aside>

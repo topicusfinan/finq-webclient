@@ -1,0 +1,26 @@
+div.layout > header {
+    .title:after {
+      background-color: $header-title-bg-color;
+      height: 100%;
+      width: $header-height/4;
+      position: absolute;
+      right: -$header-height/10;
+      top: 0;
+      content: "";
+      @include transform(skew(-20deg, 0deg));
+    }
+    .search {
+      margin-left: $header-height/2.5;
+      &:before {
+        background-color: $header-bg-color;
+        border-right: $header-title-bg-color 3px solid;
+        height: 100%;
+        width: $header-height/2.5;
+        position: absolute;
+        left: -$header-height/2.5;
+        top: 0;
+        content: "";
+        @include transform(skew(-20deg, 0deg));
+      }
+    }
+}
