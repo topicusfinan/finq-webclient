@@ -10,6 +10,6 @@
  * the search function and the account control.
  */
 angular.module('finqApp')
-    .controller('HeaderCtrl', ['$scope','config',function ($scope,configProvider) {
-        $scope.title = configProvider.title();
+    .controller('HeaderCtrl', ['$scope','config',function ($scope,config) {
+        $scope.title = config.title();
     }]);

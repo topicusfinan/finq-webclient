@@ -12,34 +12,28 @@
 angular.module('finqApp')
     .controller('AppCtrl', [
 
-        '$translate',
+        '$state',
         '$scope',
         '$route',
         'config',
         'page',
         'EVENTS',
-        '$translatePartialLoader',
 
-        function ($translate,$scope,$route,configProvider,pageFactory,EVENTS,$translatePartialLoader) {
+        function ($state,$scope,$route,config,pageFactory,EVENTS) {
         $route.current = '/';
         $scope.pageTitle = 'Finq';
 
         $scope.template = {
-            layout: 'views/layout.html',
             menu: 'views/menu.html',
             header: 'views/header.html'
         };
 
+        $state.go('loading');
+
         $scope.$on(EVENTS.PAGE_CONTROLLER_UPDATED,function(event,moduleInfo) {
-            configProvider.load(function(appConfiguration) {
-                // update the page title
-                $scope.pageTitle = pageFactory.setActiveSection(appConfiguration.title,moduleInfo.module,moduleInfo.section);
-                // load the translations file associated with the section controller
-                var controllerTranslations = moduleInfo.section.id.toLowerCase().replace('.','/');
-                $translatePartialLoader.addPart(controllerTranslations);
-                $translate.refresh();
-                // broadcast a navigation updated event to inform other controllers
-                $scope.$broadcast(EVENTS.NAVIGATION_UPDATED,moduleInfo.module,moduleInfo.section);
-            });
+            // update the page title
+            $scope.pageTitle = pageFactory.setActiveSection(config.title(),moduleInfo.module,moduleInfo.section);
+            // broadcast a navigation updated event to inform other controllers
+            $scope.$broadcast(EVENTS.NAVIGATION_UPDATED,moduleInfo.module,moduleInfo.section);
         });
   }]);

@@ -16,7 +16,7 @@
     </head>
     <body>
 
-        <div class="layout" ng-include="template.layout"></div>
+        <div class="layout" ui-view></div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
         <script>
@@ -48,9 +48,7 @@
         <script src="bower_components/angular-route/angular-route.js"></script>
         <script src="bower_components/angular-mocks/angular-mocks.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>
-        <script src="bower_components/angular-translate-loader-url/angular-translate-loader-url.js"></script>
-        <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
-        <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -64,11 +62,13 @@
         <script src="scripts/modules/mock.js"></script>
         <script src="scripts/modules/translate.js"></script>
         <script src="scripts/controllers/app.js"></script>
+        <script src="scripts/controllers/preloader.js"></script>
         <script src="scripts/controllers/header.js"></script>
         <script src="scripts/controllers/menu.js"></script>
         <script src="scripts/controllers/runner/available.js"></script>
         <script src="scripts/services/config.js"></script>
         <script src="scripts/services/page.js"></script>
+        <script src="scripts/services/translate.js"></script>
         <script src="scripts/directives/include.js"></script>
         <script src="scripts/mockdata/app.js"></script>
         <script src="scripts/mockdata/story.js"></script>

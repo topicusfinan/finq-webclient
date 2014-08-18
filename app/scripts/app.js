@@ -13,21 +13,27 @@
 angular
     .module('finqApp', [
         'ngRoute',
+        'ui.router',
 
         'finqApp.services',
         'finqApp.directives',
         'finqApp.filters',
-        'finqApp.translations',
 
         'finqApp.reporter',
         'finqApp.runner',
         'finqApp.organizer',
         'finqApp.writer',
 
-        'finqApp.mock'
-    ]).config(['$routeProvider',function($routeProvider) {
+        'finqApp.mock',
+        'finqApp.translate',
+    ]).config(['$routeProvider','$stateProvider',function($routeProvider,$stateProvider) {
         $routeProvider.otherwise({
             redirectTo: '/runner/available'
+        });
+        $stateProvider.state('loaded', {
+            templateUrl: 'views/layout.html'
+        }).state('loading', {
+            templateUrl: 'views/preloader.html'
         });
     }]);
 
