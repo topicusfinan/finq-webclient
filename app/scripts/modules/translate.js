@@ -9,9 +9,5 @@ angular.module('finqApp.translations', ['pascalprecht.translate'])
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: '/lang/{part}/{lang}.json'
         });
-        /*$translateProvider.useStaticFilesLoader({
-            prefix: '/lang/',
-            suffix: '.json'
-        });*/
         //$translateProvider.useLocalStorage();
     });
