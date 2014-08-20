@@ -21,7 +21,6 @@ angular.module('finqApp')
 
         function ($state,$scope,$route,config,pageFactory,EVENTS) {
         $route.current = '/';
-        $scope.pageTitle = 'Finq';
 
         $scope.template = {
             menu: 'views/menu.html',

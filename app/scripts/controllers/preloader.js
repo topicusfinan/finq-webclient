@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.runner:PreloaderCtrl
+ * @name finqApp:PreloaderCtrl
  * @description
  * # Application preloader
  *

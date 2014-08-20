@@ -30,10 +30,12 @@ angular
         $routeProvider.otherwise({
             redirectTo: '/runner/available'
         });
-        $stateProvider.state('loaded', {
-            templateUrl: 'views/layout.html'
-        }).state('loading', {
+        $stateProvider.state('loading', {
             templateUrl: 'views/preloader.html'
+        }).state('loaded', {
+            templateUrl: 'views/login.html'
+        }).state('authenticated', {
+            templateUrl: 'views/layout.html'
         });
     }]);
 
