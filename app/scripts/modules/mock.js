@@ -13,10 +13,17 @@
  */
 angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
-    }]).run(['$httpBackend','appServiceMock','storyServiceMock', function($httpBackend,appServiceMock,storyServiceMock) {
+    }]).run([
+    '$httpBackend',
+    'appServiceMock',
+    'storyServiceMock',
+    'authServiceMock', 
+    function($httpBackend,appServiceMock,storyServiceMock,authServiceMock) {
 
         $httpBackend.whenGET('/app/info').respond(appServiceMock.info);
         $httpBackend.whenGET('/story/books').respond(storyServiceMock.storybooks);
+        $httpBackend.whenGET('/auth/user').respond({user:null});
+        $httpBackend.whenPOST('/auth/user').respond(authServiceMock.user);
 
         // Catch-all pass through for all other requests
         $httpBackend.whenGET(/.*/).passThrough();

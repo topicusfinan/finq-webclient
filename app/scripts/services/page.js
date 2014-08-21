@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service.config
+ * @name finqApp.service:page
  * @description
- * # Application configuration provider
+ * # Application page factory
  *
- * Provides application wide configuration values.
+ * Creates page level informaton based on current application state.
  */
 angular.module('finqApp.services')
     .factory('page', function () {

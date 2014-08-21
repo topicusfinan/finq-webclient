@@ -13,28 +13,48 @@
  * Application state will be changed to 'loaded' after all content has been successfully preloaded.
  */
 angular.module('finqApp')
-    .controller('PreloaderCtrl', ['$state','$scope','config','EVENTS','translate',function ($state,$scope,config,EVENTS,translate) {
+    .controller('PreloaderCtrl', [
+        '$state',
+        '$scope',
+        'config',
+        'EVENTS',
+        'translate',
+        'authenticate',
+        function ($state,$scope,config,EVENTS,translate,authenticate) {
         var that = this;
         this.progress = '0%';
         this.loaded = false;
+        this.authenticated = false;
         this.loadingText = 'Loading...';
 
         var defaultLang = 'en';
         var loadedText = 'Loaded!';
         var loaded = {
            translations: false,
-           config: false
+           config: false,
+           user: false,
         };
+
         translate.load(defaultLang,function(data) {
             loaded.translations = true;
-            console.log('Translations loaded for language: '+data.LANG);
+            console.debug('Translations loaded for language: '+data.LANG);
             loadedText = data.LOADER.LOADED;
             evalLoaded();
         });
         config.load(function(configData){
             loaded.config = true;
-            console.log(configData.appTitle+' application configuration loaded');
+            console.debug(configData.appTitle+' application configuration loaded');
             $scope.$emit(EVENTS.CONFIG_LOADED);
+            evalLoaded();
+        });
+        authenticate.load(function(user) {
+            that.authenticated = user !== null;
+            loaded.user = true;
+            if (that.authenticated) {
+                console.debug('Authentication completed: user '+user.name+' authenticated successfully');
+            } else {
+                console.debug('Automatic authentication failed: no user found, login required');
+            }
             evalLoaded();
         });
 
@@ -48,15 +68,19 @@ angular.module('finqApp')
                     stepsComplete++;
                 }
             });
-            updateProgress(stepsComplete);
+            that.progress = stepsComplete / Object.keys(loaded).length * 100 + '%';
             if (allLoaded) {
-                that.loadingText = loadedText;
-                that.loaded = true;
-                $state.go('intro.login');
+                loadComplete();
             }
         };
 
-        var updateProgress = function(stepsComplete) {
-            that.progress = stepsComplete / Object.keys(loaded).length * 100 + '%';
+        var loadComplete = function() {
+            that.loadingText = loadedText;
+            that.loaded = true;
+            if (that.authenticated) {
+                $state.go('authenticated');
+            } else {
+                $state.go('intro.login');
+            }
         };
     }]);

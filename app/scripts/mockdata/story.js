@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.mock
+ * @name finqApp.mock:storyServiceMock
  * @description
  * # FinqApp Mockservice - Storyservice
  *

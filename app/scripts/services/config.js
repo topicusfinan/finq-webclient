@@ -5,11 +5,12 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service.config
+ * @name finqApp.service:config
  * @description
  * # Application configuration provider
  *
- * Provides application wide configuration values.
+ * Provides application wide configuration values. These values are retrieves from
+ * the server upon the loading of the application.
  */
 angular.module('finqApp.services')
     .provider('config', [function () {

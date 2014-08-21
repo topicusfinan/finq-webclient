@@ -1,15 +1,13 @@
-/**
- * Created by c.kramer on 8/15/2014.
- */
 'use strict';
 
 /**
  * @ngdoc function
- * @name finqApp.service.config
+ * @name finqApp.service:translate
  * @description
- * # Application configuration provider
+ * # Application translation service
  *
- * Provides application wide configuration values.
+ * Loads translation files from the backend and provides access to the translation set
+ * accessible through the standard ui-translation functionality.
  */
 angular.module('finqApp.translate')
     .service('translate', ['$http','$q','$translate', function ($http,$q,$translate) {
