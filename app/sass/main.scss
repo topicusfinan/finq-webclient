@@ -2,11 +2,15 @@
 @import 'bourbon';
 @import 'base';
 @import 'neat';
-// theme variables
+// theme variables and styles
 @import 'theme/default/variables';
-// generics
-@import 'components/mixins';
+@import 'theme/default/styles';
+// vendor generics
+@import 'components/vendor/mixins';
+@import 'components/vendor/progress';
 // application styles
+@import 'components/preloader';
 @import 'components/layout';
+@import 'components/intro';
 // theme enhancements
 @import 'theme/default/fancify';

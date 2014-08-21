@@ -14,6 +14,7 @@ angular
     .module('finqApp', [
         'ngRoute',
         'ui.router',
+        'ngAnimate',
 
         'finqApp.services',
         'finqApp.directives',
@@ -30,10 +31,12 @@ angular
         $routeProvider.otherwise({
             redirectTo: '/runner/available'
         });
-        $stateProvider.state('loading', {
-            templateUrl: 'views/preloader.html'
-        }).state('loaded', {
-            templateUrl: 'views/login.html'
+        $stateProvider.state('intro', {
+            templateUrl: 'views/intro/intro.html'
+        }).state('intro.login', {
+            templateUrl: 'views/intro/login.html'
+        }).state('intro.loading', {
+            templateUrl: 'views/intro/preloader.html'
         }).state('authenticated', {
             templateUrl: 'views/layout.html'
         });

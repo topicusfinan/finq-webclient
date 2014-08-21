@@ -31,7 +31,10 @@ angular.module('finqApp.services')
                         loadConfigData($http,callback);
                     },
                     title: function() {
-                        return configData.title;
+                        return configData.subject;
+                    },
+                    appTitle: function() {
+                        return configData.appTitle;
                     }
                 };
             }

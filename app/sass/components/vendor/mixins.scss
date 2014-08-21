@@ -1,13 +1,3 @@
-/**
-@mixin cssTriangle
-Creates a css triangle http://cssarrowplease.com
-@param size - size of the triangle
-@param borderWidth - width of the border
-@param borderColor - color of the border
-@param position - where the arrow should appear (top, right, bottom, left)
-@param bg - background color of the triangle
-Usage: @include css-triangle(10px, 1px, #ccc, right, #000);
-**/
 @mixin css-triangle($size, $borderWidth, $borderColor, $position, $bg:#fff) {
   position:relative;
   background:$bg;

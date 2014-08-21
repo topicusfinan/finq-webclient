@@ -1,7 +1,18 @@
 {
+    "LANG" : "US English",
+    "GENERAL" : {
+        "EMAIL_PLACEHOLDER" : "Email",
+        "PASS_PLACEHOLDER" : "Password"
+    },
+    "LOADER": {
+        "LOADED" : "All done!"
+    },
+    "LOGIN" : {
+        "SUBMIT_TITLE" : "Login"
+    },
     "RUNNER" : {
-        "AVAILABLE": {
-            "FILTER_START": "Stories in the"
+        "AVAILABLE" : {
+            "FILTER_START" : "Stories in the"
         }
     }
 }

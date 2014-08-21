@@ -1,0 +1,14 @@
+input[type="submit"],button {
+  &.primary {
+    background-color: $base-accent-color;
+    color: $highlight-color;
+    &:hover {
+      background-color: darken($base-accent-color,10%);
+      color: darken($highlight-color,10%);
+    }
+  }
+}
+
+.fa-spin {
+  @include animation(spin 1.4s infinite linear);
+}

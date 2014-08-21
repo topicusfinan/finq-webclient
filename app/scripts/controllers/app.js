@@ -20,19 +20,25 @@ angular.module('finqApp')
         'EVENTS',
 
         function ($state,$scope,$route,config,pageFactory,EVENTS) {
-        $route.current = '/';
+            var that = this;
+            this.title = 'Finq';
 
-        $scope.template = {
-            menu: 'views/menu.html',
-            header: 'views/header.html'
-        };
+            $route.current = '/';
+            $scope.template = {
+                menu: 'views/menu.html',
+                header: 'views/header.html'
+            };
 
-        $state.go('loading');
+            $state.go('intro.loading');
 
-        $scope.$on(EVENTS.PAGE_CONTROLLER_UPDATED,function(event,moduleInfo) {
-            // update the page title
-            $scope.pageTitle = pageFactory.setActiveSection(config.title(),moduleInfo.module,moduleInfo.section);
-            // broadcast a navigation updated event to inform other controllers
-            $scope.$broadcast(EVENTS.NAVIGATION_UPDATED,moduleInfo.module,moduleInfo.section);
-        });
-  }]);
+            $scope.$on(EVENTS.CONFIG_LOADED,function(){
+                that.title = config.appTitle();
+            });
+            $scope.$on(EVENTS.PAGE_CONTROLLER_UPDATED,function(event,moduleInfo) {
+                // update the page title
+                that.pageTitle = pageFactory.setActiveSection(config.title(),moduleInfo.module,moduleInfo.section);
+                // broadcast a navigation updated event to inform other controllers
+                $scope.$broadcast(EVENTS.NAVIGATION_UPDATED,moduleInfo.module,moduleInfo.section);
+            });
+        }
+    ]);

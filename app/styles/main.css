@@ -418,20 +418,99 @@ input[type="submit"] {
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-/**
-@mixin cssTriangle
-Creates a css triangle http://cssarrowplease.com
-@param size - size of the triangle
-@param borderWidth - width of the border
-@param borderColor - color of the border
-@param position - where the arrow should appear (top, right, bottom, left)
-@param bg - background color of the triangle
-Usage: @include css-triangle(10px, 1px, #ccc, right, #000);
-**/
+input[type="submit"].primary, button.primary {
+  background-color: #049cdb;
+  color: white; }
+  input[type="submit"].primary:hover, button.primary:hover {
+    background-color: #0378a9;
+    color: #e6e6e6; }
+
+.fa-spin {
+  -webkit-animation: spin 1.4s infinite linear;
+  -moz-animation: spin 1.4s infinite linear;
+  animation: spin 1.4s infinite linear; }
+
+.progress-bar {
+  background-color: #f2f2f2;
+  border: 1px solid #dddddd;
+  box-shadow: inset 0 0 3px 0 rgba(115, 115, 115, 0.15);
+  border-radius: 0.1875em;
+  height: 30px;
+  margin: 0 auto;
+  padding: 2px;
+  width: 50%; }
+  .progress-bar > span.meter {
+    -webkit-animation: progress 0.7s linear infinite;
+    -moz-animation: progress 0.7s linear infinite;
+    animation: progress 0.7s linear infinite;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #049cdb;
+    background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%);
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%);
+    background-size: 40px 40px;
+    background-repeat: repeat-x;
+    border: 1px solid #036690;
+    border-radius: 0.125em;
+    display: block;
+    height: 100%;
+    width: 60%; }
+
+@-webkit-keyframes progress {
+  0% {
+    background-position: 0px 0px; }
+
+  100% {
+    background-position: 40px 0px; } }
+@-moz-keyframes progress {
+  0% {
+    background-position: 0px 0px; }
+
+  100% {
+    background-position: 40px 0px; } }
+@-ms-keyframes progress {
+  0% {
+    background-position: 0px 0px; }
+
+  100% {
+    background-position: 40px 0px; } }
+@-o-keyframes progress {
+  0% {
+    background-position: 0px 0px; }
+
+  100% {
+    background-position: 40px 0px; } }
+@keyframes progress {
+  0% {
+    background-position: 0px 0px; }
+
+  100% {
+    background-position: 40px 0px; } }
+.loader {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 18em;
+  max-width: 28em;
+  text-align: center; }
+  .loader:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .loader span, .loader i {
+    font-size: 1.5em; }
+
 body {
-  margin: 0; }
+  margin: 0;
+  background-color: #333333;
+  color: #e6e6e6; }
+  body h1, body h2, body h3, body h4 {
+    font-weight: normal; }
 
 div.layout {
+  position: absolute;
   width: 100%; }
   div.layout > header {
     width: 100%;
@@ -500,9 +579,43 @@ div.layout {
     margin-right: 1.16509%;
     width: 74.70873%;
     margin-left: 21.07606%;
+    background-color: white;
     position: relative; }
     div.layout > .main:last-child {
       margin-right: 0; }
+
+.intro {
+  max-width: 68em;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  top: 12em;
+  max-width: 28em; }
+  .intro:after {
+    content: "";
+    display: table;
+    clear: both; }
+  .intro h1 {
+    font-size: 4.5em;
+    margin-bottom: 0.25em; }
+    .intro h1 i {
+      margin-right: 0.25em;
+      color: #049cdb; }
+  .intro h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.83333em; }
+  .intro h1, .intro h2 {
+    text-align: center; }
+    .intro h1 i, .intro h2 i {
+      margin-right: 0.2em; }
+  .intro input {
+    font-size: 1.5em;
+    width: 100%; }
+  .intro input[type="email"] {
+    margin-bottom: 0.2em; }
+  .intro .view-animate {
+    position: absolute;
+    width: 100%; }
 
 div.layout > header .title:after {
   background-color: #4d4d4d;
@@ -533,3 +646,22 @@ div.layout > header .search {
     -ms-transform: skew(-20deg, 0deg);
     -o-transform: skew(-20deg, 0deg);
     transform: skew(-20deg, 0deg); }
+
+.view-animate.ng-leave {
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s;
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s; }
+
+.view-animate.ng-enter {
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 1s;
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 1s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 1s; }
+
+.view-animate.ng-enter {
+  opacity: 0; }
+
+.view-animate.ng-enter.ng-enter-active {
+  opacity: 1; }
+
+.view-animate.ng-leave.ng-leave-active {
+  opacity: 0; }

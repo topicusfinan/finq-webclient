@@ -24,3 +24,21 @@ div.layout > header {
       }
     }
 }
+
+.view-animate.ng-leave {
+  @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s);
+}
+
+.view-animate.ng-enter {
+  @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 1s);
+}
+
+.view-animate.ng-enter {
+  opacity:0;
+}
+.view-animate.ng-enter.ng-enter-active {
+  opacity:1;
+}
+.view-animate.ng-leave.ng-leave-active {
+  opacity:0;
+}

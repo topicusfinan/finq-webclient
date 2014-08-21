@@ -1,8 +1,15 @@
 body {
   margin: 0;
+  background-color: $body-bg-color;
+  color: $body-color;
+
+  h1,h2,h3,h4 {
+    font-weight: $header-font-weight;
+  }
 }
 
 div.layout {
+  position: absolute;
   $grid-columns: $layout-columns;
   @include fill-parent;
 
@@ -53,8 +60,8 @@ div.layout {
           cursor: pointer;
         }
         &.active {
-          background-color: $layout-side-bg-highlight-color;
-          color: $layout-side-highlight-color;
+          background-color: $base-accent-color;
+          color: $highlight-color;
         }
       }
     }
@@ -63,6 +70,7 @@ div.layout {
   > .main {
     @include span-columns($layout-main-col-w);
     @include shift($layout-menu-col);
+    background-color: $main-bg-color;
     position: relative;
   }
 }

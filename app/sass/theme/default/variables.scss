@@ -15,6 +15,12 @@ $dark-orange:		              #ae4901;
 $pink:                            #c3325f;
 $purple:                          #7a43b6;
 
+$base-accent-color:               $blue;
+
+// body colors
+$body-bg-color:                   $dark-gray;
+$body-color:                      darken(white,10%);
+
 // layout colors
 $header-bg-color:                 darken($dark-gray,10%);
 $header-title-bg-color:           lighten($dark-gray,10%);
@@ -22,18 +28,30 @@ $header-title-color:              $light-gray;
 
 $layout-side-bg-color:            $dark-gray;
 $layout-side-bg-hover-color:      lighten($dark-gray,20%);
-$layout-side-bg-highlight-color:  $blue;
 $layout-side-color:               $light-gray;
-$layout-side-highlight-color:     lighten($light-gray,20%);
+
+$main-bg-color:                   white;
+
+$highlight-color:                 lighten($light-gray,20%);
 
 // layout formatting
-$header-height:                 4em;
-$layout-columns:                24;
-$layout-menu-col:               5;
-$layout-main-col-w:             18;
-$layout-main-col-r:             12;
-$layout-details-col:            6;
+$header-height:                   4em;
+$layout-columns:                  24;
+$layout-menu-col:                 5;
+$layout-main-col-w:               18;
+$layout-main-col-r:               12;
+$layout-details-col:              6;
 
-$header-title-size:             $base-font-size * 2;
-$layout-menu-size:              $base-font-size * 1.2;
+$header-title-size:               $base-font-size * 2;
+$layout-menu-size:                $base-font-size * 1.2;
 
+// login formatting
+$login-font-size:                 1.5em;
+$login-title-font-size:           4.5em;
+$login-subtitle-font-size:        2.5em;
+
+// loader formatting
+$loader-font-size:                1.5em;
+
+// fonts
+$header-font-weight:              normal;

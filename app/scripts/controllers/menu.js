@@ -15,15 +15,16 @@
  */
 angular.module('finqApp')
     .controller('MenuCtrl', ['$scope','MODULES','EVENTS','page',function ($scope,MODULES,EVENTS,page) {
-        var modules = [];
-        var sections = [];
+        var that = this;
+        this.modules = [];
+        this.sections = [];
         var activeSection = page.getActiveSection();
 
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {
             angular.forEach(sectionList, function(section) {
                 var sectionIsActive = activeSectionId === section.id;
-                sections.push({
+                that.sections.push({
                     title: section.title,
                     active: sectionIsActive
                 });
@@ -33,7 +34,7 @@ angular.module('finqApp')
         // initial load of the modules and the active section
         angular.forEach(MODULES, function(module) {
             var moduleIsActive = activeSection.moduleId === module.id;
-            modules.push({
+            that.modules.push({
                 id: module.id,
                 active: moduleIsActive
             });
@@ -42,14 +43,11 @@ angular.module('finqApp')
             }
         });
 
-        $scope.modules = modules;
-        $scope.sections = sections;
-
         // handle navigation changes by updating the active module and reloading or updating the section listing
         $scope.$on(EVENTS.NAVIGATION_UPDATED,function(event,newActiveModule,newActiveSection) {
             if (activeSection.moduleId !== newActiveModule.id) {
                 // update the active module in case it changed
-                angular.forEach(modules, function(module) {
+                angular.forEach(that.modules, function(module) {
                     if (module.id === activeSection.moduleId && module.active) {
                         module.active = false;
                     } else if (module.id === newActiveModule.id) {
@@ -59,7 +57,7 @@ angular.module('finqApp')
                 });
             } else if (activeSection.sectionId !== newActiveSection.id) {
                 // update the active section in case it changed
-                angular.forEach(sections, function(section) {
+                angular.forEach(that.sections, function(section) {
                     if (section.id === activeSection.sectionId && section.active) {
                         section.active = false;
                     } else if (section.id === newActiveSection.id) {

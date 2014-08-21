@@ -19,7 +19,7 @@ angular.module('finqApp.translate')
                 translations = data;
                 $translate.use(lang);
                 $translate.refresh();
-                callback();
+                callback(data);
             });
         };
         this.getTranslations = function() {
