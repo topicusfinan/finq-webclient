@@ -8,7 +8,10 @@
         "LOADED" : "All done!"
     },
     "LOGIN" : {
-        "SUBMIT_TITLE" : "Login"
+        "SUBMIT_TITLE" : "Login",
+        "ERRORS" : {
+            "AUTHENTICATION_FAILED" : "Login failed: Your email/password combination is incorrect"
+        }
     },
     "RUNNER" : {
         "AVAILABLE" : {

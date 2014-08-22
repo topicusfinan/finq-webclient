@@ -42,3 +42,7 @@ div.layout > header {
 .view-animate.ng-leave.ng-leave-active {
   opacity:0;
 }
+
+input.ng-invalid {
+  @include transition(all linear 0.1s);
+}

@@ -19,7 +19,7 @@ angular.module('finqApp')
         'page',
         'EVENTS',
 
-        function ($state,$scope,$route,config,pageFactory,EVENTS) {
+        function ($state,$scope,$route,configProvider,pageFactory,EVENTS) {
             var that = this;
             this.title = 'Finq';
 
@@ -32,11 +32,11 @@ angular.module('finqApp')
             $state.go('intro.loading');
 
             $scope.$on(EVENTS.CONFIG_LOADED,function(){
-                that.title = config.appTitle();
+                that.title = configProvider.appTitle();
             });
             $scope.$on(EVENTS.PAGE_CONTROLLER_UPDATED,function(event,moduleInfo) {
                 // update the page title
-                that.pageTitle = pageFactory.setActiveSection(config.title(),moduleInfo.module,moduleInfo.section);
+                that.pageTitle = pageFactory.setActiveSection(configProvider.title(),moduleInfo.module,moduleInfo.section);
                 // broadcast a navigation updated event to inform other controllers
                 $scope.$broadcast(EVENTS.NAVIGATION_UPDATED,moduleInfo.module,moduleInfo.section);
             });

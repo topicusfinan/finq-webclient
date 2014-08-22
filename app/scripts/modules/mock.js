@@ -22,8 +22,14 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
 
         $httpBackend.whenGET('/app/info').respond(appServiceMock.info);
         $httpBackend.whenGET('/story/books').respond(storyServiceMock.storybooks);
-        $httpBackend.whenGET('/auth/user').respond({user:null});
-        $httpBackend.whenPOST('/auth/user').respond(authServiceMock.user);
+        $httpBackend.whenGET('/auth/user').respond(authServiceMock.loginError);
+        $httpBackend.whenPOST('/auth/user').respond(function(method, url, data) {
+            var jsonData = angular.fromJson(data);
+            if (jsonData.email === 'admin@example.org' && jsonData.password === 'admin') {
+                return [200,authServiceMock.loginSuccess];
+            }
+            return [200,authServiceMock.loginError];
+        });
 
         // Catch-all pass through for all other requests
         $httpBackend.whenGET(/.*/).passThrough();

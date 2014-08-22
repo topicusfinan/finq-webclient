@@ -10,20 +10,40 @@
  * authenticated user.
  */
 angular.module('finqApp')
-    .service('authenticate', ['$http', function ($http) {
+    .service('authenticate', ['backend', function (backend) {
         var currentUser = null;
 
-        this.load = function(callback) {
+        this.load = function(onSuccess,onError) {
             if (currentUser === null) {
-                $http.get('/auth/user').success(function(data) {
-                    if (data.user !== undefined) {
+                backend.get('/auth/user').success(function(data) {
+                    if (data.success) {
                         currentUser = data.user;
-                        if (typeof callback === 'function') {
-                            callback(currentUser);
+                        if (typeof onSuccess === 'function') {
+                            onSuccess(currentUser);
                         }
+                    } else if (typeof onError === 'function') {
+                        onError(data.errors);
                     }
                 });
             }
+        };
+
+        this.authenticate = function(email,password,onSuccess,onError) {
+            backend.post('/auth/user',{
+                'email': email,
+                'password': password
+            }).success(function(data) {
+                if (data.success) {
+                    currentUser = data.user;
+                    if (typeof onSuccess === 'function') {
+                        onSuccess(currentUser);
+                    }
+                } else {
+                    if (typeof onError === 'function') {
+                        onError(data.error);
+                    }
+                }
+            });
         };
         
     }]);

@@ -15,21 +15,24 @@
 angular.module('finqApp.services')
     .provider('config', [function () {
         var configData = null;
-        var loadConfigData = function($http,executeAfterLoad) {
+        var loadConfigData = function($http,backend,executeAfterLoad) {
             if (configData === null) {
-                $http.get('/app/info').success(function (data) {
-                    configData = data;
-                    executeAfterLoad(data);
+                $http.get('/scripts/config.json').success(function (data) {
+                    backend.setServerAddress(data.SERVER_ADDRESS);
+                    backend.get('/app/info').success(function (data) {
+                        configData = data;
+                        executeAfterLoad(data);
+                    });
                 });
             } else {
                 executeAfterLoad(configData);
             }
         };
         return {
-            $get: function ($http) {
+            $get: function ($http,backend) {
                 return {
                     load: function(callback) {
-                        loadConfigData($http,callback);
+                        loadConfigData($http,backend,callback);
                     },
                     title: function() {
                         return configData.subject;

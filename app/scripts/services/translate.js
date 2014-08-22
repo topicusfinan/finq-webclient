@@ -10,10 +10,10 @@
  * accessible through the standard ui-translation functionality.
  */
 angular.module('finqApp.translate')
-    .service('translate', ['$http','$q','$translate', function ($http,$q,$translate) {
+    .service('translate', ['backend','$q','$translate', function (backend,$q,$translate) {
         var translations;
         this.load = function(lang,callback) {
-            $http.get('/lang/'+lang+'.json').success(function(data) {
+            backend.get('/lang/'+lang+'.json').success(function(data) {
                 translations = data;
                 $translate.use(lang);
                 $translate.refresh();

@@ -14,11 +14,11 @@
  * to different sections within the application.
  */
 angular.module('finqApp')
-    .controller('MenuCtrl', ['$scope','MODULES','EVENTS','page',function ($scope,MODULES,EVENTS,page) {
+    .controller('MenuCtrl', ['$scope','MODULES','EVENTS','page',function ($scope,MODULES,EVENTS,pageFactory) {
         var that = this;
         this.modules = [];
         this.sections = [];
-        var activeSection = page.getActiveSection();
+        var activeSection = pageFactory.getActiveSection();
 
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {

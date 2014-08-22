@@ -1,6 +1,7 @@
-<form ng-controller="LoginCtrl as login">
-    <h2>{{login.title}}</h2>
-    <input type="email" placeholder="{{login.emailPlaceholder}}">
-    <input type="password" placeholder="{{login.passPlaceholder}}">
-    <input class="primary" type="submit" value="{{login.submitTitle}}">
+<form name="login" ng-submit="authenticate()" ng-controller="LoginCtrl as loginForm">
+    <h2>{{loginForm.title}}</h2>
+    <input type="email" name="email" ng-model="loginForm.email" placeholder="{{loginForm.emailPlaceholder}}" required>
+    <input type="password" name="password" ng-model="loginForm.password" placeholder="{{loginForm.passPlaceholder}}" required>
+    <input class="primary" type="submit" value="{{loginForm.submitTitle}}">
+    <span class="error-feedback" ng-show="loginForm.hasError">{{ loginForm.loginError }}</span>
 </form>

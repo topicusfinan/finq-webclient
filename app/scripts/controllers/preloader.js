@@ -20,7 +20,7 @@ angular.module('finqApp')
         'EVENTS',
         'translate',
         'authenticate',
-        function ($state,$scope,config,EVENTS,translate,authenticate) {
+        function ($state,$scope,configProvider,EVENTS,translateService,authenticateService) {
         var that = this;
         this.progress = '0%';
         this.loaded = false;
@@ -32,31 +32,36 @@ angular.module('finqApp')
         var loaded = {
            translations: false,
            config: false,
-           user: false,
+           user: false
         };
 
-        translate.load(defaultLang,function(data) {
+        translateService.load(defaultLang,function(data) {
             loaded.translations = true;
             console.debug('Translations loaded for language: '+data.LANG);
             loadedText = data.LOADER.LOADED;
             evalLoaded();
         });
-        config.load(function(configData){
+        configProvider.load(function(configData){
             loaded.config = true;
             console.debug(configData.appTitle+' application configuration loaded');
             $scope.$emit(EVENTS.CONFIG_LOADED);
             evalLoaded();
         });
-        authenticate.load(function(user) {
-            that.authenticated = user !== null;
+
+        var authenticationFailed = function() {
+            that.authenticated = false;
             loaded.user = true;
-            if (that.authenticated) {
-                console.debug('Authentication completed: user '+user.name+' authenticated successfully');
-            } else {
-                console.debug('Automatic authentication failed: no user found, login required');
-            }
+            console.debug('Automatic authentication failed: no user found, login required');
             evalLoaded();
-        });
+        };
+        var authenticationSuccess = function(user) {
+            loaded.user = true;
+            that.authenticated = true;
+            console.debug('Authentication completed: user '+user.name+' authenticated successfully');
+            evalLoaded();
+        };
+
+        authenticateService.load(authenticationSuccess,authenticationFailed);
 
         var evalLoaded = function() {
             var allLoaded = true;
