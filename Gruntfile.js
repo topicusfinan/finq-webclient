@@ -370,6 +370,7 @@ module.exports = function (grunt) {
 		    'bower_components/bourbon/dist',
 		    'bower_components/neat/app/assets/stylesheets',
 			'bower_components/bitters/app/assets/stylesheets',
+			'bower_components/components-font-awesome/scss'
 		  ]
 		}
 	  }

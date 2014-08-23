@@ -13,24 +13,62 @@ angular.module('finqApp')
         'NAVIGATION_UPDATED' : 'finqApp.navigationUpdated',
         'CONFIG_LOADED' : 'finqApp.configLoaded'
     }).constant('MODULES',{
+        'REPORTER' : {
+            id: 'REPORTER',
+            badge: null,
+            sections: {
+                'HISTORY': {
+                    id: 'REPORTER.HISTORY',
+                    badge: null
+                },
+                'REPORTS': {
+                    id: 'REPORTER.REPORTS',
+                    badge: null
+                }
+            }
+        },
         'RUNNER' : {
             id: 'RUNNER',
-            title: 'Runner',
             badge: null,
             sections: {
                 'AVAILABLE': {
                     id: 'RUNNER.AVAILABLE',
-                    title: 'Available scenarios',
                     badge: null
                 },
                 'RUNNING': {
                     id: 'RUNNER.RUNNING',
-                    title: 'Running',
                     badge: null
                 },
                 'DEBUGGING': {
                     id: 'RUNNER.DEBUGGING',
-                    title: 'Debugging',
+                    badge: null
+                }
+            }
+        }, 
+        'ORGANIZER' : {
+            id: 'ORGANIZER',
+            badge: null,
+            sections: {
+                'SETS': {
+                    id: 'ORGANIZER.SETS',
+                    badge: null
+                },
+                'BOOKS': {
+                    id: 'ORGANIZER.BOOKS',
+                    badge: null
+                }
+            }
+        }, 
+        'WRITER' : {
+            id: 'WRITER',
+            badge: null,
+            sections: {
+                'STORIES': {
+                    id: 'WRITER.STORIES',
+                    badge: null
+                },
+                'STEPS': {
+                    id: 'WRITER.STEPS',
                     badge: null
                 }
             }

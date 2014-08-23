@@ -9,6 +9,7 @@ $orange:                          #ff9900;
 $dark-orange:		              #ae4901;
 $pink:                            #c3325f;
 $purple:                          #7a43b6;
+$gray:                            darken($light-gray,20%);
 
 $base-accent-color:               $blue;
 $error-color:                     lighten($red,15%);
@@ -22,11 +23,12 @@ $header-bg-color:                 darken($dark-gray,10%);
 $header-title-bg-color:           lighten($dark-gray,10%);
 $header-title-color:              $light-gray;
 
+$layout-active-comp-bg-color:     black;
 $layout-side-bg-color:            $dark-gray;
 $layout-side-bg-hover-color:      lighten($dark-gray,20%);
-$layout-side-color:               $light-gray;
+$layout-side-color:               $gray;
 
-$highlight-color:                 lighten($light-gray,20%);
+$highlight-color:                 white;
 
 // layout formatting
 $header-height:                   4em;

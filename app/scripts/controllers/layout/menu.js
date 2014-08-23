@@ -14,7 +14,13 @@
  * to different sections within the application.
  */
 angular.module('finqApp')
-    .controller('MenuCtrl', ['$scope','MODULES','EVENTS','page',function ($scope,MODULES,EVENTS,pageFactory) {
+    .controller('MenuCtrl', [
+        '$scope',
+        '$translate',
+        'MODULES',
+        'EVENTS',
+        'page',
+        function ($scope,$translate,MODULES,EVENTS,pageFactory) {
         var that = this;
         this.modules = [];
         this.sections = [];
@@ -24,9 +30,12 @@ angular.module('finqApp')
         var rebuildSectionList = function(sectionList,activeSectionId) {
             angular.forEach(sectionList, function(section) {
                 var sectionIsActive = activeSectionId === section.id;
-                that.sections.push({
-                    title: section.title,
-                    active: sectionIsActive
+                $translate(section.id+'.TITLE').then(function (translatedTitle) {
+                    that.sections.push({
+                        id: section.id,
+                        title: translatedTitle,
+                        active: sectionIsActive
+                    });
                 });
             });
         };
@@ -34,9 +43,12 @@ angular.module('finqApp')
         // initial load of the modules and the active section
         angular.forEach(MODULES, function(module) {
             var moduleIsActive = activeSection.moduleId === module.id;
-            that.modules.push({
-                id: module.id,
-                active: moduleIsActive
+            $translate(module.id+'.TITLE').then(function (translatedTitle) {
+                that.modules.push({
+                    id: module.id,
+                    title: translatedTitle,
+                    active: moduleIsActive
+                });
             });
             if (moduleIsActive) {
                 rebuildSectionList(module.sections,activeSection.sectionId);

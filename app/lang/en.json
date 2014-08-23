@@ -13,9 +13,44 @@
             "AUTHENTICATION_FAILED" : "Login failed: Your email/password combination is incorrect"
         }
     },
+    "REPORTER" : {
+        "TITLE" : "Reporter",
+        "HISTORY" : {
+            "TITLE" : "Run history"
+        },
+        "REPORTS" : {
+            "TITLE" : "Scenario reports"
+        }
+    },
     "RUNNER" : {
+        "TITLE" : "Runner",
         "AVAILABLE" : {
+            "TITLE" : "Available scenarios",
             "FILTER_START" : "Stories in the"
+        },
+        "RUNNING" : {
+            "TITLE" : "Running"
+        },
+        "DEBUGGING" : {
+            "TITLE" : "Debugging"
+        }
+    },
+    "ORGANIZER" : {
+        "TITLE" : "Organizer",
+        "SETS" : {
+            "TITLE" : "Test sets"
+        },
+        "BOOKS" : {
+            "TITLE" : "Storybooks"
+        }
+    },
+    "WRITER" : {
+        "TITLE" : "Writer",
+        "STORIES" : {
+            "TITLE" : "Stories"
+        },
+        "STEPS" : {
+            "TITLE" : "Test steps"
         }
     }
 }
