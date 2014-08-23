@@ -1,7 +1,8 @@
 .intro {
   @include outer-container;
   position: relative;
-  top: 12em;
+  top: 50%;
+  margin-top: -12em;
   max-width: 28em;
 
   h1 {

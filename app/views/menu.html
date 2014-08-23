@@ -1,8 +1,8 @@
-<aside ng-controller="MenuCtrl as menu">
+<aside ng-class="{true: 'show'}[app.loaded]" ng-controller="MenuCtrl as menu">
     <ul class="modules">
         <li ng-repeat="module in menu.modules" ng-class="{true: 'active'}[module.active]">{{module.id}}</li>
     </ul>
-    <ul class="controllers">
-        <li ng-repeat="section in menu.sections" ng-class="{true: 'active'}[section.active]">{{section.title}}</li>
+    <ul class="sections">
+        <li class="list-animate" ng-repeat="section in menu.sections" ng-class="{true: 'active'}[section.active]">{{section.title}}</li>
     </ul>
 </aside>

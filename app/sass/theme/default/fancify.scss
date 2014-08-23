@@ -1,4 +1,5 @@
-div.layout > header {
+div.layout {
+  > header {
     .title:after {
       background-color: $header-title-bg-color;
       height: 100%;
@@ -17,30 +18,56 @@ div.layout > header {
         height: 100%;
         width: $header-height/2.5;
         position: absolute;
-        left: -$header-height/2.5;
+        left: -1em;
         top: 0;
         content: "";
         @include transform(skew(-20deg, 0deg));
       }
     }
+    .title, .search {
+      @include transition(opacity linear 1s);
+      opacity: 0;
+      &.show {
+        opacity:1;
+      }
+    }
+  }
+  > aside {
+    @include transition(all cubic-bezier(0,0,0.2,1) 0.5s);
+    left: -$menu-size;
+    &.show {
+      left:0;
+    }
+    .sections li {
+      @include transition(background linear 0.1s);
+    }
+  }
 }
 
-.view-animate.ng-leave {
-  @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s);
+.view-animate {
+  &.ng-leave {
+    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.7s);
+    &.ng-leave-active {
+      opacity:0;
+    }
+  }
+  &.ng-enter {
+    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 0.7s);
+    opacity:0;
+    &.ng-enter-active {
+      opacity:1;
+    }
+  }
 }
 
-.view-animate.ng-enter {
-  @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 1s);
-}
-
-.view-animate.ng-enter {
-  opacity:0;
-}
-.view-animate.ng-enter.ng-enter-active {
-  opacity:1;
-}
-.view-animate.ng-leave.ng-leave-active {
-  opacity:0;
+.list-animate {
+  &.ng-enter {
+    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 0.7s);
+    opacity:0;
+    &.ng-enter-active {
+      opacity:1;
+    }
+  }
 }
 
 input.ng-invalid {

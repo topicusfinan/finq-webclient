@@ -22,6 +22,7 @@ angular.module('finqApp')
         function ($state,$scope,$route,configProvider,pageFactory,EVENTS) {
             var that = this;
             this.title = 'Finq';
+            this.loaded = true;
 
             $route.current = '/';
             $scope.template = {

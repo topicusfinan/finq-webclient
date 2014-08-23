@@ -1,4 +1,5 @@
 body {
+
   margin: 0;
   background-color: $body-bg-color;
   color: $body-color;
@@ -6,11 +7,15 @@ body {
   h1,h2,h3,h4 {
     font-weight: $header-font-weight;
   }
+
 }
+
+$grid-columns: $layout-columns;
+$menu-size: $layout-menu-col / $layout-columns * 100%;
 
 div.layout {
   position: absolute;
-  $grid-columns: $layout-columns;
+  height: 100%;
   @include fill-parent;
 
   > header {
@@ -18,18 +23,20 @@ div.layout {
     height: $header-height;
     background-color: $header-bg-color;
     position: fixed;
+    z-index: 10000;
     .title, .search {
       color: $header-title-color;
       font-size: $header-title-size;
       position: relative;
+      float: left;
     }
     .title {
       background-color: $header-title-bg-color;
-      @include span-columns($layout-menu-col);
+      width: $menu-size;
       @include pad(($header-height - $header-title-size)/8 $header-height/8);
     }
     .search {
-      @include span-columns($layout-main-col-r);
+      width: $layout-main-col-r / $layout-columns * 100%;
       @include pad(($header-height - $header-title-size)/8 $header-height/4);
     }
   }
@@ -39,7 +46,7 @@ div.layout {
   }
 
   > aside {
-    @include span-columns($layout-menu-col);
+    width: $menu-size;
     background-color: $layout-side-bg-color;
     position: fixed;
     min-height: 100%;
@@ -50,27 +57,29 @@ div.layout {
         float: left;
       }
     }
-    .controllers {
+    .sections {
       li {
         @include row();
         @include pad($layout-menu-size/4 $layout-menu-size/2);
         font-size: $layout-menu-size;
+        border-left: 0.3em solid $layout-side-bg-color;
         &:hover {
           background-color: $layout-side-bg-hover-color;
           cursor: pointer;
+          border-color: $layout-side-color;
         }
         &.active {
-          background-color: $base-accent-color;
+          background-color: $layout-side-bg-hover-color;
           color: $highlight-color;
+          border-color: $base-accent-color;
         }
       }
     }
   }
 
   > .main {
-    @include span-columns($layout-main-col-w);
-    @include shift($layout-menu-col);
-    background-color: $main-bg-color;
+    width: $layout-main-col-w / $layout-columns * 100%;
+    margin-left: $menu-size;
     position: relative;
   }
 }

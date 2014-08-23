@@ -11,5 +11,6 @@
  */
 angular.module('finqApp')
     .controller('HeaderCtrl', ['$scope','config',function ($scope,configProvider) {
-        $scope.title = configProvider.title();
+        var that = this;
+        this.title = configProvider.title();
     }]);
