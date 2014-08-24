@@ -322,12 +322,18 @@ div.layout {
       position: relative;
       float: left; }
     div.layout > header .title {
-      background-color: #4d4d4d;
+      background-color: #262626;
       width: 20.83333%;
       padding: 0.25em 0.5em; }
     div.layout > header .search {
       width: 54.16667%;
+      min-height: 100%;
       padding: 0.25em 1em; }
+      div.layout > header .search i {
+        position: absolute;
+        top: 0.5em;
+        left: -0.7em;
+        color: #666666; }
   div.layout > aside, div.layout > .main {
     top: 4em; }
   div.layout > aside {
@@ -338,7 +344,7 @@ div.layout {
     color: #aaaaaa; }
     div.layout > aside .modules {
       display: block;
-      padding: 0.6em; }
+      padding: 0.6em 0.45em; }
       div.layout > aside .modules:after {
         content: "";
         display: table;
@@ -347,6 +353,7 @@ div.layout {
         float: left;
         font-size: 1.8em;
         padding: 0 0.25em;
+        margin-left: 0.15em;
         min-width: 1.6em;
         text-align: center;
         border-radius: 0.25em; }
@@ -425,7 +432,7 @@ div.layout {
     text-align: center; }
 
 div.layout > header .title:after {
-  background-color: #4d4d4d;
+  background-color: #262626;
   height: 100%;
   width: 1em;
   position: absolute;
@@ -441,7 +448,7 @@ div.layout > header .search {
   margin-left: 1.6em; }
   div.layout > header .search:before {
     background-color: #1a1a1a;
-    border-right: #4d4d4d 3px solid;
+    border-right: #262626 3px solid;
     height: 100%;
     width: 1.6em;
     position: absolute;

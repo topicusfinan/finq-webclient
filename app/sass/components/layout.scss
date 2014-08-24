@@ -37,7 +37,14 @@ div.layout {
     }
     .search {
       width: $layout-main-col-r / $layout-columns * 100%;
+      min-height: 100%;
       @include pad(($header-height - $header-title-size)/8 $header-height/4);
+      i {
+        position: absolute;
+        top: 0.5em;
+        left: -0.7em;
+        color: $header-search-ico-color;
+      }
     }
   }
 
@@ -53,11 +60,12 @@ div.layout {
     color: $layout-side-color;
     .modules {
       @include row();
-      padding: 0.6em;
+      padding: 0.6em 0.45em;
       li {
         float: left;
         font-size: 1.8em;
         padding: 0 0.25em;
+        margin-left: 0.15em;
         min-width: 1.6em;
         text-align: center;
         border-radius: 0.25em;

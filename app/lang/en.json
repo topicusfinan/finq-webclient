@@ -14,7 +14,7 @@
         }
     },
     "REPORTER" : {
-        "TITLE" : "Reporter",
+        "TITLE" : "Report",
         "HISTORY" : {
             "TITLE" : "Run history"
         },
@@ -23,7 +23,7 @@
         }
     },
     "RUNNER" : {
-        "TITLE" : "Runner",
+        "TITLE" : "Run",
         "AVAILABLE" : {
             "TITLE" : "Available scenarios",
             "FILTER_START" : "Stories in the"
@@ -36,7 +36,7 @@
         }
     },
     "ORGANIZER" : {
-        "TITLE" : "Organizer",
+        "TITLE" : "Organize",
         "SETS" : {
             "TITLE" : "Test sets"
         },
@@ -45,7 +45,7 @@
         }
     },
     "WRITER" : {
-        "TITLE" : "Writer",
+        "TITLE" : "Write",
         "STORIES" : {
             "TITLE" : "Stories"
         },

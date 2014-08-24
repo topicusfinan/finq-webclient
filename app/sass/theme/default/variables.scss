@@ -20,8 +20,9 @@ $body-color:                      $dark-gray;
 
 // layout colors
 $header-bg-color:                 darken($dark-gray,10%);
-$header-title-bg-color:           lighten($dark-gray,10%);
+$header-title-bg-color:           darken($dark-gray,5%);
 $header-title-color:              $light-gray;
+$header-search-ico-color:         lighten($dark-gray,20%);
 
 $layout-active-comp-bg-color:     black;
 $layout-side-bg-color:            $dark-gray;
