@@ -32,9 +32,9 @@ div.layout {
         }
         .title, .search {
             @include transition(opacity linear 1s);
-            opacity: 0;
-            &.show {
-                opacity: 1;
+            opacity: 1;
+            &.ng-hide {
+                opacity: 0;
             }
         }
     }
@@ -73,6 +73,16 @@ div.layout {
         &.ng-enter-active {
             opacity: 1;
         }
+    }
+}
+
+.select-dropdown {
+    opacity: 1;
+    &.ng-hide {
+        opacity: 0;
+    }
+    &.ng-hide-add {
+        @include transition(all linear 0.1s 0.1s);
     }
 }
 
