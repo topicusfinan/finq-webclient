@@ -1,0 +1,46 @@
+.select {
+    $select-border: $filter-button-border;
+    $select-padding: $filter-button-padding;
+    $select-arrow-margin: $filter-button-padding;
+    $select-arrow-color: $section-header-color;
+    $select-list-color: $filter-list-color;
+    $select-list-font-size: $filter-select-list-font-size;
+    $select-list-top-pos: 2.5em / $filter-select-list-font-size + $filter-button-padding;
+    $select-list-bg: $filter-button-list-bg-color;
+    $select-list-pad: $filter-button-padding 0;
+    $select-list-border: $filter-list-border;
+    $select-list-item-hover-color: $base-accent-color;
+    $select-list-item-hover-bg: $filter-list-highlight-bg-color;
+
+    position: relative;
+    button {
+        background: none;
+        border: $select-border;
+        padding: $select-padding;
+        i {
+            margin-left: $select-arrow-margin;
+            color: $select-arrow-color;
+        }
+    }
+    ul {
+        position: absolute;
+        text-align: left;
+        color: $select-list-color;
+        font-weight: normal;
+        font-size: $select-list-font-size;
+        left: 0;
+        top: $select-list-top-pos;
+        background: $select-list-bg;
+        width: 100%;
+        padding: $select-list-pad;
+        border: $select-list-border;
+        li {
+            padding: 0.3em 1em;
+            &:hover {
+                cursor: pointer;
+                color: $select-list-item-hover-color;
+                background: $select-list-item-hover-bg;
+            }
+        }
+    }
+}

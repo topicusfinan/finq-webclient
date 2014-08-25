@@ -1,14 +1,17 @@
 div.layout {
     > header {
-        .title:after {
-            background-color: $header-title-bg-color;
-            height: 100%;
-            width: $header-height/4;
-            position: absolute;
-            right: -$header-height/10;
-            top: 0;
-            content: "";
-            @include transform(skew(-20deg, 0deg));
+        .title {
+            padding-right: $header-height/6;
+            &:after {
+                background-color: $header-title-bg-color;
+                height: 100%;
+                width: $header-height/4;
+                position: absolute;
+                right: -$header-height/10;
+                top: 0;
+                content: "";
+                @include transform(skew(-20deg, 0deg));
+            }
         }
         .search {
             margin-left: $header-height/2.5;

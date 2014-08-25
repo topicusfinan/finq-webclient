@@ -1,7 +1,7 @@
 button,
 input[type="submit"] {
   -webkit-font-smoothing: antialiased;
-  background-color: #477dca;
+  background-color: #477DCA;
   border-radius: 0.1875em;
   color: white;
   display: inline-block;
@@ -18,7 +18,7 @@ input[type="submit"] {
 body {
   -webkit-font-smoothing: antialiased;
   background-color: white;
-  color: #333333;
+  color: #333;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-size: 1em;
   line-height: 1.5; }
@@ -54,7 +54,7 @@ a {
   -webkit-transition: color 0.1s linear;
   -moz-transition: color 0.1s linear;
   transition: color 0.1s linear;
-  color: #477dca;
+  color: #477DCA;
   text-decoration: none; }
   a:hover {
     color: #2c5999; }
@@ -63,7 +63,7 @@ a {
     outline: none; }
 
 hr {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #DDD;
   border-left: none;
   border-right: none;
   border-top: none;
@@ -74,7 +74,7 @@ img {
   max-width: 100%; }
 
 blockquote {
-  border-left: 2px solid #dddddd;
+  border-left: 2px solid #DDD;
   color: #595959;
   margin: 1.5em 0;
   padding-left: 0.75em; }
@@ -87,7 +87,7 @@ cite {
 
 fieldset {
   background: #f7f7f7;
-  border: 1px solid #dddddd;
+  border: 1px solid #DDD;
   margin: 0 0 0.75em 0;
   padding: 1.5em; }
 
@@ -117,7 +117,7 @@ select[multiple=multiple] {
   transition: border-color;
   background-color: white;
   border-radius: 0.1875em;
-  border: 1px solid #dddddd;
+  border: 1px solid #DDD;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-size: 1em;
@@ -131,7 +131,7 @@ select[multiple=multiple] {
   textarea:focus,
   input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus,
   select[multiple=multiple]:focus {
-    border-color: #477dca;
+    border-color: #477DCA;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 0 5px rgba(55, 112, 192, 0.7);
     outline: none; }
 
@@ -172,7 +172,7 @@ th {
   text-align: left; }
 
 td {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #DDD;
   padding: 0.75em 0; }
 
 tr, td, th {
@@ -210,7 +210,7 @@ input[type="submit"] {
 
 .progress-bar {
   background-color: #f2f2f2;
-  border: 1px solid #dddddd;
+  border: 1px solid #DDD;
   box-shadow: inset 0 0 3px 0 rgba(115, 115, 115, 0.15);
   border-radius: 0.1875em;
   height: 30px;
@@ -224,7 +224,7 @@ input[type="submit"] {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background-color: #049cdb;
+    background-color: #049CDB;
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%);
     background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%);
     background-size: 40px 40px;
@@ -238,35 +238,30 @@ input[type="submit"] {
 @-webkit-keyframes progress {
   0% {
     background-position: 0px 0px; }
-
   100% {
     background-position: 40px 0px; } }
 @-moz-keyframes progress {
   0% {
     background-position: 0px 0px; }
-
   100% {
     background-position: 40px 0px; } }
 @-ms-keyframes progress {
   0% {
     background-position: 0px 0px; }
-
   100% {
     background-position: 40px 0px; } }
 @-o-keyframes progress {
   0% {
     background-position: 0px 0px; }
-
   100% {
     background-position: 40px 0px; } }
 @keyframes progress {
   0% {
     background-position: 0px 0px; }
-
   100% {
     background-position: 40px 0px; } }
 input[type="submit"].primary, button.primary {
-  background-color: #049cdb;
+  background-color: #049CDB;
   color: white; }
   input[type="submit"].primary:hover, button.primary:hover {
     background-color: #0378a9;
@@ -289,16 +284,16 @@ input.ng-invalid {
   border-radius: 0.1875em;
   color: #d94637; }
 
-.filter-select button {
+.select button {
   border-radius: 0.55em; }
-  .filter-select button:focus {
+  .select button:focus {
     outline: 0; }
-.filter-select ul {
+.select ul {
   border-radius: 0.3em;
   position: relative;
   background: white;
   border: 0.1em solid #c4c4c4; }
-  .filter-select ul:after, .filter-select ul:before {
+  .select ul:after, .select ul:before {
     bottom: 100%;
     border: solid transparent;
     content: " ";
@@ -306,14 +301,14 @@ input.ng-invalid {
     height: 0;
     position: absolute;
     pointer-events: none; }
-  .filter-select ul:after {
+  .select ul:after {
     border-color: rgba(119, 100, 213, 0);
     border-bottom-color: white;
     border-width: 0.5em;
     left: 50%;
     margin-left: -0.5em;
     z-index: 3; }
-  .filter-select ul:before {
+  .select ul:before {
     border-color: rgba(194, 225, 245, 0);
     border-bottom-color: #c4c4c4;
     border-width: 0.5em;
@@ -338,7 +333,7 @@ input.ng-invalid {
     margin-bottom: 0.22222em; }
     .intro h1 i {
       margin-right: 0.25em;
-      color: #049cdb; }
+      color: #049CDB; }
   .intro h2 {
     font-size: 2.5em;
     margin-bottom: 0.83333em; }
@@ -376,7 +371,7 @@ input.ng-invalid {
 body {
   margin: 0;
   background-color: #e6e6e6;
-  color: #333333; }
+  color: #333; }
   body h1, body h2, body h3, body h4 {
     font-weight: normal; }
 
@@ -387,11 +382,12 @@ div.layout {
   div.layout > header {
     width: 100%;
     height: 4em;
+    min-width: 40em;
     background-color: #1a1a1a;
     position: fixed;
     z-index: 10000; }
     div.layout > header .title, div.layout > header .search {
-      color: #dddddd;
+      color: #DDD;
       font-size: 2em;
       position: relative;
       float: left; }
@@ -399,6 +395,11 @@ div.layout {
       background-color: #262626;
       width: 20.83333%;
       padding: 0.25em 0.5em; }
+      div.layout > header .title span {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis; }
     div.layout > header .search {
       width: 54.16667%;
       min-height: 100%;
@@ -417,11 +418,11 @@ div.layout {
         background: none;
         border: none;
         box-shadow: none;
-        color: #dddddd;
+        color: #DDD;
         border-radius: 0; }
         div.layout > header .search input:-webkit-autofill {
           -webkit-box-shadow: 0 0 0 50px #1a1a1a inset;
-          -webkit-text-fill-color: #dddddd; }
+          -webkit-text-fill-color: #DDD; }
   div.layout > aside, div.layout > .main {
     top: 4em; }
   div.layout > aside {
@@ -432,9 +433,11 @@ div.layout {
     color: #aaaaaa; }
     div.layout > aside .modules {
       display: block;
-      padding: 0.65em 0.45em;
+      padding: 0.66667em 0.45em;
       min-height: 4em;
-      vertical-align: middle; }
+      max-height: 4em;
+      vertical-align: middle;
+      overflow: hidden; }
       div.layout > aside .modules:after {
         content: "";
         display: table;
@@ -453,7 +456,7 @@ div.layout {
           color: white; }
         div.layout > aside .modules li.active {
           background: black;
-          color: #049cdb; }
+          color: #049CDB; }
         div.layout > aside .modules li i.reporter:before {
           content: "\f0f6"; }
         div.layout > aside .modules li i.runner:before {
@@ -464,6 +467,10 @@ div.layout {
           content: "\f040"; }
     div.layout > aside .sections li {
       display: block;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       padding: 0.3em 0.6em;
       font-size: 1.2em;
       border-left: 0.3em solid #404040; }
@@ -478,7 +485,7 @@ div.layout {
         cursor: pointer;
         border-color: #aaaaaa; }
       div.layout > aside .sections li.active {
-        border-color: #049cdb; }
+        border-color: #049CDB; }
     div.layout > aside h1 {
       font-size: 2em;
       display: block;
@@ -486,7 +493,6 @@ div.layout {
       background: #262626;
       color: #666666; }
   div.layout > .main {
-    width: 79.16667%;
     margin-left: 20.83333%;
     position: relative; }
 
@@ -505,20 +511,19 @@ div.layout {
     font-size: 1.4em;
     margin-top: -0.15em; }
     .top-filter button span {
-      color: #049cdb; }
+      color: #049CDB; }
 
-.filter-select {
+.select {
   position: relative; }
-  .filter-select button {
+  .select button {
     background: none;
     border: #666666 0.15em solid;
     padding: 0.4em; }
-    .filter-select button i {
+    .select button i {
       margin-left: 0.4em;
       color: #262626; }
-  .filter-select ul {
+  .select ul {
     position: absolute;
-    display: none;
     text-align: left;
     color: #666666;
     font-weight: normal;
@@ -529,28 +534,35 @@ div.layout {
     width: 100%;
     padding: 0.4em 0;
     border: #c4c4c4 0.1em solid; }
-    .filter-select ul.show {
-      display: block; }
-    .filter-select ul li {
+    .select ul li {
       padding: 0.3em 1em; }
-      .filter-select ul li:hover {
+      .select ul li:hover {
         cursor: pointer;
-        color: #049cdb;
+        color: #049CDB;
         background: #f2f2f2; }
 
-div.layout > header .title:after {
-  background-color: #262626;
-  height: 100%;
-  width: 1em;
-  position: absolute;
-  right: -0.4em;
-  top: 0;
-  content: "";
-  -webkit-transform: skew(-20deg, 0deg);
-  -moz-transform: skew(-20deg, 0deg);
-  -ms-transform: skew(-20deg, 0deg);
-  -o-transform: skew(-20deg, 0deg);
-  transform: skew(-20deg, 0deg); }
+@media screen and (max-width: 67em) {
+  div.layout > header .title {
+    width: 7em; }
+  div.layout > aside {
+    width: 14em; }
+  div.layout > .main {
+    margin-left: 14em; } }
+div.layout > header .title {
+  padding-right: 0.66667em; }
+  div.layout > header .title:after {
+    background-color: #262626;
+    height: 100%;
+    width: 1em;
+    position: absolute;
+    right: -0.4em;
+    top: 0;
+    content: "";
+    -webkit-transform: skew(-20deg, 0deg);
+    -moz-transform: skew(-20deg, 0deg);
+    -ms-transform: skew(-20deg, 0deg);
+    -o-transform: skew(-20deg, 0deg);
+    transform: skew(-20deg, 0deg); }
 div.layout > header .search {
   margin-left: 1.6em; }
   div.layout > header .search i {
@@ -614,3 +626,5 @@ input.ng-invalid {
   -webkit-transition: all linear 0.1s;
   -moz-transition: all linear 0.1s;
   transition: all linear 0.1s; }
+
+/*# sourceMappingURL=main.css.map */

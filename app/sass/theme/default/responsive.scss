@@ -1,0 +1,17 @@
+// breakpoints
+$full-menu-min-size-bp:           new-breakpoint(max-width 67em);
+$full-menu-min-size:              14em;
+
+@include media($full-menu-min-size-bp) {
+    div.layout {
+        > header .title {
+            width: ($full-menu-min-size / $header-title-size) * 1em;
+        }
+        > aside {
+            width: $full-menu-min-size;
+        }
+        > .main {
+            margin-left: $full-menu-min-size;
+        }
+    }
+}

@@ -14,7 +14,7 @@ angular.module('finqApp.directives').directive('filterSelect', ['$timeout', func
             values: '=filterSelect'
         },
         restrict: 'A',
-        templateUrl: 'views/directives/filter-select.html',
+        templateUrl: 'views/directives/select.html',
         link: function (scope) {
             var hideTimer;
             scope.show = false;

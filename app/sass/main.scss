@@ -8,9 +8,12 @@
 @import 'components/vendor/progress';
 @import 'theme/default/styles';
 // application styles
+@import 'components/mixins';
 @import 'components/intro';
 @import 'components/preloader';
 @import 'components/layout';
-@import 'components/section';
+@import 'components/modules/section';
+@import 'components/modules/select';
 // theme enhancements
+@import 'theme/default/responsive';
 @import 'theme/default/fancify';

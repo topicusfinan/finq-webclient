@@ -1,5 +1,4 @@
 body {
-
     margin: 0;
     background-color: $body-bg-color;
     color: $body-color;
@@ -7,7 +6,6 @@ body {
     h1, h2, h3, h4 {
         font-weight: $header-font-weight;
     }
-
 }
 
 $grid-columns: $layout-columns;
@@ -17,10 +15,10 @@ div.layout {
     position: absolute;
     height: 100%;
     @include fill-parent;
-
     > header {
         @include fill-parent;
         height: $header-height;
+        min-width: $header-height * 10;
         background-color: $header-bg-color;
         position: fixed;
         z-index: 10000;
@@ -34,6 +32,9 @@ div.layout {
             background-color: $header-title-bg-color;
             width: $menu-size;
             @include pad(($header-height - $header-title-size)/8 $header-height/8);
+            span {
+                @include ellipsis;
+            }
         }
         .search {
             width: $layout-main-col-r / $layout-columns * 100%;
@@ -76,10 +77,12 @@ div.layout {
         min-height: 100%;
         color: $layout-side-color;
         .modules {
-            @include row();
-            padding: 0.65em 0.45em;
+            @include row;
+            padding: $header-height/6 0.45em;
             min-height: $header-height;
+            max-height: $header-height;
             vertical-align: middle;
+            overflow: hidden;
             li {
                 float: left;
                 font-size: 1.8em;
@@ -113,7 +116,8 @@ div.layout {
         }
         .sections {
             li {
-                @include row();
+                @include row;
+                @include ellipsis;
                 @include pad($layout-menu-size/4 $layout-menu-size/2);
                 font-size: $layout-menu-size;
                 border-left: 0.3em solid $layout-side-bg-color;
@@ -140,7 +144,6 @@ div.layout {
     }
 
     > .main {
-        width: $layout-main-col-w / $layout-columns * 100%;
         margin-left: $menu-size;
         position: relative;
     }
