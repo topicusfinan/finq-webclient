@@ -1,75 +1,78 @@
 div.layout {
-  > header {
-    .title:after {
-      background-color: $header-title-bg-color;
-      height: 100%;
-      width: $header-height/4;
-      position: absolute;
-      right: -$header-height/10;
-      top: 0;
-      content: "";
-      @include transform(skew(-20deg, 0deg));
+    > header {
+        .title:after {
+            background-color: $header-title-bg-color;
+            height: 100%;
+            width: $header-height/4;
+            position: absolute;
+            right: -$header-height/10;
+            top: 0;
+            content: "";
+            @include transform(skew(-20deg, 0deg));
+        }
+        .search {
+            margin-left: $header-height/2.5;
+            i {
+                left: -0.7em;
+            }
+            &:before {
+                background-color: $header-bg-color;
+                border-right: $header-title-bg-color 3px solid;
+                height: 100%;
+                width: $header-height/2.5;
+                position: absolute;
+                left: -1em;
+                top: 0;
+                content: "";
+                @include transform(skew(-20deg, 0deg));
+            }
+        }
+        .title, .search {
+            @include transition(opacity linear 1s);
+            opacity: 0;
+            &.show {
+                opacity: 1;
+            }
+        }
     }
-    .search {
-      margin-left: $header-height/2.5;
-      &:before {
-        background-color: $header-bg-color;
-        border-right: $header-title-bg-color 3px solid;
-        height: 100%;
-        width: $header-height/2.5;
-        position: absolute;
-        left: -1em;
-        top: 0;
-        content: "";
-        @include transform(skew(-20deg, 0deg));
-      }
+    > aside {
+        @include transition(all cubic-bezier(0, 0, 0.2, 1) 0.5s);
+        left: -$menu-size;
+        &.show {
+            left: 0;
+        }
+        .sections li {
+            @include transition(background linear 0.1s);
+        }
     }
-    .title, .search {
-      @include transition(opacity linear 1s);
-      opacity: 0;
-      &.show {
-        opacity:1;
-      }
-    }
-  }
-  > aside {
-    @include transition(all cubic-bezier(0,0,0.2,1) 0.5s);
-    left: -$menu-size;
-    &.show {
-      left:0;
-    }
-    .sections li {
-      @include transition(background linear 0.1s);
-    }
-  }
 }
 
 .view-animate {
-  &.ng-leave {
-    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.7s);
-    &.ng-leave-active {
-      opacity:0;
+    &.ng-leave {
+        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.7s);
+        &.ng-leave-active {
+            opacity: 0;
+        }
     }
-  }
-  &.ng-enter {
-    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 0.7s);
-    opacity:0;
-    &.ng-enter-active {
-      opacity:1;
+    &.ng-enter {
+        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 0.7s);
+        opacity: 0;
+        &.ng-enter-active {
+            opacity: 1;
+        }
     }
-  }
 }
 
 .list-animate {
-  &.ng-enter {
-    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 0.7s);
-    opacity:0;
-    &.ng-enter-active {
-      opacity:1;
+    &.ng-enter {
+        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1s 0.7s);
+        opacity: 0;
+        &.ng-enter-active {
+            opacity: 1;
+        }
     }
-  }
 }
 
 input.ng-invalid {
-  @include transition(all linear 0.1s);
+    @include transition(all linear 0.1s);
 }

@@ -25,7 +25,6 @@
   },
   "appPath": "app",
   "resolutions": {
-    "angular": "1.2.22",
-    "angular-animate": "~1.2.22"
+    "angular": "1.2.22"
   }
 }

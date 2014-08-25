@@ -4,13 +4,13 @@
 @import 'neat';
 // theme variables and styles
 @import 'theme/default/variables';
-@import 'theme/default/styles';
-// vendor generics
 @import 'components/vendor/mixins';
 @import 'components/vendor/progress';
+@import 'theme/default/styles';
 // application styles
+@import 'components/intro';
 @import 'components/preloader';
 @import 'components/layout';
-@import 'components/intro';
+@import 'components/section';
 // theme enhancements
 @import 'theme/default/fancify';

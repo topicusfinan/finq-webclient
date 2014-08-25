@@ -19,6 +19,27 @@ angular.module('finqApp.runner')
             section: MODULES.RUNNER.sections.AVAILABLE
         });
 
+        $scope.sets = {
+            active: {
+                key: 0,
+                value: 'All stories'
+            },
+            list: [
+                {
+                    key: 0,
+                    value: 'All stories'
+                },
+                {
+                    key: 1,
+                    value: 'Nightly'
+                },
+                {
+                    key: 2,
+                    value: 'Regression'
+                }
+            ]
+        };
+
         $http.get('/story/books').success(function(data) {
             // initial load of the storybooks
             // TODO create lists with stories and scenarios

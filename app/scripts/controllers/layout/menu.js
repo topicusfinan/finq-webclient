@@ -24,6 +24,7 @@ angular.module('finqApp')
         var that = this;
         this.modules = [];
         this.sections = [];
+        this.activeModuleName = '';
         var activeSection = pageFactory.getActiveSection();
 
         // private method for the rebuilding of the section list
@@ -49,10 +50,11 @@ angular.module('finqApp')
                     title: translatedTitle,
                     active: moduleIsActive
                 });
+                if (moduleIsActive) {
+                    that.activeModuleName = translatedTitle;
+                    rebuildSectionList(module.sections,activeSection.sectionId);
+                }
             });
-            if (moduleIsActive) {
-                rebuildSectionList(module.sections,activeSection.sectionId);
-            }
         });
 
         // handle navigation changes by updating the active module and reloading or updating the section listing

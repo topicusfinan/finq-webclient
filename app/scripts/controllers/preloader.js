@@ -45,7 +45,7 @@ angular.module('finqApp')
             loaded.config = true;
             console.debug(configData.appTitle+' application configuration loaded');
             $scope.$emit(EVENTS.CONFIG_LOADED);
-            evalLoaded();
+            authenticateService.load(authenticationSuccess,authenticationFailed);
         });
 
         var authenticationFailed = function() {
@@ -60,8 +60,6 @@ angular.module('finqApp')
             console.debug('Authentication completed: user '+user.name+' authenticated successfully');
             evalLoaded();
         };
-
-        authenticateService.load(authenticationSuccess,authenticationFailed);
 
         var evalLoaded = function() {
             var allLoaded = true;

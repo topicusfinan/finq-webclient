@@ -1,48 +1,48 @@
 .intro {
-  @include outer-container;
-  position: relative;
-  top: 50%;
-  margin-top: -12em;
-  max-width: 28em;
+    @include outer-container;
+    position: relative;
+    top: 50%;
+    margin-top: -12em;
+    max-width: 28em;
 
-  h1 {
-    font-size: $login-title-font-size;
-    margin-bottom: $login-title-font-size / 18;
-    i {
-      margin-right: 0.25em;
-      color: $base-accent-color;
+    h1 {
+        font-size: $login-title-font-size;
+        margin-bottom: $login-title-font-size / 18;
+        i {
+            margin-right: 0.25em;
+            color: $base-accent-color;
+        }
     }
-  }
 
-  h2 {
-    font-size: $login-subtitle-font-size;
-    margin-bottom: $login-subtitle-font-size / 3;
-  }
-
-  h1,h2 {
-    text-align: center;
-    i {
-      margin-right: 0.2em;
+    h2 {
+        font-size: $login-subtitle-font-size;
+        margin-bottom: $login-subtitle-font-size / 3;
     }
-  }
 
-  input {
-    font-size: $login-font-size;
-    width: 100%;
-  }
+    h1, h2 {
+        text-align: center;
+        i {
+            margin-right: 0.2em;
+        }
+    }
 
-  input[type="email"] {
-    margin-bottom: 0.2em;
-  }
+    input {
+        font-size: $login-font-size;
+        width: 100%;
+    }
 
-  .view-animate {
-    position: absolute;
-    width: 100%;
-  }
+    input[type="email"] {
+        margin-bottom: 0.2em;
+    }
 
-  .error-feedback {
-    margin-top: 1em;
-    text-align: center;
-  }
+    .view-animate {
+        position: absolute;
+        width: 100%;
+    }
+
+    .error-feedback {
+        margin-top: 1em;
+        text-align: center;
+    }
 
 }

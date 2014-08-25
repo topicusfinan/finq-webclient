@@ -2,6 +2,7 @@
     <ul class="modules">
         <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-class="{true: 'active'}[module.active]"><i class="fa {{module.id | lowercase}}"></i></li>
     </ul>
+    <h1>{{menu.activeModuleName}}</h1>
     <ul class="sections">
         <li class="list-animate" ng-repeat="section in menu.sections" ng-class="{true: 'active'}[section.active]">{{section.title}}</li>
     </ul>

@@ -1,28 +1,41 @@
-input[type="submit"],button {
-  &.primary {
-    background-color: $base-accent-color;
-    color: $highlight-color;
-    &:hover {
-      background-color: darken($base-accent-color,10%);
-      color: darken($highlight-color,10%);
+input[type="submit"], button {
+    &.primary {
+        background-color: $base-accent-color;
+        color: $highlight-color;
+        &:hover {
+            background-color: darken($base-accent-color, 10%);
+            color: darken($highlight-color, 10%);
+        }
     }
-  }
 }
 
 .fa-spin {
-  @include animation(spin 1.4s infinite linear);
+    @include animation(spin 1.4s infinite linear);
 }
 
 input.ng-invalid {
-  border-color: $error-color;
-  background-color: lighten($error-color,45%);
-  box-shadow: inset 0 1px 8px lighten($error-color,30%);
+    border-color: $error-color;
+    background-color: lighten($error-color, 45%);
+    box-shadow: inset 0 1px 8px lighten($error-color, 30%);
 }
 
 .error-feedback {
-  display: block;
-  padding: 0.5em;
-  background-color: rgba($body-color,0.15);
-  border-radius: $base-border-radius;
-  color: $error-color;
+    display: block;
+    padding: 0.5em;
+    background-color: rgba($body-color, 0.15);
+    border-radius: $base-border-radius;
+    color: $error-color;
+}
+
+.filter-select {
+    button {
+        border-radius: 0.55em;
+        &:focus {
+            outline: 0;
+        }
+    }
+    ul {
+        border-radius: 0.3em;
+        @include css-triangle(0.5em, $filter-list-border-width, $filter-list-border-color, top, $filter-button-list-bg-color);
+    }
 }

@@ -12,7 +12,7 @@
 angular.module('finqApp.directives').directive('includeReplace', function () {
     return {
         require: 'ngInclude',
-        restrict: 'A', /* optional */
+        restrict: 'A',
         link: function (scope, el) {
             el.replaceWith(el.children());
         }

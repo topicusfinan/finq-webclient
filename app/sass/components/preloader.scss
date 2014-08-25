@@ -1,12 +1,12 @@
 .loader {
-  @include outer-container;
-  position: relative;
-  top: 18em;
-  max-width: 28em;
-  text-align: center;
+    @include outer-container;
+    position: relative;
+    top: 18em;
+    max-width: 28em;
+    text-align: center;
 
-  span, i {
-    font-size: $loader-font-size;
-  }
+    span, i {
+        font-size: $loader-font-size;
+    }
 
 }

@@ -1,12 +1,12 @@
 body {
 
-  margin: 0;
-  background-color: $body-bg-color;
-  color: $body-color;
+    margin: 0;
+    background-color: $body-bg-color;
+    color: $body-color;
 
-  h1,h2,h3,h4 {
-    font-weight: $header-font-weight;
-  }
+    h1, h2, h3, h4 {
+        font-weight: $header-font-weight;
+    }
 
 }
 
@@ -14,108 +14,134 @@ $grid-columns: $layout-columns;
 $menu-size: $layout-menu-col / $layout-columns * 100%;
 
 div.layout {
-  position: absolute;
-  height: 100%;
-  @include fill-parent;
-
-  > header {
+    position: absolute;
+    height: 100%;
     @include fill-parent;
-    height: $header-height;
-    background-color: $header-bg-color;
-    position: fixed;
-    z-index: 10000;
-    .title, .search {
-      color: $header-title-color;
-      font-size: $header-title-size;
-      position: relative;
-      float: left;
-    }
-    .title {
-      background-color: $header-title-bg-color;
-      width: $menu-size;
-      @include pad(($header-height - $header-title-size)/8 $header-height/8);
-    }
-    .search {
-      width: $layout-main-col-r / $layout-columns * 100%;
-      min-height: 100%;
-      @include pad(($header-height - $header-title-size)/8 $header-height/4);
-      i {
-        position: absolute;
-        top: 0.5em;
-        left: -0.7em;
-        color: $header-search-ico-color;
-      }
-    }
-  }
 
-  > aside, > .main {
-    top: $header-height;
-  }
-
-  > aside {
-    width: $menu-size;
-    background-color: $layout-side-bg-color;
-    position: fixed;
-    min-height: 100%;
-    color: $layout-side-color;
-    .modules {
-      @include row();
-      padding: 0.6em 0.45em;
-      li {
-        float: left;
-        font-size: 1.8em;
-        padding: 0 0.25em;
-        margin-left: 0.15em;
-        min-width: 1.6em;
-        text-align: center;
-        border-radius: 0.25em;
-        &:hover {
-          cursor: pointer;
-          background: $layout-side-bg-hover-color;
-          color: $highlight-color;
+    > header {
+        @include fill-parent;
+        height: $header-height;
+        background-color: $header-bg-color;
+        position: fixed;
+        z-index: 10000;
+        .title, .search {
+            color: $header-title-color;
+            font-size: $header-title-size;
+            position: relative;
+            float: left;
         }
-        &.active {
-          background: $layout-active-comp-bg-color;
-          color: $base-accent-color;
+        .title {
+            background-color: $header-title-bg-color;
+            width: $menu-size;
+            @include pad(($header-height - $header-title-size)/8 $header-height/8);
         }
-        i.reporter:before {
-          content: "\f0f6";
+        .search {
+            width: $layout-main-col-r / $layout-columns * 100%;
+            min-height: 100%;
+            @include pad(($header-height - $header-title-size)/8 $header-height/4);
+            margin-left: $header-height/10;
+            i {
+                position: absolute;
+                top: 0.5em;
+                left: 0.1em;
+                margin-right: 0.3em;
+                color: $header-search-ico-color;
+            }
+            input {
+                line-height: 1.45em;
+                margin: 0;
+                padding: 0 0.3em;
+                background: none;
+                border: none;
+                box-shadow: none;
+                color: $header-title-color;;
+                border-radius: 0;
+                // temporary fix for webkit issue 46543
+                &:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 50px $header-bg-color inset;
+                    -webkit-text-fill-color: $header-title-color;
+                }
+            }
         }
-        i.runner:before {
-          content: "\f04b";
-        }
-        i.organizer:before {
-          content: "\f114";
-        }
-        i.writer:before {
-          content: "\f040";
-        }
-      }
     }
-    .sections {
-      li {
-        @include row();
-        @include pad($layout-menu-size/4 $layout-menu-size/2);
-        font-size: $layout-menu-size;
-        border-left: 0.3em solid $layout-side-bg-color;
-        &:hover,&.active {
-          color: $highlight-color;
-          background-color: $layout-side-bg-hover-color;
-        }
-        &:hover {
-          cursor: pointer;
-          border-color: $layout-side-color;
-        }
-        &.active {
-          border-color: $base-accent-color;
-        }
-      }
-    }
-  }
 
-  > .main {
-    width: $layout-main-col-w / $layout-columns * 100%;
-    margin-left: $menu-size;
-    position: relative;
-  }
+    > aside, > .main {
+        top: $header-height;
+    }
+
+    > aside {
+        width: $menu-size;
+        background-color: $layout-side-bg-color;
+        position: fixed;
+        min-height: 100%;
+        color: $layout-side-color;
+        .modules {
+            @include row();
+            padding: 0.65em 0.45em;
+            min-height: $header-height;
+            vertical-align: middle;
+            li {
+                float: left;
+                font-size: 1.8em;
+                padding: 0 0.25em;
+                margin-left: 0.15em;
+                min-width: 1.6em;
+                text-align: center;
+                border-radius: 0.25em;
+                &:hover {
+                    cursor: pointer;
+                    background: $layout-side-bg-hover-color;
+                    color: $highlight-color;
+                }
+                &.active {
+                    background: $layout-active-comp-bg-color;
+                    color: $base-accent-color;
+                }
+                i.reporter:before {
+                    content: "\f0f6";
+                }
+                i.runner:before {
+                    content: "\f04b";
+                }
+                i.organizer:before {
+                    content: "\f114";
+                }
+                i.writer:before {
+                    content: "\f040";
+                }
+            }
+        }
+        .sections {
+            li {
+                @include row();
+                @include pad($layout-menu-size/4 $layout-menu-size/2);
+                font-size: $layout-menu-size;
+                border-left: 0.3em solid $layout-side-bg-color;
+                &:hover, &.active {
+                    color: $highlight-color;
+                    background-color: $layout-side-bg-hover-color;
+                }
+                &:hover {
+                    cursor: pointer;
+                    border-color: $layout-side-color;
+                }
+                &.active {
+                    border-color: $base-accent-color;
+                }
+            }
+        }
+        h1 {
+            font-size: $layout-menu-header-size;
+            display: block;
+            @include pad($layout-menu-header-size/8 $layout-menu-header-size/4);
+            background: $layout-side-header-bg-color;
+            color: $layout-side-header-color;
+        }
+    }
+
+    > .main {
+        width: $layout-main-col-w / $layout-columns * 100%;
+        margin-left: $menu-size;
+        position: relative;
+    }
 }
