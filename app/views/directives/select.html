@@ -1,6 +1,6 @@
 <button ng-click="toggle()" ng-blur="hide()">
-    <span>{{values.active.value}}</span><i class="fa fa-caret-down"></i>
+    <span>{{options.active.value}}</span><i class="fa fa-caret-down"></i>
 </button>
 <ul class="select-dropdown ng-hide" ng-show="show">
-    <li ng-repeat="value in values.list" ng-click="select(value.key,value.value)">{{value.value}}</li>
+    <li ng-repeat="option in options.list" ng-click="select(option.key,option.value)">{{option.value}}</li>
 </ul>

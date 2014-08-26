@@ -11,7 +11,10 @@
  * either be run in the background or in debug mode.
  */
 angular.module('finqApp.runner')
-    .controller('AvailableCtrl', ['$scope','EVENTS','MODULES','$http',function ($scope,EVENTS,MODULES,$http) {
+    .controller('AvailableCtrl', ['$scope','$translate','EVENTS','MODULES','$http','set',function ($scope,$translate,EVENTS,MODULES,$http,setService) {
+        var that = this;
+        this.filterLoaded = false;
+
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
             module: MODULES.RUNNER,
@@ -19,29 +22,35 @@ angular.module('finqApp.runner')
             section: MODULES.RUNNER.sections.AVAILABLE
         });
 
-        $scope.sets = {
-            active: {
-                key: 0,
-                value: 'All stories'
-            },
-            list: [
-                {
-                    key: 0,
-                    value: 'All stories'
-                },
-                {
-                    key: 1,
-                    value: 'Nightly'
-                },
-                {
-                    key: 2,
-                    value: 'Regression'
+        var loadFilter = function() {
+            var stepsLoaded = 0;
+            var totalSteps = 1;
+
+            var evalLoaded = function() {
+                stepsLoaded++;
+                if (totalSteps == stepsLoaded) {
+                    that.filterLoaded = true;
                 }
-            ]
+            };
+
+            setService.list(function (sets) {
+                $translate('FILTERS.SETS.DEFAULT_NAME_TITLE').then(function (translatedValue) {
+                    $scope.sets = {
+                        active: {
+                            key: null,
+                            value: translatedValue
+                        },
+                        list: [{key: null, value: translatedValue}].concat(sets)
+                    };
+                    evalLoaded();
+                });
+            });
+
         };
 
-        $http.get('/story/books').success(function(data) {
-            // initial load of the storybooks
-            // TODO create lists with stories and scenarios
-        });
+        loadFilter();
+
+        /*var loadStories = function() {
+
+        };*/
     }]);

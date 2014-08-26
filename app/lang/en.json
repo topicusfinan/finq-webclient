@@ -52,5 +52,10 @@
         "STEPS" : {
             "TITLE" : "Test steps"
         }
+    },
+    "FILTERS" : {
+        "SETS" : {
+            "DEFAULT_NAME_TITLE" : "All sets"
+        }
     }
 }

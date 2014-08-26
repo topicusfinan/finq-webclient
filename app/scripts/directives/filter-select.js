@@ -11,7 +11,7 @@
 angular.module('finqApp.directives').directive('filterSelect', ['$timeout', function ($timeout) {
     return {
         scope: {
-            values: '=filterSelect'
+            options: '=filterSelect'
         },
         restrict: 'A',
         templateUrl: 'views/directives/select.html',
@@ -32,8 +32,8 @@ angular.module('finqApp.directives').directive('filterSelect', ['$timeout', func
                 );
             };
             scope.select = function(key,value) {
-                scope.values.active.key = key;
-                scope.values.active.value = value;
+                scope.options.active.key = key;
+                scope.options.active.value = value;
             };
         }
     };

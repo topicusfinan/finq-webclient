@@ -16,12 +16,12 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     }]).run([
     '$httpBackend',
     'appServiceMock',
-    'storyServiceMock',
-    'authServiceMock', 
-    function($httpBackend,appServiceMock,storyServiceMock,authServiceMock) {
+    'setServiceMock',
+    'authServiceMock',
+    function($httpBackend,appServiceMock,setServiceMock,authServiceMock) {
 
         $httpBackend.whenGET('/app/info').respond(appServiceMock.info);
-        $httpBackend.whenGET('/story/books').respond(storyServiceMock.storybooks);
+        $httpBackend.whenGET('/set/list').respond(setServiceMock.sets);
         $httpBackend.whenGET('/auth/user').respond(authServiceMock.loginError);
         $httpBackend.whenPOST('/auth/user').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
