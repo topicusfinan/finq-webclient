@@ -11,15 +11,27 @@
     $select-list-border: $filter-list-border;
     $select-list-item-hover-color: $base-accent-color;
     $select-list-item-hover-bg: $filter-list-highlight-bg-color;
+    $select-max-width: $filter-button-max-width;
+    $select-min-width: $filter-button-min-width;
 
     position: relative;
     button {
         background: none;
+        max-width: $select-max-width;
+        min-width: $select-min-width;
         border: $select-border;
-        padding: $select-padding;
+        padding: ( $select-padding / 2 ) $select-padding;
         i {
+            position: absolute;
+            right: $select-padding * 2;
+            top: 25%;
             margin-left: $select-arrow-margin;
             color: $select-arrow-color;
+        }
+        span {
+            @include ellipsis;
+            margin-right: $select-padding * 3;
+            line-height: 1 + $select-padding;
         }
     }
     ul {
@@ -35,11 +47,23 @@
         padding: $select-list-pad;
         border: $select-list-border;
         li {
+            @include ellipsis;
             padding: 0.3em 1em;
-            &:hover {
-                cursor: pointer;
+            &:hover, &.active {
                 color: $select-list-item-hover-color;
+            }
+            &:hover {
                 background: $select-list-item-hover-bg;
+                cursor: pointer;
+            }
+            &.active {
+                &:after {
+                    @extend .icon;
+                    line-height: inherit;
+                    content: "\f00c";
+                    color: $select-list-color;
+                    float: right;
+                }
             }
         }
     }

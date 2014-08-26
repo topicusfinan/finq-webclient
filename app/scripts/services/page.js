@@ -12,7 +12,6 @@ angular.module('finqApp.services')
     .factory('page', function () {
         var activeModule;
         var activeSection;
-        var that = this;
 
         this.getPageTitle = function(appTitle,controllerTitle) {
             var detailedTitle = controllerTitle !== undefined ? controllerTitle : '';
@@ -20,10 +19,9 @@ angular.module('finqApp.services')
         };
 
         return {
-            setActiveSection: function(appTitle,targetModule,targetSection) {
+            setActiveSection: function(targetModule,targetSection) {
                 activeModule = targetModule.id;
                 activeSection = targetSection.id;
-                return that.getPageTitle(appTitle,targetSection.title);
             },
             getPageTitle: this.getPageTitle,
             getActiveSection: function() {

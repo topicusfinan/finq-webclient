@@ -12,8 +12,7 @@
  */
 angular.module('finqApp.runner')
     .controller('AvailableCtrl', ['$scope','$translate','EVENTS','MODULES','$http','set',function ($scope,$translate,EVENTS,MODULES,$http,setService) {
-        var that = this;
-        this.filterLoaded = false;
+        $scope.filterLoaded = false;
 
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
@@ -29,7 +28,7 @@ angular.module('finqApp.runner')
             var evalLoaded = function() {
                 stepsLoaded++;
                 if (totalSteps == stepsLoaded) {
-                    that.filterLoaded = true;
+                    $scope.filterLoaded = true;
                 }
             };
 

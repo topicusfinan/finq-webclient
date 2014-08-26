@@ -260,6 +260,15 @@ input[type="submit"] {
     background-position: 0px 0px; }
   100% {
     background-position: 40px 0px; } }
+.icon, .select ul li.active:after {
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
 input[type="submit"].primary, button.primary {
   background-color: #049CDB;
   color: white; }
@@ -517,11 +526,23 @@ div.layout {
   position: relative; }
   .select button {
     background: none;
+    max-width: 10em;
+    min-width: 6em;
     border: #666666 0.15em solid;
-    padding: 0.4em; }
+    padding: 0.2em 0.4em; }
     .select button i {
+      position: absolute;
+      right: 0.8em;
+      top: 25%;
       margin-left: 0.4em;
       color: #262626; }
+    .select button span {
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      margin-right: 1.2em;
+      line-height: 1.4em; }
   .select ul {
     position: absolute;
     text-align: left;
@@ -535,11 +556,21 @@ div.layout {
     padding: 0.4em 0;
     border: #c4c4c4 0.1em solid; }
     .select ul li {
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       padding: 0.3em 1em; }
+      .select ul li:hover, .select ul li.active {
+        color: #049CDB; }
       .select ul li:hover {
-        cursor: pointer;
-        color: #049CDB;
-        background: #f2f2f2; }
+        background: #f2f2f2;
+        cursor: pointer; }
+      .select ul li.active:after {
+        line-height: inherit;
+        content: "\f00c";
+        color: #666666;
+        float: right; }
 
 @media screen and (max-width: 67em) {
   div.layout > header .title {
@@ -592,9 +623,9 @@ div.layout > aside {
   -webkit-transition: all cubic-bezier(0, 0, 0.2, 1) 0.5s;
   -moz-transition: all cubic-bezier(0, 0, 0.2, 1) 0.5s;
   transition: all cubic-bezier(0, 0, 0.2, 1) 0.5s;
-  left: -20.83333%; }
-  div.layout > aside.show {
-    left: 0; }
+  left: 0; }
+  div.layout > aside.ng-hide {
+    left: -20.83333%; }
   div.layout > aside .sections li {
     -webkit-transition: background linear 0.1s;
     -moz-transition: background linear 0.1s;
@@ -615,12 +646,20 @@ div.layout > aside {
     opacity: 1; }
 
 .list-animate.ng-enter {
-  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 0.7s;
-  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 0.7s;
-  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 0.7s;
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1;
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1;
   opacity: 0; }
   .list-animate.ng-enter.ng-enter-active {
     opacity: 1; }
+
+.appear-delayed {
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 0.7s;
+  -moz-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 0.7s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s 0.7s;
+  opacity: 1; }
+  .appear-delayed.ng-hide {
+    opacity: 0; }
 
 .select-dropdown {
   opacity: 1; }
@@ -635,5 +674,10 @@ input.ng-invalid {
   -webkit-transition: all linear 0.1s;
   -moz-transition: all linear 0.1s;
   transition: all linear 0.1s; }
+
+.progress-bar .meter {
+  -webkit-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  transition: all linear 0.2s; }
 
 /*# sourceMappingURL=main.css.map */

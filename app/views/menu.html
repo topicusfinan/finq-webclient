@@ -1,6 +1,6 @@
-<aside ng-class="{true: 'show'}[app.loaded]" ng-controller="MenuCtrl as menu">
+<aside class="ng-hide" ng-controller="MenuCtrl as menu" ng-show="app.loaded">
     <ul class="modules">
-        <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-class="{true: 'active'}[module.active]"><i class="fa {{module.id | lowercase}}"></i></li>
+        <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-class="{true: 'active'}[module.active]"><i class="icon {{module.id | lowercase}}"></i></li>
     </ul>
     <h1>{{menu.activeModuleName}}</h1>
     <ul class="sections">
