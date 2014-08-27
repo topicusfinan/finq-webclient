@@ -36,6 +36,6 @@ input.ng-invalid {
     }
     ul {
         border-radius: 0.3em;
-        @include css-triangle(0.5em, $filter-list-border-width, $filter-list-border-color, top, $filter-button-list-bg-color);
+        @include css-triangle(0.5em, $filter-list-border-width, $filter-list-border-color, top, $filter-list-bg-color);
     }
 }
