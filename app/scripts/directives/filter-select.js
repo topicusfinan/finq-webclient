@@ -6,12 +6,28 @@
  * @description
  * # Filter select dropdown
  *
- * A filter dropdown select button with dynamic options linked to models.
+ * A filter dropdown select button with dynamic options linked to models. To use it add the attribute
+ * "filter-select" to your DOM tag and provide it with a reference to the controller object that contains
+ * the list of values that the user can select. This object needs to be in the following format:
+ *
+ * {
+ *     "active" : {
+ *         "key" : <key that identifies the active select item>,
+ *         "value" : <visual representation of the selected item>
+ *     },
+ *     "list" : [
+ *         {
+ *             "key" : <option key>
+ *             "value" : <option display value>
+ *         }
+ *     ]
+ * }
  */
-angular.module('finqApp.directives').directive('filterSelect', ['$timeout', function ($timeout) {
+angular.module('finqApp.directives').directive('filterSelect', ['$timeout','FILTER_SELECT_EVENTS', function ($timeout,FILTER_SELECT_EVENTS) {
     return {
         scope: {
-            options: '=filterSelect'
+            options: '=filterSelect',
+            id: '=filterId'
         },
         restrict: 'A',
         templateUrl: 'views/directives/select.html',
@@ -32,9 +48,19 @@ angular.module('finqApp.directives').directive('filterSelect', ['$timeout', func
                 );
             };
             scope.select = function(key,value) {
+                if (scope.options.active.key === key) {
+                    return;
+                }
                 scope.options.active.key = key;
                 scope.options.active.value = value;
+                // emit the controller updated event immediately after loading to update the page information
+                scope.$emit(FILTER_SELECT_EVENTS.UPDATED,{
+                    id: scope.id,
+                    key: key
+                });
             };
         }
     };
-}]);
+}]).constant('FILTER_SELECT_EVENTS', {
+    'UPDATED' : 'finqApp.directives.filterSelect.updated'
+});

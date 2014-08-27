@@ -11,8 +11,10 @@
  * either be run in the background or in debug mode.
  */
 angular.module('finqApp.runner')
-    .controller('AvailableCtrl', ['$scope','$translate','EVENTS','MODULES','$http','set',function ($scope,$translate,EVENTS,MODULES,$http,setService) {
+    .controller('AvailableCtrl', ['$scope','EVENTS','MODULES','FILTER_SELECT_EVENTS',function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS) {
         $scope.filterLoaded = false;
+        $scope.tagFilter = 'tags';
+        $scope.setFilter = 'sets';
 
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
@@ -21,35 +23,9 @@ angular.module('finqApp.runner')
             section: MODULES.RUNNER.sections.AVAILABLE
         });
 
-        var loadFilter = function() {
-            var stepsLoaded = 0;
-            var totalSteps = 1;
+        $scope.$on(FILTER_SELECT_EVENTS.UPDATED,function(event,filterInfo) {
+            console.log('Filter "'+filterInfo.id+'" updated to key "'+filterInfo.key+'"');
+            // TODO: handle the event by updating the internal list filter for test sets
+        });
 
-            var evalLoaded = function() {
-                stepsLoaded++;
-                if (totalSteps == stepsLoaded) {
-                    $scope.filterLoaded = true;
-                }
-            };
-
-            setService.list(function (sets) {
-                $translate('FILTERS.SETS.DEFAULT_NAME_TITLE').then(function (translatedValue) {
-                    $scope.sets = {
-                        active: {
-                            key: null,
-                            value: translatedValue
-                        },
-                        list: [{key: null, value: translatedValue}].concat(sets)
-                    };
-                    evalLoaded();
-                });
-            });
-
-        };
-
-        loadFilter();
-
-        /*var loadStories = function() {
-
-        };*/
     }]);

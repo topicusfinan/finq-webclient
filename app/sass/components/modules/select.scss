@@ -1,5 +1,6 @@
 .select {
     $select-border: $filter-button-border;
+    $select-background: $filter-select-bg-color;
     $select-padding: $filter-button-padding;
     $select-arrow-margin: $filter-button-padding;
     $select-arrow-color: $section-header-color;
@@ -12,13 +13,20 @@
     $select-list-item-hover-color: $base-accent-color;
     $select-list-item-hover-bg: $filter-list-highlight-bg-color;
     $select-max-width: $filter-button-max-width;
-    $select-min-width: $filter-button-min-width;
+    $select-min-active-width: $filter-button-min-width;
+    $select-button-margin: $filter-button-margin;
 
     position: relative;
     button {
-        background: none;
+        background: $select-background;
         max-width: $select-max-width;
-        min-width: $select-min-width;
+        min-width: 0;
+        text-align: left;
+        margin-left: $select-button-margin;
+        margin-right: $select-button-margin;
+        &.active {
+            min-width: $select-min-active-width;
+        }
         border: $select-border;
         padding: ( $select-padding / 2 ) $select-padding;
         i {

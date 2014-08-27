@@ -6,7 +6,7 @@
  * @description
  * # Test set service
  *
- * Makes it possible to retrieve sets and interact with sets of stories.
+ * Makes it possible to execute CRUD and list operations on test sets.
  */
 angular.module('finqApp')
     .service('set', ['backend', function (backend) {

@@ -87,13 +87,18 @@ div.layout {
     }
 }
 
-.select-dropdown {
-    opacity: 1;
-    &.ng-hide {
-        opacity: 0;
+.select {
+    button {
+        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s);
     }
-    &.ng-hide-add {
-        @include transition(all linear 0.1s 0.1s);
+    .select-dropdown {
+        opacity: 1;
+        &.ng-hide {
+            opacity: 0;
+        }
+        &.ng-hide-add {
+            @include transition(all linear 0.1s 0.1s);
+        }
     }
 }
 

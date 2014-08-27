@@ -26,7 +26,10 @@
         "TITLE" : "Run",
         "AVAILABLE" : {
             "TITLE" : "Available scenarios",
-            "FILTER_START" : "Stories in the"
+            "FILTER" : {
+                "BEFORE_SET": "Stories in",
+                "BEFORE_TAG": "tagged with"
+            }
         },
         "RUNNING" : {
             "TITLE" : "Running"
@@ -55,7 +58,10 @@
     },
     "FILTERS" : {
         "SETS" : {
-            "DEFAULT_NAME_TITLE" : "All sets"
+            "DEFAULT_VALUE" : "All sets"
+        },
+        "TAGS" : {
+            "DEFAULT_VALUE" : "Any tag"
         }
     }
 }

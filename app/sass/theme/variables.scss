@@ -65,8 +65,8 @@ $section-header-font-size:        modular-scale($base-font-size,1,$perfect-fifth
 $section-list-side-padding:       0.6em;
 
 // filter buttons
-$filter-button-padding:           0.4em;
-$filter-button-border:            lighten($dark-gray,20%) 0.15em solid;
+$filter-button-padding:           0.5em;
+$filter-button-border:            none;
 $filter-list-border-width:        0.1em;
 $filter-list-border-color:        lighten($gray,10%);
 $filter-list-border:              $filter-list-border-color $filter-list-border-width solid;
@@ -74,5 +74,7 @@ $filter-list-color:               lighten($dark-gray,20%);
 $filter-button-list-bg-color:     white;
 $filter-list-highlight-bg-color:  darken($filter-button-list-bg-color,5%);
 $filter-select-list-font-size:    1.1em;
-$filter-button-max-width:         10em;
-$filter-button-min-width:         6em;
+$filter-button-max-width:         14em;
+$filter-button-min-width:         10em;
+$filter-select-bg-color:          lighten($light-gray,5%);
+$filter-button-margin:            0.3em;

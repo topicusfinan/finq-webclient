@@ -3,11 +3,11 @@
 @import 'base';
 @import 'neat';
 // theme variables and styles
-@import 'theme/default/variables';
+@import 'theme/variables';
 @import 'components/vendor/mixins';
 @import 'components/vendor/progress';
 @import 'components/vendor/icons';
-@import 'theme/default/styles';
+@import 'theme/styles';
 // application styles
 @import 'components/mixins';
 @import 'components/intro';
@@ -16,5 +16,5 @@
 @import 'components/modules/section';
 @import 'components/modules/select';
 // theme enhancements
-@import 'theme/default/responsive';
-@import 'theme/default/fancify';
+@import 'theme/responsive';
+@import 'theme/fancify';
