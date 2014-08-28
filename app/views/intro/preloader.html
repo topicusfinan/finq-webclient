@@ -4,4 +4,6 @@
         <span class="meter" ng-style="{'width': loader.progress}">
         </span>
     </div>
+    <span class="error-feedback" ng-show="loader.loadError.length !== 0">{{ loader.loadError }}</span>
+    <span class="notice-feedback" ng-show="loader.loadNotice.length !== 0">{{ loader.loadNotice }}</span>
 </div>

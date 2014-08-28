@@ -10,16 +10,10 @@
  */
 angular.module('finqApp.mock')
     .value('authServiceMock', {
-        loginSuccess: {
-            success: true,
-            user: {
-                name: 'Foo McFooson',
-                first: 'Foo',
-                last: 'McFooson'
-            }
+        user: {
+            name: 'Foo McFooson',
+            first: 'Foo',
+            last: 'McFooson'
         },
-        loginError: {
-            success: false,
-            error: 'AUTHENTICATION_FAILED'
-        }
+        error: 'AUTHENTICATION_FAILED'
     });

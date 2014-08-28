@@ -24,13 +24,13 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/app/info').respond(appServiceMock.info);
         $httpBackend.whenGET('/set/list').respond(setServiceMock.sets);
         $httpBackend.whenGET('/tag/list').respond(tagServiceMock.tags);
-        $httpBackend.whenGET('/auth/user').respond(authServiceMock.loginError);
-        $httpBackend.whenPOST('/auth/user').respond(function(method, url, data) {
+        $httpBackend.whenGET('/auth/user').respond(401);
+        $httpBackend.whenPOST('/auth/login').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             if (jsonData.email === 'admin@example.org' && jsonData.password === 'admin') {
-                return [200,authServiceMock.loginSuccess];
+                return [200,authServiceMock.user];
             }
-            return [200,authServiceMock.loginError];
+            return [401,authServiceMock.error];
         });
 
         // Catch-all pass through for all other requests
@@ -39,3 +39,5 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenDELETE(/.*/).passThrough();
         $httpBackend.whenPUT(/.*/).passThrough();
     }]);
+
+angular.module('finqApp').requires.push('finqApp.mock');

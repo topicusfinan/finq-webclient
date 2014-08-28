@@ -15,24 +15,33 @@
 angular.module('finqApp.services')
     .provider('config', [function () {
         var configData = null;
-        var loadConfigData = function($http,backend,executeAfterLoad) {
-            if (configData === null) {
-                $http.get('/scripts/config.json').success(function (data) {
-                    backend.setServerAddress(data.SERVER_ADDRESS);
-                    backend.get('/app/info').success(function (data) {
-                        configData = data;
-                        executeAfterLoad(data);
-                    });
+        var loadConfigData = function($http,$q,$timeout,backend) {
+            var deferred = $q.defer();
+            var configNotice = $timeout(function () {
+                deferred.notify('Loading configuration is taking too long');
+            },5000);
+            $http.get('/scripts/config.json').success(function (data) {
+                backend.setServerAddress(data.SERVER_ADDRESS);
+                backend.get('/app/info').success(function (data) {
+                    configData = data;
+                    deferred.resolve(data);
+                }).error(function(data,status) {
+                    deferred.reject('Failed to load server configuration');
+                    throw 'Error loading server configuration. Server responded with status '+status;
                 });
-            } else {
-                executeAfterLoad(configData);
-            }
+            }).error(function(data,status) {
+                deferred.reject('Failed to load app configuration');
+                throw 'Error loading app configuration. Server responded with status '+status;
+            }).finally(function() {
+                configNotice.cancel();
+            });
+            return deferred.promise;
         };
         return {
-            $get: function ($http,backend) {
+            $get: function ($http,$q,$timeout,backend) {
                 return {
-                    load: function(callback) {
-                        loadConfigData($http,backend,callback);
+                    load: function() {
+                        return loadConfigData($http,$q,$timeout,backend);
                     },
                     title: function() {
                         return configData.subject;

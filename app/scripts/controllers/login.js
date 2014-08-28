@@ -42,7 +42,7 @@ angular.module('finqApp')
             that.hasError = false;
             that.submitted = true;
             submitting = true;
-            authenticateService.authenticate(that.email,that.password,loginSuccess,loginFailed);
+            authenticateService.authenticate(that.email,that.password).then(loginSuccess,loginFailed);
         };
 
         var loginSuccess = function() {

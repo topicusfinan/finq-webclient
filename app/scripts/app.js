@@ -25,7 +25,6 @@ angular
         'finqApp.organizer',
         'finqApp.writer',
 
-        'finqApp.mock',
         'finqApp.translate',
     ]).config(['$routeProvider','$stateProvider',function($routeProvider,$stateProvider) {
         $routeProvider.otherwise({

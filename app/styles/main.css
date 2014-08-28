@@ -293,6 +293,13 @@ input.ng-invalid {
   border-radius: 0.1875em;
   color: #e6e6e6; }
 
+.notice-feedback {
+  display: block;
+  padding: 0.5em;
+  background-color: #ffc40d;
+  border-radius: 0.1875em;
+  color: #333; }
+
 .select button {
   border-radius: 0.45em; }
   .select button:focus {
@@ -358,7 +365,7 @@ input.ng-invalid {
   .intro .view-animate {
     position: absolute;
     width: 100%; }
-  .intro .error-feedback {
+  .intro .error-feedback, .intro .notice-feedback {
     margin-top: 1em;
     text-align: center; }
 

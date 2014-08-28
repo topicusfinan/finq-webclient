@@ -10,40 +10,45 @@
  * authenticated user.
  */
 angular.module('finqApp')
-    .service('authenticate', ['backend', function (backend) {
+    .service('authenticate', ['backend','$q','$timeout', function (backend,$q,$timeout) {
         var currentUser = null;
+        var token = null;
 
-        this.load = function(onSuccess,onError) {
-            if (currentUser === null) {
-                backend.get('/auth/user').success(function(data) {
-                    if (data.success) {
-                        currentUser = data.user;
-                        if (typeof onSuccess === 'function') {
-                            onSuccess(currentUser);
-                        }
-                    } else if (typeof onError === 'function') {
-                        onError(data.errors);
-                    }
-                });
-            }
+        this.load = function() {
+            var deferred = $q.defer();
+            var authNotice = $timeout(function () {
+                deferred.notify('Authenticating is taking too long');
+            },5000);
+            backend.get('/auth/user',{
+                token: token
+            }).success(function(userData) {
+                currentUser = userData;
+                deferred.resolve(userData);
+            }).error(function() {
+                deferred.reject('Token authentication failed');
+            }).finally(function() {
+                authNotice.cancel();
+            });
+            return deferred.promise;
         };
 
-        this.authenticate = function(email,password,onSuccess,onError) {
-            backend.post('/auth/user',{
+        this.authenticate = function(email,password) {
+            var deferred = $q.defer();
+            var authNotice = $timeout(function () {
+                deferred.notify('Authenticating is taking too long');
+            },5000);
+            backend.post('/auth/login',{
                 'email': email,
                 'password': password
-            }).success(function(data) {
-                if (data.success) {
-                    currentUser = data.user;
-                    if (typeof onSuccess === 'function') {
-                        onSuccess(currentUser);
-                    }
-                } else {
-                    if (typeof onError === 'function') {
-                        onError(data.error);
-                    }
-                }
+            }).success(function(userData) {
+                currentUser = userData;
+                deferred.resolve(userData);
+            }).error(function(errorCode) {
+                deferred.reject(errorCode);
+            }).finally(function() {
+                authNotice.cancel();
             });
+            return deferred.promise;
         };
-        
+
     }]);

@@ -26,6 +26,8 @@ angular.module('finqApp')
         this.loaded = false;
         this.authenticated = false;
         this.loadingText = 'Loading...';
+        this.loadError = '';
+        this.loadNotice = '';
 
         var defaultLang = 'en';
         var loadedText = 'Loaded!';
@@ -35,30 +37,39 @@ angular.module('finqApp')
            user: false
         };
 
-        translateService.load(defaultLang,function(data) {
+        translateService.load(defaultLang).then(function(data) {
             loaded.translations = true;
             console.debug('Translations loaded for language: '+data.LANG);
             loadedText = data.LOADER.LOADED;
             evalLoaded();
+        },function(error) {
+            that.loadError = error;
+        },function(notice) {
+            that.loadNotice = notice;
         });
-        configProvider.load(function(configData){
+
+        configProvider.load().then(function(configData) {
             loaded.config = true;
             console.debug(configData.appTitle+' application configuration loaded');
             $scope.$emit(EVENTS.CONFIG_LOADED);
-            authenticateService.load(authenticationSuccess,authenticationFailed);
+            tryAuthentication();
+        },function(error) {
+            that.loadError = error;
+        },function(notice) {
+            that.loadNotice = notice;
         });
 
-        var authenticationFailed = function() {
-            that.authenticated = false;
-            loaded.user = true;
-            console.debug('Automatic authentication failed: no user found, login required');
-            evalLoaded();
-        };
-        var authenticationSuccess = function(user) {
-            loaded.user = true;
-            that.authenticated = true;
-            console.debug('Authentication completed: user '+user.name+' authenticated successfully');
-            evalLoaded();
+        var tryAuthentication = function() {
+            authenticateService.load().then(function(user) {
+                that.authenticated = true;
+                console.debug('Authentication completed: user '+user.name+' authenticated successfully');
+            }, function() {
+                that.authenticated = false;
+                console.debug('Automatic authentication failed: no user found, login required');
+            }).finally(function() {
+                loaded.user = true;
+                evalLoaded();
+            });
         };
 
         var evalLoaded = function() {

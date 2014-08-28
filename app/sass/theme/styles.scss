@@ -27,6 +27,14 @@ input.ng-invalid {
     color: $body-bg-color;
 }
 
+.notice-feedback {
+    display: block;
+    padding: 0.5em;
+    background-color: $notice-color;
+    border-radius: $base-border-radius;
+    color: $body-color;
+}
+
 .select {
     button {
         border-radius: 0.45em;
