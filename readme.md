@@ -1,25 +1,44 @@
-Finq Webclient
-==========
+#[Finq Webclient](http://finq.io)
+###A behavior based testing webclient
 
-To develop you must have the following tools installed and added to you PATH variable:
+The Finq Webclient allows a test to use a browser for enterprise testing. To finally get rid of the need to use complex tools for use-case testing to ensure that testing becomes fun, Finq introduces behavior based testing the webclient support. Tests will become self documenting, humanly readable, easy to manage and easy to write, by taking advantage of a [Behavior-driven development](http://en.wikipedia.org/wiki/Behavior-driven_development) and domain specific languages for test specification.
 
-```
-Nodejs (NPM)
-Git
-Sass (Ruby)
-```
+##Developing
 
-Install
-==========
+To develop you must have the following tools installed and added to your PATH:
 
-After this you will have to execute the following commands in the source directory:
+* [Node](http://nodejs.org/) as the application is developed in [Angular](https://angularjs.org/) to run on node
+* [Git](http://git-scm.com/) as we are using git for version control
+* [Ruby](https://www.ruby-lang.org/) required for Sass
+* [Sass](http://sass-lang.com/) since all styling is developed using Sass
+* [Karma](http://karma-runner.github.io/) for automated testing during development
+* [Grunt](http://gruntjs.com/) for execution of our automated tasks
+* [Bower](http://bower.io/) for application dependency management
 
-`npm install -g grunt-cli` This will install Grunt on the command line
-`npm install -g bower` this will install Bower on the command line
-`npm install` This will install all the npm dependencies for the project
-`bower install` this will install all the static assets for the project
+###Install
+First you have to make sure you install Node, Git and Ruby. After these components are installed you can use Ruby to install Sass globaly. To do so run the following command:
 
-Running 
-==========
+    $ gem install sass
 
-After this you can run the command `grunt serve` this will start a server and point the brower to localhost:9000
+After this Sass should be available (which you can check by executing `sass -v` on your commandline). If you're on Windows you might have an issue with Ruby not being set on your path automatically. This will block the abovementioned command. To ensure it is, you can manually add the location of your ruby install to the system path. 
+
+To get the proper toolset after installing node you can use the node package manager:
+
+    $ npm install -g grunt-cli
+    $ npm install -g bower
+    $ npm install
+    $ bower install
+
+This will install Grunt on your command line and makes sure that bower is available for dependency management. Run the above commands in the application directory so all packages and dependencies are retrieved.
+
+This is enough to get your basic development server running. To be able to work test driven it is recommended to also install Karma. To get Karma up and running you also need that installed. Using the commands below you install it globally and make it available in your command:
+
+    $npm install -g karma
+    $npm install -g karma-cli
+    $npm install karma-phantomjs-launcher --save-dev
+    $npm install karma-jasmine --save-dev
+
+To run karma, go to the `/test` directory in the repository and execute `karma start karma.conf.js`.
+
+##Running
+When you're all setup you can run the development server using `grunt serve` or generate a distributable using `grunt serve:dist`. A distributable requires you to also have a backend available. The [Finq Runner](https://github.com/topicusfinan/jbehave-rest-runner) has to be installed and running to be able to pass the preloader screen. The non distributable contains a mocked backend for isolated development purposes.
