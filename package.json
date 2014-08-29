@@ -29,7 +29,10 @@
     "time-grunt": "^0.3.1",
     "karma": "^0.12.22",
     "karma-phantomjs-launcher": "^0.1.4",
-    "karma-jasmine": "^0.1.5"
+    "karma-jasmine": "^0.1.5",
+    "grunt-karma": "^0.8.3",
+    "karma-chrome-launcher": "^0.1.4",
+    "ng-midway-tester": "^2.0.5"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -31,14 +31,8 @@ To get the proper toolset after installing node you can use the node package man
 
 This will install Grunt on your command line and makes sure that bower is available for dependency management. Run the above commands in the application directory so all packages and dependencies are retrieved.
 
-This is enough to get your basic development server running. To be able to work test driven it is recommended to also install Karma. To get Karma up and running you also need that installed. Using the commands below you install it globally and make it available in your command:
-
-    $npm install -g karma
-    $npm install -g karma-cli
-    $npm install karma-phantomjs-launcher --save-dev
-    $npm install karma-jasmine --save-dev
-
-To run karma, go to the `/test` directory in the repository and execute `karma start karma.conf.js`.
-
 ##Running
 When you're all setup you can run the development server using `grunt serve` or generate a distributable using `grunt serve:dist`. A distributable requires you to also have a backend available. The [Finq Runner](https://github.com/topicusfinan/jbehave-rest-runner) has to be installed and running to be able to pass the preloader screen. The non distributable contains a mocked backend for isolated development purposes.
+
+###Testing
+To run the unit and end to end tests, execute `grunt test`.
