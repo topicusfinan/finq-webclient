@@ -8,7 +8,7 @@
  *
  * Creates page level informaton based on current application state.
  */
-angular.module('finqApp.services')
+angular.module('finqApp.service')
     .factory('page', function () {
         var activeModule;
         var activeSection;

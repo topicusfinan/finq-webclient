@@ -23,7 +23,7 @@
  *     ]
  * }
  */
-angular.module('finqApp.directives').directive('filterSelect', ['$timeout','FILTER_SELECT_EVENTS', function ($timeout,FILTER_SELECT_EVENTS) {
+angular.module('finqApp.directive').directive('filterSelect', ['$timeout','FILTER_SELECT_EVENTS', function ($timeout,FILTER_SELECT_EVENTS) {
     return {
         scope: {
             options: '=filterSelect',

@@ -1,3 +1,4 @@
 {
-    "SERVER_ADDRESS" : ""
+    "address" : "",
+    "searchWait": 250
 }

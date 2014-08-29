@@ -8,7 +8,7 @@
  *
  * Makes it possible to execute CRUD and list operations on test sets.
  */
-angular.module('finqApp')
+angular.module('finqApp.service')
     .service('set', ['backend', function (backend) {
         var that = this;
         var sets = null;

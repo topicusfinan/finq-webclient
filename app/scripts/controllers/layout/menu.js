@@ -13,19 +13,26 @@
  * controller takes care of badges, highlights and selections within the menu, and allows the user navigate
  * to different sections within the application.
  */
-angular.module('finqApp')
+angular.module('finqApp.controller')
     .controller('MenuCtrl', [
         '$scope',
         '$translate',
+        '$timeout',
         'MODULES',
         'EVENTS',
         'page',
-        function ($scope,$translate,MODULES,EVENTS,pageFactory) {
+        function ($scope,$translate,$timeout,MODULES,EVENTS,pageFactory) {
         var that = this;
         this.modules = [];
         this.sections = [];
         this.activeModuleName = '';
         var activeSection = pageFactory.getActiveSection();
+        var moduleLoadPromise = null;
+
+        // delay the loaded indication to allow for appear effects
+        $timeout(function() {
+            that.loaded = true;
+        },10);
 
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {
@@ -43,17 +50,19 @@ angular.module('finqApp')
 
         // initial load of the modules and the active section
         angular.forEach(MODULES, function(module) {
-            var moduleIsActive = activeSection.moduleId === module.id;
+            var moduleIndex = that.modules.length;
+            that.modules[moduleIndex] = {
+                id: module.id,
+                title: '',
+                active: false,
+                sections: module.sections
+            };
             $translate(module.id+'.TITLE').then(function (translatedTitle) {
-                that.modules.push({
-                    id: module.id,
-                    title: translatedTitle,
-                    active: moduleIsActive
-                });
-                if (moduleIsActive) {
+                // translations can be loaded after the menu is setup, so we ensure display values are up to date
+                if (activeSection.moduleId === module.id) {
                     that.activeModuleName = translatedTitle;
-                    rebuildSectionList(module.sections,activeSection.sectionId);
                 }
+                that.modules[moduleIndex].title = translatedTitle;
             });
         });
 
@@ -66,6 +75,7 @@ angular.module('finqApp')
                         module.active = false;
                     } else if (module.id === newActiveModule.id) {
                         module.active = true;
+                        that.activeModuleName = module.title;
                         rebuildSectionList(module.sections,newActiveSection.id);
                     }
                 });

@@ -12,28 +12,29 @@
  * Provides application wide configuration values. These values are retrieves from
  * the server upon the loading of the application.
  */
-angular.module('finqApp.services')
+angular.module('finqApp.service')
     .provider('config', [function () {
-        var configData = null;
+        var configData = {};
         var loadConfigData = function($http,$q,$timeout,backend) {
             var deferred = $q.defer();
             var configNotice = $timeout(function () {
                 deferred.notify('Loading configuration is taking too long');
             },5000);
-            $http.get('/scripts/config.json').success(function (data) {
-                backend.setServerAddress(data.SERVER_ADDRESS);
-                backend.get('/app/info').success(function (data) {
-                    configData = data;
-                    deferred.resolve(data);
-                }).error(function(data,status) {
+            $http.get('/scripts/config.json').success(function (clientConfig) {
+                configData.client = clientConfig;
+                backend.setServerAddress(clientConfig.address);
+                backend.get('/app/info').success(function (serverConfig) {
+                    configData.server = serverConfig;
+                    deferred.resolve(serverConfig);
+                }).error(function(serverConfig,status) {
                     deferred.reject('Failed to load server configuration');
                     throw 'Error loading server configuration. Server responded with status '+status;
                 });
-            }).error(function(data,status) {
-                deferred.reject('Failed to load app configuration');
-                throw 'Error loading app configuration. Server responded with status '+status;
+            }).error(function(clientConfig,status) {
+                deferred.reject('Failed to load client configuration');
+                throw 'Error loading client configuration. Server responded with status '+status;
             }).finally(function() {
-                configNotice.cancel();
+                $timeout.cancel(configNotice);
             });
             return deferred.promise;
         };
@@ -43,11 +44,11 @@ angular.module('finqApp.services')
                     load: function() {
                         return loadConfigData($http,$q,$timeout,backend);
                     },
-                    title: function() {
-                        return configData.subject;
+                    client: function() {
+                        return configData.client;
                     },
-                    appTitle: function() {
-                        return configData.appTitle;
+                    server: function() {
+                        return configData.server;
                     }
                 };
             }

@@ -12,7 +12,7 @@
  *
  * Application state will be changed to 'loaded' after all content has been successfully preloaded.
  */
-angular.module('finqApp')
+angular.module('finqApp.controller')
     .controller('PreloaderCtrl', [
         '$state',
         '$scope',

@@ -13,7 +13,7 @@
  * The service works as a proxy and will return the appropriate promises for any request type. URLs passed should be
  * relative to the server address.
  */
-angular.module('finqApp')
+angular.module('finqApp.service')
     .provider('backend', [function () {
         var serverAddress = '';
 

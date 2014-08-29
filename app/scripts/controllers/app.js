@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name finqApp:AppCtrl
+ * @name finqApp.controller:AppCtrl
  * @description
  * # Application Controller
  *
  * The main controller for the Finq application, which handles the creation and orchestration
  * of the application layout and main controllers.
  */
-angular.module('finqApp')
+angular.module('finqApp.controller')
     .controller('AppCtrl', [
 
         '$state',
@@ -25,21 +25,16 @@ angular.module('finqApp')
             this.title = 'Finq';
             this.loaded = true;
 
-            $scope.template = {
-                menu: 'views/menu.html',
-                header: 'views/header.html'
-            };
-
             $state.go('intro.loading');
 
             $scope.$on(EVENTS.CONFIG_LOADED,function(){
-                that.title = configProvider.appTitle();
+                that.title = configProvider.server().title;
             });
             $scope.$on(EVENTS.PAGE_CONTROLLER_UPDATED,function(event,moduleInfo) {
                 // update the page title
                 pageFactory.setActiveSection(moduleInfo.module,moduleInfo.section);
                 $translate(moduleInfo.section.id+'.TITLE').then(function (translatedValue) {
-                    that.title = pageFactory.getPageTitle(configProvider.title(),translatedValue);
+                    that.title = pageFactory.getPageTitle(configProvider.server().title,translatedValue);
                 });
                 // broadcast a navigation updated event to inform other controllers
                 $scope.$broadcast(EVENTS.NAVIGATION_UPDATED,moduleInfo.module,moduleInfo.section);

@@ -8,7 +8,7 @@
  *
  * Present the user with a login screen that allows them to gain access to the Finq app.
  */
-angular.module('finqApp')
+angular.module('finqApp.controller')
     .controller('LoginCtrl', [
         '$state',
         '$scope',
@@ -21,7 +21,7 @@ angular.module('finqApp')
         this.password = 'admin';
         this.submitted = false;
         this.hasError = false;
-        this.title = configProvider.title();
+        this.title = configProvider.server().title;
 
         var submitting = false;
 

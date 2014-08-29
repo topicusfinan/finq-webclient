@@ -9,7 +9,7 @@
  * Loads translation files from the backend and provides access to the translation set
  * accessible through the standard ui-translation functionality.
  */
-angular.module('finqApp.translate')
+angular.module('finqApp.service')
     .service('translate', ['backend','$q','$translate','$timeout', function (backend,$q,$translate,$timeout) {
         var translations;
         this.load = function(lang) {
@@ -26,7 +26,7 @@ angular.module('finqApp.translate')
                 deferred.reject('Failed to load translations');
                 throw 'Error loading translations. Server responded with status '+status;
             }).finally(function() {
-                translateNotice.cancel();
+                $timeout.cancel(translateNotice);
             });
             return deferred.promise;
         };

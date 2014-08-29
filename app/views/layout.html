@@ -1,3 +1,19 @@
-<header ng-include="template.header" include-replace></header>
-<aside ng-include="template.menu" include-replace></aside>
+<header ng-controller="HeaderCtrl as header">
+    <div class="title ng-hide" ng-show="header.loaded">
+        <span>{{ header.title }}</span>
+    </div>
+    <div class="search ng-hide" ng-show="header.loaded">
+        <i class="icon fa-search"></i>
+        <input type="text" placeholder="Search" ng-model="header.query" ng-change="header.search()">
+    </div>
+</header>
+<aside class="ng-hide" ng-controller="MenuCtrl as menu" ng-show="menu.loaded">
+    <ul class="modules">
+        <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-class="{true: 'active'}[module.active]"><i class="icon {{module.id | lowercase}}"></i></li>
+    </ul>
+    <h1>{{menu.activeModuleName}}</h1>
+    <ul class="sections">
+        <li class="list-animate" ng-repeat="section in menu.sections" ng-class="{true: 'active'}[section.active]">{{section.title}}</li>
+    </ul>
+</aside>
 <div class="main" ng-view></div>

@@ -8,7 +8,7 @@
  *
  * Makes it possible to execute CRUD and list operations on tags.
  */
-angular.module('finqApp')
+angular.module('finqApp.service')
     .service('tag', ['backend', function (backend) {
         var that = this;
         var tags = null;

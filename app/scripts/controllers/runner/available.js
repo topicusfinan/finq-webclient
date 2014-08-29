@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.runner:AvailableCtrl
+ * @name finqApp.controller:AvailableCtrl
  * @description
  * # Available scenarios Controller
  *
@@ -10,7 +10,7 @@
  * be run, and provides the user with the ability to execute a particular test. Such a test can
  * either be run in the background or in debug mode.
  */
-angular.module('finqApp.runner')
+angular.module('finqApp.controller')
     .controller('AvailableCtrl', ['$scope','EVENTS','MODULES','FILTER_SELECT_EVENTS',function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS) {
         $scope.filterLoaded = false;
         $scope.tagFilter = 'tags';

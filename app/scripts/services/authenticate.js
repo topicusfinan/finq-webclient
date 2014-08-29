@@ -9,7 +9,7 @@
  * Authenticate using the backend or retrieve data corresponding to the currently
  * authenticated user.
  */
-angular.module('finqApp')
+angular.module('finqApp.service')
     .service('authenticate', ['backend','$q','$timeout', function (backend,$q,$timeout) {
         var currentUser = null;
         var token = null;
@@ -27,7 +27,7 @@ angular.module('finqApp')
             }).error(function() {
                 deferred.reject('Token authentication failed');
             }).finally(function() {
-                authNotice.cancel();
+                $timeout.cancel(authNotice);
             });
             return deferred.promise;
         };

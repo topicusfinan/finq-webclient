@@ -16,16 +16,17 @@ angular
         'ui.router',
         'ngAnimate',
 
-        'finqApp.services',
-        'finqApp.directives',
-        'finqApp.filters',
+        'finqApp.service',
+        'finqApp.directive',
+        'finqApp.filter',
+        'finqApp.controller',
 
         'finqApp.reporter',
         'finqApp.runner',
         'finqApp.organizer',
         'finqApp.writer',
 
-        'finqApp.translate',
+        'finqApp.translate'
     ]).config(['$routeProvider','$stateProvider',function($routeProvider,$stateProvider) {
         $routeProvider.otherwise({
             redirectTo: '/runner/available'
@@ -41,6 +42,7 @@ angular
         });
     }]);
 
-angular.module('finqApp.services',[]);
-angular.module('finqApp.directives',[]);
-angular.module('finqApp.filters',[]);
+angular.module('finqApp.service',[]);
+angular.module('finqApp.directive',[]);
+angular.module('finqApp.filter',[]);
+angular.module('finqApp.controller',[]);
