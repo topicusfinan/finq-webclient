@@ -15,8 +15,18 @@ module.exports = function() {
     browsers: ['PhantomJS'],
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine'
+      'karma-jasmine',
+      'karma-coverage'
     ],
+    coverageReporter: {
+      type : 'lcov',
+      dir : 'coverage/'
+    },
+    reporters: ['progress', 'coverage'],
+
+    preprocessors: {
+        'app/scripts/**/*.js': ['coverage']
+    },
 
     files: [
       'bower_components/angular/angular.js',
