@@ -27,7 +27,6 @@ angular.module('finqApp.controller')
         this.sections = [];
         this.activeModuleName = '';
         var activeSection = pageFactory.getActiveSection();
-        var moduleLoadPromise = null;
 
         // delay the loaded indication to allow for appear effects
         $timeout(function() {
@@ -36,14 +35,18 @@ angular.module('finqApp.controller')
 
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {
+            that.sections = [];
             angular.forEach(sectionList, function(section) {
                 var sectionIsActive = activeSectionId === section.id;
+                var sectionIndex = that.sections.length;
+                that.sections.push({
+                    id: section.id,
+                    title: '',
+                    active: sectionIsActive
+                });
+                // translations can be loaded after the menu is setup, so we ensure display values are up to date
                 $translate(section.id+'.TITLE').then(function (translatedTitle) {
-                    that.sections.push({
-                        id: section.id,
-                        title: translatedTitle,
-                        active: sectionIsActive
-                    });
+                    that.sections[sectionIndex].title = translatedTitle;
                 });
             });
         };
@@ -57,8 +60,8 @@ angular.module('finqApp.controller')
                 active: false,
                 sections: module.sections
             };
+            // translations can be loaded after the menu is setup, so we ensure display values are up to date
             $translate(module.id+'.TITLE').then(function (translatedTitle) {
-                // translations can be loaded after the menu is setup, so we ensure display values are up to date
                 if (activeSection.moduleId === module.id) {
                     that.activeModuleName = translatedTitle;
                 }
@@ -67,7 +70,9 @@ angular.module('finqApp.controller')
         });
 
         // handle navigation changes by updating the active module and reloading or updating the section listing
-        $scope.$on(EVENTS.NAVIGATION_UPDATED,function(event,newActiveModule,newActiveSection) {
+        $scope.$on(EVENTS.NAVIGATION_UPDATED,function(event,updateInfo) {
+            var newActiveModule = updateInfo.module;
+            var newActiveSection = updateInfo.section;
             if (activeSection.moduleId !== newActiveModule.id) {
                 // update the active module in case it changed
                 angular.forEach(that.modules, function(module) {

@@ -21,7 +21,7 @@ angular.module('finqApp.controller')
         this.password = 'admin';
         this.submitted = false;
         this.hasError = false;
-        this.title = configProvider.server().title;
+        this.title = configProvider.server().subject;
 
         var submitting = false;
 

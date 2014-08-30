@@ -31,6 +31,7 @@ module.exports = function() {
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'app/scripts/*.js',
       'app/scripts/modules/*.js',
+      'app/scripts/services/*.js',
       'app/scripts/**/*.js',
     ],
 

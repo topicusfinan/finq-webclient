@@ -10,8 +10,8 @@
  */
 angular.module('finqApp.service')
     .factory('page', function () {
-        var activeModule;
-        var activeSection;
+        var activeModule = null;
+        var activeSection = null;
 
         this.getPageTitle = function(appTitle,controllerTitle) {
             var detailedTitle = controllerTitle !== undefined ? controllerTitle : '';

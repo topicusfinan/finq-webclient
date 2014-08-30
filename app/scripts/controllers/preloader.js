@@ -48,10 +48,10 @@ angular.module('finqApp.controller')
             that.loadNotice = notice;
         });
 
-        configProvider.load().then(function(configData) {
+        configProvider.load().then(function(serverConfigData) {
             loaded.config = true;
-            console.debug(configData.appTitle+' application configuration loaded');
-            $scope.$emit(EVENTS.CONFIG_LOADED);
+            console.debug(serverConfigData.appTitle+' application configuration loaded');
+            $scope.$emit(EVENTS.CONFIG_LOADED,serverConfigData);
             tryAuthentication();
         },function(error) {
             that.loadError = error;
