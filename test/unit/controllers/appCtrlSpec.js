@@ -15,7 +15,7 @@ describe("Unit: AppCtrl initialization", function() {
     }));
 
     it('should set an initial title for the page', function () {
-        expect(AppCtrl.title).toBe('Finq');
+        expect(AppCtrl.title).to.equal('Finq');
     });
 
 });
@@ -40,7 +40,7 @@ describe("Unit: AppCtrl receiving configuration loaded event", function() {
     }));
 
     it('should update the title with the configured title', function () {
-        expect(AppCtrl.title).toBe(NEW_TITLE);
+        expect(AppCtrl.title).to.equal(NEW_TITLE);
     });
 
 });
@@ -52,6 +52,7 @@ describe("Unit: AppCtrl receiving controller updated event", function() {
         MOD,
         scope,
         pageFactory,
+        broadcastSpy,
         eventData;
 
     beforeEach(function() {
@@ -70,18 +71,18 @@ describe("Unit: AppCtrl receiving controller updated event", function() {
         AppCtrl = $controller('AppCtrl', {
             $scope: scope
         });
-        spyOn(scope, '$broadcast');
+        broadcastSpy = sinon.spy(scope, '$broadcast')
         scope.$emit(E.PAGE_CONTROLLER_UPDATED,eventData);
     }));
 
     it('should trigger the broadcasting of a navigation event', function () {
-        expect(scope.$broadcast).toHaveBeenCalledWith(E.NAVIGATION_UPDATED,eventData);
+        expect(broadcastSpy).to.have.been.calledWith(E.NAVIGATION_UPDATED,eventData);
     });
 
     it('should update the active module and section in the page factory', function () {
         var activeSection = pageFactory.getActiveSection();
-        expect(activeSection.moduleId).toBe(MOD.RUNNER.id);
-        expect(activeSection.sectionId).toBe(MOD.RUNNER.sections.AVAILABLE.id);
+        expect(activeSection.moduleId).to.equal(MOD.RUNNER.id);
+        expect(activeSection.sectionId).to.equal(MOD.RUNNER.sections.AVAILABLE.id);
     });
 
 });

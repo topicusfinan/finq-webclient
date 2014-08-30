@@ -41,7 +41,10 @@ module.exports = function (grunt) {
         }
       },
       jsTest: {
-        files: ['test/unit/{,*/}*.js'],
+        files: [
+            'test/unit/{,*/}*.js',
+            'test/unit/controllers/{,*/}*.js'
+        ],
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {

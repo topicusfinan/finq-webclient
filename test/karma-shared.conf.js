@@ -11,12 +11,16 @@ module.exports = function() {
     singleRun: false,
     colors: true,
     basePath: '../',
-    frameworks: ['jasmine'],
+    frameworks: ['mocha', 'sinon-chai'],
     browsers: ['PhantomJS'],
     plugins: [
       'karma-phantomjs-launcher',
-      'karma-jasmine',
-      'karma-coverage'
+      'karma-mocha',
+      'karma-chai',
+      'karma-sinon',
+      'karma-sinon-chai',
+      'karma-coverage',
+      'chai-as-promised'
     ],
     coverageReporter: {
       type : 'lcov',
@@ -43,7 +47,14 @@ module.exports = function() {
       'app/scripts/modules/*.js',
       'app/scripts/services/*.js',
       'app/scripts/**/*.js',
+      'app/views/**/*.html'
     ],
+
+    client: {
+      mocha: {
+        ui: 'tdd'
+      }
+    }
 
   };
 };

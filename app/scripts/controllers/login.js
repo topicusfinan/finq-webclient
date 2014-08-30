@@ -23,7 +23,21 @@ angular.module('finqApp.controller')
         this.hasError = false;
         this.title = configProvider.server().subject;
 
+        $scope.login = {
+            email: {}
+        }
+
         var submitting = false;
+
+        this.authenticate = function() {
+            if (submitting) {
+                return;
+            }
+            that.hasError = false;
+            that.submitted = true;
+            submitting = true;
+            return authenticateService.authenticate(that.email,that.password).then(loginSuccess,loginFailed);
+        };
 
         $translate('GENERAL.EMAIL_PLACEHOLDER').then(function (translatedValue) {
             that.emailPlaceholder = translatedValue;
@@ -34,16 +48,6 @@ angular.module('finqApp.controller')
         $translate('LOGIN.SUBMIT_TITLE').then(function (translatedValue) {
             that.submitTitle = translatedValue;
         });
-
-        $scope.authenticate = function() {
-            if (submitting) {
-                return;
-            }
-            that.hasError = false;
-            that.submitted = true;
-            submitting = true;
-            authenticateService.authenticate(that.email,that.password).then(loginSuccess,loginFailed);
-        };
 
         var loginSuccess = function() {
             submitting = false;

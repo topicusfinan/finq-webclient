@@ -29,18 +29,24 @@
     "time-grunt": "^0.3.1",
     "karma": "^0.12.22",
     "karma-phantomjs-launcher": "^0.1.4",
-    "karma-jasmine": "^0.1.5",
     "grunt-karma": "^0.8.3",
     "karma-chrome-launcher": "^0.1.4",
     "ng-midway-tester": "^2.0.5",
     "karma-coverage": "^0.2.6",
-    "coveralls": "^2.11.1"
+    "coveralls": "^2.11.1",
+    "mocha": "^1.21.4",
+    "karma-mocha": "^0.1.9",
+    "karma-chai": "^0.1.0",
+    "karma-sinon": "^1.0.3",
+    "karma-sinon-chai": "^0.2.0",
+    "chai": "^1.9.1",
+    "chai-as-promised": "^4.1.1"
   },
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
     "test": "grunt test",
-	"coveralls": "cat ./coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }
 }

@@ -1,4 +1,4 @@
-<form name="login" ng-submit="authenticate()" ng-controller="LoginCtrl as loginForm">
+<form name="login" ng-submit="loginForm.authenticate()" ng-controller="LoginCtrl as loginForm">
     <h2>{{loginForm.title}}</h2>
     <input type="email" name="email" ng-model="loginForm.email" placeholder="{{loginForm.emailPlaceholder}}" required>
     <input type="password" name="password" ng-model="loginForm.password" placeholder="{{loginForm.passPlaceholder}}" required>

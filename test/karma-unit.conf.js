@@ -8,7 +8,7 @@ module.exports = function(config) {
     'bower_components/angular-mocks/angular-mocks.js',
 
     //test files
-    './test/unit/**/*.js'
+    'test/unit/{,*/}*.js'
   ]);
 
   config.set(conf);
