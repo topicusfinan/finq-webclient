@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/**/*.js'],
         tasks: ['newer:jshint:all'],
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -42,16 +42,13 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: [
-            'test/unit/{,*/}*.js',
-            'test/unit/controllers/{,*/}*.js'
+            'test/unit/**/*.js'
         ],
         tasks: ['newer:jshint:test', 'karma']
       },
       styles: {
         files: [
-			'<%= yeoman.app %>/sass/{,*/}*.scss',
-			'<%= yeoman.app %>/sass/theme/{,*/}*.scss',
-			'<%= yeoman.app %>/sass/components/{,*/}*.scss'
+			'<%= yeoman.app %>/sass/**/*.scss'
 		],
         tasks: ['sass', 'newer:copy:styles', 'autoprefixer']
       },
@@ -126,14 +123,14 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= yeoman.app %>/scripts/{,*/}*.js'
+          '<%= yeoman.app %>/scripts/**/*.js'
         ]
       },
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
         },
-        src: ['test/spec/{,*/}*.js']
+        src: ['test/unit/**/*.js']
       }
     },
 
@@ -317,7 +314,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '*.html',
-			'{,*/}*.json',
+			      '{,*/}*.json',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
             'fonts/*'
@@ -380,8 +377,8 @@ module.exports = function (grunt) {
 		  loadPath: [
 		    'bower_components/bourbon/dist',
 		    'bower_components/neat/app/assets/stylesheets',
-			'bower_components/bitters/app/assets/stylesheets',
-			'bower_components/components-font-awesome/scss'
+			  'bower_components/bitters/app/assets/stylesheets',
+			  'bower_components/components-font-awesome/scss'
 		  ]
 		}
 	  }
@@ -440,4 +437,5 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+
 };

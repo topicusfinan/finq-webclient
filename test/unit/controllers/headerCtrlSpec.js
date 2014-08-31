@@ -1,7 +1,6 @@
-//
-// test/unit/controllers/layout/header.js
-//
-describe("Unit: HeaderCtrl initialization", function() {
+'use strict';
+
+describe('Unit: HeaderCtrl initialization', function() {
 
     var HeaderCtrl,
         configProvider,

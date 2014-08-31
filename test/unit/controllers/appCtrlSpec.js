@@ -1,7 +1,6 @@
-//
-// test/unit/controllers/app.js
-//
-describe("Unit: AppCtrl initialization", function() {
+'use strict';
+
+describe('Unit: AppCtrl initialization', function() {
 
     var AppCtrl,
         scope;
@@ -20,7 +19,7 @@ describe("Unit: AppCtrl initialization", function() {
 
 });
 
-describe("Unit: AppCtrl receiving configuration loaded event", function() {
+describe('Unit: AppCtrl receiving configuration loaded event', function() {
 
     var AppCtrl,
         E,
@@ -45,7 +44,7 @@ describe("Unit: AppCtrl receiving configuration loaded event", function() {
 
 });
 
-describe("Unit: AppCtrl receiving controller updated event", function() {
+describe('Unit: AppCtrl receiving controller updated event', function() {
 
     var AppCtrl,
         E,
@@ -71,7 +70,7 @@ describe("Unit: AppCtrl receiving controller updated event", function() {
         AppCtrl = $controller('AppCtrl', {
             $scope: scope
         });
-        broadcastSpy = sinon.spy(scope, '$broadcast')
+        broadcastSpy = sinon.spy(scope, '$broadcast');
         scope.$emit(E.PAGE_CONTROLLER_UPDATED,eventData);
     }));
 

@@ -1,7 +1,6 @@
-//
-// test/unit/controllers/layout/menu.js
-//
-describe("Unit: MenuCtrl initialization", function() {
+'use strict';
+
+describe('Unit: MenuCtrl initialization', function() {
 
     var MenuCtrl,
         scope;
@@ -48,7 +47,7 @@ describe("Unit: MenuCtrl initialization", function() {
 
 });
 
-describe("Unit: MenuCtrl receiving the first navigation event", function() {
+describe('Unit: MenuCtrl receiving the first navigation event', function() {
 
     var MenuCtrl,
         E,
@@ -73,7 +72,7 @@ describe("Unit: MenuCtrl receiving the first navigation event", function() {
 
     it('should set the active module to the target module', function() {
         for(var x = 0; x < MenuCtrl.modules.length; x++) {
-            if (MenuCtrl.modules[x].id == FIRST_TARGET_MODULE) {
+            if (MenuCtrl.modules[x].id === FIRST_TARGET_MODULE) {
                 expect(MenuCtrl.modules[x].active).to.be.true;
             } else {
                 expect(MenuCtrl.modules[x].active).to.be.false;
@@ -88,7 +87,7 @@ describe("Unit: MenuCtrl receiving the first navigation event", function() {
 
     it('should set the active section to the target section', function() {
         for(var x = 0; x < MenuCtrl.sections.length; x++) {
-            if (MenuCtrl.sections[x].id == FIRST_TARGET_SECTION) {
+            if (MenuCtrl.sections[x].id === FIRST_TARGET_SECTION) {
                 expect(MenuCtrl.sections[x].active).to.be.true;
             } else {
                 expect(MenuCtrl.sections[x].active).to.be.false;
@@ -98,7 +97,7 @@ describe("Unit: MenuCtrl receiving the first navigation event", function() {
 
 });
 
-describe("Unit: MenuCtrl receiving two subsequent navigation events to different module", function() {
+describe('Unit: MenuCtrl receiving two subsequent navigation events to different module', function() {
 
     var MenuCtrl,
         E,
@@ -129,7 +128,7 @@ describe("Unit: MenuCtrl receiving two subsequent navigation events to different
 
     it('should set the active module to the target module', function() {
         for(var x = 0; x < MenuCtrl.modules.length; x++) {
-            if (MenuCtrl.modules[x].id == SECOND_TARGET_MODULE) {
+            if (MenuCtrl.modules[x].id === SECOND_TARGET_MODULE) {
                 expect(MenuCtrl.modules[x].active).to.be.true;
             } else {
                 expect(MenuCtrl.modules[x].active).to.be.false;
@@ -144,7 +143,7 @@ describe("Unit: MenuCtrl receiving two subsequent navigation events to different
 
     it('should set the active section to the target section', function() {
         for(var x = 0; x < MenuCtrl.sections.length; x++) {
-            if (MenuCtrl.sections[x].id == SECOND_TARGET_SECTION) {
+            if (MenuCtrl.sections[x].id === SECOND_TARGET_SECTION) {
                 expect(MenuCtrl.sections[x].active).to.be.true;
             } else {
                 expect(MenuCtrl.sections[x].active).to.be.false;
@@ -154,7 +153,7 @@ describe("Unit: MenuCtrl receiving two subsequent navigation events to different
 
 });
 
-describe("Unit: MenuCtrl receiving two subsequent navigation events to different section", function() {
+describe('Unit: MenuCtrl receiving two subsequent navigation events to different section', function() {
 
     var MenuCtrl,
         E,
@@ -184,7 +183,7 @@ describe("Unit: MenuCtrl receiving two subsequent navigation events to different
 
     it('should set the active module to the target module', function() {
         for(var x = 0; x < MenuCtrl.modules.length; x++) {
-            if (MenuCtrl.modules[x].id == FIRST_TARGET_MODULE) {
+            if (MenuCtrl.modules[x].id === FIRST_TARGET_MODULE) {
                 expect(MenuCtrl.modules[x].active).to.be.true;
             } else {
                 expect(MenuCtrl.modules[x].active).to.be.false;
@@ -199,7 +198,7 @@ describe("Unit: MenuCtrl receiving two subsequent navigation events to different
 
     it('should set the active section to the target section', function() {
         for(var x = 0; x < MenuCtrl.sections.length; x++) {
-            if (MenuCtrl.sections[x].id == SECOND_TARGET_SECTION) {
+            if (MenuCtrl.sections[x].id === SECOND_TARGET_SECTION) {
                 expect(MenuCtrl.sections[x].active).to.be.true;
             } else {
                 expect(MenuCtrl.sections[x].active).to.be.false;

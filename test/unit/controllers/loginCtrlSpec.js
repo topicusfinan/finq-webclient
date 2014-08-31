@@ -1,11 +1,9 @@
-//
-// test/unit/controllers/login.js
-//
-describe("Unit: LoginCtrl initialization and login", function() {
+'use strict';
+
+describe('Unit: LoginCtrl initialization and login', function() {
 
     var LoginCtrl,
         configProvider,
-        configPromise,
         backend,
         scope;
 

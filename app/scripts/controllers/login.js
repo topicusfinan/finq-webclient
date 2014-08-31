@@ -23,10 +23,6 @@ angular.module('finqApp.controller')
         this.hasError = false;
         this.title = configProvider.server().subject;
 
-        $scope.login = {
-            email: {}
-        }
-
         var submitting = false;
 
         this.authenticate = function() {
