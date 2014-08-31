@@ -3,7 +3,10 @@ body {
     background-color: $body-bg-color;
     color: $body-color;
 
-    h1, h2, h3, h4 {
+    h1,
+    h2,
+    h3,
+    h4 {
         font-weight: $header-font-weight;
     }
 }
@@ -15,6 +18,7 @@ div.layout {
     position: absolute;
     height: 100%;
     @include fill-parent;
+
     > header {
         @include fill-parent;
         height: $header-height;
@@ -22,41 +26,49 @@ div.layout {
         background-color: $header-bg-color;
         position: fixed;
         z-index: 10000;
-        .title, .search {
+
+        .title,
+        .search {
             color: $header-title-color;
             font-size: $header-title-size;
             position: relative;
             float: left;
         }
+
         .title {
             background-color: $header-title-bg-color;
             width: $menu-size;
             @include pad(($header-height - $header-title-size)/8 $header-height/8);
+
             span {
                 @include ellipsis;
             }
         }
+
         .search {
             width: $layout-main-col-r / $layout-columns * 100%;
             min-height: 100%;
             @include pad(($header-height - $header-title-size)/8 $header-height/4);
             margin-left: $header-height/10;
+
             i {
                 position: absolute;
-                top: 0.5em;
-                left: 0.1em;
-                margin-right: 0.3em;
+                top: .5em;
+                left: .1em;
+                margin-right: .3em;
                 color: $header-search-ico-color;
             }
+
             input {
                 line-height: 1.45em;
                 margin: 0;
-                padding: 0 0.3em;
+                padding: 0 .3em;
                 background: none;
-                border: none;
+                border: 0;
                 box-shadow: none;
                 color: $header-title-color;;
                 border-radius: 0;
+
                 // temporary fix for webkit issue 46543
                 &:-webkit-autofill {
                     -webkit-box-shadow: 0 0 0 50px $header-bg-color inset;
@@ -66,7 +78,8 @@ div.layout {
         }
     }
 
-    > aside, > .main {
+    > aside,
+    > .main {
         top: $header-height;
     }
 
@@ -76,64 +89,79 @@ div.layout {
         position: fixed;
         min-height: 100%;
         color: $layout-side-color;
+
         .modules {
             @include row;
-            padding: $header-height/6 0.45em;
+            padding: $header-height/6 .45em;
             min-height: $header-height;
             max-height: $header-height;
             vertical-align: middle;
             overflow: hidden;
+
             li {
                 float: left;
                 font-size: 1.8em;
-                padding: 0 0.25em;
-                margin-left: 0.15em;
+                padding: 0 .25em;
+                margin-left: .15em;
                 min-width: 1.6em;
                 text-align: center;
-                border-radius: 0.25em;
+                border-radius: .25em;
+
                 &:hover {
                     cursor: pointer;
                     background: $layout-side-bg-hover-color;
                     color: $highlight-color;
                 }
+
                 &.active {
                     background: $layout-active-comp-bg-color;
                     color: $base-accent-color;
                 }
+
                 i.reporter:before {
-                    content: "\f0f6";
+                    content: '\f0f6';
                 }
+
                 i.runner:before {
-                    content: "\f04b";
+                    content: '\f04b';
                 }
+
                 i.organizer:before {
-                    content: "\f114";
+                    content: '\f114';
                 }
+
                 i.writer:before {
-                    content: "\f040";
+                    content: '\f040';
                 }
             }
         }
+
         .sections {
+
             li {
                 @include row;
                 @include ellipsis;
                 @include pad($layout-menu-size/4 $layout-menu-size/2);
                 font-size: $layout-menu-size;
-                border-left: 0.3em solid $layout-side-bg-color;
-                &:hover, &.active {
+                border-left: .3em solid $layout-side-bg-color;
+
+                &:hover,
+                &.active {
                     color: $highlight-color;
                     background-color: $layout-side-bg-hover-color;
                 }
+
                 &:hover {
                     cursor: pointer;
                     border-color: $layout-side-color;
                 }
+
                 &.active {
                     border-color: $base-accent-color;
                 }
             }
         }
+
         h1 {
             font-size: $layout-menu-header-size;
             display: block;

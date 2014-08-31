@@ -40,7 +40,8 @@
     "karma-sinon": "^1.0.3",
     "karma-sinon-chai": "^0.2.0",
     "chai": "^1.9.1",
-    "chai-as-promised": "^4.1.1"
+    "chai-as-promised": "^4.1.1",
+    "grunt-scss-lint": "^0.3.3"
   },
   "engines": {
     "node": ">=0.10.0"

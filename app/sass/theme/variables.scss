@@ -1,84 +1,84 @@
 // Accent Colors
-$blue:                            #049CDB;
-$dark-blue:                       #0064CD;
-$green:                           #87B848;
-$lime:                            #BECA68;
+$blue:                            #049cdb;
+$dark-blue:                       #0064cd;
+$green:                           #87b848;
+$lime:                            #beca68;
 $red:                             #a52b1f;
 $yellow:                          #ffc40d;
-$orange:                          #ff9900;
+$orange:                          #f90;
 $dark-orange:		              #ae4901;
 $pink:                            #c3325f;
 $purple:                          #7a43b6;
-$gray:                            darken($light-gray,20%);
+$gray:                            darken($light-gray, 20%);
 
 $base-accent-color:               $blue;
-$error-color:                     lighten($red,15%);
+$error-color:                     lighten($red, 15%);
 $notice-color:                    $yellow;
 
 // body colors
-$body-bg-color:                   darken(white,10%);
+$body-bg-color:                   darken(#fff, 10%);
 $body-color:                      $dark-gray;
 
 // layout colors
-$header-bg-color:                 darken($dark-gray,10%);
-$header-title-bg-color:           darken($dark-gray,5%);
+$header-bg-color:                 darken($dark-gray, 10%);
+$header-title-bg-color:           darken($dark-gray, 5%);
 $header-title-color:              $light-gray;
-$header-search-ico-color:         lighten($dark-gray,20%);
+$header-search-ico-color:         lighten($dark-gray, 20%);
 
-$layout-active-comp-bg-color:     black;
-$layout-side-bg-color:            lighten($dark-gray,5%);
-$layout-side-bg-hover-color:      lighten($dark-gray,20%);
+$layout-active-comp-bg-color:     #000;
+$layout-side-bg-color:            lighten($dark-gray, 5%);
+$layout-side-bg-hover-color:      lighten($dark-gray, 20%);
 $layout-side-color:               $gray;
-$layout-side-header-bg-color:     darken($dark-gray,5%);
-$layout-side-header-color:        lighten($dark-gray,20%);
+$layout-side-header-bg-color:     darken($dark-gray, 5%);
+$layout-side-header-color:        lighten($dark-gray, 20%);
 
-$highlight-color:                 white;
+$highlight-color:                 #fff;
 
 // layout formatting
-$header-height:                   modular-scale($base-font-size,2,$octave);
+$header-height:                   modular-scale($base-font-size, 2, $octave);
 $layout-columns:                  24;
 $layout-menu-col:                 5;
 $layout-main-col-w:               19;
 $layout-main-col-r:               13;
 $layout-details-col:              6;
 
-$header-title-size:               modular-scale($base-font-size,1,$octave);
-$layout-menu-size:                modular-scale($base-font-size,1,$minor-third);
-$layout-menu-header-size:         modular-scale($base-font-size,1,$octave);
+$header-title-size:               modular-scale($base-font-size, 1, $octave);
+$layout-menu-size:                modular-scale($base-font-size, 1, $minor-third);
+$layout-menu-header-size:         modular-scale($base-font-size, 1, $octave);
 
 // login formatting
-$login-font-size:                 modular-scale($base-font-size,1,$perfect-fifth);
-$login-title-font-size:           modular-scale($base-font-size,2,$octave);
-$login-subtitle-font-size:        modular-scale($base-font-size,1,$major-tenth);
+$login-font-size:                 modular-scale($base-font-size, 1, $perfect-fifth);
+$login-title-font-size:           modular-scale($base-font-size, 2, $octave);
+$login-subtitle-font-size:        modular-scale($base-font-size, 1, $major-tenth);
 
 // loader formatting
-$loader-font-size:                modular-scale($base-font-size,1,$perfect-fifth);
+$loader-font-size:                modular-scale($base-font-size, 1, $perfect-fifth);
 
 // fonts
 $header-font-weight:              normal;
 
 // section colors
-$section-header-bg-color:         lighten($gray,10%);
-$section-header-color:            darken($dark-gray,5%);
+$section-header-bg-color:         lighten($gray, 10%);
+$section-header-color:            darken($dark-gray, 5%);
 
 // section formatting
-$section-header-font-size:        modular-scale($base-font-size,1,$perfect-fifth);
-$section-list-side-padding:       0.6em;
+$section-header-font-size:        modular-scale($base-font-size, 1, $perfect-fifth);
+$section-list-side-padding:       .6em;
 
 // filter buttons
-$filter-button-padding:           0.5em;
+$filter-button-padding:           .5em;
 $filter-button-border:            none;
 
 // filter select list
-$filter-list-border-width:        0.1em;
-$filter-list-border-color:        lighten($gray,10%);
+$filter-list-border-width:        .1em;
+$filter-list-border-color:        lighten($gray, 10%);
 $filter-list-border:              $filter-list-border-color $filter-list-border-width solid;
-$filter-list-color:               lighten($dark-gray,20%);
-$filter-list-bg-color:            white;
-$filter-list-highlight-bg-color:  darken($filter-list-bg-color,5%);
+$filter-list-color:               lighten($dark-gray, 20%);
+$filter-list-bg-color:            #fff;
+$filter-list-highlight-bg-color:  darken($filter-list-bg-color, 5%);
 $filter-list-font-size:           1.1em;
 $filter-list-button-max-width:    14em;
 $filter-list-button-min-width:    10em;
 $filter-list-button-bg-color:     $body-bg-color;
-$filter-list-button-margin:       0.3em;
+$filter-list-button-margin:       .3em;
 $filter-list-max-height:          12em;

@@ -1,5 +1,6 @@
 .select {
     position: relative;
+
     button {
         background: $filter-list-button-bg-color;
         max-width: $filter-list-button-max-width;
@@ -7,11 +8,14 @@
         text-align: left;
         margin-left: $filter-list-button-margin;
         margin-right: $filter-list-button-margin;
+
         &.active {
             min-width: $filter-list-button-min-width;
         }
+
         border: $filter-button-border;
-        padding: ( $filter-button-padding / 2 ) $filter-button-padding;
+        padding: ($filter-button-padding / 2) $filter-button-padding;
+
         i {
             position: absolute;
             right: $filter-button-padding * 2;
@@ -19,12 +23,14 @@
             margin-left: $filter-button-padding;
             color: $section-header-color;
         }
+
         span {
             @include ellipsis;
             margin-right: $filter-button-padding * 3;
             line-height: 1 + $filter-button-padding;
         }
     }
+
     ul {
         position: absolute;
         text-align: left;
@@ -39,21 +45,28 @@
         border: $filter-list-border;
         max-height: $filter-list-max-height;
         overflow-y: auto;
+
         li {
             @include ellipsis;
-            padding: 0.3em 1em;
-            &:hover, &.active {
+            padding: .3em 1em;
+
+            &:hover,
+            &.active {
                 color: $base-accent-color;
             }
+
             &:hover {
                 background: $filter-list-highlight-bg-color;
                 cursor: pointer;
             }
+
             &.active {
+
                 &:after {
-                    @extend .icon;
+
+                    @extend %icon;
                     line-height: inherit;
-                    content: "\f00c";
+                    content: '\f00c';
                     color: $filter-list-color;
                     float: right;
                 }

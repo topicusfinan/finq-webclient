@@ -1,4 +1,7 @@
 #[Finq Webclient](http://finq.io) [![Build Status](https://travis-ci.org/topicusfinan/finq-webclient.svg?branch=master)](https://travis-ci.org/topicusfinan/finq-webclient) [![Coverage Status](https://img.shields.io/coveralls/topicusfinan/finq-webclient.svg)](https://coveralls.io/r/topicusfinan/finq-webclient?branch=master) [![Code Climate](https://codeclimate.com/github/topicusfinan/finq-webclient/badges/gpa.svg)](https://codeclimate.com/github/topicusfinan/finq-webclient)
+
+**Finq is currently a work in progress in the early stages of development**
+
 ###A behavior based testing webclient
 
 The Finq Webclient allows a test to use a browser for enterprise testing. To finally get rid of the need to use complex tools for use-case testing to ensure that testing becomes fun, Finq introduces behavior based testing the webclient support. Tests will become self documenting, humanly readable, easy to manage and easy to write, by taking advantage of a [Behavior-driven development](http://en.wikipedia.org/wiki/Behavior-driven_development) and domain specific languages for test specification.
@@ -30,6 +33,13 @@ To get the proper toolset after installing node you can use the node package man
     $ bower install
 
 This will install Grunt on your command line and makes sure that bower is available for dependency management. Run the above commands in the application directory so all packages and dependencies are retrieved.
+
+####Code style
+To support consistent code styling we make use of [jshint](http://www.jshint.com/) for javascript convention validation and [scss-lint](https://github.com/causes/scss-lint) for SASS convention validation. Even though JShit is automatically installed with the above commands, scss-lint requires an additional Ruby Gem to be installed as follows:
+
+    $ npm gem install scss-lint
+
+Grunt is setup to automatically validate the `.scss` files in `app/sass`, so any changes to those files are immediately validated in case you're running Grunt on the background.
 
 ##Running
 When you're all setup you can run the development server using `grunt serve` or generate a distributable using `grunt serve:dist`. A distributable requires you to also have a backend available. The [Finq Runner](https://github.com/topicusfinan/jbehave-rest-runner) has to be installed and running to be able to pass the preloader screen. The non distributable contains a mocked backend for isolated development purposes.

@@ -5,12 +5,12 @@
     $progress-meter-border: 1px solid darken($progress-meter-border-color, 15%);
     $progress-meter-color: $progress-meter-border-color;
     $progress-background: darken($base-background-color, 5);
-    $progress-animation-duration: 0.7s;
-    $progress-height: 30px;
+    $progress-animation-duration: .7s;
+    $progress-height: 30;
 
     background-color: $progress-background;
     border: $progress-border;
-    box-shadow: inset 0 0 3px 0 rgba(darken($progress-background, 50%), 0.15);
+    box-shadow: inset 0 0 3px 0 rgba(darken($progress-background, 50%), .15);
     border-radius: $base-border-radius;
     height: $progress-height;
     margin: 0 auto;
@@ -21,13 +21,13 @@
         @include animation(progress $progress-animation-duration linear infinite);
         @include box-sizing(border-box);
         background-color: $progress-meter-color;
-        @include background-image(linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%,
+        @include background-image(linear-gradient(-45deg, rgba(255, 255, 255, .15) 25%,
             transparent 25%,
             transparent 50%,
-            rgba(255, 255, 255, 0.15) 50%,
-            rgba(255, 255, 255, 0.15) 75%,
+            rgba(255, 255, 255, .15) 50%,
+            rgba(255, 255, 255, .15) 75%,
             transparent 75%));
-        background-size: 40px 40px;
+        background-size: 40 40;
         background-repeat: repeat-x;
         border: $progress-meter-border;
         border-radius: $base-border-radius /1.5;
@@ -38,46 +38,26 @@
 }
 
 @-webkit-keyframes progress {
-    0% {
-        background-position: 0px 0px;
-    }
-    100% {
-        background-position: 40px 0px;
-    }
+    0% {background-position: 0 0;}
+    100% {background-position: 40 0;}
 }
 
 @-moz-keyframes progress {
-    0% {
-        background-position: 0px 0px;
-    }
-    100% {
-        background-position: 40px 0px;
-    }
+    0% {background-position: 0 0;}
+    100% {background-position: 40 0;}
 }
 
 @-ms-keyframes progress {
-    0% {
-        background-position: 0px 0px;
-    }
-    100% {
-        background-position: 40px 0px;
-    }
+    0% {background-position: 0 0;}
+    100% {background-position: 40 0;}
 }
 
 @-o-keyframes progress {
-    0% {
-        background-position: 0px 0px;
-    }
-    100% {
-        background-position: 40px 0px;
-    }
+    0% {background-position: 0 0;}
+    100% {background-position: 40 0;}
 }
 
 @keyframes progress {
-    0% {
-        background-position: 0px 0px;
-    }
-    100% {
-        background-position: 40px 0px;
-    }
+    0% {background-position: 0 0;}
+    100% {background-position: 40 0;}
 }

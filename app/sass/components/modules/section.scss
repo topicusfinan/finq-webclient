@@ -3,17 +3,22 @@
     padding: 0 $section-list-side-padding;
     background: $section-header-bg-color;
     color: $section-header-color;
-    > span, > div {
+
+    > span,
+    > div {
         display: inline-block;
     }
+
     > span {
         margin: (($header-height - $section-header-font-size) / 4.1) 0;
         font-size: $section-header-font-size;
         line-height: $section-header-font-size;
     }
+
     button {
-        font-size: $section-header-font-size - 0.1;
-        margin-top: (0.1 - $filter-button-padding) / 2;
+        font-size: $section-header-font-size - .1;
+        margin-top: (.1 - $filter-button-padding) / 2;
+
         span {
             color: $base-accent-color;
         }

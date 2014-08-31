@@ -24,7 +24,7 @@ module.exports = function() {
     ],
     coverageReporter: {
       type : 'lcov',
-      dir : 'coverage/'
+      dir : 'reports/coverage/'
     },
     reporters: ['progress', 'coverage'],
 

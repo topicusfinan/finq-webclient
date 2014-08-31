@@ -50,7 +50,7 @@ module.exports = function (grunt) {
         files: [
 			'<%= yeoman.app %>/sass/**/*.scss'
 		],
-        tasks: ['sass', 'newer:copy:styles', 'autoprefixer']
+        tasks: ['sass', 'newer:copy:styles', 'autoprefixer', 'scsslint']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -382,6 +382,18 @@ module.exports = function (grunt) {
 		  ]
 		}
 	  }
+	}, 
+	
+	scsslint: {
+	  allFiles: [
+		'<%= yeoman.app %>/sass/**/*.scss',
+	  ],
+	  options: {
+		config: '.scss-lint.yml',
+		bundleExec: false,
+        colorizeOutput: true,
+        compact: true
+	  },
 	}
   });
 
@@ -437,5 +449,9 @@ module.exports = function (grunt) {
     'test',
     'build'
   ]);
+  
+  grunt.loadNpmTasks('grunt-scss-lint');
+  
+  grunt.registerTask('default', ['scsslint']);
 
 };

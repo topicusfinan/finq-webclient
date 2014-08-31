@@ -1,7 +1,7 @@
-@mixin css-triangle($size, $borderWidth, $borderColor, $position, $bg: #fff) {
+@mixin css-triangle($size, $border-width, $border-color, $position, $bg: #fff) {
     position: relative;
     background: $bg;
-    border: $borderWidth solid $borderColor;
+    border: $border-width solid $border-color;
 
     $d: top;
     $margin: left;
@@ -22,10 +22,11 @@
         $margin: top;
     }
 
-    &:after, &:before {
+    &:after,
+    &:before {
         #{$d}: 100%;
         border: solid transparent;
-        content: " ";
+        content: ' ';
         width: 0;
         height: 0;
         position: absolute;
@@ -43,10 +44,10 @@
 
     &:before {
         border-color: rgba(194, 225, 245, 0);
-        border-#{$d}-color: $borderColor;
-        border-width: $size + (round($borderWidth*1.41421356));
+        border-#{$d}-color: $border-color;
+        border-width: $size + (round($border-width*1.41421356));
         #{$margin}: 50%;
-        margin-#{$margin}: -($size + (round($borderWidth*1.41421356)));
+        margin-#{$margin}: -($size + (round($border-width*1.41421356)));
         z-index: 2;
     }
 }

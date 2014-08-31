@@ -1,10 +1,15 @@
-$view-animate-hide-speed: 0.7s;
+$view-animate-hide-speed: .7s;
 $view-animate-show-speed: 1s;
+$animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
 div.layout {
+
     > header {
+
         .title {
+
             padding-right: $header-height/6;
+
             &:after {
                 background-color: $header-title-bg-color;
                 height: 100%;
@@ -12,15 +17,18 @@ div.layout {
                 position: absolute;
                 right: -$header-height/10;
                 top: 0;
-                content: "";
+                content: ' ';
                 @include transform(skew(-20deg, 0deg));
             }
         }
+
         .search {
             margin-left: $header-height/2.5;
+
             i {
-                left: -0.7em;
+                left: -.7em;
             }
+
             &:before {
                 background-color: $header-bg-color;
                 border-right: $header-title-bg-color 3px solid;
@@ -29,40 +37,50 @@ div.layout {
                 position: absolute;
                 left: -1em;
                 top: 0;
-                content: "";
+                content: ' ';
                 @include transform(skew(-20deg, 0deg));
             }
         }
-        .title, .search {
+
+        .title,
+        .search {
             @include transition(opacity linear 1s);
             opacity: 1;
+
             &.ng-hide {
                 opacity: 0;
             }
         }
     }
+
     > aside {
-        @include transition(all cubic-bezier(0, 0, 0.2, 1) 0.5s);
+        @include transition(all cubic-bezier(0, 0, .2, 1) .5s);
         left: 0;
+
         &.ng-hide {
             left: -$menu-size;
         }
+
         .sections li {
-            @include transition(background linear 0.1s);
+            @include transition(background linear .1s);
         }
     }
 }
 
 .view-animate {
+
     &.ng-leave {
-        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) $view-animate-hide-speed);
+        @include transition(all $animate-std-cubic $view-animate-hide-speed);
+
         &.ng-leave-active {
             opacity: 0;
         }
     }
+
     &.ng-enter {
-        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) $view-animate-show-speed $view-animate-hide-speed);
+        @include transition(all $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
         opacity: 0;
+
         &.ng-enter-active {
             opacity: 1;
         }
@@ -70,9 +88,11 @@ div.layout {
 }
 
 .list-animate {
+
     &.ng-enter {
-        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.1);
+        @include transition(all $animate-std-cubic .1);
         opacity: 0;
+
         &.ng-enter-active {
             opacity: 1;
         }
@@ -80,32 +100,38 @@ div.layout {
 }
 
 .appear-delayed {
-    @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) $view-animate-show-speed $view-animate-hide-speed);
+
+    @include transition(all $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
     opacity: 1;
+
     &.ng-hide {
         opacity: 0;
     }
 }
 
 .select {
+
     button {
-        @include transition(all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.3s);
+        @include transition(all $animate-std-cubic .3s);
     }
+
     .select-dropdown {
         opacity: 1;
+
         &.ng-hide {
             opacity: 0;
         }
+
         &.ng-hide-add {
-            @include transition(all linear 0.1s 0.1s);
+            @include transition(all linear .1s .1s);
         }
     }
 }
 
 input.ng-invalid {
-    @include transition(all linear 0.1s);
+    @include transition(all linear .1s);
 }
 
 .progress-bar .meter {
-    @include transition(all linear 0.2s);
+    @include transition(all linear .2s);
 }

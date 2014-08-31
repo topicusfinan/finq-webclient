@@ -213,7 +213,7 @@ input[type="submit"] {
   border: 1px solid #DDD;
   box-shadow: inset 0 0 3px 0 rgba(115, 115, 115, 0.15);
   border-radius: 0.1875em;
-  height: 30px;
+  height: 30;
   margin: 0 auto;
   padding: 2px;
   width: 50%; }
@@ -224,10 +224,10 @@ input[type="submit"] {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background-color: #049CDB;
+    background-color: #049cdb;
     background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%);
     background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%);
-    background-size: 40px 40px;
+    background-size: 40 40;
     background-repeat: repeat-x;
     border: 1px solid #036690;
     border-radius: 0.125em;
@@ -237,30 +237,30 @@ input[type="submit"] {
 
 @-webkit-keyframes progress {
   0% {
-    background-position: 0px 0px; }
+    background-position: 0 0; }
   100% {
-    background-position: 40px 0px; } }
+    background-position: 40 0; } }
 @-moz-keyframes progress {
   0% {
-    background-position: 0px 0px; }
+    background-position: 0 0; }
   100% {
-    background-position: 40px 0px; } }
+    background-position: 40 0; } }
 @-ms-keyframes progress {
   0% {
-    background-position: 0px 0px; }
+    background-position: 0 0; }
   100% {
-    background-position: 40px 0px; } }
+    background-position: 40 0; } }
 @-o-keyframes progress {
   0% {
-    background-position: 0px 0px; }
+    background-position: 0 0; }
   100% {
-    background-position: 40px 0px; } }
+    background-position: 40 0; } }
 @keyframes progress {
   0% {
-    background-position: 0px 0px; }
+    background-position: 0 0; }
   100% {
-    background-position: 40px 0px; } }
-.icon, .select ul li.active:after {
+    background-position: 40 0; } }
+.select ul li.active:after {
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
@@ -269,10 +269,12 @@ input[type="submit"] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-input[type="submit"].primary, button.primary {
-  background-color: #049CDB;
-  color: white; }
-  input[type="submit"].primary:hover, button.primary:hover {
+input[type="submit"].primary,
+button.primary {
+  background-color: #049cdb;
+  color: #fff; }
+  input[type="submit"].primary:hover,
+  button.primary:hover {
     background-color: #0378a9;
     color: #e6e6e6; }
 
@@ -284,42 +286,42 @@ input[type="submit"].primary, button.primary {
 input.ng-invalid {
   border-color: #d94637;
   background-color: #fef9f8;
-  box-shadow: inset 0 1px 8px #f2bdb8, 0 0px 8px #f2bdb8; }
+  box-shadow: inset 0 1px 8px #f2bdb8, 0 0 8px #f2bdb8; }
 
 .error-feedback {
   display: block;
-  padding: 0.5em;
+  padding: .5em;
   background-color: #d94637;
   border-radius: 0.1875em;
   color: #e6e6e6; }
 
 .notice-feedback {
   display: block;
-  padding: 0.5em;
+  padding: .5em;
   background-color: #ffc40d;
   border-radius: 0.1875em;
   color: #333; }
 
 .select button {
-  border-radius: 0.45em; }
+  border-radius: .45em; }
   .select button:focus {
     outline: 0; }
 .select ul {
-  border-radius: 0.3em;
+  border-radius: .3em;
   position: relative;
-  background: white;
+  background: #fff;
   border: 0.1em solid #c4c4c4; }
   .select ul:after, .select ul:before {
     bottom: 100%;
     border: solid transparent;
-    content: " ";
+    content: ' ';
     width: 0;
     height: 0;
     position: absolute;
     pointer-events: none; }
   .select ul:after {
     border-color: rgba(119, 100, 213, 0);
-    border-bottom-color: white;
+    border-bottom-color: #fff;
     border-width: 0.5em;
     left: 50%;
     margin-left: -0.5em;
@@ -348,24 +350,27 @@ input.ng-invalid {
     font-size: 4em;
     margin-bottom: 0.22222em; }
     .intro h1 i {
-      margin-right: 0.25em;
-      color: #049CDB; }
+      margin-right: .25em;
+      color: #049cdb; }
   .intro h2 {
     font-size: 2.5em;
     margin-bottom: 0.83333em; }
-  .intro h1, .intro h2 {
+  .intro h1,
+  .intro h2 {
     text-align: center; }
-    .intro h1 i, .intro h2 i {
-      margin-right: 0.2em; }
+    .intro h1 i,
+    .intro h2 i {
+      margin-right: .2em; }
   .intro input {
     font-size: 1.5em;
     width: 100%; }
   .intro input[type="email"] {
-    margin-bottom: 0.2em; }
+    margin-bottom: .2em; }
   .intro .view-animate {
     position: absolute;
     width: 100%; }
-  .intro .error-feedback, .intro .notice-feedback {
+  .intro .error-feedback,
+  .intro .notice-feedback {
     margin-top: 1em;
     text-align: center; }
 
@@ -381,14 +386,18 @@ input.ng-invalid {
     content: "";
     display: table;
     clear: both; }
-  .loader span, .loader i {
+  .loader span,
+  .loader i {
     font-size: 1.5em; }
 
 body {
   margin: 0;
   background-color: #e6e6e6;
   color: #333; }
-  body h1, body h2, body h3, body h4 {
+  body h1,
+  body h2,
+  body h3,
+  body h4 {
     font-weight: normal; }
 
 div.layout {
@@ -402,7 +411,8 @@ div.layout {
     background-color: #1a1a1a;
     position: fixed;
     z-index: 10000; }
-    div.layout > header .title, div.layout > header .search {
+    div.layout > header .title,
+    div.layout > header .search {
       color: #DDD;
       font-size: 2em;
       position: relative;
@@ -423,23 +433,24 @@ div.layout {
       margin-left: 0.4em; }
       div.layout > header .search i {
         position: absolute;
-        top: 0.5em;
-        left: 0.1em;
-        margin-right: 0.3em;
+        top: .5em;
+        left: .1em;
+        margin-right: .3em;
         color: #666666; }
       div.layout > header .search input {
         line-height: 1.45em;
         margin: 0;
-        padding: 0 0.3em;
+        padding: 0 .3em;
         background: none;
-        border: none;
+        border: 0;
         box-shadow: none;
         color: #DDD;
         border-radius: 0; }
         div.layout > header .search input:-webkit-autofill {
           -webkit-box-shadow: 0 0 0 50px #1a1a1a inset;
           -webkit-text-fill-color: #DDD; }
-  div.layout > aside, div.layout > .main {
+  div.layout > aside,
+  div.layout > .main {
     top: 4em; }
   div.layout > aside {
     width: 20.83333%;
@@ -461,26 +472,26 @@ div.layout {
       div.layout > aside .modules li {
         float: left;
         font-size: 1.8em;
-        padding: 0 0.25em;
-        margin-left: 0.15em;
+        padding: 0 .25em;
+        margin-left: .15em;
         min-width: 1.6em;
         text-align: center;
-        border-radius: 0.25em; }
+        border-radius: .25em; }
         div.layout > aside .modules li:hover {
           cursor: pointer;
           background: #666666;
-          color: white; }
+          color: #fff; }
         div.layout > aside .modules li.active {
-          background: black;
-          color: #049CDB; }
+          background: #000;
+          color: #049cdb; }
         div.layout > aside .modules li i.reporter:before {
-          content: "\f0f6"; }
+          content: '\f0f6'; }
         div.layout > aside .modules li i.runner:before {
-          content: "\f04b"; }
+          content: '\f04b'; }
         div.layout > aside .modules li i.organizer:before {
-          content: "\f114"; }
+          content: '\f114'; }
         div.layout > aside .modules li i.writer:before {
-          content: "\f040"; }
+          content: '\f040'; }
     div.layout > aside .sections li {
       display: block;
       display: block;
@@ -495,13 +506,13 @@ div.layout {
         display: table;
         clear: both; }
       div.layout > aside .sections li:hover, div.layout > aside .sections li.active {
-        color: white;
+        color: #fff;
         background-color: #666666; }
       div.layout > aside .sections li:hover {
         cursor: pointer;
         border-color: #aaaaaa; }
       div.layout > aside .sections li.active {
-        border-color: #049CDB; }
+        border-color: #049cdb; }
     div.layout > aside h1 {
       font-size: 2em;
       display: block;
@@ -517,7 +528,8 @@ div.layout {
   padding: 0 0.6em;
   background: #c4c4c4;
   color: #262626; }
-  .top-filter > span, .top-filter > div {
+  .top-filter > span,
+  .top-filter > div {
     display: inline-block; }
   .top-filter > span {
     margin: 0.60976em 0;
@@ -527,7 +539,7 @@ div.layout {
     font-size: 1.4em;
     margin-top: -0.2em; }
     .top-filter button span {
-      color: #049CDB; }
+      color: #049cdb; }
 
 .select {
   position: relative; }
@@ -563,7 +575,7 @@ div.layout {
     font-size: 1.1em;
     left: 0;
     top: 2.77273em;
-    background: white;
+    background: #fff;
     width: 100%;
     padding: 0.5em 0;
     border: #c4c4c4 0.1em solid;
@@ -574,15 +586,15 @@ div.layout {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      padding: 0.3em 1em; }
+      padding: .3em 1em; }
       .select ul li:hover, .select ul li.active {
-        color: #049CDB; }
+        color: #049cdb; }
       .select ul li:hover {
         background: #f2f2f2;
         cursor: pointer; }
       .select ul li.active:after {
         line-height: inherit;
-        content: "\f00c";
+        content: '\f00c';
         color: #666666;
         float: right; }
 
@@ -602,7 +614,7 @@ div.layout > header .title {
     position: absolute;
     right: -0.4em;
     top: 0;
-    content: "";
+    content: ' ';
     -webkit-transform: skew(-20deg, 0deg);
     -moz-transform: skew(-20deg, 0deg);
     -ms-transform: skew(-20deg, 0deg);
@@ -611,7 +623,7 @@ div.layout > header .title {
 div.layout > header .search {
   margin-left: 1.6em; }
   div.layout > header .search i {
-    left: -0.7em; }
+    left: -.7em; }
   div.layout > header .search:before {
     background-color: #1a1a1a;
     border-right: #262626 3px solid;
@@ -620,18 +632,20 @@ div.layout > header .search {
     position: absolute;
     left: -1em;
     top: 0;
-    content: "";
+    content: ' ';
     -webkit-transform: skew(-20deg, 0deg);
     -moz-transform: skew(-20deg, 0deg);
     -ms-transform: skew(-20deg, 0deg);
     -o-transform: skew(-20deg, 0deg);
     transform: skew(-20deg, 0deg); }
-div.layout > header .title, div.layout > header .search {
+div.layout > header .title,
+div.layout > header .search {
   -webkit-transition: opacity linear 1s;
   -moz-transition: opacity linear 1s;
   transition: opacity linear 1s;
   opacity: 1; }
-  div.layout > header .title.ng-hide, div.layout > header .search.ng-hide {
+  div.layout > header .title.ng-hide,
+  div.layout > header .search.ng-hide {
     opacity: 0; }
 div.layout > aside {
   -webkit-transition: all cubic-bezier(0, 0, 0.2, 1) 0.5s;
