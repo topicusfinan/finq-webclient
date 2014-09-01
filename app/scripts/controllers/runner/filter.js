@@ -19,7 +19,7 @@ angular.module('finqApp.controller')
         'set',
         'tag',
         function ($scope,$translate,EVENTS,MODULES,setService,tagService) {
-        $scope.filterLoaded = false;
+        var that = this;
 
         var loadFilter = function() {
             var stepsLoaded = 0;
@@ -28,33 +28,37 @@ angular.module('finqApp.controller')
             var evalLoaded = function() {
                 stepsLoaded++;
                 if (totalSteps === stepsLoaded) {
-                    $scope.filterLoaded = true;
+                    that.loaded = true;
                 }
             };
 
-            setService.list(function (sets) {
+            setService.list().then(function (sets) {
+                that.sets = {
+                    active: {
+                        key: null,
+                        value: ''
+                    },
+                    list: [{key: null, value: ''}].concat(sets)
+                };
+                evalLoaded();
                 $translate('FILTERS.SETS.DEFAULT_VALUE').then(function (translatedValue) {
-                    $scope.sets = {
-                        active: {
-                            key: null,
-                            value: translatedValue
-                        },
-                        list: [{key: null, value: translatedValue}].concat(sets)
-                    };
-                    evalLoaded();
+                    that.sets.active.value = translatedValue;
+                    that.sets.list[0].value = translatedValue;
                 });
             });
 
-            tagService.list(function (tags) {
+            tagService.list().then(function (tags) {
+                that.tags = {
+                    active: {
+                        key: null,
+                        value: ''
+                    },
+                    list: [{key: null, value: ''}].concat(tags)
+                };
+                evalLoaded();
                 $translate('FILTERS.TAGS.DEFAULT_VALUE').then(function (translatedValue) {
-                    $scope.tags = {
-                        active: {
-                            key: null,
-                            value: translatedValue
-                        },
-                        list: [{key: null, value: translatedValue}].concat(tags)
-                    };
-                    evalLoaded();
+                    that.tags.active.value = translatedValue;
+                    that.tags.list[0].value = translatedValue;
                 });
             });
 

@@ -1,9 +1,9 @@
-<div class="top-filter appear-delayed ng-hide" ng-show="filterLoaded" ng-controller="AvailableFilterCtrl as filter">
+<div class="top-filter appear-delayed ng-hide" ng-show="filter.loaded" ng-controller="AvailableFilterCtrl as filter">
     <span>
-        <i class="icon fa-chevron-right"></i>
+        <i class="fa fa-chevron-right"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET"></span>
     </span>
-    <div class="select" filter-select="sets" filter-id="tagFilter"></div>
+    <div class="select" filter-select="filter.sets" filter-id="tagFilter"></div>
     <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG"></span>
-    <div class="select" filter-select="tags" filter-id="setFilter"></div>
+    <div class="select" filter-select="filter.tags" filter-id="setFilter"></div>
 </div>

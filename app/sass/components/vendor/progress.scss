@@ -6,7 +6,7 @@
     $progress-meter-color: $progress-meter-border-color;
     $progress-background: darken($base-background-color, 5);
     $progress-animation-duration: .7s;
-    $progress-height: 30;
+    $progress-height: 30px;
 
     background-color: $progress-background;
     border: $progress-border;
@@ -27,7 +27,7 @@
             rgba(255, 255, 255, .15) 50%,
             rgba(255, 255, 255, .15) 75%,
             transparent 75%));
-        background-size: 40 40;
+        background-size: 40px 40px;
         background-repeat: repeat-x;
         border: $progress-meter-border;
         border-radius: $base-border-radius /1.5;
@@ -39,25 +39,25 @@
 
 @-webkit-keyframes progress {
     0% {background-position: 0 0;}
-    100% {background-position: 40 0;}
+    100% {background-position: 40px 0;}
 }
 
 @-moz-keyframes progress {
     0% {background-position: 0 0;}
-    100% {background-position: 40 0;}
+    100% {background-position: 40px 0;}
 }
 
 @-ms-keyframes progress {
     0% {background-position: 0 0;}
-    100% {background-position: 40 0;}
+    100% {background-position: 40px 0;}
 }
 
 @-o-keyframes progress {
     0% {background-position: 0 0;}
-    100% {background-position: 40 0;}
+    100% {background-position: 40px 0;}
 }
 
 @keyframes progress {
     0% {background-position: 0 0;}
-    100% {background-position: 40 0;}
+    100% {background-position: 40px 0;}
 }

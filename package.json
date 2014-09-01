@@ -31,7 +31,6 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "grunt-karma": "^0.8.3",
     "karma-chrome-launcher": "^0.1.4",
-    "ng-midway-tester": "^2.0.5",
     "karma-coverage": "^0.2.6",
     "coveralls": "^2.11.1",
     "mocha": "^1.21.4",

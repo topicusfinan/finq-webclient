@@ -9,19 +9,28 @@
  * Makes it possible to execute CRUD and list operations on tags.
  */
 angular.module('finqApp.service')
-    .service('tag', ['backend', function (backend) {
-        var that = this;
+    .service('tag', ['backend','$q','$timeout', function (backend,$q,$timeout) {
         var tags = null;
-        this.load = function(callback) {
-            backend.get('/tag/list').success(function(tags) {
-                callback(tags);
+        var load = function() {
+            var deferred = $q.defer();
+            var tagNotice = $timeout(function () {
+                deferred.notify('Loading tags is taking too long');
+            },5000);
+            backend.get('/tag/list').success(function(tagData) {
+                tags = tagData;
+                deferred.resolve(tags);
+            }).error(function() {
+                deferred.reject('Loading tags failed');
+            }).finally(function() {
+                $timeout.cancel(tagNotice);
             });
+            return deferred.promise;
         };
-        this.list = function(callback,forceReload) {
+        this.list = function(forceReload) {
             if (forceReload || tags === null) {
-                that.load(callback);
+                return load();
             } else {
-                callback(tags);
+                return $q.when(tags);
             }
         };
     }]);
