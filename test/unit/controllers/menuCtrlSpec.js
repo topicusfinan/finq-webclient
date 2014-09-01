@@ -161,7 +161,7 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
         scope,
         FIRST_TARGET_MODULE = 'RUNNER',
         FIRST_TARGET_SECTION = 'RUNNER.AVAILABLE',
-        SECOND_TARGET_SECTION = 'WRITER.STEPS';
+        SECOND_TARGET_SECTION = 'RUNNER.RUNNING';
 
     beforeEach(module('finqApp'));
     beforeEach(inject(function ($controller, $rootScope, EVENTS, MODULES) {

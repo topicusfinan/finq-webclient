@@ -44,7 +44,7 @@ angular.module('finqApp')
                     badge: null
                 }
             }
-        }, 
+        },
         'ORGANIZER' : {
             id: 'ORGANIZER',
             badge: null,
@@ -58,7 +58,7 @@ angular.module('finqApp')
                     badge: null
                 }
             }
-        }, 
+        },
         'WRITER' : {
             id: 'WRITER',
             badge: null,

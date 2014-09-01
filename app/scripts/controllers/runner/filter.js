@@ -27,7 +27,7 @@ angular.module('finqApp.controller')
 
             var evalLoaded = function() {
                 stepsLoaded++;
-                if (totalSteps == stepsLoaded) {
+                if (totalSteps === stepsLoaded) {
                     $scope.filterLoaded = true;
                 }
             };
