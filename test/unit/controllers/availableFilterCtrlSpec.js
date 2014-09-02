@@ -5,18 +5,16 @@ describe('Unit: AvailableFilterCtrl initialization', function() {
     var AvailableFilterCtrl,
         setService,
         tagService,
-        backend,
         scope;
 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($controller, $rootScope, $compile, $httpBackend, set, tag) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, set, tag) {
         scope = $rootScope.$new();
         setService = set;
         tagService = tag;
-        backend = $httpBackend;
         $httpBackend.expectGET('/set/list').respond(200, [
                 {key : 0, value : 'AAA'},
                 {key : 1, value : 'BBB'}

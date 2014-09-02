@@ -4,17 +4,15 @@ describe('Unit: LoginCtrl initialization and login', function() {
 
     var LoginCtrl,
         configProvider,
-        backend,
         scope;
 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($controller, $rootScope, $compile, $httpBackend, config) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config) {
         scope = $rootScope.$new();
         configProvider = config;
-        backend = $httpBackend;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address : ''
         });

@@ -50,21 +50,21 @@ describe('Unit: MenuCtrl initialization', function() {
 describe('Unit: MenuCtrl receiving the first navigation event', function() {
 
     var MenuCtrl,
-        E,
-        MOD,
+        EVENTS,
+        MODULES,
         scope,
         FIRST_TARGET_MODULE = 'RUNNER',
         FIRST_TARGET_SECTION = 'RUNNER.AVAILABLE';
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, EVENTS, MODULES) {
-        E = EVENTS;
-        MOD = MODULES;
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+        EVENTS = _EVENTS_;
+        MODULES = _MODULES_;
         scope = $rootScope.$new();
         MenuCtrl = $controller('MenuCtrl', {
             $scope: scope
         });
-        scope.$broadcast(E.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : FIRST_TARGET_SECTION}
         });
@@ -81,7 +81,7 @@ describe('Unit: MenuCtrl receiving the first navigation event', function() {
     });
 
     it('should setup the sections matching to the selected module', function() {
-        var activeModuleSectionCnt = Object.keys(MOD[FIRST_TARGET_MODULE].sections).length;
+        var activeModuleSectionCnt = Object.keys(MODULES[FIRST_TARGET_MODULE].sections).length;
         expect(MenuCtrl.sections.length).to.equal(activeModuleSectionCnt);
     });
 
@@ -100,8 +100,8 @@ describe('Unit: MenuCtrl receiving the first navigation event', function() {
 describe('Unit: MenuCtrl receiving two subsequent navigation events to different module', function() {
 
     var MenuCtrl,
-        E,
-        MOD,
+        EVENTS,
+        MODULES,
         scope,
         FIRST_TARGET_MODULE = 'RUNNER',
         FIRST_TARGET_SECTION = 'RUNNER.AVAILABLE',
@@ -109,18 +109,18 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
         SECOND_TARGET_SECTION = 'WRITER.STEPS';
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, EVENTS, MODULES) {
-        E = EVENTS;
-        MOD = MODULES;
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+        EVENTS = _EVENTS_;
+        MODULES = _MODULES_;
         scope = $rootScope.$new();
         MenuCtrl = $controller('MenuCtrl', {
             $scope: scope
         });
-        scope.$broadcast(E.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : FIRST_TARGET_SECTION}
         });
-        scope.$broadcast(E.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
             module: {id : SECOND_TARGET_MODULE},
             section: {id : SECOND_TARGET_SECTION}
         });
@@ -137,7 +137,7 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
     });
 
     it('should setup the sections matching to the selected module', function() {
-        var activeModuleSectionCnt = Object.keys(MOD[SECOND_TARGET_MODULE].sections).length;
+        var activeModuleSectionCnt = Object.keys(MODULES[SECOND_TARGET_MODULE].sections).length;
         expect(MenuCtrl.sections.length).to.equal(activeModuleSectionCnt);
     });
 
@@ -156,26 +156,26 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
 describe('Unit: MenuCtrl receiving two subsequent navigation events to different section', function() {
 
     var MenuCtrl,
-        E,
-        MOD,
+        EVENTS,
+        MODULES,
         scope,
         FIRST_TARGET_MODULE = 'RUNNER',
         FIRST_TARGET_SECTION = 'RUNNER.AVAILABLE',
         SECOND_TARGET_SECTION = 'RUNNER.RUNNING';
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, EVENTS, MODULES) {
-        E = EVENTS;
-        MOD = MODULES;
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+        EVENTS = _EVENTS_;
+        MODULES = _MODULES_;
         scope = $rootScope.$new();
         MenuCtrl = $controller('MenuCtrl', {
             $scope: scope
         });
-        scope.$broadcast(E.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : FIRST_TARGET_SECTION}
         });
-        scope.$broadcast(E.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : SECOND_TARGET_SECTION}
         });
@@ -192,7 +192,7 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
     });
 
     it('should setup the sections matching to the selected module', function() {
-        var activeModuleSectionCnt = Object.keys(MOD[FIRST_TARGET_MODULE].sections).length;
+        var activeModuleSectionCnt = Object.keys(MODULES[FIRST_TARGET_MODULE].sections).length;
         expect(MenuCtrl.sections.length).to.equal(activeModuleSectionCnt);
     });
 
