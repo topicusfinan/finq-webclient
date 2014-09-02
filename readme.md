@@ -4,7 +4,7 @@
 
 The Finq Webclient allows a test to use a browser for enterprise testing. To finally get rid of the need to use complex tools for use-case testing to ensure that testing becomes fun, Finq introduces behavior based testing the webclient support. Tests will become self documenting, humanly readable, easy to manage and easy to write, by taking advantage of a [Behavior-driven development](http://en.wikipedia.org/wiki/Behavior-driven_development) and domain specific languages for test specification.
 
-Finq is currently a work in progress in the early stages of development
+Finq is currently a work in progress in the early stages of development.
 
 ##Developing
 
@@ -35,7 +35,7 @@ To get the proper toolset after installing node you can use the node package man
 This will install Grunt on your command line and makes sure that bower is available for dependency management. Run the above commands in the application directory so all packages and dependencies are retrieved.
 
 ####Code style
-To support consistent code styling we make use of [jshint](http://www.jshint.com/) for javascript convention validation and [scss-lint](https://github.com/causes/scss-lint) for SASS convention validation. Even though JShit is automatically installed with the above commands, scss-lint requires an additional Ruby Gem to be installed as follows:
+To support consistent code styling we make use of [jshint](http://www.jshint.com/) for javascript convention validation and [scss-lint](https://github.com/causes/scss-lint) for SASS convention validation. Even though JShint is automatically installed with the above commands, scss-lint requires an additional Ruby Gem to be installed as follows:
 
     $ gem install scss-lint
 
