@@ -20,52 +20,85 @@ angular.module('finqApp.mock')
                         title: 'New orders',
                         prologue: [
                             {
-                                title: 'given a customer has been created',
-                                pending: false
+                                title: 'when a customer with id $customerId has been created',
+                                template: 'when a customer with id $customerId has been created'
+                            },
+                            {
+                                title: 'and a book with id $bookId is created with "my story" as a title, and value of € 30',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
+                            },
+                            {
+                                title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of € 20',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
                             }
                         ],
+                        epilogue: [],
                         scenarios: [
                             {
                                 id: 23452343,
-                                title: 'A customer adds a € 30 book to their empty shopping cart',
+                                title: 'A customer adds a € 30 book to their empty basket',
                                 steps: [
                                     {
-                                        title: 'given the customer orders a new book with a value of € 30',
-                                        pending: false
+                                        title: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId',
+                                        template: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId'
                                     },
                                     {
-                                        title: 'then a new shopping basket should be created with a total value of € 0',
-                                        pending: false
+                                        title: 'then the [[products]] should be added to the basket with id $basketId',
+                                        template: 'then the [[products]] should be added to the basket with id $basketId',
+                                        products: {
+                                            attributes: [
+                                                'id'
+                                            ],
+                                            values:
+                                            [
+                                                {
+                                                    id: '$bookId'
+                                                }
+                                            ]
+                                        }
                                     },
                                     {
-                                        title: 'and the products should be added to their shopping basket',
-                                        pending: false
-                                    },
-                                    {
-                                        title: 'and the total value of their shopping basket should be € 30',
-                                        pending: false
+                                        title: 'and the total value of the basket with id $basketId should be € 30',
+                                        template: 'then the total value of the basket with id $basketId should be € $totalCost'
                                     }
                                 ]
                             },
                             {
                                 id: 23452345,
-                                title: 'A customer adds an additional € 20 book to their shopping cart',
+                                title: 'A customer adds an additional € 20 book to their basket',
                                 steps: [
                                     {
-                                        title: 'given the customer orders a new book with a value of € 30',
-                                        pending: false
+                                        title: 'when the customer with id $customerId orders a new book with $bookId resulting in a basket with id $basketId',
+                                        template: 'when the customer with id $customerId orders a new book with $bookId resulting in a basket with id $basketId'
                                     },
                                     {
-                                        title: 'then the customer orders a new book with a value of € 20',
-                                        pending: false
+                                        title: 'and the customer with id $customerId orders a new book with id $otherBookId',
+                                        template: 'when the customer with id $customerId orders a new book with id $bookId'
                                     },
                                     {
-                                        title: 'then the products should be added to their shopping basket',
-                                        pending: false
+                                        title: 'then the [[products]] should be added to the basket with id $basketId',
+                                        template: 'then the [[products]] should be added to the basket with id $basketId',
+                                        products: {
+                                            attributes: [
+                                                'id',
+                                                'value'
+                                            ],
+                                            values:
+                                            [
+                                                {
+                                                    id: '$bookId',
+                                                    value: 30
+                                                },
+                                                {
+                                                    id: '$otherBookId',
+                                                    value: 20
+                                                }
+                                            ]
+                                        }
                                     },
                                     {
-                                        title: 'and the total value of their shopping basket should be € 50',
-                                        pending: false
+                                        title: 'and the total value of basket with id $basketId should be € 50',
+                                        template: 'then the total value of the basket with id $basketId should be € $totalCost'
                                     }
                                 ]
                             }
@@ -76,48 +109,70 @@ angular.module('finqApp.mock')
                         title: 'Cancelled orders',
                         prologue: [
                             {
-                                title: 'given a customer has been created',
-                                pending: false
+                                title: 'when a customer with id $customerId has been created',
+                                template: 'when a customer with id $customerId has been created'
                             },
                             {
-                                title: 'and the customer orders a new book with a value of € 30',
-                                pending: false
+                                title: 'and a book with id $bookId is created with "my story" as a title, and value of € 30',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
+                            },
+                            {
+                                title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of € 20',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
+                            },
+                            {
+                                title: 'and the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId',
+                                template: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId'
                             }
                         ],
+                        epilogue: [],
                         scenarios: [
                             {
                                 id: 33452343,
-                                title: 'A customer removes the only item they have in their shopping basket',
+                                title: 'A customer removes the only item they have in their basket',
                                 steps: [
                                     {
-                                        title: 'given the customer removes a product from their shopping basket',
-                                        pending: false
+                                        title: 'when the customer with id $customerId removes a product with id $bookId from their basket with id $basketId',
+                                        template: 'when the customer with id $customerId removes a product with id $productId from their basket with id $basketId'
                                     },
                                     {
-                                        title: 'then the shopping basket should be empty',
-                                        pending: true
+                                        title: 'then the basket with id $basketId should be empty',
+                                        template: null
                                     }
                                 ]
                             },
                             {
-                                id: 23452343,
-                                title: 'A customer removes an item they have in their shopping basket, but there are some left',
+                                id: 33452345,
+                                title: 'A customer removes an item they have in their basket, but there are some left',
                                 steps: [
                                     {
-                                        title: 'given the customer orders a new book with a value of € 20',
-                                        pending: false
+                                        title: 'when the customer with id $customerId orders a new book with id $otherBookId',
+                                        template: 'when the customer with id $customerId orders a new book with id $bookId'
                                     },
                                     {
-                                        title: 'and the customer removes a product from their shopping basket',
-                                        pending: false
+                                        title: 'and the customer with id $customerId removes a product with id $bookId from their basket with id $basketId',
+                                        template: 'when the customer with id $customerId removes a product with id $productId from their basket with id $basketId'
                                     },
                                     {
-                                        title: 'then the shopping basket should contain 1 item',
-                                        pending: true
+                                        title: 'then the basket with id $basketId should contain the following [[products]]',
+                                        template: 'then the basket with id $basketId should contain the following [[products]]',
+                                        products: {
+                                            attributes: [
+                                                'id',
+                                                'value'
+                                            ],
+                                            values:
+                                            [
+                                                {
+                                                    id: '$otherBookId',
+                                                    value: 20
+                                                }
+                                            ]
+                                        }
                                     },
                                     {
-                                        title: 'and the total value of their shopping basket should be € 30',
-                                        pending: false
+                                        title: 'and the total value of the basket with id $basketId should be € 20',
+                                        template: 'then the total value of the basket with id $basketId should be € $totalCost'
                                     }
                                 ]
                             }
@@ -125,5 +180,46 @@ angular.module('finqApp.mock')
                     }
                 ]
             },
+            {
+                id: 66432790,
+                title: 'Story writing',
+                stories: [
+                    {
+                        id: 66421532,
+                        title: 'New stories',
+                        prologue: [
+                            {
+                                title: 'given that a role with authorization WRITE_STORY is available with id $roleId',
+                                template: 'given that a role with authorization $key is available'
+                            },
+                            {
+                                title: 'when a user with id $userId has been created',
+                                template: 'when a user with id $userId has been created'
+                            }
+                        ],
+                        epilogue: [],
+                        scenarios: [
+                            {
+                                id: 63452343,
+                                title: 'A user writes a new story and is allowed to do so',
+                                steps: [
+                                    {
+                                        title: 'when the user with id $userId is given the role with id $roleId',
+                                        template: 'when the user with id $userId is given the role with id $roleId'
+                                    },
+                                    {
+                                        title: 'and the user with id $userId creates a new story with id $storyId',
+                                        template: 'when the user with id $userId creates a new story with id $storyId'
+                                    },
+                                    {
+                                        title: 'then the story with id $storyId should be available in the storylist',
+                                        template: 'then the story with id $storyId should be available in the storylist'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     });
