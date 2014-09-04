@@ -1,6 +1,8 @@
 <button ng-click="toggle()" ng-blur="hide()" ng-class="{true: 'active'}[show]">
     <span>{{options.active.value}}</span><i class="fa fa-caret-down"></i>
 </button>
-<ul class="select-dropdown ng-hide" ng-show="show">
-    <li ng-repeat="option in options.list" ng-click="select(option.key,option.value)" ng-class="{true: 'active'}[option.key == options.active.key]">{{option.value}}</li>
-</ul>
+<div class="select-dropdown ng-hide" ng-show="show">
+    <ul>
+        <li ng-repeat="option in options.list" ng-click="select(option.key,option.value)" ng-class="{true: 'active'}[option.key == options.active.key]">{{option.value}}</li>
+    </ul>
+</div>

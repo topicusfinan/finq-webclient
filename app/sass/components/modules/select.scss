@@ -31,7 +31,7 @@
         }
     }
 
-    ul {
+    .select-dropdown {
         position: absolute;
         text-align: left;
         color: $filter-list-color;
@@ -43,6 +43,11 @@
         width: 100%;
         padding: $filter-button-padding 0;
         border: $filter-list-border;
+
+        ul {
+            max-height: $filter-list-max-height;
+            overflow-y: auto;
+        }
 
         li {
             @include ellipsis;

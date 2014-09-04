@@ -48,7 +48,7 @@ input.ng-invalid {
         }
     }
 
-    ul {
+    .select-dropdown {
         border-radius: .3em;
         @include css-triangle(.5em, $filter-list-border-width, $filter-list-border-color, top, $filter-list-bg-color);
     }
