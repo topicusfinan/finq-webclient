@@ -18,6 +18,10 @@ angular.module('finqApp.mock')
                     {
                         id: 46421532,
                         title: 'New orders',
+                        sets: [
+                            1234,
+                            5432
+                        ],
                         prologue: [
                             {
                                 title: 'when a customer with id $customerId has been created',
@@ -47,12 +51,14 @@ angular.module('finqApp.mock')
                                         template: 'then the [[products]] should be added to the basket with id $basketId',
                                         products: {
                                             attributes: [
-                                                'id'
+                                                'id',
+                                                'value'
                                             ],
                                             values:
                                             [
                                                 {
-                                                    id: '$bookId'
+                                                    id: '$bookId',
+                                                    value: 30
                                                 }
                                             ]
                                         }
@@ -107,6 +113,9 @@ angular.module('finqApp.mock')
                     {
                         id: 56421532,
                         title: 'Cancelled orders',
+                        sets: [
+                            1234
+                        ],
                         prologue: [
                             {
                                 title: 'when a customer with id $customerId has been created',
@@ -187,6 +196,9 @@ angular.module('finqApp.mock')
                     {
                         id: 66421532,
                         title: 'New stories',
+                        sets: [
+                            5432
+                        ],
                         prologue: [
                             {
                                 title: 'given that a role with authorization WRITE_STORY is available with id $roleId',

@@ -19,11 +19,13 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'setServiceMock',
     'tagServiceMock',
     'authServiceMock',
-    function($httpBackend,appServiceMock,setServiceMock,tagServiceMock,authServiceMock) {
+    'storyServiceMock',
+    function($httpBackend,appServiceMock,setServiceMock,tagServiceMock,authServiceMock,storyServiceMock) {
 
         $httpBackend.whenGET('/app/info').respond(appServiceMock.info);
         $httpBackend.whenGET('/set/list').respond(setServiceMock.sets);
         $httpBackend.whenGET('/tag/list').respond(tagServiceMock.tags);
+        $httpBackend.whenGET('/story/list').respond(storyServiceMock.books);
         $httpBackend.whenGET('/auth/user').respond(401);
         $httpBackend.whenPOST('/auth/login').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);

@@ -11,10 +11,24 @@
  * either be run in the background or in debug mode.
  */
 angular.module('finqApp.controller')
-    .controller('AvailableCtrl', ['$scope','EVENTS','MODULES','FILTER_SELECT_EVENTS',function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS) {
+    .controller('AvailableCtrl', [
+        '$scope',
+        'EVENTS',
+        'MODULES',
+        'FILTER_SELECT_EVENTS',
+        'story',
+        function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS,storyService) {
+        var that = this;
+
+        this.storyBooks = [];
+        this.setFilterId = 'sets';
+        this.tagFilterId = 'tags';
+        this.filterKeys = {
+            tags: null,
+            sets: null
+        };
+
         $scope.filterLoaded = false;
-        $scope.tagFilter = 'tags';
-        $scope.setFilter = 'sets';
 
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
@@ -23,9 +37,13 @@ angular.module('finqApp.controller')
             section: MODULES.RUNNER.sections.AVAILABLE
         });
 
+        storyService.list().then(function(bookList) {
+            that.storyBooks = bookList;
+        });
+
         $scope.$on(FILTER_SELECT_EVENTS.UPDATED,function(event,filterInfo) {
-            console.log('Filter "'+filterInfo.id+'" updated to key "'+filterInfo.key+'"');
-            // TODO: handle the event by updating the internal list filter for test sets
+            console.debug('Filter "'+filterInfo.id+'" updated to key "'+filterInfo.key+'"');
+            that.filterKeys[filterInfo.id] = filterInfo.key;
         });
 
     }]);

@@ -9,20 +9,15 @@
  * Makes it possible to execute CRUD and list operations on test sets.
  */
 angular.module('finqApp.service')
-    .service('set', ['backend','$q','$timeout', function (backend,$q,$timeout) {
+    .service('set', ['backend','$q', function (backend,$q) {
         var sets = null;
         var load = function() {
             var deferred = $q.defer();
-            var setNotice = $timeout(function () {
-                deferred.notify('Loading sets is taking too long');
-            },5000);
             backend.get('/set/list').success(function(setData) {
                 sets = setData;
                 deferred.resolve(sets);
             }).error(function() {
                 deferred.reject('Loading sets failed');
-            }).finally(function() {
-                $timeout.cancel(setNotice);
             });
             return deferred.promise;
         };

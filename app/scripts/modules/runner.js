@@ -12,6 +12,7 @@
 angular.module('finqApp.runner', ['ngRoute']).config(['$routeProvider',function($routeProvider) {
     $routeProvider.when('/runner/available', {
         templateUrl: '/views/runner/available.html',
-        controller: 'AvailableCtrl'
+        controller: 'AvailableCtrl',
+        controllerAs: 'available'
     });
 }]);

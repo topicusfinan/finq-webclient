@@ -1,1 +1,4 @@
 <div ng-include="'views/runner/filter.html'" include-replace></div>
+<ul class="main-content-list">
+    <li ng-repeat="book in available.storyBooks | storyBookSet:available.filterKeys.sets">{{ book.title }}</li>
+</ul>
