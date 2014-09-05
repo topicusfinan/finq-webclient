@@ -32,19 +32,19 @@ angular.module('finqApp.mock')
                                 template: 'when a customer with id $customerId has been created'
                             },
                             {
-                                title: 'and a book with id $bookId is created with "my story" as a title, and value of € 30',
-                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
+                                title: 'and a book with id $bookId is created with "my story" as a title, and value of EUR 30',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
                             },
                             {
-                                title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of € 20',
-                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
+                                title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of EUR 20',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
                             }
                         ],
                         epilogue: [],
                         scenarios: [
                             {
                                 id: 23452343,
-                                title: 'A customer adds a € 30 book to their empty basket',
+                                title: 'A customer adds a EUR 30 book to their empty basket',
                                 steps: [
                                     {
                                         title: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId',
@@ -68,14 +68,14 @@ angular.module('finqApp.mock')
                                         }
                                     },
                                     {
-                                        title: 'and the total value of the basket with id $basketId should be € 30',
-                                        template: 'then the total value of the basket with id $basketId should be € $totalCost'
+                                        title: 'and the total value of the basket with id $basketId should be EUR 30',
+                                        template: 'then the total value of the basket with id $basketId should be EUR $totalCost'
                                     }
                                 ]
                             },
                             {
                                 id: 23452345,
-                                title: 'A customer adds an additional € 20 book to their basket',
+                                title: 'A customer adds an additional EUR 20 book to their basket',
                                 steps: [
                                     {
                                         title: 'when the customer with id $customerId orders a new book with $bookId resulting in a basket with id $basketId',
@@ -107,8 +107,8 @@ angular.module('finqApp.mock')
                                         }
                                     },
                                     {
-                                        title: 'and the total value of basket with id $basketId should be € 50',
-                                        template: 'then the total value of the basket with id $basketId should be € $totalCost'
+                                        title: 'and the total value of basket with id $basketId should be EUR 50',
+                                        template: 'then the total value of the basket with id $basketId should be EUR $totalCost'
                                     }
                                 ]
                             }
@@ -132,12 +132,12 @@ angular.module('finqApp.mock')
                                 template: 'when a customer with id $customerId has been created'
                             },
                             {
-                                title: 'and a book with id $bookId is created with "my story" as a title, and value of € 30',
-                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
+                                title: 'and a book with id $bookId is created with "my story" as a title, and value of EUR 30',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
                             },
                             {
-                                title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of € 20',
-                                template: 'when a book with id $bookId is created with $title as a title, and a value of € $cost'
+                                title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of EUR 20',
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
                             },
                             {
                                 title: 'and the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId',
@@ -190,8 +190,8 @@ angular.module('finqApp.mock')
                                         }
                                     },
                                     {
-                                        title: 'and the total value of the basket with id $basketId should be € 20',
-                                        template: 'then the total value of the basket with id $basketId should be € $totalCost'
+                                        title: 'and the total value of the basket with id $basketId should be EUR 20',
+                                        template: 'then the total value of the basket with id $basketId should be EUR $totalCost'
                                     }
                                 ]
                             }
