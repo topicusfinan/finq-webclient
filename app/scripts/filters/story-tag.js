@@ -2,24 +2,24 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storySet
+ * @name finqApp.filter:storyTag
  * @description
- * # Story set filter
+ * # Story tag filter
  *
- * Allows the filtering of stories by supplying the a certain set. Only the stories in that are linked to the supplied
- * set will be in the result.
+ * Allows the filtering of stories by supplying the a certain tag. Only the stories in that are linked to the supplied
+ * tag will be in the result.
  */
 angular.module('finqApp.filter')
-    .filter('storySet', function() {
-        return function(stories, setToInclude) {
+    .filter('storyTag', function() {
+        return function(stories, tagToInclude) {
             var filteredStories = [];
-            if (setToInclude === null) {
+            if (tagToInclude === null) {
                 return stories;
             }
             angular.forEach(stories, function(story) {
                 var include = false;
-                angular.forEach(story.sets, function(set) {
-                    if (set === setToInclude) {
+                angular.forEach(story.tags, function(tag) {
+                    if (tag === tagToInclude) {
                         include = true;
                     }
                 });

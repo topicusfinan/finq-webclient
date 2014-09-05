@@ -1,0 +1,82 @@
+.main-content-list {
+
+    li.cl > div {
+        position: relative;
+        padding: 0 $section-list-side-padding;
+        color: $section-header-color;
+        margin-top: $content-list-item-spacing;
+
+        > i {
+            color: $section-list-icon-color;
+        }
+
+        > span,
+        > div {
+            display: inline-block;
+        }
+    }
+
+    li.ic > div {
+        padding-left: $section-list-icon-text-pad;
+    }
+
+    > li.cl:last-child {
+        border-bottom: $content-list-bg-color $content-list-item-spacing solid;
+    }
+
+    > li.cl {
+        border-top: $content-list-bg-color $content-list-item-spacing solid;
+        background: $content-list-bg-color;
+
+        > div {
+            min-height: $content-list-item-1-height;
+            max-height: $content-list-item-1-height;
+            background: $content-list-item-1-bg-color;
+            margin-top: 0;
+
+            > i {
+                left: $section-list-icon-left * $content-list-item-1-icon-left;
+                top: $content-list-item-1-icon-top;
+                font-size: $content-list-item-1-icon-size;
+                position: absolute;
+            }
+
+            > span {
+                margin: (($content-list-item-1-height - $content-list-item-1-font-size) / 4.5) 0;
+                font-size: $content-list-item-1-font-size;
+                line-height: $content-list-item-1-font-size;
+            }
+        }
+
+        > ul {
+
+            li.cl {
+                background: $content-list-3-bg-color;
+
+                > div {
+                    min-height: $content-list-item-2-height;
+                    max-height: $content-list-item-2-height;
+                    background: $content-list-item-2-bg-color;
+
+                    > i {
+                        left: $section-list-icon-left * $content-list-item-2-icon-left;
+                        top: $content-list-item-2-icon-top;
+                        font-size: $content-list-item-2-icon-size;
+                        position: absolute;
+                    }
+
+                    > span {
+                        margin: (($content-list-item-2-height - $content-list-item-2-font-size) / 3.5) 0;
+                        font-size: $content-list-item-2-font-size;
+                        line-height: $content-list-item-2-font-size;
+                    }
+                }
+
+                > ul li.cl > div {
+                    background: $content-list-item-3-bg-color;
+                    margin-top: $content-list-item-3-spacing;
+                }
+            }
+        }
+    }
+}

@@ -19,8 +19,12 @@ angular.module('finqApp.mock')
                         id: 46421532,
                         title: 'New orders',
                         sets: [
-                            1234,
-                            5432
+                            1,
+                            2
+                        ],
+                        tags: [
+                            'book',
+                            'customer'
                         ],
                         prologue: [
                             {
@@ -114,7 +118,13 @@ angular.module('finqApp.mock')
                         id: 56421532,
                         title: 'Cancelled orders',
                         sets: [
-                            1234
+                            1
+                        ],
+                        tags: [
+                            'book',
+                            'customer',
+                            'basket',
+                            'cancel-order'
                         ],
                         prologue: [
                             {
@@ -197,7 +207,12 @@ angular.module('finqApp.mock')
                         id: 66421532,
                         title: 'New stories',
                         sets: [
-                            5432
+                            2
+                        ],
+                        tags: [
+                            'book',
+                            'customer',
+                            'write'
                         ],
                         prologue: [
                             {

@@ -20,13 +20,14 @@ angular.module('finqApp.controller')
         function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS,storyService) {
         var that = this;
 
-        this.storyBooks = [];
-        this.setFilterId = 'sets';
-        this.tagFilterId = 'tags';
+        this.storybooks = [];
+        this.setFilterId = 'set';
+        this.tagFilterId = 'tag';
         this.filterKeys = {
-            tags: null,
-            sets: null
+            tag: null,
+            set: null
         };
+        this.filterActive = true;
 
         $scope.filterLoaded = false;
 
@@ -38,11 +39,10 @@ angular.module('finqApp.controller')
         });
 
         storyService.list().then(function(bookList) {
-            that.storyBooks = bookList;
+            that.storybooks = bookList;
         });
 
         $scope.$on(FILTER_SELECT_EVENTS.UPDATED,function(event,filterInfo) {
-            console.debug('Filter "'+filterInfo.id+'" updated to key "'+filterInfo.key+'"');
             that.filterKeys[filterInfo.id] = filterInfo.key;
         });
 

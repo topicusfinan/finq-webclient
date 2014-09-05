@@ -12,16 +12,24 @@ angular.module('finqApp.mock')
     .value('tagServiceMock', {
         tags: [
             {
-                key : 'financial-statement',
-                value : 'Financial statement'
+                key : 'book',
+                value : 'book'
             },
             {
                 key : 'customer',
-                value : 'Customer'
+                value : 'customer'
             },
             {
-                key : 'order',
-                value : 'Order'
+                key : 'basket',
+                value : 'basket'
+            },
+            {
+                key : 'write',
+                value : 'write'
+            },
+            {
+                key : 'cancel-order',
+                value : 'cancel order'
             }
         ]
     });

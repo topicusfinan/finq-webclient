@@ -11,6 +11,7 @@
 angular.module('finqApp.service')
     .service('story', ['backend','$q',function (backend,$q) {
         var stories = null;
+
         var load = function() {
             var deferred = $q.defer();
             backend.get('/story/list').success(function(storyData) {
@@ -21,6 +22,7 @@ angular.module('finqApp.service')
             });
             return deferred.promise;
         };
+
         this.list = function(forceReload) {
             if (forceReload || stories === null) {
                 return load();

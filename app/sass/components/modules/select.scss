@@ -43,6 +43,7 @@
         width: 100%;
         padding: $filter-button-padding 0;
         border: $filter-list-border;
+        z-index: 2;
 
         ul {
             max-height: $filter-list-max-height;

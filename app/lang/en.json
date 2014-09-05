@@ -61,7 +61,7 @@
             "DEFAULT_VALUE" : "All sets"
         },
         "TAGS" : {
-            "DEFAULT_VALUE" : "Any tag"
+            "DEFAULT_VALUE" : "any tag"
         }
     }
 }

@@ -1,16 +1,34 @@
 .top-filter {
     min-height: $header-height;
+    max-height: $header-height;
     padding: 0 $section-list-side-padding;
     background: $section-header-bg-color;
     color: $section-header-color;
+
+    &.active {
+        background: $base-accent-color;
+        color: $highlight-color;
+    }
+
+    &.ic {
+        padding-left: $section-list-icon-text-pad;
+    }
 
     > span,
     > div {
         display: inline-block;
     }
 
+    > i {
+        position: absolute;
+        left: $section-list-icon-left;
+        top: $section-header-icon-top;
+        font-size: $section-header-icon-size;
+        color: $section-list-icon-color;
+    }
+
     > span {
-        margin: (($header-height - $section-header-font-size) / 4.1) 0;
+        margin: (($header-height - $section-header-font-size) / 4.5) 0;
         font-size: $section-header-font-size;
         line-height: $section-header-font-size;
     }

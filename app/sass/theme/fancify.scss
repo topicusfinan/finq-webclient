@@ -90,13 +90,30 @@ div.layout {
 .list-animate {
 
     &.ng-enter {
-        @include transition(all $animate-std-cubic .1);
-        opacity: 0;
-
-        &.ng-enter-active {
-            opacity: 1;
-        }
+        @include transition(all $animate-std-cubic .5s);
     }
+
+    &.ng-leave,
+    &.ng-move {
+        @include transition(all $animate-std-cubic .3s);
+    }
+
+    &.ng-leave,
+    &.ng-move-active,
+    &.ng-enter.ng-enter-active,
+    &.ng-move.ng-move-active {
+        opacity: 1;
+    }
+
+    &.ng-move {
+        opacity: .5;
+    }
+
+    &.ng-enter,
+    &.ng-leave.ng-leave-active {
+        opacity: 0;
+    }
+
 }
 
 .appear-delayed {

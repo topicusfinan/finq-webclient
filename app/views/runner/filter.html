@@ -1,8 +1,6 @@
-<div class="top-filter appear-delayed ng-hide" ng-show="filter.loaded" ng-controller="AvailableFilterCtrl as filter">
-    <span>
-        <i class="fa fa-chevron-right"></i>
-        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET"></span>
-    </span>
+<div class="top-filter ic appear-delayed ng-hide" ng-show="filter.loaded" ng-class="{true: 'active'}[available.filterActive]" ng-controller="AvailableFilterCtrl as filter">
+    <i class="fa fa-bars"></i>
+    <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET"></span>
     <div class="select" filter-select="filter.sets" filter-id="available.setFilterId"></div>
     <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG"></span>
     <div class="select" filter-select="filter.tags" filter-id="available.tagFilterId"></div>
