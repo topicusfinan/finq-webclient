@@ -13,9 +13,8 @@
  *
  */
 angular.module('finqApp.service')
-    .service('storybookSearch', ['config', function (configProvider) {
-        var maxResults = configProvider.client().searchMaxResults,
-            books,
+    .service('storybookSearch', ['CONFIG_CONSTANTS', function (CONFIG) {
+        var books,
             searchList = {
                 global : {
                     scenarios: []
@@ -57,7 +56,7 @@ angular.module('finqApp.service')
                     return Bloodhound.tokenizers.whitespace(d.title);
                 },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
-                limit: maxResults,
+                limit: CONFIG.MAX_SEARCH_RESULTS,
                 local: searchList.global.scenarios
             });
             searchList.global.engine.initialize();
@@ -68,7 +67,7 @@ angular.module('finqApp.service')
                         return Bloodhound.tokenizers.whitespace(d.title);
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    limit: maxResults,
+                    limit: CONFIG.MAX_SEARCH_RESULTS,
                     local: searchList.books[book.id].scenarios
                 });
                 searchList.books[book.id].engine.initialize();

@@ -8,6 +8,9 @@
  */
 
 angular.module('finqApp')
+    .constant('CONFIG_CONSTANTS',{
+        'MAX_SEARCH_RESULTS' : 1000
+    })
     .constant('EVENTS',{
         'PAGE_CONTROLLER_UPDATED': 'finqApp.pageControllerUpdated',
         'NAVIGATION_UPDATED' : 'finqApp.navigationUpdated',
