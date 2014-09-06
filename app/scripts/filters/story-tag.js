@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storyTag
+ * @name finqApp.filter:storyTagFilter
  * @description
  * # Story tag filter
  *
@@ -10,7 +10,7 @@
  * tag will be in the result.
  */
 angular.module('finqApp.filter')
-    .filter('storyTag', function() {
+    .filter('storyTagFilter', function() {
         return function(stories, tagToInclude) {
             var filteredStories = [];
             if (tagToInclude === null) {
@@ -27,6 +27,7 @@ angular.module('finqApp.filter')
                     filteredStories.push(story);
                 }
             });
+
             return filteredStories;
         };
     });

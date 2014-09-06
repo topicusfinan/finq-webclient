@@ -17,7 +17,8 @@ angular.module('finqApp.controller')
         'MODULES',
         'FILTER_SELECT_EVENTS',
         'story',
-        function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS,storyService) {
+        'storybookSearch',
+        function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS,storyService,storybookSearchService) {
         var that = this;
 
         this.storybooks = [];
@@ -28,8 +29,7 @@ angular.module('finqApp.controller')
             set: null
         };
         this.filterActive = true;
-
-        $scope.filterLoaded = false;
+        this.storiesLoaded = false;
 
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
@@ -40,6 +40,8 @@ angular.module('finqApp.controller')
 
         storyService.list().then(function(bookList) {
             that.storybooks = bookList;
+            that.storiesLoaded = true;
+            storybookSearchService.initialize(bookList);
         });
 
         $scope.$on(FILTER_SELECT_EVENTS.UPDATED,function(event,filterInfo) {

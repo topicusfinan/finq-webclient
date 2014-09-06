@@ -11,7 +11,8 @@ angular.module('finqApp')
     .constant('EVENTS',{
         'PAGE_CONTROLLER_UPDATED': 'finqApp.pageControllerUpdated',
         'NAVIGATION_UPDATED' : 'finqApp.navigationUpdated',
-        'CONFIG_LOADED' : 'finqApp.configLoaded'
+        'CONFIG_LOADED' : 'finqApp.configLoaded',
+        'SEARCH_UPDATED' : 'finqApp.searchUpdated'
     }).constant('MODULES',{
         'REPORTER' : {
             id: 'REPORTER',

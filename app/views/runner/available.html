@@ -1,12 +1,12 @@
 <div ng-include="'views/runner/filter.html'" include-replace></div>
-<ul class="main-content-list">
-    <li class="ic cl list-animate" ng-animate="'animate'" ng-repeat="book in available.storybooks | storybookSet:available.filterKeys.set | storybookTag:available.filterKeys.tag">
+<ul class="main-content-list appear-delayed ng-hide" ng-show="available.storiesLoaded">
+    <li class="ic cl list-animate" ng-animate="'animate'" ng-repeat="book in available.storybooks | storybookSearchFilter:app.searchQuery | storybookSetFilter:available.filterKeys.set | storybookTagFilter:available.filterKeys.tag">
         <div>
             <i class="fa fa-bars"></i>
             <span>{{ book.title }}</span>
         </div>
         <ul>
-            <li class="ic cl" ng-repeat="story in book.stories | storySet:available.filterKeys.set | storyTag:available.filterKeys.tag">
+            <li class="ic cl" ng-repeat="story in book.stories | storySearchFilter:app.searchQuery:book.id | storySetFilter:available.filterKeys.set | storyTagFilter:available.filterKeys.tag">
                 <div>
                     <i class="fa fa-caret-right"></i>
                     <span>{{ story.title }}</span>

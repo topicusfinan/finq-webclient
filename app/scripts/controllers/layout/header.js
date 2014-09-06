@@ -10,8 +10,14 @@
  * the search function and the account control.
  */
 angular.module('finqApp.controller')
-    .controller('HeaderCtrl', ['$scope','$timeout','config',function ($scope,$timeout,configProvider) {
+    .controller('HeaderCtrl', [
+        '$scope',
+        '$timeout',
+        'config',
+        'EVENTS',
+        function ($scope,$timeout,configProvider,EVENTS) {
         var that = this,
+            prevQuery = '',
             searchTimeout = null;
         this.title = configProvider.server().subject;
         this.timeout = configProvider.client().searchTimeout;
@@ -27,7 +33,10 @@ angular.module('finqApp.controller')
                 $timeout.cancel(searchTimeout);
             }
             searchTimeout = $timeout(function() {
-                console.log('searching with '+that.query);
+                if (that.query !== prevQuery) {
+                    $scope.$emit(EVENTS.SEARCH_UPDATED,that.query);
+                    prevQuery = that.query;
+                }
             },that.timeout);
         };
 

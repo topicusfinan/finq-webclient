@@ -23,6 +23,7 @@ angular.module('finqApp.controller')
         function ($state,$scope,$route,$translate,configProvider,pageFactory,EVENTS) {
             var that = this;
             this.title = 'Finq';
+            this.searchQuery = '';
 
             $state.go('intro.loading');
 
@@ -40,6 +41,9 @@ angular.module('finqApp.controller')
                     module: moduleInfo.module,
                     section: moduleInfo.section
                 });
+            });
+            $scope.$on(EVENTS.SEARCH_UPDATED,function(event, query){
+                that.searchQuery = query;
             });
         }
     ]);

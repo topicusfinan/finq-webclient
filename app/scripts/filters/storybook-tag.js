@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storyBookTag
+ * @name finqApp.filter:storyBookTagFilter
  * @description
  * # Storybook tag filter
  *
@@ -10,7 +10,7 @@
  * to the supplied tag will remain.
  */
 angular.module('finqApp.filter')
-    .filter('storybookTag', function() {
+    .filter('storybookTagFilter', function() {
         return function(books, tagToInclude) {
             var filteredBooks = [];
             if (tagToInclude === null) {
@@ -29,6 +29,7 @@ angular.module('finqApp.filter')
                     filteredBooks.push(book);
                 }
             });
+
             return filteredBooks;
         };
     });

@@ -33,6 +33,7 @@ module.exports = function() {
     },
 
     files: [
+      'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/angular-animate/angular-animate.js',
@@ -43,6 +44,7 @@ module.exports = function() {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-translate/angular-translate.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'bower_components/typeahead.js/dist/typeahead.bundle.js',
       'app/scripts/*.js',
       'app/scripts/modules/*.js',
       'app/scripts/services/*.js',

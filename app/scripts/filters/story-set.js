@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storySet
+ * @name finqApp.filter:storySetFilter
  * @description
  * # Story set filter
  *
@@ -10,7 +10,7 @@
  * set will be in the result.
  */
 angular.module('finqApp.filter')
-    .filter('storySet', function() {
+    .filter('storySetFilter', function() {
         return function(stories, setToInclude) {
             var filteredStories = [];
             if (setToInclude === null) {
@@ -27,6 +27,7 @@ angular.module('finqApp.filter')
                     filteredStories.push(story);
                 }
             });
+
             return filteredStories;
         };
     });

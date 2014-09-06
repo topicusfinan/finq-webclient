@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storyBookSet
+ * @name finqApp.filter:storyBookSetFilter
  * @description
  * # Storybook set filter
  *
@@ -10,7 +10,7 @@
  * to the supplied set will remain.
  */
 angular.module('finqApp.filter')
-    .filter('storybookSet', function() {
+    .filter('storybookSetFilter', function() {
         return function(books, setToInclude) {
             var filteredBooks = [];
             if (setToInclude === null) {
@@ -29,6 +29,7 @@ angular.module('finqApp.filter')
                     filteredBooks.push(book);
                 }
             });
+
             return filteredBooks;
         };
     });
