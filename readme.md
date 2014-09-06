@@ -46,3 +46,8 @@ When you're all setup you can run the development server using `grunt serve` or 
 
 ###Testing
 To run the unit and end to end tests, execute `grunt test`.
+
+##License
+Finq version 0, Copyright (C) 2014 Christian Kramer. 
+
+The Finq webclient comes with ABSOLUTELY NO WARRANTY; This is free software, and you are welcome to redistribute it under certain conditions as mentioned in the enclosed License file.
