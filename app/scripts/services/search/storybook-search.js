@@ -13,8 +13,9 @@
  *
  */
 angular.module('finqApp.service')
-    .service('storybookSearch', function () {
-        var books,
+    .service('storybookSearch', ['config', function (configProvider) {
+        var maxResults = configProvider.client().searchMaxResults,
+            books,
             searchList = {
                 global : {
                     scenarios: []
@@ -43,7 +44,10 @@ angular.module('finqApp.service')
             });
         };
 
-        this.initialize = function(storybooks) {
+        this.initialize = function(storybooks, forceReload) {
+            if (books !== undefined && !forceReload) {
+                return;
+            }
             books = storybooks;
             setupLists();
 
@@ -53,7 +57,7 @@ angular.module('finqApp.service')
                     return Bloodhound.tokenizers.whitespace(d.title);
                 },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
-                limit: 500,
+                limit: maxResults,
                 local: searchList.global.scenarios
             });
             searchList.global.engine.initialize();
@@ -64,7 +68,7 @@ angular.module('finqApp.service')
                         return Bloodhound.tokenizers.whitespace(d.title);
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    limit: 500,
+                    limit: maxResults,
                     local: searchList.books[book.id].scenarios
                 });
                 searchList.books[book.id].engine.initialize();
@@ -88,4 +92,4 @@ angular.module('finqApp.service')
             return ids;
         };
 
-    });
+    }]);

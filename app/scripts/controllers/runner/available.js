@@ -29,7 +29,6 @@ angular.module('finqApp.controller')
             set: null
         };
         this.filterActive = true;
-        this.storiesLoaded = false;
 
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{

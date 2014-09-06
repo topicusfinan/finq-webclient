@@ -114,6 +114,11 @@ div.layout {
         opacity: 0;
     }
 
+    &.ng-enter-stagger {
+        -webkit-transition-delay: .12s;
+        transition-delay: .12s;
+    }
+
 }
 
 .appear-delayed {

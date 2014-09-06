@@ -1,4 +1,5 @@
 {
     "address" : "",
-    "searchWait": 250
+    "searchWait": 250,
+    "searchMaxResults": 1000
 }
