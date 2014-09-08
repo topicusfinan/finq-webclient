@@ -23,7 +23,7 @@
  *     ]
  * }
  */
-angular.module('finqApp.directive').directive('filterSelect', ['$timeout','FILTER_SELECT_EVENTS', function ($timeout,FILTER_SELECT_EVENTS) {
+angular.module('finqApp.directive').directive('filterSelect', ['$timeout','EVENTS', function ($timeout,EVENTS) {
     return {
         scope: {
             options: '=filterSelect',
@@ -54,13 +54,11 @@ angular.module('finqApp.directive').directive('filterSelect', ['$timeout','FILTE
                 scope.options.active.key = key;
                 scope.options.active.value = value;
                 // emit the controller updated event immediately after loading to update the page information
-                scope.$emit(FILTER_SELECT_EVENTS.UPDATED,{
+                scope.$emit(EVENTS.FILTER_SELECT_UPDATED,{
                     id: scope.id,
                     key: key
                 });
             };
         }
     };
-}]).constant('FILTER_SELECT_EVENTS', {
-    'UPDATED' : 'finqApp.directives.filterSelect.updated'
-});
+}]);

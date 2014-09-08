@@ -1,11 +1,11 @@
 .top-filter {
-    @include ellipsis;
     cursor: pointer;
     min-height: $header-height;
     max-height: $header-height;
     padding: 0 $section-list-side-padding;
     background: $section-header-bg-color;
     color: $section-header-color;
+    white-space: nowrap;
 
     &.active {
         background: $base-accent-color;

@@ -15,10 +15,9 @@ angular.module('finqApp.controller')
         '$scope',
         'EVENTS',
         'MODULES',
-        'FILTER_SELECT_EVENTS',
         'story',
         'storybookSearch',
-        function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS,storyService,storybookSearchService) {
+        function ($scope,EVENTS,MODULES,storyService,storybookSearchService) {
         var that = this,
             expandedStories = {};
 
@@ -46,7 +45,7 @@ angular.module('finqApp.controller')
             storybookSearchService.initialize(bookList);
         });
 
-        $scope.$on(FILTER_SELECT_EVENTS.UPDATED,function(event,filterInfo) {
+        $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             that.filterKeys[filterInfo.id] = filterInfo.key;
         });
 
@@ -63,6 +62,8 @@ angular.module('finqApp.controller')
                 } else {
                     if (Object.keys(expandedStories).length) {
                         collapseBook();
+                        that.expand = null;
+                        return;
                     }
                 }
                 that.expand = expand;
@@ -96,7 +97,7 @@ angular.module('finqApp.controller')
         var collapseBook = function(bookId) {
             angular.forEach(that.storybooks,function(book) {
                 if (book.id === bookId || bookId === undefined) {
-                    delete expandedStories['book'+bookId];
+                    delete expandedStories['book'+book.id];
                     angular.forEach(book.stories,function(story) {
                         story.expand = false;
                     });

@@ -159,11 +159,7 @@ input.ng-invalid {
 }
 
 .top-filter {
-
-    &.active,
-    &:hover {
-        @include transition(background $animate-std-cubic .1s);
-    }
+    @include transition(background $animate-std-cubic .1s, opacity $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
 }
 
 .main-content-list {
