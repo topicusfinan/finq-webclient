@@ -22,9 +22,8 @@ angular.module('finqApp.service')
                 $translate.use(lang);
                 $translate.refresh();
                 deferred.resolve(data);
-            }).error(function(data,status) {
+            }).error(function() {
                 deferred.reject('Failed to load translations');
-                throw 'Error loading translations. Server responded with status '+status;
             }).finally(function() {
                 $timeout.cancel(translateNotice);
             });

@@ -51,7 +51,6 @@ angular.module('finqApp.service')
             setupLists();
 
             searchList.global.engine = new Bloodhound({
-                name: 'storybooks',
                 datumTokenizer: function(d) {
                     return Bloodhound.tokenizers.whitespace(d.title);
                 },
@@ -62,7 +61,6 @@ angular.module('finqApp.service')
             searchList.global.engine.initialize();
             angular.forEach(books, function(book) {
                 searchList.books[book.id].engine = new Bloodhound({
-                    name: 'storybook: '+book.title,
                     datumTokenizer: function(d) {
                         return Bloodhound.tokenizers.whitespace(d.title);
                     },

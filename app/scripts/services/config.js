@@ -26,13 +26,11 @@ angular.module('finqApp.service')
                 backend.get('/app/info').success(function (serverConfig) {
                     configData.server = serverConfig;
                     deferred.resolve(serverConfig);
-                }).error(function(serverConfig,status) {
+                }).error(function() {
                     deferred.reject('Failed to load server configuration');
-                    throw 'Error loading server configuration. Server responded with status '+status;
                 });
-            }).error(function(clientConfig,status) {
+            }).error(function() {
                 deferred.reject('Failed to load client configuration');
-                throw 'Error loading client configuration. Server responded with status '+status;
             }).finally(function() {
                 $timeout.cancel(configNotice);
             });

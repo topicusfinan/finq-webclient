@@ -6,6 +6,7 @@
 describe('Unit: Storybook Search Filter execution', function() {
 
     var storybookSearchFilter,
+        storybookSearchService,
         storybooks;
 
     beforeEach(function() {
@@ -17,6 +18,7 @@ describe('Unit: Storybook Search Filter execution', function() {
         });
     });
     beforeEach(inject(function (storyServiceMock,storybookSearch) {
+        storybookSearchService = storybookSearch;
         storybooks = storyServiceMock.books;
         storybookSearch.initialize(storybooks);
     }));
@@ -30,6 +32,18 @@ describe('Unit: Storybook Search Filter execution', function() {
         var filteredBooks = storybookSearchFilter(storybooks,'writes a new story');
         expect(filteredBooks.length).to.equal(1);
         expect(filteredBooks[0].title).to.equal(storybooks[1].title);
+    });
+
+    it('should prevent a second initialization if not forced', function () {
+        storybookSearchService.initialize([]);
+        var filteredBooks = storybookSearchFilter(storybooks,'writes a new story');
+        expect(filteredBooks.length).to.equal(1);
+    });
+
+    it('should allow a second initialization if forced', function () {
+        storybookSearchService.initialize([],true);
+        var filteredBooks = storybookSearchFilter(storybooks,'writes a new story');
+        expect(filteredBooks.length).to.equal(0);
     });
 
 });
