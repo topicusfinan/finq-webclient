@@ -1,19 +1,19 @@
 <div ng-include="'views/runner/filter.html'" include-replace></div>
 <ul class="main-content-list appear-delayed ng-hide" ng-show="available.storiesLoaded">
     <li class="ic cl list-animate" ng-animate="'animate'" ng-repeat="book in available.storybooks | storybookSearchFilter:app.searchQuery | storybookSetFilter:available.filterKeys.set | storybookTagFilter:available.filterKeys.tag">
-        <div>
-            <i class="fa fa-bars"></i>
+        <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
+            <i class="fa fa-bars" ng-click="available.toggleExpand('book',book.id)"></i>
             <span>{{ book.title }}</span>
         </div>
         <ul>
             <li class="ic cl" ng-repeat="story in book.stories | storySearchFilter:app.searchQuery:book.id | storySetFilter:available.filterKeys.set | storyTagFilter:available.filterKeys.tag">
-                <div>
+                <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.expandStory(book.id,story.id)">
                     <i class="fa fa-caret-right"></i>
                     <span>{{ story.title }}</span>
                 </div>
-                <ul>
+                <ul ng-class="{'expand':story.expand === true || available.expand === 'book'+book.id || available.expand === 'all'}">
                     <li class="ic cl" ng-repeat="scenario in story.scenarios">
-                        <div>
+                        <div ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
                             <span>{{ scenario.title }}</span>
                         </div>
                     </li>

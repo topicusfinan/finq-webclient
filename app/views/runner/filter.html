@@ -1,5 +1,5 @@
-<div class="top-filter ic appear-delayed ng-hide" ng-show="filter.loaded" ng-class="{true: 'active'}[available.filterActive]" ng-controller="AvailableFilterCtrl as filter">
-    <i class="fa fa-bars"></i>
+<div class="top-filter ic appear-delayed ng-hide" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
+    <i class="fa fa-bars" ng-click="available.toggleExpand('all')"></i>
     <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET"></span>
     <div class="select" filter-select="filter.sets" filter-id="available.setFilterId"></div>
     <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG"></span>

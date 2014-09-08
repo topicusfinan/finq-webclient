@@ -54,7 +54,7 @@ div.layout {
     }
 
     > aside {
-        @include transition(all cubic-bezier(0, 0, .2, 1) .5s);
+        @include transition(left cubic-bezier(0, 0, .2, 1) .5s);
         left: 0;
 
         &.ng-hide {
@@ -90,12 +90,12 @@ div.layout {
 .list-animate {
 
     &.ng-enter {
-        @include transition(all $animate-std-cubic .5s);
+        @include transition(opacity $animate-std-cubic .5s);
     }
 
     &.ng-leave,
     &.ng-move {
-        @include transition(all $animate-std-cubic .3s);
+        @include transition(opacity $animate-std-cubic .3s);
     }
 
     &.ng-leave,
@@ -123,7 +123,7 @@ div.layout {
 
 .appear-delayed {
 
-    @include transition(all $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
+    @include transition(opacity $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
     opacity: 1;
 
     &.ng-hide {
@@ -157,3 +157,28 @@ input.ng-invalid {
 .progress-bar .meter {
     @include transition(all linear .2s);
 }
+
+.top-filter {
+
+    &.active,
+    &:hover {
+        @include transition(background $animate-std-cubic .1s);
+    }
+}
+
+.main-content-list {
+
+    li.cl > div {
+        @include transition(background $animate-std-cubic .1s);
+    }
+
+    > li.cl > ul li.cl > ul {
+        height: auto;
+        max-height: 0;
+        @include transition(opacity $animate-std-cubic .4s, max-height linear .3s);
+        &.expand {
+            max-height: 500px;
+        }
+    }
+}
+

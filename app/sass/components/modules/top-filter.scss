@@ -1,4 +1,6 @@
 .top-filter {
+    @include ellipsis;
+    cursor: pointer;
     min-height: $header-height;
     max-height: $header-height;
     padding: 0 $section-list-side-padding;

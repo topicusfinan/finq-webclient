@@ -1,10 +1,17 @@
 .main-content-list {
 
     li.cl > div {
+        cursor: pointer;
         position: relative;
         padding: 0 $section-list-side-padding;
         color: $section-header-color;
         margin-top: $content-list-item-spacing;
+
+        &.active,
+        &:hover {
+            background: $base-accent-color;
+            color: $highlight-color;
+        }
 
         > i {
             color: $section-list-icon-color;
@@ -12,16 +19,12 @@
 
         > span,
         > div {
-            display: inline-block;
+            @include ellipsis;
         }
     }
 
     li.ic > div {
         padding-left: $section-list-icon-text-pad;
-    }
-
-    > li.cl:last-child {
-        border-bottom: $content-list-bg-color $content-list-item-spacing solid;
     }
 
     > li.cl {
@@ -34,6 +37,11 @@
             background: $content-list-item-1-bg-color;
             margin-top: 0;
 
+            &.active,
+            &:hover {
+                background: $base-accent-color;
+            }
+
             > i {
                 left: $section-list-icon-left * $content-list-item-1-icon-left;
                 top: $content-list-item-1-icon-top;
@@ -42,7 +50,7 @@
             }
 
             > span {
-                margin: (($content-list-item-1-height - $content-list-item-1-font-size) / 4.5) 0;
+                padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4.5) 0;
                 font-size: $content-list-item-1-font-size;
                 line-height: $content-list-item-1-font-size;
             }
@@ -58,6 +66,11 @@
                     max-height: $content-list-item-2-height;
                     background: $content-list-item-2-bg-color;
 
+                    &.active,
+                    &:hover {
+                        background: $base-accent-color;
+                    }
+
                     > i {
                         left: $section-list-icon-left * $content-list-item-2-icon-left;
                         top: $content-list-item-2-icon-top;
@@ -66,15 +79,31 @@
                     }
 
                     > span {
-                        margin: (($content-list-item-2-height - $content-list-item-2-font-size) / 3.5) 0;
+                        padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 3.5) 0;
                         font-size: $content-list-item-2-font-size;
                         line-height: $content-list-item-2-font-size;
                     }
                 }
 
-                > ul li.cl > div {
-                    background: $content-list-item-3-bg-color;
-                    margin-top: $content-list-item-3-spacing;
+                > ul {
+                    opacity: 0;
+                    height: 0;
+
+                    &.expand {
+                        opacity: 1;
+                        height: auto;
+                    }
+
+                    li.cl > div {
+                        background: $content-list-item-3-bg-color;
+                        padding-top: $content-list-item-3-spacing;
+                        margin-top: $content-list-item-spacing / 2;
+
+                        &.active,
+                        &:hover {
+                            background: $base-accent-color;
+                        }
+                    }
                 }
             }
         }

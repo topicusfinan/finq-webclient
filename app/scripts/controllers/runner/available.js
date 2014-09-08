@@ -19,7 +19,8 @@ angular.module('finqApp.controller')
         'story',
         'storybookSearch',
         function ($scope,EVENTS,MODULES,FILTER_SELECT_EVENTS,storyService,storybookSearchService) {
-        var that = this;
+        var that = this,
+            expandedStories = {};
 
         this.storybooks = [];
         this.setFilterId = 'set';
@@ -28,7 +29,9 @@ angular.module('finqApp.controller')
             tag: null,
             set: null
         };
-        this.filterActive = true;
+        this.selectedItem = null;
+        this.expand = null;
+        this.selectedScenarios = [];
 
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
@@ -46,5 +49,59 @@ angular.module('finqApp.controller')
         $scope.$on(FILTER_SELECT_EVENTS.UPDATED,function(event,filterInfo) {
             that.filterKeys[filterInfo.id] = filterInfo.key;
         });
+
+        this.toggleExpand = function(type,bookId) {
+            var expand = type === 'all' ? 'all' : type+bookId;
+            if (that.expand === expand) {
+                that.expand = null;
+            } else {
+                if (type === 'book') {
+                    if (expandedStories['book'+bookId]) {
+                        collapseBook(bookId);
+                        return;
+                    }
+                } else {
+                    if (Object.keys(expandedStories).length) {
+                        collapseBook();
+                    }
+                }
+                that.expand = expand;
+            }
+        };
+
+        this.expandStory = function(bookId,storyId) {
+            if (that.expand === 'all' || that.expand === 'book'+bookId) {
+                that.selectedItem = 'story'+storyId;
+                return;
+            }
+            that.selectedItem = 'story'+storyId;
+            var bookIndex,
+                storyIndex;
+            angular.forEach(that.storybooks,function(book, index) {
+                if (book.id === bookId) {
+                    bookIndex = index;
+                    angular.forEach(book.stories,function(story, index) {
+                        if (story.id === storyId) {
+                            storyIndex = index;
+                        }
+                    });
+                }
+            });
+            if (bookIndex !== undefined && storyIndex !== undefined) {
+                expandedStories['book'+bookId] = true;
+                that.storybooks[bookIndex].stories[storyIndex].expand = true;
+            }
+        };
+
+        var collapseBook = function(bookId) {
+            angular.forEach(that.storybooks,function(book) {
+                if (book.id === bookId || bookId === undefined) {
+                    delete expandedStories['book'+bookId];
+                    angular.forEach(book.stories,function(story) {
+                        story.expand = false;
+                    });
+                }
+            });
+        };
 
     }]);

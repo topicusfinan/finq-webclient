@@ -2,7 +2,7 @@
 
 ###A behavior based testing webclient
 
-The Finq Webclient allows a test to use a browser for enterprise testing. To finally get rid of the need to use complex tools for use-case testing to ensure that testing becomes fun, Finq introduces behavior based testing the webclient support. Tests will become self documenting, humanly readable, easy to manage and easy to write, by taking advantage of a [Behavior-driven development](http://en.wikipedia.org/wiki/Behavior-driven_development) and domain specific languages for test specification.
+The Finq Webclient allows a test to use a browser for enterprise testing. To finally get rid of the need to use complex tools for use-case testing to ensure that testing becomes fun, Finq introduces behavior based testing with webclient support. Tests will become self documenting, humanly readable, easy to manage and easy to write, by taking advantage of a [Behavior-driven development](http://en.wikipedia.org/wiki/Behavior-driven_development) and domain specific languages for test specification.
 
 Finq is currently a work in progress in the early stages of development.
 
