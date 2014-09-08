@@ -74,6 +74,13 @@ describe('Unit: AvailableCtrl initialization', function() {
     it('should expand a story on request', function () {
         AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
         expect(AvailableCtrl.storybooks[0].stories[0].expand).to.be.true;
+        expect(AvailableCtrl.selectedItem).to.equal('story'+storybooks[0].stories[0].id);
+    });
+
+    it('should activate a story on request without expanding it in case its parent is already expanded', function () {
+        AvailableCtrl.toggleExpand('book',storybooks[0].id);
+        AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
+        expect(AvailableCtrl.selectedItem).to.equal('story'+storybooks[0].stories[0].id);
     });
 
     it('should collapse all stories in a book on request when expanded separately and collapsed collectively', function () {

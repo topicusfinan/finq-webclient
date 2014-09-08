@@ -297,6 +297,9 @@ module.exports = function (grunt) {
 
     // Replace Google CDN references
     cdnify: {
+	  options: {
+        cdn: require('google-cdn-data')
+	  },
       dist: {
         html: ['<%= yeoman.dist %>/*.html']
       }
@@ -451,6 +454,7 @@ module.exports = function (grunt) {
   ]);
   
   grunt.loadNpmTasks('grunt-scss-lint');
+  grunt.loadNpmTasks('grunt-google-cdn');
   
   grunt.registerTask('default', ['scsslint']);
 
