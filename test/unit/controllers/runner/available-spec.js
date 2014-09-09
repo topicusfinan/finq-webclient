@@ -82,27 +82,4 @@ describe('Unit: AvailableCtrl initialization', function() {
         expect(AvailableCtrl.selectedItem).to.equal('story'+storybooks[0].stories[0].id);
     });
 
-    it('should collapse all stories in a book on request when expanded separately and collapsed collectively', function () {
-        AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
-        AvailableCtrl.toggleExpand('book',storybooks[0].id);
-        expect(scope.expand()).to.be.null;
-        expect(scope.storybooks()[0].stories[0].expand).to.be.false;
-    });
-
-    it('should keep an other book expanded in case a book is collectively collapsed when it was expanded separately', function () {
-        AvailableCtrl.toggleExpand('book',storybooks[1].id);
-        AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
-        AvailableCtrl.toggleExpand('book',storybooks[0].id);
-        expect(scope.expand()).to.equal('book'+storybooks[1].id);
-        expect(scope.storybooks()[0].stories[0].expand).to.be.false;
-    });
-
-    it('should collapse all stories in case they were expanded separately but all books are collapsed collectively', function () {
-        AvailableCtrl.toggleExpand('book',storybooks[1].id);
-        AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
-        AvailableCtrl.toggleExpand('all');
-        expect(scope.expand()).to.equal(null);
-        expect(scope.storybooks()[0].stories[0].expand).to.be.false;
-    });
-
 });
