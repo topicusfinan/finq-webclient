@@ -17,11 +17,10 @@ angular.module('finqApp.controller')
         'MODULES',
         'story',
         'storybookSearch',
-        function ($scope,EVENTS,MODULES,storyService,storybookSearchService) {
-        var that = this,
-            expandedStories = {};
+        'storyCollapse',
+        function ($scope,EVENTS,MODULES,storyService,storybookSearchService,storyCollapseService) {
+        var that = this;
 
-        this.storybooks = [];
         this.setFilterId = 'set';
         this.tagFilterId = 'tag';
         this.filterKeys = {
@@ -29,8 +28,9 @@ angular.module('finqApp.controller')
             set: null
         };
         this.selectedItem = null;
-        this.expand = null;
-        this.selectedScenarios = [];
+
+        $scope.storybooks = storyCollapseService.getBooks;
+        $scope.expand = storyCollapseService.getExpand;
 
         // emit the controller updated event immediately after loading to update the page information
         $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
@@ -40,9 +40,9 @@ angular.module('finqApp.controller')
         });
 
         storyService.list().then(function(bookList) {
-            that.storybooks = bookList;
             that.storiesLoaded = true;
             storybookSearchService.initialize(bookList);
+            storyCollapseService.initialize(bookList);
         });
 
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
@@ -50,24 +50,7 @@ angular.module('finqApp.controller')
         });
 
         this.toggleExpand = function(type,bookId) {
-            var expand = type === 'all' ? 'all' : type+bookId;
-            if (that.expand === expand) {
-                that.expand = null;
-            } else {
-                if (type === 'book') {
-                    if (expandedStories['book'+bookId]) {
-                        collapseBook(bookId);
-                        return;
-                    }
-                } else {
-                    if (Object.keys(expandedStories).length) {
-                        collapseBook();
-                        that.expand = null;
-                        return;
-                    }
-                }
-                that.expand = expand;
-            }
+            storyCollapseService.toggleExpand(type,bookId);
         };
 
         this.expandStory = function(bookId,storyId) {
@@ -76,33 +59,7 @@ angular.module('finqApp.controller')
                 return;
             }
             that.selectedItem = 'story'+storyId;
-            var bookIndex,
-                storyIndex;
-            angular.forEach(that.storybooks,function(book, index) {
-                if (book.id === bookId) {
-                    bookIndex = index;
-                    angular.forEach(book.stories,function(story, index) {
-                        if (story.id === storyId) {
-                            storyIndex = index;
-                        }
-                    });
-                }
-            });
-            if (bookIndex !== undefined && storyIndex !== undefined) {
-                expandedStories['book'+bookId] = true;
-                that.storybooks[bookIndex].stories[storyIndex].expand = true;
-            }
-        };
-
-        var collapseBook = function(bookId) {
-            angular.forEach(that.storybooks,function(book) {
-                if (book.id === bookId || bookId === undefined) {
-                    delete expandedStories['book'+book.id];
-                    angular.forEach(book.stories,function(story) {
-                        story.expand = false;
-                    });
-                }
-            });
+            storyCollapseService.expandStory(bookId,storyId);
         };
 
     }]);
