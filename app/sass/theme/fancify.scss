@@ -172,8 +172,13 @@ input.ng-invalid {
         height: auto;
         max-height: 0;
         @include transition(opacity $animate-std-cubic .4s, max-height linear .3s);
+
         &.expand {
             max-height: 500px;
+        }
+
+        li.cl > div {
+            @include transition(opacity linear .2s, margin-top linear .2s .1s);
         }
     }
 }

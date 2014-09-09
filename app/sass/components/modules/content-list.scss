@@ -92,12 +92,16 @@
                     &.expand {
                         opacity: 1;
                         height: auto;
+
+                        li.cl > div {
+                            margin-top: $content-list-item-spacing / 2;
+                        }
                     }
 
                     li.cl > div {
                         background: $content-list-item-3-bg-color;
                         padding-top: $content-list-item-3-spacing;
-                        margin-top: $content-list-item-spacing / 2;
+                        margin-top: 0;
 
                         &.active,
                         &:hover {
