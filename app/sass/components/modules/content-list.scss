@@ -86,22 +86,19 @@
                 }
 
                 > ul {
-                    opacity: 0;
+                    opacity: .5;
                     height: 0;
+                    overflow-y: hidden;
 
                     &.expand {
                         opacity: 1;
                         height: auto;
-
-                        li.cl > div {
-                            margin-top: $content-list-item-spacing / 2;
-                        }
                     }
 
                     li.cl > div {
                         background: $content-list-item-3-bg-color;
                         padding-top: $content-list-item-3-spacing;
-                        margin-top: 0;
+                        margin-top: $content-list-item-spacing / 2;
 
                         &.active,
                         &:hover {

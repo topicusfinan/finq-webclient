@@ -1,8 +1,8 @@
 #[Finq Webclient](http://finq.io) [![Build Status](https://travis-ci.org/topicusfinan/finq-webclient.svg?branch=master)](https://travis-ci.org/topicusfinan/finq-webclient) [![Coverage Status](https://img.shields.io/coveralls/topicusfinan/finq-webclient.svg)](https://coveralls.io/r/topicusfinan/finq-webclient?branch=master) [![Code Climate](https://codeclimate.com/github/topicusfinan/finq-webclient/badges/gpa.svg)](https://codeclimate.com/github/topicusfinan/finq-webclient)
 
-###A behavior based testing webclient
+###A behavior-driven testing webclient
 
-The Finq Webclient allows a test to use a browser for enterprise testing. To finally get rid of the need to use complex tools for use-case testing to ensure that testing becomes fun, Finq introduces behavior based testing with webclient support. Tests will become self documenting, humanly readable, easy to manage and easy to write, by taking advantage of a [Behavior-driven development](http://en.wikipedia.org/wiki/Behavior-driven_development) and domain specific languages for test specification.
+The Finq Webclient allows a tester to use a browser for enterprise testing. To finally get rid of the need to use complex tools for use-case testing, and to ensure that testing becomes fun, Finq introduces behavior based testing with webclient support. Tests will become self documenting, humanly readable, easy to manage and easy to write, by taking advantage of a combination of behavior-driven development ([BDD](http://en.wikipedia.org/wiki/Behavior-driven_development)), test driven development ([TDD](http://en.wikipedia.org/wiki/Test-driven_development)) and domain-specific languages ([DSL](http://en.wikipedia.org/wiki/Domain-specific_language)) for test specification.
 
 Finq is currently a work in progress in the early stages of development.
 

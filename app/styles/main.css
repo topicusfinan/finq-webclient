@@ -616,17 +616,16 @@ div.layout {
         font-size: 1.2em;
         line-height: 1.2em; }
     .main-content-list > li.cl > ul li.cl > ul {
-      opacity: 0;
-      height: 0; }
+      opacity: .5;
+      height: 0;
+      overflow-y: hidden; }
       .main-content-list > li.cl > ul li.cl > ul.expand {
         opacity: 1;
         height: auto; }
-        .main-content-list > li.cl > ul li.cl > ul.expand li.cl > div {
-          margin-top: 1px; }
       .main-content-list > li.cl > ul li.cl > ul li.cl > div {
         background: #f7f7f7;
         padding-top: 1px;
-        margin-top: 0; }
+        margin-top: 1px; }
         .main-content-list > li.cl > ul li.cl > ul li.cl > div.active, .main-content-list > li.cl > ul li.cl > ul li.cl > div:hover {
           background: #049cdb; }
 
@@ -829,8 +828,4 @@ input.ng-invalid {
   -moz-transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, max-height linear 0.3s;
   transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, max-height linear 0.3s; }
   .main-content-list > li.cl > ul li.cl > ul.expand {
-    max-height: 500px; }
-  .main-content-list > li.cl > ul li.cl > ul li.cl > div {
-    -webkit-transition: opacity linear 0.2s, margin-top linear 0.2s 0.1s;
-    -moz-transition: opacity linear 0.2s, margin-top linear 0.2s 0.1s;
-    transition: opacity linear 0.2s, margin-top linear 0.2s 0.1s; }
+    max-height: 1000px; }
