@@ -577,42 +577,40 @@ div.layout {
     text-overflow: ellipsis; }
 .main-content-list li.ic > div {
   padding-left: 3.51563em; }
+.main-content-list li.cl > div {
+  min-height: 2.61792em;
+  max-height: 2.61792em; }
+  .main-content-list li.cl > div > i {
+    top: 0.25em;
+    position: absolute; }
 .main-content-list > li.cl {
   border-top: #f7f7f7 2px solid;
   background: #f7f7f7; }
   .main-content-list > li.cl > div {
-    min-height: 2.61792em;
-    max-height: 2.61792em;
     background: #d0d0d0;
     margin-top: 0; }
     .main-content-list > li.cl > div.active, .main-content-list > li.cl > div:hover {
       background: #049cdb; }
     .main-content-list > li.cl > div > i {
       left: 0.66667em;
-      top: 0.25em;
-      font-size: 1.778em;
-      position: absolute; }
+      font-size: 1.778em; }
     .main-content-list > li.cl > div > span {
-      padding: 0.28554em 0;
       font-size: 1.333em;
-      line-height: 1.333em; }
+      line-height: 1.333em;
+      padding: 0.28554em 0; }
   .main-content-list > li.cl > ul li.cl {
     background: #d0d0d0; }
     .main-content-list > li.cl > ul li.cl > div {
-      min-height: 2.25em;
-      max-height: 2.25em;
       background: #eaeaea; }
       .main-content-list > li.cl > ul li.cl > div.active, .main-content-list > li.cl > ul li.cl > div:hover {
         background: #049cdb; }
       .main-content-list > li.cl > ul li.cl > div > i {
         left: 0.93333em;
-        top: 0.15em;
-        font-size: 1.778em;
-        position: absolute; }
+        font-size: 1.778em; }
       .main-content-list > li.cl > ul li.cl > div > span {
-        padding: 0.3em 0;
         font-size: 1.2em;
-        line-height: 1.2em; }
+        line-height: 1.2em;
+        padding: 0.47264em 0; }
     .main-content-list > li.cl > ul li.cl > ul {
       opacity: .5;
       height: 0;
@@ -626,6 +624,8 @@ div.layout {
         margin-top: 1px; }
         .main-content-list > li.cl > ul li.cl > ul li.cl > div.active, .main-content-list > li.cl > ul li.cl > ul li.cl > div:hover {
           background: #049cdb; }
+      .main-content-list > li.cl > ul li.cl > ul li.cl:first-child > div {
+        margin-top: 0; }
 
 .select {
   position: relative; }
