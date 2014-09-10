@@ -10,6 +10,10 @@
     &.active {
         background: $base-accent-color;
         color: $highlight-color;
+
+        button {
+            background: $filter-list-hl-button-bg-color;
+        }
     }
 
     &.ic {
@@ -36,6 +40,7 @@
     }
 
     button {
+        background: $filter-list-button-bg-color;
         font-size: $section-header-font-size - .1;
         margin-top: (.1 - $filter-button-padding) / 2;
 

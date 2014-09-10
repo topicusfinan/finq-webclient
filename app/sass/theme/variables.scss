@@ -86,7 +86,8 @@ $filter-list-border-color:        lighten($gray, 10%);
 $filter-list-border:              $filter-list-border-color $filter-list-border-width solid;
 $filter-list-color:               lighten($dark-gray, 20%);
 $filter-list-bg-color:            #fff;
-$filter-list-highlight-bg-color:  darken($filter-list-bg-color, 5%);
+$filter-list-hl-bg-color:         darken($filter-list-bg-color, 5%);
+$filter-list-hl-button-bg-color:  $highlight-color;
 
 // content list formatting and colors
 $content-list-item-spacing:       2px;

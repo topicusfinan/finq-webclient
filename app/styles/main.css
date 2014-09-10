@@ -534,6 +534,8 @@ div.layout {
   .top-filter.active {
     background: #049cdb;
     color: #fff; }
+    .top-filter.active button {
+      background: #fff; }
   .top-filter.ic {
     padding-left: 3.51563em; }
   .top-filter > span,
@@ -550,6 +552,7 @@ div.layout {
     font-size: 1.5em;
     line-height: 1.5em; }
   .top-filter button {
+    background: #e6e6e6;
     font-size: 1.4em;
     margin-top: -0.2em; }
     .top-filter button span {
@@ -627,7 +630,6 @@ div.layout {
 .select {
   position: relative; }
   .select button {
-    background: #e6e6e6;
     max-width: 14em;
     min-width: 0;
     text-align: left;

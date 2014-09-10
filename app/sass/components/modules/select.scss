@@ -2,7 +2,6 @@
     position: relative;
 
     button {
-        background: $filter-list-button-bg-color;
         max-width: $filter-list-button-max-width;
         min-width: 0;
         text-align: left;
@@ -60,7 +59,7 @@
             }
 
             &:hover {
-                background: $filter-list-highlight-bg-color;
+                background: $filter-list-hl-bg-color;
                 cursor: pointer;
             }
 
