@@ -8,6 +8,7 @@
         margin-left: $select-list-button-margin;
         margin-right: $select-list-button-margin;
         border: $select-list-button-border;
+        position: relative;
 
         &.active {
             min-width: $select-list-button-min-width;
@@ -15,14 +16,15 @@
 
         i {
             position: absolute;
-            right: $select-list-button-padding * 2;
-            top: 20%;
+            right: $select-list-button-padding * 1.5;
+            top: 25%;
             margin-left: $select-list-button-padding;
             color: $section-header-color;
         }
 
         span {
             @include ellipsis;
+            margin-right: $select-list-button-padding * 3;
         }
     }
 

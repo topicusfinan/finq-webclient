@@ -2,6 +2,8 @@
 $full-menu-min-size-bp:           new-breakpoint(max-width 67em);
 $full-menu-min-size:              14em;
 
+$full-filter-size-bp:             new-breakpoint(max-width 82em);
+
 @include media($full-menu-min-size-bp) {
     div.layout {
 
@@ -15,6 +17,23 @@ $full-menu-min-size:              14em;
 
         > .main {
             margin-left: $full-menu-min-size;
+        }
+    }
+}
+
+@include media($full-filter-size-bp) {
+    .top-filter {
+        min-width: 55em;
+
+        .filters {
+            > i {
+                display: inline-block;
+            }
+
+            > span {
+                width: 0;
+                opacity: 0;
+            }
         }
     }
 }

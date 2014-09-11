@@ -77,7 +77,8 @@ $section-list-icon-text-pad:            modular-scale($section-list-icon-left, 3
 $filter-button-padding:                 .5em;
 $filter-button-border:                  none;
 $filter-button-bg-color:                $dark-gray;
-$filter-button-bg-color-hov:            darken($dark-gray,10%);
+$filter-button-bg-color-hov:            darken($dark-gray, 10%);
+$filter-button-margin-top:              .35em;
 
 // filter select list formatting and colors
 $select-list-border-width:              .1em;

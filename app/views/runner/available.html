@@ -1,8 +1,10 @@
 <div class="top-filter ic appear-delayed ng-hide" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
     <i class="fa fa-bars" ng-click="available.toggleExpand('all')"></i>
     <div class="filters">
+        <i class="fa fa-folder-open-o"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET"></span>
         <div class="select" filter-select="filter.sets" filter-id="available.setFilterId"></div>
+        <i class="fa fa-tag"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG"></span>
         <div class="select" filter-select="filter.tags" filter-id="available.tagFilterId"></div>
     </div>
