@@ -1,112 +1,120 @@
 // Accent Colors
-$blue:                            #049cdb;
-$dark-blue:                       #0064cd;
-$green:                           #87b848;
-$lime:                            #beca68;
-$red:                             #a52b1f;
-$yellow:                          #ffc40d;
-$orange:                          #f90;
-$dark-orange:		              #ae4901;
-$pink:                            #c3325f;
-$purple:                          #7a43b6;
-$gray:                            darken($light-gray, 20%);
+$blue:                                  #049cdb;
+$dark-blue:                             #0064cd;
+$green:                                 #87b848;
+$lime:                                  #beca68;
+$red:                                   #a52b1f;
+$yellow:                                #ffc40d;
+$orange:                                #f90;
+$dark-orange:		                    #ae4901;
+$pink:                                  #c3325f;
+$purple:                                #7a43b6;
+$gray:                                  darken($light-gray, 20%);
 
-$base-accent-color:               $blue;
-$error-color:                     lighten($red, 15%);
-$notice-color:                    $yellow;
+$base-accent-color:                     $blue;
+$error-color:                           lighten($red, 15%);
+$notice-color:                          $yellow;
 
 // body colors
-$body-bg-color:                   darken(#fff, 10%);
-$body-color:                      $dark-gray;
+$body-bg-color:                         darken(#fff, 10%);
+$body-color:                            $dark-gray;
 
 // layout colors
-$header-bg-color:                 darken($dark-gray, 10%);
-$header-title-bg-color:           darken($dark-gray, 5%);
-$header-title-color:              $light-gray;
-$header-search-ico-color:         lighten($dark-gray, 20%);
+$header-bg-color:                       darken($dark-gray, 10%);
+$header-title-bg-color:                 darken($dark-gray, 5%);
+$header-title-color:                    $light-gray;
+$header-search-ico-color:               lighten($dark-gray, 20%);
 
-$layout-active-comp-bg-color:     #000;
-$layout-side-bg-color:            lighten($dark-gray, 5%);
-$layout-side-bg-hover-color:      lighten($dark-gray, 20%);
-$layout-side-color:               $gray;
-$layout-side-header-bg-color:     darken($dark-gray, 5%);
-$layout-side-header-color:        lighten($dark-gray, 20%);
+$layout-active-comp-bg-color:           #000;
+$layout-side-bg-color:                  lighten($dark-gray, 5%);
+$layout-side-bg-hover-color:            lighten($dark-gray, 20%);
+$layout-side-color:                     $gray;
+$layout-side-header-bg-color:           darken($dark-gray, 5%);
+$layout-side-header-color:              lighten($dark-gray, 20%);
 
-$highlight-color:                 #fff;
+$highlight-color:                       #fff;
+
+$base-button-color:                     $light-gray;
+$base-button-border-color:              $gray;
 
 // layout formatting
-$header-height:                   modular-scale($base-font-size, 2, $octave);
-$layout-columns:                  24;
-$layout-menu-col:                 5;
-$layout-main-col-w:               19;
-$layout-main-col-r:               13;
-$layout-details-col:              6;
+$header-height:                         modular-scale($base-font-size, 2, $octave);
+$layout-columns:                        24;
+$layout-menu-col:                       5;
+$layout-main-col-w:                     19;
+$layout-main-col-r:                     13;
+$layout-details-col:                    6;
 
-$header-title-size:               modular-scale($base-font-size, 1, $octave);
-$layout-menu-size:                modular-scale($base-font-size, 1, $minor-third);
-$layout-menu-header-size:         modular-scale($base-font-size, 1, $octave);
+$header-title-size:                     modular-scale($base-font-size, 1, $octave);
+$layout-menu-size:                      modular-scale($base-font-size, 1, $minor-third);
+$layout-menu-header-size:               modular-scale($base-font-size, 1, $octave);
 
 // login formatting
-$login-font-size:                 modular-scale($base-font-size, 1, $perfect-fifth);
-$login-title-font-size:           modular-scale($base-font-size, 2, $octave);
-$login-subtitle-font-size:        modular-scale($base-font-size, 1, $major-tenth);
+$login-font-size:                       modular-scale($base-font-size, 1, $perfect-fifth);
+$login-title-font-size:                 modular-scale($base-font-size, 2, $octave);
+$login-subtitle-font-size:              modular-scale($base-font-size, 1, $major-tenth);
 
 // loader formatting
-$loader-font-size:                modular-scale($base-font-size, 1, $perfect-fifth);
+$loader-font-size:                      modular-scale($base-font-size, 1, $perfect-fifth);
 
 // fonts
-$header-font-weight:              normal;
+$header-font-weight:                    normal;
 
 // section colors
-$section-header-bg-color:         lighten($gray, 10%);
-$section-header-color:            darken($dark-gray, 5%);
-$section-list-icon-color:         lighten($dark-gray, 5%);
+$section-header-bg-color:               lighten($gray, 10%);
+$section-header-color:                  darken($dark-gray, 5%);
+$section-list-icon-color:               lighten($dark-gray, 5%);
 
 // section formatting
-$section-header-font-size:        modular-scale($base-font-size, 1, $perfect-fifth);
-$section-header-icon-top:         .5em;
-$section-header-icon-size:        modular-scale($base-font-size, 1, $octave);
-$section-list-side-padding:       1em;
-$section-list-icon-left:          $header-height / $section-header-font-size / 5 * 1em;
-$section-list-icon-text-pad:      modular-scale($section-list-icon-left, 3, $major-seventh);
+$section-header-font-size:              modular-scale($base-font-size, 1, $perfect-fifth);
+$section-header-icon-top:               .5em;
+$section-header-icon-size:              modular-scale($base-font-size, 1, $octave);
+$section-list-side-padding:             1em;
+$section-list-icon-left:                $header-height / $section-header-font-size / 5 * 1em;
+$section-list-icon-text-pad:            modular-scale($section-list-icon-left, 3, $major-seventh);
 
 // filter buttons
-$filter-button-padding:           .5em;
-$filter-button-border:            none;
+$filter-button-padding:                 .5em;
+$filter-button-border:                  none;
+$filter-button-bg-color:                $dark-gray;
+$filter-button-bg-color-hov:            darken($dark-gray,10%);
 
 // filter select list formatting and colors
-$filter-list-border-width:        .1em;
-$filter-list-font-size:           1.1em;
-$filter-list-button-max-width:    14em;
-$filter-list-button-min-width:    10em;
-$filter-list-button-bg-color:     $body-bg-color;
-$filter-list-button-margin:       .3em;
-$filter-list-max-height:          12em;
-$filter-list-border-color:        lighten($gray, 10%);
-$filter-list-border:              $filter-list-border-color $filter-list-border-width solid;
-$filter-list-color:               lighten($dark-gray, 20%);
-$filter-list-bg-color:            #fff;
-$filter-list-hl-bg-color:         darken($filter-list-bg-color, 5%);
-$filter-list-hl-button-bg-color:  $highlight-color;
+$select-list-border-width:              .1em;
+$select-list-font-size:                 1.1em;
+$select-list-button-max-width:          14em;
+$select-list-button-min-width:          10em;
+$select-list-button-bg-color:           none;
+$select-list-button-margin:             .3em;
+$select-list-max-height:                12em;
+$select-list-border-color:              lighten($gray, 10%);
+$select-list-border:                    $select-list-border-color $select-list-border-width solid;
+$select-list-color:                     lighten($dark-gray, 20%);
+$select-list-bg-color:                  $highlight-color;
+$select-list-button-padding:            .4em;
+$select-list-button-border:             lighten($dark-gray, 20%) .1em solid;
+$select-list-button-bg-color:           $base-button-color;
+$select-list-hl-bg-color:               darken($select-list-bg-color, 5%);
+$select-list-hl-button-border:          $highlight-color .1em solid;
+$select-list-hl-button-bg-color:        none;
 
 // content list formatting and colors
-$content-list-item-spacing:       2px;
-$content-list-item-1-height:      modular-scale($base-font-size, 2, $golden);
-$content-list-item-1-bg-color:    lighten($section-header-bg-color, 5%);
-$content-list-item-1-font-size:   modular-scale($base-font-size, 1, $perfect-fourth);
-$content-list-item-1-icon-size:   modular-scale($base-font-size, 1, $minor-seventh);
-$content-list-item-1-icon-top:    .25em;
-$content-list-item-1-icon-left:   1.25;
+$content-list-item-spacing:             2px;
+$content-list-item-1-height:            modular-scale($base-font-size, 2, $golden);
+$content-list-item-1-bg-color:          lighten($section-header-bg-color, 5%);
+$content-list-item-1-font-size:         modular-scale($base-font-size, 1, $perfect-fourth);
+$content-list-item-1-icon-size:         modular-scale($base-font-size, 1, $minor-seventh);
+$content-list-item-1-icon-top:          .25em;
+$content-list-item-1-icon-left:         1.25;
 
-$content-list-item-2-height:      modular-scale($base-font-size, 2, $perfect-fifth);
-$content-list-item-2-bg-color:    lighten($section-header-bg-color, 15%);
-$content-list-bg-color:           lighten($section-header-bg-color, 20%);
-$content-list-item-2-font-size:   modular-scale($base-font-size, 1, $minor-third);
-$content-list-item-2-icon-size:   modular-scale($base-font-size, 1, $minor-seventh);
-$content-list-item-2-icon-top:    .15em;
-$content-list-item-2-icon-left:   1.75;
+$content-list-item-2-height:            modular-scale($base-font-size, 2, $perfect-fifth);
+$content-list-item-2-bg-color:          lighten($section-header-bg-color, 15%);
+$content-list-bg-color:                 lighten($section-header-bg-color, 20%);
+$content-list-item-2-font-size:         modular-scale($base-font-size, 1, $minor-third);
+$content-list-item-2-icon-size:         modular-scale($base-font-size, 1, $minor-seventh);
+$content-list-item-2-icon-top:          .15em;
+$content-list-item-2-icon-left:         1.75;
 
-$content-list-item-3-spacing:     1px;
-$content-list-item-3-bg-color:    lighten($section-header-bg-color, 20%);
-$content-list-3-bg-color:         $content-list-item-1-bg-color;
-$content-list-3-bottom-space:     5px;
+$content-list-item-3-spacing:           1px;
+$content-list-item-3-bg-color:          lighten($section-header-bg-color, 20%);
+$content-list-3-bg-color:               $content-list-item-1-bg-color;

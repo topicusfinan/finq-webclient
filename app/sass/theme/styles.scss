@@ -50,6 +50,16 @@ input.ng-invalid {
 
     .select-dropdown {
         border-radius: .3em;
-        @include css-triangle(.5em, $filter-list-border-width, $filter-list-border-color, top, $filter-list-bg-color);
+        @include css-triangle(.5em, $select-list-border-width, $select-list-border-color, top, $select-list-bg-color);
+    }
+}
+
+button {
+    background-color: $base-accent-color;
+    color: $highlight-color;
+
+    &:hover {
+        background-color: darken($base-accent-color, 10%);
+        color: darken($highlight-color, 10%);
     }
 }

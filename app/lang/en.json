@@ -28,7 +28,9 @@
             "TITLE" : "Available scenarios",
             "FILTER" : {
                 "BEFORE_SET": "Stories in",
-                "BEFORE_TAG": "tagged with"
+                "BEFORE_TAG": "tagged with",
+                "RUN_ALL": "Run all",
+                "BEFORE_ENVIRONMENT": "on"
             }
         },
         "RUNNING" : {
@@ -58,10 +60,13 @@
     },
     "FILTERS" : {
         "SETS" : {
-            "DEFAULT_VALUE" : "All sets"
+            "DEFAULT_VALUE" : "all sets"
         },
         "TAGS" : {
             "DEFAULT_VALUE" : "any tag"
+        },
+        "ENVIRONMENTS" : {
+            "DEFAULT_VALUE" : "environment"
         }
     }
 }

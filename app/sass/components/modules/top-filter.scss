@@ -11,8 +11,13 @@
         background: $base-accent-color;
         color: $highlight-color;
 
-        button {
-            background: $filter-list-hl-button-bg-color;
+        .select button {
+            background: $select-list-hl-button-bg-color;
+            border: $select-list-hl-button-border;
+
+            span {
+                color: $highlight-color;
+            }
         }
     }
 
@@ -20,8 +25,16 @@
         padding-left: $section-list-icon-text-pad;
     }
 
-    > span,
-    > div {
+    > .filters {
+        float: left;
+    }
+
+    > .actions {
+        float: right;
+    }
+
+    > div > span,
+    > div > div {
         display: inline-block;
     }
 
@@ -33,19 +46,37 @@
         color: $section-list-icon-color;
     }
 
-    > span {
+    > div > span {
         margin: (($header-height - $section-header-font-size) / 4.5) 0;
         font-size: $section-header-font-size;
         line-height: $section-header-font-size;
     }
 
-    button {
-        background: $filter-list-button-bg-color;
+    > div .select button {
+        background: $select-list-button-bg-color;
         font-size: $section-header-font-size - .1;
-        margin-top: (.1 - $filter-button-padding) / 2;
+        margin-top: -$filter-button-padding / 2;
+        padding: ($filter-button-padding / 2) $filter-button-padding;
 
         span {
             color: $base-accent-color;
+            margin-right: $filter-button-padding * 3;
+        }
+    }
+
+    > div button {
+        background: $filter-button-bg-color;
+        border: $filter-button-border;
+        margin-top: -$filter-button-padding / 2;
+        font-size: $section-header-font-size - .1;
+        padding: ($filter-button-padding / 2) $filter-button-padding * 2;
+
+        &:hover {
+            background: $filter-button-bg-color-hov;
+        }
+
+        span {
+            line-height: 1 + $filter-button-padding;
         }
     }
 }

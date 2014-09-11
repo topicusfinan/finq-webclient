@@ -22,7 +22,7 @@ describe('Unit: MenuCtrl initialization', function() {
     });
 
     it('should initially have an empty sections list', function () {
-        expect(MenuCtrl.sections.length).to.equal(0);
+        expect(MenuCtrl.sections).to.be.empty;
     });
 
     it('should initially set the active module to an empty string', function () {

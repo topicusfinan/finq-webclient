@@ -1,9 +1,19 @@
 <div class="top-filter ic appear-delayed ng-hide" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
     <i class="fa fa-bars" ng-click="available.toggleExpand('all')"></i>
-    <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET"></span>
-    <div class="select" filter-select="filter.sets" filter-id="available.setFilterId"></div>
-    <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG"></span>
-    <div class="select" filter-select="filter.tags" filter-id="available.tagFilterId"></div>
+    <div class="filters">
+        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET"></span>
+        <div class="select" filter-select="filter.sets" filter-id="available.setFilterId"></div>
+        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG"></span>
+        <div class="select" filter-select="filter.tags" filter-id="available.tagFilterId"></div>
+    </div>
+    <div class="actions">
+        <button>
+            <i class="fa fa-play"></i>
+            <span translate="RUNNER.AVAILABLE.FILTER.RUN_ALL"></span>
+        </button>
+        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
+        <div class="select" filter-select="filter.environments" filter-id="available.environmentFilterId"></div>
+    </div>
 </div>
 <ul class="main-content-list appear-delayed ng-hide" ng-show="available.storiesLoaded">
     <li class="ic cl list-animate" ng-animate="'animate'" ng-repeat="book in storybooks() | storybookSearchFilter:app.searchQuery | storybookSetFilter:available.filterKeys.set | storybookTagFilter:available.filterKeys.tag">

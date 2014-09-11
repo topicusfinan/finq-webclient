@@ -23,6 +23,7 @@ angular.module('finqApp.controller')
 
         this.setFilterId = 'set';
         this.tagFilterId = 'tag';
+        this.environmentFilterId = 'env';
         this.filterKeys = {
             tag: null,
             set: null

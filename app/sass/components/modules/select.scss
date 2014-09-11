@@ -2,50 +2,46 @@
     position: relative;
 
     button {
-        max-width: $filter-list-button-max-width;
+        max-width: $select-list-button-max-width;
         min-width: 0;
         text-align: left;
-        margin-left: $filter-list-button-margin;
-        margin-right: $filter-list-button-margin;
+        margin-left: $select-list-button-margin;
+        margin-right: $select-list-button-margin;
+        border: $select-list-button-border;
 
         &.active {
-            min-width: $filter-list-button-min-width;
+            min-width: $select-list-button-min-width;
         }
-
-        border: $filter-button-border;
-        padding: ($filter-button-padding / 2) $filter-button-padding;
 
         i {
             position: absolute;
-            right: $filter-button-padding * 2;
-            top: 25%;
-            margin-left: $filter-button-padding;
+            right: $select-list-button-padding * 2;
+            top: 20%;
+            margin-left: $select-list-button-padding;
             color: $section-header-color;
         }
 
         span {
             @include ellipsis;
-            margin-right: $filter-button-padding * 3;
-            line-height: 1 + $filter-button-padding;
         }
     }
 
     .select-dropdown {
         position: absolute;
         text-align: left;
-        color: $filter-list-color;
+        color: $select-list-color;
         font-weight: normal;
-        font-size: $filter-list-font-size;
+        font-size: $select-list-font-size;
         left: 0;
-        top: 2.5em / $filter-list-font-size + $filter-button-padding;
-        background: $filter-list-bg-color;
+        top: 2.5em / $select-list-font-size + $select-list-button-padding;
+        background: $select-list-bg-color;
         width: 100%;
-        padding: $filter-button-padding 0;
-        border: $filter-list-border;
+        padding: $select-list-button-padding 0;
+        border: $select-list-border;
         z-index: 2;
 
         ul {
-            max-height: $filter-list-max-height;
+            max-height: $select-list-max-height;
             overflow-y: auto;
         }
 
@@ -59,7 +55,7 @@
             }
 
             &:hover {
-                background: $filter-list-hl-bg-color;
+                background: $select-list-hl-bg-color;
                 cursor: pointer;
             }
 
@@ -70,7 +66,7 @@
                     @extend %icon;
                     line-height: inherit;
                     content: '\f00c';
-                    color: $filter-list-color;
+                    color: $select-list-color;
                     float: right;
                 }
             }
