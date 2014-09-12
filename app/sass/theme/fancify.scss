@@ -160,6 +160,10 @@ input.ng-invalid {
 
 .top-filter {
     @include transition(background $animate-std-cubic .1s, opacity $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
+
+    .actions {
+        @include transition(opacity linear .2s, width linear 0s .2s);
+    }
 }
 
 .main-content-list {

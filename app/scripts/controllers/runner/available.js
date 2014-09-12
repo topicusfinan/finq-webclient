@@ -21,12 +21,25 @@ angular.module('finqApp.controller')
         function ($scope,EVENTS,MODULES,storyService,storybookSearchService,storyCollapseService) {
         var that = this;
 
-        this.setFilterId = 'set';
-        this.tagFilterId = 'tag';
-        this.environmentFilterId = 'env';
-        this.filterKeys = {
-            tag: null,
-            set: null
+        this.filter = {
+            set: {
+                id: 'set',
+                key: null
+            },
+            tag: {
+                id: 'tag',
+                key: null
+            },
+            env: {
+                id: 'env',
+                key: null,
+                book: {
+                    id: function(bookId) {
+                        return 'env.book.'+bookId;
+                    }
+                }
+
+            }
         };
         this.selectedItem = null;
 
@@ -47,7 +60,12 @@ angular.module('finqApp.controller')
         });
 
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
-            that.filterKeys[filterInfo.id] = filterInfo.key;
+            var idSplit = filterInfo.id.split('.');
+            if (idSplit.length === 3) {
+                that.filter[idSplit[0]][idSplit[1]][[idSplit[2]]] = filterInfo.key;
+            } else {
+                that.filter[filterInfo.id].key = filterInfo.key;
+            }
         });
 
         this.toggleExpand = function(type,bookId) {

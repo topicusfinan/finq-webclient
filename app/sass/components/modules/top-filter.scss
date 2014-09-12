@@ -19,6 +19,12 @@
                 color: $highlight-color;
             }
         }
+
+        .actions {
+            opacity: 1;
+            width: auto;
+            overflow: visible;
+        }
     }
 
     &.ic {
@@ -33,11 +39,24 @@
             margin: (($header-height - $section-header-font-size) / 4.5) $filter-button-padding / -2 0 $filter-button-padding / 2;
             font-size: $section-header-font-size * 1.3;
             line-height: 1;
+
+            &.show {
+                display: inline-block;
+                margin-left: $filter-button-padding / 2;
+                margin-right: 0;
+                color: $section-list-icon-color;
+                &:hover {
+                    color: $section-header-color;
+                }
+            }
         }
     }
 
     > .actions {
         float: right;
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
     }
 
     > div > span,
@@ -63,7 +82,9 @@
 
     > div .select button {
         background: $select-list-button-bg-color;
+        border: $select-list-button-border;
         font-size: $section-header-font-size - .1;
+        margin-top: $filter-select-margin-top;
         padding: ($filter-button-padding / 2) $filter-button-padding;
 
         span {
@@ -86,4 +107,5 @@
             line-height: 1 + $filter-button-padding;
         }
     }
+
 }

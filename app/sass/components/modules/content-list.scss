@@ -28,11 +28,8 @@
     }
 
     li.cl > div {
-        min-height: $content-list-item-1-height;
-        max-height: $content-list-item-1-height;
 
         > i {
-            top: $content-list-item-1-icon-top;
             position: absolute;
         }
     }
@@ -42,6 +39,8 @@
         background: $content-list-bg-color;
 
         > div {
+            min-height: $content-list-item-1-height;
+            max-height: $content-list-item-1-height;
             background: $content-list-item-1-bg-color;
             margin-top: 0;
 
@@ -52,13 +51,14 @@
 
             > i {
                 left: $section-list-icon-left * $content-list-item-1-icon-left;
+                top: $content-list-item-1-icon-top;
                 font-size: $content-list-item-1-icon-size;
             }
 
             > span {
                 font-size: $content-list-item-1-font-size;
                 line-height: $content-list-item-1-font-size;
-                padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4.5) 0;
+                padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4) 0;
             }
         }
 
@@ -68,6 +68,8 @@
                 background: $content-list-3-bg-color;
 
                 > div {
+                    min-height: $content-list-item-2-height;
+                    max-height: $content-list-item-2-height;
                     background: $content-list-item-2-bg-color;
 
                     &.active,
@@ -77,20 +79,21 @@
 
                     > i {
                         left: $section-list-icon-left * $content-list-item-2-icon-left;
+                        top: $content-list-item-2-icon-top;
                         font-size: $content-list-item-2-icon-size;
                     }
 
                     > span {
                         font-size: $content-list-item-2-font-size;
                         line-height: $content-list-item-2-font-size;
-                        padding: (($content-list-item-1-height - $content-list-item-2-font-size) / 3) 0;
+                        padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 3) 0;
                     }
                 }
 
                 > ul {
                     opacity: .5;
                     height: 0;
-                    overflow-y: hidden;
+                    overflow: hidden;
 
                     &.expand {
                         opacity: 1;

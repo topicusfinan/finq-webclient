@@ -2,7 +2,7 @@
 $full-menu-min-size-bp:           new-breakpoint(max-width 67em);
 $full-menu-min-size:              14em;
 
-$full-filter-size-bp:             new-breakpoint(max-width 82em);
+$full-filter-size-bp:             new-breakpoint(max-width 94em);
 
 @include media($full-menu-min-size-bp) {
     div.layout {
@@ -23,11 +23,14 @@ $full-filter-size-bp:             new-breakpoint(max-width 82em);
 
 @include media($full-filter-size-bp) {
     .top-filter {
-        min-width: 55em;
+        min-width: 65em;
 
         .filters {
             > i {
                 display: inline-block;
+                &.show {
+                    margin: (($header-height - $section-header-font-size) / 4.5) $filter-button-padding / -2 0 $filter-button-padding / 2;
+                }
             }
 
             > span {
