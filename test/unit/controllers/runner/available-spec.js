@@ -48,10 +48,28 @@ describe('Unit: AvailableCtrl initialization', function() {
         expect(AvailableCtrl.selectedItem).to.be.null;
     });
 
-    it('should respond to an update filter request by setting the filter key', function () {
+    it('should respond to an update tag filter request by setting the filter key', function () {
         var tagEventData = {id: 'tag', key: 1};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,tagEventData);
-        expect(AvailableCtrl.filterKeys[tagEventData.id]).to.equal(tagEventData.key);
+        expect(AvailableCtrl.filter.tag.key).to.equal(tagEventData.key);
+    });
+
+    it('should respond to an update set filter request by setting the filter key', function () {
+        var setEventData = {id: 'set', key: 1};
+        scope.$emit(EVENTS.FILTER_SELECT_UPDATED,setEventData);
+        expect(AvailableCtrl.filter.set.key).to.equal(setEventData.key);
+    });
+
+    it('should respond to an update environment filter request by setting the filter key', function () {
+        var envEventData = {id: 'env', key: 1};
+        scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
+        expect(AvailableCtrl.filter.env.key).to.equal(envEventData.key);
+    });
+
+    it('should respond to an update environment filter request by setting the filter key for a subitem', function () {
+        var envEventData = {id: 'env.book.1', key: 1};
+        scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
+        expect(AvailableCtrl.filter.env.book[1]).to.equal(envEventData.key);
     });
 
     it('should expand a book that is expanded', function () {

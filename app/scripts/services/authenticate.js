@@ -24,8 +24,8 @@ angular.module('finqApp.service')
             }).success(function(userData) {
                 currentUser = userData;
                 deferred.resolve(userData);
-            }).error(function() {
-                deferred.reject('Token authentication failed');
+            }).error(function(errorCode) {
+                deferred.reject(errorCode);
             }).finally(function() {
                 $timeout.cancel(authNotice);
             });

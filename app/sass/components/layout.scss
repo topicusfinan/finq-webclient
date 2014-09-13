@@ -89,6 +89,7 @@ div.layout {
         position: fixed;
         min-height: 100%;
         color: $layout-side-color;
+        z-index: 2;
 
         .modules {
             @include row;

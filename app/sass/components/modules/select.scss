@@ -2,16 +2,12 @@
     position: relative;
 
     button {
-        max-width: $select-list-button-max-width;
-        min-width: 0;
         text-align: left;
-        margin-left: $select-list-button-margin;
-        margin-right: $select-list-button-margin;
         border: $select-list-button-border;
         position: relative;
 
-        &.active {
-            min-width: $select-list-button-min-width;
+        &.active span {
+            min-width: $select-list-button-max-width;
         }
 
         i {
@@ -24,7 +20,9 @@
 
         span {
             @include ellipsis;
+            min-width: 0;
             margin-right: $select-list-button-padding * 3;
+            max-width: $select-list-button-max-width;
         }
     }
 

@@ -133,7 +133,7 @@ div.layout {
 
 .select {
 
-    button {
+    button span {
         @include transition(all $animate-std-cubic .3s);
     }
 

@@ -73,11 +73,11 @@ angular.module('finqApp.controller')
         };
 
         this.expandStory = function(bookId,storyId) {
-            if (that.expand === 'all' || that.expand === 'book'+bookId) {
-                that.selectedItem = 'story'+storyId;
+            var expand = storyCollapseService.getExpand();
+            that.selectedItem = 'story'+storyId;
+            if (expand === 'all' || expand === 'book'+bookId) {
                 return;
             }
-            that.selectedItem = 'story'+storyId;
             storyCollapseService.expandStory(bookId,storyId);
         };
 

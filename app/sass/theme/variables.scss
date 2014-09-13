@@ -84,10 +84,8 @@ $filter-select-margin-top:              .35em;
 // filter select list formatting and colors
 $select-list-border-width:              .1em;
 $select-list-font-size:                 1.1em;
-$select-list-button-max-width:          14em;
-$select-list-button-min-width:          10em;
+$select-list-button-max-width:          10em;
 $select-list-button-bg-color:           none;
-$select-list-button-margin:             .3em;
 $select-list-max-height:                12em;
 $select-list-border-color:              lighten($gray, 10%);
 $select-list-border:                    $select-list-border-color $select-list-border-width solid;

@@ -20,13 +20,16 @@ angular.module('finqApp.controller')
         'tag',
         'environment',
         function ($scope,$translate,EVENTS,MODULES,setService,tagService,environmentService) {
-        var that = this
-            this.setActive = true
-            this.tagActive = false;
+        var that = this;
+
+        this.expand = {
+            set: true,
+            tag: false
+        };
 
         var loadFilter = function() {
-            var stepsLoaded = 0;
-            var totalSteps = 2;
+            var stepsLoaded = 0,
+                totalSteps = 2;
 
             var evalLoaded = function() {
                 stepsLoaded++;

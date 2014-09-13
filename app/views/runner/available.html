@@ -1,12 +1,12 @@
-<div class="top-filter ic appear-delayed ng-hide" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
+<div class="top-filter ic appear-delayed ng-hide filter-2" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
     <i class="fa fa-bars" ng-click="available.toggleExpand('all')"></i>
     <div class="filters">
-        <i class="fa fa-folder-open-o" ng-class="{'show':available.filter.set.key === null || !filter.setActive}" ng-click="filter.setActive = !filter.setActive"></i>
-        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET" ng-hide="available.filter.set.key === null && !filter.setActive"></span>
-        <div class="select" filter-select="filter.sets" filter-id="available.filter.set.id" ng-hide="available.filter.set.key === null && !filter.setActive"></div>
-        <i class="fa fa-tag" ng-class="{'show':available.filter.tag.key === null || !filter.tagActive}" ng-click="filter.tagActive = !filter.tagActive"></i>
-        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG" ng-hide="available.filter.tag.key === null && !filter.tagActive"></span>
-        <div class="select" filter-select="filter.tags" filter-id="available.filter.tag.id" ng-hide="available.filter.tag.key === null && !filter.tagActive"></div>
+        <i class="fa fa-folder-open-o" ng-class="{'inactive':available.filter.set.key === null || !filter.expand.set}" ng-click="filter.expand.set = !filter.expand.set"></i>
+        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET" ng-hide="available.filter.set.key === null && !filter.expand.set"></span>
+        <div class="select" filter-select="filter.sets" filter-id="available.filter.set.id" ng-hide="available.filter.set.key === null && !filter.expand.set"></div>
+        <i class="fa fa-tag" ng-class="{'inactive':available.filter.tag.key === null || !filter.expand.tag}" ng-click="filter.expand.tag = !filter.expand.tag"></i>
+        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG" ng-hide="available.filter.tag.key === null && !filter.expand.tag"></span>
+        <div class="select" filter-select="filter.tags" filter-id="available.filter.tag.id" ng-hide="available.filter.tag.key === null && !filter.expand.tag"></div>
     </div>
     <div class="actions">
         <button>
@@ -17,7 +17,7 @@
         <div class="select" filter-select="filter.environments" filter-id="available.filter.env.id"></div>
     </div>
 </div>
-<ul class="main-content-list appear-delayed ng-hide" ng-show="available.storiesLoaded">
+<ul class="main-content-list appear-delayed ng-hide filter-2" ng-show="available.storiesLoaded">
     <li class="ic cl list-animate" ng-animate="'animate'" ng-repeat="book in storybooks() | storybookSearchFilter:app.searchQuery | storybookSetFilter:available.filter.set.key | storybookTagFilter:available.filter.tag.key">
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <i class="fa fa-bars" ng-click="available.toggleExpand('book',book.id)"></i>
