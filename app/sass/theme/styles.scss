@@ -10,6 +10,11 @@ button {
             color: darken($highlight-color, 10%);
         }
     }
+
+    &:disabled {
+        opacity: .3;
+        cursor: default;
+    }
 }
 
 .fa-spin {
@@ -50,7 +55,7 @@ input.ng-invalid {
 
     .select-dropdown {
         border-radius: .3em;
-        @include css-triangle(.5em, $select-list-border-width, $select-list-border-color, top, $select-list-bg-color);
+        @include css-triangle(.5em, $select-list-border-width, $select-list-border-color, top, $select-list-bg-color, absolute);
     }
 }
 
@@ -61,5 +66,13 @@ button {
     &:hover {
         background-color: darken($base-accent-color, 10%);
         color: darken($highlight-color, 10%);
+    }
+
+    &.secondary {
+        background-color: $secondary-button-bg-color;
+
+        &:hover {
+            background-color: $secondary-button-bg-color-hov;
+        }
     }
 }

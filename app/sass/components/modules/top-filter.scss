@@ -92,7 +92,7 @@
     }
 
     > div button {
-        background: $filter-button-bg-color;
+        background: $secondary-button-bg-color;
         border: $filter-button-border;
         margin-top: $filter-button-margin-top;
         font-size: $section-header-font-size - .1;
@@ -104,7 +104,7 @@
     }
 
     > div > button:hover {
-        background: $filter-button-bg-color-hov;
+        background: $secondary-button-bg-color-hov;
     }
 
 }

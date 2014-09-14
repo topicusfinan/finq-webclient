@@ -1,0 +1,6 @@
+<button ng-show="hasMultiplePages" ng-disabled="currentPage === 0" class="secondary" ng-click="currentPage = currentPage-1">
+    <i class="fa fa-angle-left"></i> <span translate="GENERAL.PAGINATION.PREV"></span>
+</button>
+<button ng-show="hasMultiplePages" ng-disabled="!hasNext()" class="secondary" ng-click="currentPage = currentPage+1">
+    <span translate="GENERAL.PAGINATION.NEXT"></span> <i class="fa fa-angle-right"></i>
+</button>

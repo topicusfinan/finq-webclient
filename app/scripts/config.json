@@ -1,4 +1,7 @@
 {
     "address" : "",
-    "searchWait": 250
+    "searchWait": 250,
+    "pagination": {
+        "maxScenarios": 50
+    }
 }

@@ -16,7 +16,7 @@ $full-filter-size-bp-2:             new-breakpoint(max-width 94em);
         }
 
         > .main {
-            margin-left: $full-menu-min-size;
+            left: $full-menu-min-size;
         }
     }
 }

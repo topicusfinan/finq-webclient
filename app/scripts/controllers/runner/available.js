@@ -15,10 +15,11 @@ angular.module('finqApp.controller')
         '$scope',
         'EVENTS',
         'MODULES',
+        'config',
         'story',
         'storybookSearch',
         'storyCollapse',
-        function ($scope,EVENTS,MODULES,storyService,storybookSearchService,storyCollapseService) {
+        function ($scope,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService) {
         var that = this;
 
         this.filter = {
@@ -42,6 +43,8 @@ angular.module('finqApp.controller')
             }
         };
         this.selectedItem = null;
+        this.maxScenarios = configProvider.client().pagination.maxScenarios;
+        this.currentPage = 0;
 
         $scope.storybooks = storyCollapseService.getBooks;
         $scope.expand = storyCollapseService.getExpand;
@@ -79,6 +82,10 @@ angular.module('finqApp.controller')
                 return;
             }
             storyCollapseService.expandStory(bookId,storyId);
+        };
+
+        this.hasMorePages = function() {
+            return storybookSearchService.hasMorePages;
         };
 
     }]);

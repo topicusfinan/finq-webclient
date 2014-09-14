@@ -2,7 +2,11 @@
     "LANG" : "US English",
     "GENERAL" : {
         "EMAIL_PLACEHOLDER" : "Email",
-        "PASS_PLACEHOLDER" : "Password"
+        "PASS_PLACEHOLDER" : "Password",
+        "PAGINATION" : {
+            "NEXT" : "Next page",
+            "PREV" : "Previous page"
+        }
     },
     "LOADER": {
         "LOADED" : "All done!"

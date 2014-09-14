@@ -1,4 +1,4 @@
-#[Finq Webclient](http://finq.io) [![Build Status](https://travis-ci.org/topicusfinan/finq-webclient.svg?branch=master)](https://travis-ci.org/topicusfinan/finq-webclient) [![Coverage Status](https://img.shields.io/coveralls/topicusfinan/finq-webclient.svg)](https://coveralls.io/r/topicusfinan/finq-webclient?branch=master) [![Code Climate](https://codeclimate.com/github/topicusfinan/finq-webclient/badges/gpa.svg)](https://codeclimate.com/github/topicusfinan/finq-webclient)
+#[Finq Webclient](http://finq.io) [![Build Status](https://travis-ci.org/topicusfinan/finq-webclient.svg?branch=master)](https://travis-ci.org/topicusfinan/finq-webclient) [![Coverage Status](https://img.shields.io/coveralls/topicusfinan/finq-webclient.svg)](https://coveralls.io/r/topicusfinan/finq-webclient?branch=master) [![Codacy Badge](https://www.codacy.com/project/badge/e463b5513ad647888e96e8584f9c35f4)](https://www.codacy.com/public/topicusfinan/finq-webclient.git)
 
 ###A behavior-driven testing webclient
 

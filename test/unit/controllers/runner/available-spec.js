@@ -17,14 +17,23 @@ describe('Unit: AvailableCtrl initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, storyServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, storyServiceMock) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         storybooks = storyServiceMock.books;
         emitSpy = sinon.spy(scope, '$emit');
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            pagination : {
+                maxScenarios : 2
+            }
+        });
+        $httpBackend.expectGET('/app/info').respond(200);
         $httpBackend.expectGET('/story/list').respond(200, storybooks);
-        AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
+        config.load().then(function() {
+            AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
+        });
         $httpBackend.flush();
     }));
 
@@ -98,6 +107,10 @@ describe('Unit: AvailableCtrl initialization', function() {
         AvailableCtrl.toggleExpand('book',storybooks[0].id);
         AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
         expect(AvailableCtrl.selectedItem).to.equal('story'+storybooks[0].stories[0].id);
+    });
+
+    it('should initially not have any more pages than the current page for pagination', function () {
+        expect(AvailableCtrl.hasMorePages()).to.not.be.true;
     });
 
 });

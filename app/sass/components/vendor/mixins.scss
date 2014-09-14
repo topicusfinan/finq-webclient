@@ -1,5 +1,5 @@
-@mixin css-triangle($size, $border-width, $border-color, $position, $bg: #fff) {
-    position: relative;
+@mixin css-triangle($size, $border-width, $border-color, $position, $bg: #fff, $parent-pos: relative) {
+    position: $parent-pos;
     background: $bg;
     border: $border-width solid $border-color;
 

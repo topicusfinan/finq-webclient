@@ -93,12 +93,10 @@ div.layout {
         @include transition(opacity $animate-std-cubic .5s);
     }
 
-    &.ng-leave,
     &.ng-move {
         @include transition(opacity $animate-std-cubic .3s);
     }
 
-    &.ng-leave,
     &.ng-move-active,
     &.ng-enter.ng-enter-active,
     &.ng-move.ng-move-active {
@@ -109,8 +107,7 @@ div.layout {
         opacity: .5;
     }
 
-    &.ng-enter,
-    &.ng-leave.ng-leave-active {
+    &.ng-enter {
         opacity: 0;
     }
 

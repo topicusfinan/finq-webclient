@@ -3,7 +3,6 @@
 describe('Unit: LoginCtrl initialization and login', function() {
 
     var LoginCtrl,
-        configProvider,
         scope,
         authenticateService,
         backend,
@@ -15,7 +14,6 @@ describe('Unit: LoginCtrl initialization and login', function() {
     });
     beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, authenticate, authServiceMock) {
         scope = $rootScope.$new();
-        configProvider = config;
         authenticateService = authenticate;
         backend = $httpBackend;
         authenticateMock = authServiceMock;
@@ -25,7 +23,7 @@ describe('Unit: LoginCtrl initialization and login', function() {
         $httpBackend.expectGET('/app/info').respond(200, {
             subject: 'Test'
         });
-        configProvider.load().then(function() {
+        config.load().then(function() {
             LoginCtrl = $controller('LoginCtrl', {$scope: scope});
         });
         $httpBackend.flush();

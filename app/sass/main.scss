@@ -2,13 +2,15 @@
 @import 'bourbon';
 @import 'base';
 @import 'neat';
-// theme variables and styles
+// load the main theme color variables
+@import 'theme/colors';
+// tune the theme by selecting the main theme color
+@import 'theme/tune/blue';
+// load the theme variables so they can be applied to the components
 @import 'theme/variables';
+// load the components
 @import 'components/vendor/mixins';
 @import 'components/vendor/progress';
-@import 'components/vendor/icons';
-@import 'theme/styles';
-// application styles
 @import 'components/mixins';
 @import 'components/intro';
 @import 'components/preloader';
@@ -16,6 +18,8 @@
 @import 'components/modules/top-filter';
 @import 'components/modules/content-list';
 @import 'components/modules/select';
-// theme enhancements
+@import 'components/modules/pagination';
+// finally enhance the components with some theme magic
+@import 'theme/styles';
 @import 'theme/responsive';
 @import 'theme/fancify';
