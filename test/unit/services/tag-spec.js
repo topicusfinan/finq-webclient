@@ -14,9 +14,10 @@ describe('Unit: TagService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, tag, tagServiceMock) {
+    beforeEach(inject(function ($httpBackend, tag, tagServiceMock, host) {
         tagService = tag;
         tagMockData = tagServiceMock.tags;
+        host.setHost({address: ''});
         $httpBackend.expectGET('/tag/list').respond(200, tagMockData);
         tagService.list().then(function(tagData) {
             tags = tagData;

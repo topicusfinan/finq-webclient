@@ -75,7 +75,8 @@
                 font-size: $content-list-item-1-icon-size;
             }
 
-            > div.title > span, > div.actions > span {
+            > div.title > span,
+            > div.actions > span {
                 font-size: $content-list-item-1-font-size;
                 line-height: $content-list-item-1-font-size;
                 padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4) 0;
@@ -117,7 +118,8 @@
                         font-size: $content-list-item-2-icon-size;
                     }
 
-                    > div.title > span, > div.actions > span {
+                    > div.title > span,
+                    > div.actions > span {
                         font-size: $content-list-item-2-font-size;
                         line-height: $content-list-item-2-font-size;
                         padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 3) 0;

@@ -17,7 +17,7 @@ angular.module('finqApp.service')
         var configData = {};
         var loadConfigData = function($http,$q,$timeout,backend) {
             var deferred = $q.defer();
-            var configNotice = $timeout(function () {
+            var notice = $timeout(function () {
                 deferred.notify('Loading configuration is taking too long');
             },5000);
             $http.get('/scripts/config.json').success(function (clientConfig) {
@@ -32,7 +32,7 @@ angular.module('finqApp.service')
             }).error(function() {
                 deferred.reject('Failed to load client configuration');
             }).finally(function() {
-                $timeout.cancel(configNotice);
+                $timeout.cancel(notice);
             });
             return deferred.promise;
         };

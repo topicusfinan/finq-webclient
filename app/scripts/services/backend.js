@@ -2,11 +2,11 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service:communication
+ * @name finqApp.service:backend
  * @description
- * # Application communication
+ * # Application backend
  *
- * The communication service handles the communication between the client and the backend. All http requests or other
+ * The backend service handles the communication between the client and the backend. All http requests or other
  * types of communication with the backend should be facilitated through operations provided by this service instead
  * of directly using the $http provider.
  *

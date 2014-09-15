@@ -9,12 +9,13 @@
  * Makes it possible to execute CRUD and list operations on stories.
  */
 angular.module('finqApp.service')
-    .service('story', ['backend','$q',function (backend,$q) {
+    .service('story', ['host','$q',function (host,$q) {
         var stories = null;
 
         var load = function() {
             var deferred = $q.defer();
-            backend.get('/story/list').success(function(storyData) {
+            host.get('/story/list').success(function(storyData) {
+                console.log(storyData);
                 stories = storyData;
                 deferred.resolve(stories);
             }).error(function() {

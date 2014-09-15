@@ -16,7 +16,7 @@ angular.module('finqApp.service')
 
         this.load = function() {
             var deferred = $q.defer();
-            var authNotice = $timeout(function () {
+            var notice = $timeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
             backend.get('/auth/user',{
@@ -27,14 +27,14 @@ angular.module('finqApp.service')
             }).error(function(errorCode) {
                 deferred.reject(errorCode);
             }).finally(function() {
-                $timeout.cancel(authNotice);
+                $timeout.cancel(notice);
             });
             return deferred.promise;
         };
 
         this.authenticate = function(email,password) {
             var deferred = $q.defer();
-            var authNotice = $timeout(function () {
+            var notice = $timeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
             backend.post('/auth/login',{
@@ -46,7 +46,7 @@ angular.module('finqApp.service')
             }).error(function(errorCode) {
                 deferred.reject(errorCode);
             }).finally(function() {
-                authNotice.cancel();
+                notice.cancel();
             });
             return deferred.promise;
         };

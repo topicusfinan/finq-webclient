@@ -9,11 +9,11 @@
  * Makes it possible to execute CRUD and list operations on test sets.
  */
 angular.module('finqApp.service')
-    .service('set', ['backend','$q', function (backend,$q) {
+    .service('set', ['host','$q', function (host,$q) {
         var sets = null;
         var load = function() {
             var deferred = $q.defer();
-            backend.get('/set/list').success(function(setData) {
+            host.get('/set/list').success(function(setData) {
                 sets = setData;
                 deferred.resolve(sets);
             }).error(function() {

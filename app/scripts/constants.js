@@ -16,7 +16,8 @@ angular.module('finqApp')
         'NAVIGATION_UPDATED' : 'finqApp.navigationUpdated',
         'CONFIG_LOADED' : 'finqApp.configLoaded',
         'SEARCH_UPDATED' : 'finqApp.searchUpdated',
-        'FILTER_SELECT_UPDATED' : 'finqApp.filterSelectUpdated'
+        'FILTER_SELECT_UPDATED' : 'finqApp.filterSelectUpdated',
+        'HOST_UPDATED': 'finqApp.hostUpdated'
     }).constant('MODULES',{
         'REPORTER' : {
             id: 'REPORTER',

@@ -14,7 +14,7 @@ angular.module('finqApp.service')
         var translations;
         this.load = function(lang) {
             var deferred = $q.defer();
-            var translateNotice = $timeout(function () {
+            var notice = $timeout(function () {
                 deferred.notify('Loading translations is taking too long');
             },5000);
             backend.get('/lang/'+lang+'.json').success(function(data) {
@@ -25,7 +25,7 @@ angular.module('finqApp.service')
             }).error(function() {
                 deferred.reject('Failed to load translations');
             }).finally(function() {
-                $timeout.cancel(translateNotice);
+                $timeout.cancel(notice);
             });
             return deferred.promise;
         };

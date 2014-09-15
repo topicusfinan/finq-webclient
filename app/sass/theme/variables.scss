@@ -26,6 +26,10 @@ $base-button-border-color:              $gray;
 $secondary-button-bg-color:             $dark-gray;
 $secondary-button-bg-color-hov:         darken($dark-gray, 10%);
 
+$hero-notice-color:                     $gray;
+$hero-notice-font-size:                 2em;
+$hero-notice-top:                       3em;
+
 // layout formatting
 $header-height:                         modular-scale($base-font-size, 2, $octave);
 $layout-columns:                        24;

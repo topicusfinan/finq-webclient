@@ -13,6 +13,7 @@ describe('Unit: Preloader initialization', function() {
         controller,
         appService,
         langData,
+        environments,
         stateSpy;
 
     beforeEach(function() {
@@ -34,6 +35,7 @@ describe('Unit: Preloader initialization', function() {
                 LOADED : 'All done!'
             }
         };
+        environments = [{address: ''}];
     }));
 
     it('should fail to load in case of missing app configuration and translations', function () {
@@ -70,10 +72,24 @@ describe('Unit: Preloader initialization', function() {
         emitSpy.should.have.been.called.once;
     });
 
+    it('should fail to load in case a missing environment list', function () {
+        httpBackend.expectGET('/lang/en.json').respond(200, langData);
+        httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
+        httpBackend.expectGET('/app/info').respond(200, appService.info);
+        httpBackend.expectGET('/environment/list').respond(503);
+        var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
+        httpBackend.flush();
+        expect(PreloaderCtrl.loadError.length).to.be.above(0);
+        expect(PreloaderCtrl.loaded).to.be.false;
+        scope.$emit('test');
+        emitSpy.should.have.been.called.once;
+    });
+
     it('should succeed in loading if all data is retrieved properly but go to login if authorization fails', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
-        httpBackend.expectGET('/app/info').respond(200,appService.info);
+        httpBackend.expectGET('/app/info').respond(200, appService.info);
+        httpBackend.expectGET('/environment/list').respond(200, environments);
         httpBackend.expectGET('/auth/user').respond(503);
         httpBackend.expectGET('views/intro/intro.html').respond(404);
         httpBackend.expectGET('views/intro/login.html').respond(404);
@@ -87,8 +103,9 @@ describe('Unit: Preloader initialization', function() {
     it('should succeed in loading if all data is retrieved properly and skip login if authorization succeeds', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
-        httpBackend.expectGET('/app/info').respond(200,appService.info);
-        httpBackend.expectGET('/auth/user').respond(200,{name: 'test'});
+        httpBackend.expectGET('/app/info').respond(200, appService.info);
+        httpBackend.expectGET('/environment/list').respond(200, environments);
+        httpBackend.expectGET('/auth/user').respond(200, {name: 'test'});
         httpBackend.expectGET('views/layout.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();

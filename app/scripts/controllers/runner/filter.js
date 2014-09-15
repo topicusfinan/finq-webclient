@@ -14,21 +14,27 @@ angular.module('finqApp.controller')
     .controller('AvailableFilterCtrl', [
         '$scope',
         '$translate',
+        '$timeout',
         'EVENTS',
         'MODULES',
         'set',
         'tag',
-        function ($scope,$translate,EVENTS,MODULES,setService,tagService) {
+        'environment',
+        'host',
+        function ($scope,$translate,$timeout,EVENTS,MODULES,setService,tagService,environmentService,hostProvider) {
         var that = this;
 
         this.expand = {
-            set: true,
+            env: true,
+            set: false,
             tag: false
         };
 
         var loadFilter = function() {
             var stepsLoaded = 0,
-                totalSteps = 2;
+                totalSteps = 3;
+
+                console.log('sadfsadf');
 
             var evalLoaded = function() {
                 stepsLoaded++;
@@ -37,7 +43,42 @@ angular.module('finqApp.controller')
                 }
             };
 
-            setService.list().then(function (sets) {
+            environmentService.list().then(function (environments) {
+                that.environments = {
+                    active: {
+                        key: null,
+                        value: ''
+                    },
+                    list: [{key: null, value: ''}].concat(environments)
+                };
+                evalLoaded();
+                $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
+                    that.environments.active.value = translatedValue;
+                    that.environments.list[0].value = translatedValue;
+                });
+            });
+
+            if (hostProvider.getHost() !== null) {
+                loadSets(true,evalLoaded);
+                loadTags(true,evalLoaded);
+            } else {
+                // delay the loaded indication to allow for appear effects
+                $timeout(function() {
+                    that.loaded = true;
+                },10);
+            }
+
+        };
+
+        $scope.$on(EVENTS.HOST_UPDATED,function(event,newHost) {
+            if (newHost !== null) {
+                loadSets(true);
+                loadTags(true);
+            }
+        });
+
+        var loadSets = function(forceReload,callback) {
+            setService.list(forceReload).then(function (sets) {
                 that.sets = {
                     active: {
                         key: null,
@@ -45,14 +86,18 @@ angular.module('finqApp.controller')
                     },
                     list: [{key: null, value: ''}].concat(sets)
                 };
-                evalLoaded();
                 $translate('FILTERS.SETS.DEFAULT_VALUE').then(function (translatedValue) {
                     that.sets.active.value = translatedValue;
                     that.sets.list[0].value = translatedValue;
                 });
+                if (typeof callback === 'function') {
+                    callback();
+                }
             });
+        };
 
-            tagService.list().then(function (tags) {
+        var loadTags = function(forceReload,callback) {
+            tagService.list(forceReload).then(function (tags) {
                 that.tags = {
                     active: {
                         key: null,
@@ -60,13 +105,14 @@ angular.module('finqApp.controller')
                     },
                     list: [{key: null, value: ''}].concat(tags)
                 };
-                evalLoaded();
                 $translate('FILTERS.TAGS.DEFAULT_VALUE').then(function (translatedValue) {
                     that.tags.active.value = translatedValue;
                     that.tags.list[0].value = translatedValue;
                 });
+                if (typeof callback === 'function') {
+                    callback();
+                }
             });
-
         };
 
         loadFilter();

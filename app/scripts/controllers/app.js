@@ -11,7 +11,6 @@
  */
 angular.module('finqApp.controller')
     .controller('AppCtrl', [
-
         '$state',
         '$scope',
         '$route',
@@ -19,7 +18,6 @@ angular.module('finqApp.controller')
         'config',
         'page',
         'EVENTS',
-
         function ($state,$scope,$route,$translate,configProvider,pageFactory,EVENTS) {
             var that = this;
             this.title = 'Finq';

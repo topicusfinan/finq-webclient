@@ -14,10 +14,11 @@ describe('Unit: SetService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, set, setServiceMock) {
+    beforeEach(inject(function ($httpBackend, set, setServiceMock, host) {
         setService = set;
         setMockData = setServiceMock.sets;
         $httpBackend.expectGET('/set/list').respond(200, setMockData);
+        host.setHost({address: ''});
         setService.list().then(function(setData) {
             sets = setData;
         });

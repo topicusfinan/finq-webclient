@@ -14,6 +14,7 @@ angular.module('finqApp.controller')
     .controller('AvailableCtrl', [
         '$scope',
         '$translate',
+        '$timeout',
         'EVENTS',
         'MODULES',
         'config',
@@ -21,7 +22,8 @@ angular.module('finqApp.controller')
         'storybookSearch',
         'storyCollapse',
         'environment',
-        function ($scope,$translate,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,environmentService) {
+        'host',
+        function ($scope,$translate,$timeout,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,environmentService,hostProvider) {
         var that = this;
 
         this.filter = {
@@ -35,10 +37,7 @@ angular.module('finqApp.controller')
             },
             env: {
                 id: 'env',
-                key: null,
-                book: {id: function(bookId) {return 'env.book.b'+bookId;}},
-                story: {id: function(storyId) {return 'env.story.s'+storyId;}},
-                scenario: {id: function(scenarioId) {return 'env.scenario.s'+scenarioId;}}
+                key: null
             }
         };
         this.selectedItem = null;
@@ -55,34 +54,17 @@ angular.module('finqApp.controller')
             section: MODULES.RUNNER.sections.AVAILABLE
         });
 
-        storyService.list().then(function(bookList) {
-            that.storiesLoaded = true;
-            storybookSearchService.initialize(bookList);
-            storyCollapseService.initialize(bookList);
-        });
-
-        environmentService.list().then(function (environments) {
-            that.environments = {
-                active: {
-                    key: null,
-                    value: ''
-                },
-                list: [{key: null, value: ''}].concat(environments)
-            };
-            $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
-                that.environments.active.value = translatedValue;
-                that.environments.list[0].value = translatedValue;
-            });
-        });
-
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
-            var idSplit = filterInfo.id.split('.');
-            if (idSplit.length === 3) {
-                that.filter[idSplit[0]][idSplit[1]][idSplit[2]] = filterInfo.key;
-            } else {
-                that.filter[filterInfo.id].key = filterInfo.key;
+            if (filterInfo.id === 'env') {
+                hostProvider.setHost(environmentService.getByKey(filterInfo.key));
             }
+            that.filter[filterInfo.id].key = filterInfo.key;
         });
+
+        // delay the loaded indication to allow for appear effects
+        $timeout(function() {
+            that.loaded = true;
+        },10);
 
         this.toggleExpand = function(type,bookId) {
             storyCollapseService.toggleExpand(type,bookId);
@@ -100,5 +82,19 @@ angular.module('finqApp.controller')
         this.hasMorePages = function() {
             return storybookSearchService.hasMorePages;
         };
+
+        $scope.$on(EVENTS.HOST_UPDATED,function(event,newHost) {
+            if (newHost !== null) {
+                storyService.list(true).then(function(bookList) {
+                    that.storiesLoaded = true;
+                    storybookSearchService.initialize(bookList);
+                    storyCollapseService.initialize(bookList);
+                });
+            } else {
+                that.storiesLoaded = false;
+                storybookSearchService.initialize([]);
+                storyCollapseService.initialize([]);
+            }
+        });
 
     }]);

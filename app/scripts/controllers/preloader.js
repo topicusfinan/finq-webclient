@@ -20,7 +20,8 @@ angular.module('finqApp.controller')
         'EVENTS',
         'translate',
         'authenticate',
-        function ($state,$scope,configProvider,EVENTS,translateService,authenticateService) {
+        'environment',
+        function ($state,$scope,configProvider,EVENTS,translateService,authenticateService,environmentService) {
         var that = this;
         this.progress = '0%';
         this.loaded = false;
@@ -34,7 +35,8 @@ angular.module('finqApp.controller')
         var loaded = {
            translations: false,
            config: false,
-           user: false
+           user: false,
+           environments: false
         };
 
         translateService.load(defaultLang).then(function(data) {
@@ -50,8 +52,9 @@ angular.module('finqApp.controller')
 
         configProvider.load().then(function(serverConfigData) {
             loaded.config = true;
-            console.debug(serverConfigData.appTitle+' application configuration loaded');
+            console.debug(serverConfigData.title+' application configuration loaded');
             $scope.$emit(EVENTS.CONFIG_LOADED,serverConfigData);
+            loadEnvironments();
             tryAuthentication();
         },function(error) {
             that.loadError = error;
@@ -69,6 +72,17 @@ angular.module('finqApp.controller')
             }).finally(function() {
                 loaded.user = true;
                 evalLoaded();
+            });
+        };
+
+        var loadEnvironments = function() {
+            environmentService.load().then(function(environments) {
+                loaded.environments = true;
+                console.debug('Loaded '+environments.length+' hosting environments for story execution');
+            },function(error) {
+                that.loadError = error;
+            },function(notice) {
+                that.loadNotice = notice;
             });
         };
 

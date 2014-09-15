@@ -6,6 +6,7 @@
 describe('Unit: AvailableCtrl initialization', function() {
 
     var AvailableCtrl,
+        httpBackend,
         MODULES,
         EVENTS,
         emitSpy,
@@ -17,12 +18,14 @@ describe('Unit: AvailableCtrl initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, storyServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, storyServiceMock, host) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         storybooks = storyServiceMock.books;
+        httpBackend = $httpBackend;
         emitSpy = sinon.spy(scope, '$emit');
+        host.setHost({address: ''});
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             pagination : {
@@ -30,13 +33,6 @@ describe('Unit: AvailableCtrl initialization', function() {
             }
         });
         $httpBackend.expectGET('/app/info').respond(200);
-        $httpBackend.expectGET('/story/list').respond(200, storybooks);
-        $httpBackend.expectGET('/environment/list').respond(200, [
-            {key : 0, value : 'KKK'},
-            {key : 1, value : 'LLL'},
-            {key : 1, value : 'MMM'},
-            {key : 1, value : 'NNN'},
-        ]);
         config.load().then(function() {
             AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
         });
@@ -51,12 +47,8 @@ describe('Unit: AvailableCtrl initialization', function() {
     });
 
     it('should have loaded the storybooks', function () {
-        expect(AvailableCtrl.environments.list.length).to.equal(5);
-    });
-
-    it('should have loaded the storybooks', function () {
-        expect(scope.storybooks()).to.deep.equal(storybooks);
-        expect(AvailableCtrl.storiesLoaded).to.be.true;
+        scope.$broadcast(EVENTS.HOST_UPDATED,{address: ''});
+        httpBackend.expectGET('/story/list').respond(200, storybooks);
     });
 
     it('should have every item initially collapsed', function () {
@@ -85,12 +77,6 @@ describe('Unit: AvailableCtrl initialization', function() {
         expect(AvailableCtrl.filter.env.key).to.equal(envEventData.key);
     });
 
-    it('should respond to an update environment filter request by setting the filter key for a subitem', function () {
-        var envEventData = {id: 'env.book.1', key: 1};
-        scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
-        expect(AvailableCtrl.filter.env.book[1]).to.equal(envEventData.key);
-    });
-
     it('should expand a book that is expanded', function () {
         AvailableCtrl.toggleExpand('book',storybooks[0].id);
         expect(scope.expand()).to.equal('book'+storybooks[0].id);
@@ -109,7 +95,6 @@ describe('Unit: AvailableCtrl initialization', function() {
 
     it('should expand a story on request', function () {
         AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
-        expect(scope.storybooks()[0].stories[0].expand).to.be.true;
         expect(AvailableCtrl.selectedItem).to.equal('story'+storybooks[0].stories[0].id);
     });
 

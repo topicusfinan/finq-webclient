@@ -13,15 +13,18 @@ angular.module('finqApp.mock')
         environments: [
             {
                 key : 1,
-                value : 'Chuck Norris'
+                value : 'Chuck Norris',
+                address : ''
             },
             {
                 key : 2,
-                value : 'Steven Seagal'
+                value : 'Steven Seagal',
+                address : ''
             },
             {
                 key : 3,
-                value : 'Jason Statham'
+                value : 'Jason Statham',
+                address : ''
             }
         ]
     });
