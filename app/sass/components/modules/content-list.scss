@@ -4,23 +4,25 @@
     li.cl > div {
         cursor: pointer;
         position: relative;
-        padding: 0 $section-list-side-padding;
         color: $section-header-color;
         margin-top: $content-list-item-spacing;
 
-        &.active,
         &:hover {
             background: $base-accent-color;
             color: $highlight-color;
         }
 
-        > i {
-            color: $section-list-icon-color;
-        }
+        > div.title {
+            float: left;
 
-        > span,
-        > div {
-            @include ellipsis;
+            > i {
+                color: $section-list-icon-color;
+            }
+
+            > span,
+            > div {
+                @include ellipsis;
+            }
         }
     }
 
@@ -30,7 +32,10 @@
 
     li.cl > div {
 
-        > i {
+
+
+        > i,
+        > div.title > i {
             position: absolute;
         }
     }
@@ -50,13 +55,27 @@
                 background: $base-accent-color;
             }
 
-            > i {
+            button,
+            .select button {
+                font-size: $content-list-item-1-font-size - .1;
+                margin-top: $content-list-1-button-margin-top;
+            }
+
+            .select button {
+                margin-top: $content-list-1-select-margin-top;
+            }
+
+            > div > span {
+                margin: 0 $filter-button-padding / 2;
+            }
+
+            > div.title > i {
                 left: $section-list-icon-left * $content-list-item-1-icon-left;
                 top: $content-list-item-1-icon-top;
                 font-size: $content-list-item-1-icon-size;
             }
 
-            > span {
+            > div.title > span, > div.actions > span {
                 font-size: $content-list-item-1-font-size;
                 line-height: $content-list-item-1-font-size;
                 padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4) 0;
@@ -78,14 +97,27 @@
                         background: $base-accent-color;
                     }
 
+                    button,
+                    .select button {
+                        font-size: $content-list-item-2-font-size - .1;
+                        margin-top: $content-list-2-button-margin-top;
+                    }
 
-                    > i {
+                    .select button {
+                        margin-top: $content-list-2-select-margin-top;
+                    }
+
+                    > div > span {
+                        margin: 0 $filter-button-padding / 2;
+                    }
+
+                    > div.title > i {
                         left: $section-list-icon-left * $content-list-item-2-icon-left;
                         top: $content-list-item-2-icon-top;
                         font-size: $content-list-item-2-icon-size;
                     }
 
-                    > span {
+                    > div.title > span, > div.actions > span {
                         font-size: $content-list-item-2-font-size;
                         line-height: $content-list-item-2-font-size;
                         padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 3) 0;
@@ -95,11 +127,12 @@
                 > ul {
                     opacity: .5;
                     height: 0;
-                    overflow: hidden;
+                    overflow-y: hidden;
 
                     &.expand {
                         opacity: 1;
                         height: auto;
+                        overflow-y: visible;
                     }
 
                     li.cl > div {
@@ -110,6 +143,15 @@
                         &.active,
                         &:hover {
                             background: $base-accent-color;
+                        }
+
+                        button,
+                        .select button {
+                            margin-top: $content-list-3-button-margin-top;
+                        }
+
+                        .select button {
+                            margin-top: $content-list-3-select-margin-top;
                         }
                     }
 

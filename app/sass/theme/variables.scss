@@ -79,14 +79,18 @@ $select-list-border:                    $select-list-border-color $select-list-b
 $select-list-color:                     lighten($dark-gray, 20%);
 $select-list-bg-color:                  $highlight-color;
 $select-list-button-padding:            .4em;
-$select-list-button-border:             $base-button-color .1em solid;
+$select-list-button-border:             $base-button-color 2px solid;
 $select-list-button-bg-color:           $base-button-color;
 $select-list-hl-bg-color:               darken($select-list-bg-color, 5%);
-$select-list-hl-button-border:          $highlight-color .1em solid;
+$select-list-hl-button-border:          $highlight-color 2px solid;
 $select-list-hl-button-bg-color:        none;
 
 // content list formatting and colors
+$content-list-bg-color:                 lighten($section-header-bg-color, 20%);
 $content-list-item-spacing:             2px;
+
+$content-list-1-button-margin-top:      .3em;
+$content-list-1-select-margin-top:      .2em;
 $content-list-item-1-height:            modular-scale($base-font-size, 2, $minor-seventh);
 $content-list-item-1-bg-color:          lighten($section-header-bg-color, 5%);
 $content-list-item-1-font-size:         modular-scale($base-font-size, 1, $perfect-fourth);
@@ -94,14 +98,17 @@ $content-list-item-1-icon-size:         modular-scale($base-font-size, 1, $minor
 $content-list-item-1-icon-top:          .4em;
 $content-list-item-1-icon-left:         1.25;
 
-$content-list-item-2-height:            modular-scale($base-font-size, 2, $golden);
+$content-list-2-button-margin-top:      .27em;
+$content-list-2-select-margin-top:      .17em;
+$content-list-item-2-height:            modular-scale($base-font-size, 2, $major-sixth);
 $content-list-item-2-bg-color:          lighten($section-header-bg-color, 15%);
-$content-list-bg-color:                 lighten($section-header-bg-color, 20%);
 $content-list-item-2-font-size:         modular-scale($base-font-size, 1, $minor-third);
 $content-list-item-2-icon-size:         modular-scale($base-font-size, 1, $minor-seventh);
 $content-list-item-2-icon-top:          .25em;
 $content-list-item-2-icon-left:         1.75;
 
+$content-list-3-button-margin-top:      .20em;
+$content-list-3-select-margin-top:      .10em;
 $content-list-item-3-spacing:           1px;
 $content-list-item-3-bg-color:          lighten($section-header-bg-color, 20%);
 $content-list-3-bg-color:               $content-list-item-1-bg-color;

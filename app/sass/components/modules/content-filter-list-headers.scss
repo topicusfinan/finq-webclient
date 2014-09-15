@@ -1,0 +1,63 @@
+.top-filter,
+.main-content-list li.cl > div {
+    position: relative;
+
+    > .actions {
+        position: absolute;
+        right: $section-list-side-padding;
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+    }
+
+    > div > span,
+    > div > div,
+    > div > i,
+    > div > button {
+        float: left;
+    }
+
+    &.active {
+        background: $base-accent-color;
+        color: $highlight-color;
+
+        .select button {
+            background: $select-list-hl-button-bg-color;
+            border: $select-list-hl-button-border;
+
+            span {
+                color: $highlight-color;
+            }
+        }
+
+        .actions {
+            opacity: 1;
+            width: auto;
+            overflow: visible;
+        }
+    }
+
+    > div .select button {
+        background: $select-list-button-bg-color;
+        border: $select-list-button-border;
+        padding: ($filter-button-padding / 2) $filter-button-padding;
+
+        span {
+            color: $base-accent-color;
+        }
+    }
+
+    > div button {
+        background: $secondary-button-bg-color;
+        border: $filter-button-border;
+        padding: ($filter-button-padding / 2) $filter-button-padding * 2;
+
+        span {
+            line-height: 1 + $filter-button-padding;
+        }
+    }
+
+    > div > button:hover {
+        background: $secondary-button-bg-color-hov;
+    }
+}

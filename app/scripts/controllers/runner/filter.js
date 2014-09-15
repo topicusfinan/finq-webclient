@@ -18,8 +18,7 @@ angular.module('finqApp.controller')
         'MODULES',
         'set',
         'tag',
-        'environment',
-        function ($scope,$translate,EVENTS,MODULES,setService,tagService,environmentService) {
+        function ($scope,$translate,EVENTS,MODULES,setService,tagService) {
         var that = this;
 
         this.expand = {
@@ -65,21 +64,6 @@ angular.module('finqApp.controller')
                 $translate('FILTERS.TAGS.DEFAULT_VALUE').then(function (translatedValue) {
                     that.tags.active.value = translatedValue;
                     that.tags.list[0].value = translatedValue;
-                });
-            });
-
-            environmentService.list().then(function (environments) {
-                that.environments = {
-                    active: {
-                        key: null,
-                        value: ''
-                    },
-                    list: [{key: null, value: ''}].concat(environments)
-                };
-                evalLoaded();
-                $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
-                    that.environments.active.value = translatedValue;
-                    that.environments.list[0].value = translatedValue;
                 });
             });
 

@@ -2,30 +2,9 @@
     cursor: pointer;
     min-height: $header-height;
     max-height: $header-height;
-    padding: 0 $section-list-side-padding;
     background: $section-header-bg-color;
     color: $section-header-color;
     white-space: nowrap;
-
-    &.active {
-        background: $base-accent-color;
-        color: $highlight-color;
-
-        .select button {
-            background: $select-list-hl-button-bg-color;
-            border: $select-list-hl-button-border;
-
-            span {
-                color: $highlight-color;
-            }
-        }
-
-        .actions {
-            opacity: 1;
-            width: auto;
-            overflow: visible;
-        }
-    }
 
     &.ic {
         padding-left: $section-list-icon-text-pad;
@@ -51,20 +30,6 @@
         }
     }
 
-    > .actions {
-        float: right;
-        opacity: 0;
-        width: 0;
-        overflow: hidden;
-    }
-
-    > div > span,
-    > div > div,
-    > div > i,
-    > div > button {
-        float: left;
-    }
-
     > i {
         position: absolute;
         left: $section-list-icon-left;
@@ -79,32 +44,17 @@
         line-height: $section-header-font-size;
     }
 
+    > div button,
     > div .select button {
-        background: $select-list-button-bg-color;
-        border: $select-list-button-border;
         font-size: $section-header-font-size - .1;
-        margin-top: $filter-select-margin-top;
-        padding: ($filter-button-padding / 2) $filter-button-padding;
-
-        span {
-            color: $base-accent-color;
-        }
     }
 
     > div button {
-        background: $secondary-button-bg-color;
-        border: $filter-button-border;
         margin-top: $filter-button-margin-top;
-        font-size: $section-header-font-size - .1;
-        padding: ($filter-button-padding / 2) $filter-button-padding * 2;
-
-        span {
-            line-height: 1 + $filter-button-padding;
-        }
     }
 
-    > div > button:hover {
-        background: $secondary-button-bg-color-hov;
+    > div .select button {
+        margin-top: $filter-select-margin-top;
     }
 
 }

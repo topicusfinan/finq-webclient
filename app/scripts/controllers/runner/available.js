@@ -13,13 +13,15 @@
 angular.module('finqApp.controller')
     .controller('AvailableCtrl', [
         '$scope',
+        '$translate',
         'EVENTS',
         'MODULES',
         'config',
         'story',
         'storybookSearch',
         'storyCollapse',
-        function ($scope,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService) {
+        'environment',
+        function ($scope,$translate,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,environmentService) {
         var that = this;
 
         this.filter = {
@@ -34,12 +36,9 @@ angular.module('finqApp.controller')
             env: {
                 id: 'env',
                 key: null,
-                book: {
-                    id: function(bookId) {
-                        return 'env.book.'+bookId;
-                    }
-                }
-
+                book: {id: function(bookId) {return 'env.book.b'+bookId;}},
+                story: {id: function(storyId) {return 'env.story.s'+storyId;}},
+                scenario: {id: function(scenarioId) {return 'env.scenario.s'+scenarioId;}}
             }
         };
         this.selectedItem = null;
@@ -62,10 +61,24 @@ angular.module('finqApp.controller')
             storyCollapseService.initialize(bookList);
         });
 
+        environmentService.list().then(function (environments) {
+            that.environments = {
+                active: {
+                    key: null,
+                    value: ''
+                },
+                list: [{key: null, value: ''}].concat(environments)
+            };
+            $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
+                that.environments.active.value = translatedValue;
+                that.environments.list[0].value = translatedValue;
+            });
+        });
+
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             var idSplit = filterInfo.id.split('.');
             if (idSplit.length === 3) {
-                that.filter[idSplit[0]][idSplit[1]][[idSplit[2]]] = filterInfo.key;
+                that.filter[idSplit[0]][idSplit[1]][idSplit[2]] = filterInfo.key;
             } else {
                 that.filter[filterInfo.id].key = filterInfo.key;
             }

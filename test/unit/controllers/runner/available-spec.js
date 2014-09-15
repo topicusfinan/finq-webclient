@@ -31,6 +31,12 @@ describe('Unit: AvailableCtrl initialization', function() {
         });
         $httpBackend.expectGET('/app/info').respond(200);
         $httpBackend.expectGET('/story/list').respond(200, storybooks);
+        $httpBackend.expectGET('/environment/list').respond(200, [
+            {key : 0, value : 'KKK'},
+            {key : 1, value : 'LLL'},
+            {key : 1, value : 'MMM'},
+            {key : 1, value : 'NNN'},
+        ]);
         config.load().then(function() {
             AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
         });
@@ -42,6 +48,10 @@ describe('Unit: AvailableCtrl initialization', function() {
             module: MODULES.RUNNER,
             section: MODULES.RUNNER.sections.AVAILABLE
         });
+    });
+
+    it('should have loaded the storybooks', function () {
+        expect(AvailableCtrl.environments.list.length).to.equal(5);
     });
 
     it('should have loaded the storybooks', function () {

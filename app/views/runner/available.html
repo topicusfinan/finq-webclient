@@ -14,35 +14,55 @@
             <span translate="RUNNER.AVAILABLE.FILTER.RUN_ALL"></span>
         </button>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-        <div class="select" filter-select="filter.environments" filter-id="available.filter.env.id"></div>
+        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id"></div>
     </div>
 </div>
 <ul class="main-content-list appear-delayed ng-hide filter-2" ng-show="available.storiesLoaded">
     <li class="ic cl list-animate" ng-repeat="book in storybooks() | storybookSearchFilter:app.searchQuery | storybookSetFilter:available.filter.set.key | storybookTagFilter:available.filter.tag.key | storybookPaginationFilter: available.currentPage : available.maxScenarios">
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
-            <i class="fa fa-bars" ng-click="available.toggleExpand('book',book.id)"></i>
-            <span>{{ book.title }}</span>
-            <!--
+            <div class="title">
+                <i class="fa fa-bars" ng-click="available.toggleExpand('book',book.id)"></i>
+                <span>{{ book.title }}</span>
+            </div>
             <div class="actions">
                 <button>
                     <i class="fa fa-play"></i>
                     <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                 </button>
                 <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-                <div class="select" filter-select="filter.environments" filter-id="available.filter.env.book.id(book.id)"></div>
+                <div class="select" filter-select="available.environments" filter-id="available.filter.env.book.id(book.id)"></div>
             </div>
-            -->
         </div>
         <ul>
             <li class="ic cl" ng-repeat="story in book.stories | storySearchFilter:app.searchQuery:book.id | storySetFilter:available.filter.set.key | storyTagFilter:available.filter.tag.key">
                 <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.expandStory(book.id,story.id)">
-                    <i class="fa fa-caret-right"></i>
-                    <span>{{ story.title }}</span>
+                    <div class="title">
+                        <i class="fa fa-caret-right"></i>
+                        <span>{{ story.title }}</span>
+                    </div>
+                    <div class="actions">
+                        <button>
+                            <i class="fa fa-play"></i>
+                            <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
+                        </button>
+                        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
+                        <div class="select" filter-select="available.environments" filter-id="available.filter.env.story.id(story.id)"></div>
+                    </div>
                 </div>
                 <ul ng-class="{'expand':story.expand === true || expand() === 'book'+book.id || expand() === 'all'}">
                     <li class="ic cl" ng-repeat="scenario in story.scenarios">
                         <div ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
-                            <span>{{ scenario.title }}</span>
+                            <div class="title">
+                                <span>{{ scenario.title }}</span>
+                            </div>
+                            <div class="actions">
+                                <button>
+                                    <i class="fa fa-play"></i>
+                                    <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
+                                </button>
+                                <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
+                                <div class="select" filter-select="available.environments" filter-id="available.filter.env.scenario.id(scenario.id)"></div>
+                            </div>
                         </div>
                     </li>
                 </ul>

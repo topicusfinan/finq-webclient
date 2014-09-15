@@ -1,8 +1,10 @@
 // breakpoints
 $full-menu-min-size-bp:           new-breakpoint(max-width 67em);
+$full-menu-max-size-bp:           new-breakpoint(min-width 82em);
 $full-menu-min-size:              14em;
+$full-menu-max-size:              17em;
 
-$full-filter-size-bp-2:             new-breakpoint(max-width 94em);
+$full-filter-size-bp-2:           new-breakpoint(max-width 94em);
 
 @include media($full-menu-min-size-bp) {
     div.layout {
@@ -16,7 +18,24 @@ $full-filter-size-bp-2:             new-breakpoint(max-width 94em);
         }
 
         > .main {
-            left: $full-menu-min-size;
+            margin-left: $full-menu-min-size;
+        }
+    }
+}
+
+@include media($full-menu-max-size-bp) {
+    div.layout {
+
+        > header .title {
+            width: ($full-menu-max-size / $header-title-size) * 1em;
+        }
+
+        > aside {
+            width: $full-menu-max-size;
+        }
+
+        > .main {
+            margin-left: $full-menu-max-size;
         }
     }
 }
