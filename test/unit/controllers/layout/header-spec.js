@@ -33,4 +33,9 @@ describe('Unit: HeaderCtrl initialization', function() {
         expect(HeaderCtrl.title).to.equal('Test');
     });
 
+    it('should respond to a search request by setting a search timeout and cancelling it if another request is made before the timeout', function () {
+        HeaderCtrl.search('test');
+        HeaderCtrl.search('test2');
+    });
+
 });

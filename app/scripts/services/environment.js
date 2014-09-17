@@ -29,6 +29,7 @@ angular.module('finqApp.service')
             });
             return deferred.promise;
         };
+
         this.list = function(forceReload) {
             if (forceReload || environments === null) {
                 return that.load();
@@ -37,15 +38,4 @@ angular.module('finqApp.service')
             }
         };
 
-        this.getByKey = function(environmentKey) {
-            if (environments === null) {
-                return null;
-            }
-            for (var i=0; i<environments.length; i++) {
-                if (environments[i].key === environmentKey) {
-                    return environments[i];
-                }
-            }
-            return null;
-        };
     }]);
