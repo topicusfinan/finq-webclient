@@ -15,7 +15,6 @@ angular.module('finqApp.service')
         var load = function() {
             var deferred = $q.defer();
             host.get('/story/list').success(function(storyData) {
-                console.log(storyData);
                 stories = storyData;
                 deferred.resolve(stories);
             }).error(function() {

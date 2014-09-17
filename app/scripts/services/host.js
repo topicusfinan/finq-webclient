@@ -18,7 +18,7 @@ angular.module('finqApp.service')
 
         var validateRequest = function() {
             if (host === null) {
-                throw 'Communcation with the story host was requested but no host was selected';
+                throw new Error('Communication with the story host was requested but no host was selected');
             }
         };
 
@@ -27,7 +27,7 @@ angular.module('finqApp.service')
                 return {
                     setHost : function(targetHost) {
                         if (targetHost !== null && (targetHost.address === null || targetHost.address === undefined)) {
-                            throw 'Invalid target host supplied. No host address was defined';
+                            throw new Error('Invalid target host supplied. No host address was defined');
                         }
                         if ((host === null && targetHost !== null) || (host !== null && targetHost === null) || (host !== null && targetHost !== null && host.key !== targetHost.key)) {
                             host = targetHost;

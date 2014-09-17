@@ -34,8 +34,6 @@ angular.module('finqApp.controller')
             var stepsLoaded = 0,
                 totalSteps = 3;
 
-                console.log('sadfsadf');
-
             var evalLoaded = function() {
                 stepsLoaded++;
                 if (totalSteps === stepsLoaded) {
@@ -62,6 +60,8 @@ angular.module('finqApp.controller')
                 loadSets(true,evalLoaded);
                 loadTags(true,evalLoaded);
             } else {
+                setEmptySetList();
+                setEmptyTagList();
                 // delay the loaded indication to allow for appear effects
                 $timeout(function() {
                     that.loaded = true;
@@ -74,22 +74,44 @@ angular.module('finqApp.controller')
             if (newHost !== null) {
                 loadSets(true);
                 loadTags(true);
+            } else {
+                setEmptySetList();
+                setEmptyTagList();
             }
         });
 
+        var setEmptySetList = function() {
+            that.sets = {
+                active: {
+                    key: null,
+                    value: ''
+                },
+                list: [{key: null, value: ''}]
+            };
+            $translate('FILTERS.SETS.DEFAULT_VALUE').then(function (translatedValue) {
+                that.sets.active.value = translatedValue;
+                that.sets.list[0].value = translatedValue;
+            });
+        };
+
+        var setEmptyTagList = function() {
+            that.tags = {
+                active: {
+                    key: null,
+                    value: ''
+                },
+                list: [{key: null, value: ''}]
+            };
+            $translate('FILTERS.TAGS.DEFAULT_VALUE').then(function (translatedValue) {
+                that.tags.active.value = translatedValue;
+                that.tags.list[0].value = translatedValue;
+            });
+        };
+
         var loadSets = function(forceReload,callback) {
             setService.list(forceReload).then(function (sets) {
-                that.sets = {
-                    active: {
-                        key: null,
-                        value: ''
-                    },
-                    list: [{key: null, value: ''}].concat(sets)
-                };
-                $translate('FILTERS.SETS.DEFAULT_VALUE').then(function (translatedValue) {
-                    that.sets.active.value = translatedValue;
-                    that.sets.list[0].value = translatedValue;
-                });
+                setEmptySetList();
+                that.sets.list = that.sets.list.concat(sets);
                 if (typeof callback === 'function') {
                     callback();
                 }
@@ -98,17 +120,8 @@ angular.module('finqApp.controller')
 
         var loadTags = function(forceReload,callback) {
             tagService.list(forceReload).then(function (tags) {
-                that.tags = {
-                    active: {
-                        key: null,
-                        value: ''
-                    },
-                    list: [{key: null, value: ''}].concat(tags)
-                };
-                $translate('FILTERS.TAGS.DEFAULT_VALUE').then(function (translatedValue) {
-                    that.tags.active.value = translatedValue;
-                    that.tags.list[0].value = translatedValue;
-                });
+                setEmptyTagList();
+                that.tags.list = that.tags.list.concat(tags);
                 if (typeof callback === 'function') {
                     callback();
                 }

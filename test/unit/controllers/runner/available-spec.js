@@ -11,6 +11,7 @@ describe('Unit: AvailableCtrl initialization', function() {
         EVENTS,
         emitSpy,
         scope,
+        host,
         storybooks;
 
     beforeEach(function() {
@@ -18,14 +19,14 @@ describe('Unit: AvailableCtrl initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, storyServiceMock, host) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, storyServiceMock, _host_) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         storybooks = storyServiceMock.books;
         httpBackend = $httpBackend;
         emitSpy = sinon.spy(scope, '$emit');
-        host.setHost({address: ''});
+        host = _host_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             pagination : {
@@ -47,8 +48,17 @@ describe('Unit: AvailableCtrl initialization', function() {
     });
 
     it('should have loaded the storybooks', function () {
-        scope.$broadcast(EVENTS.HOST_UPDATED,{address: ''});
+        host.setHost({address: ''});
         httpBackend.expectGET('/story/list').respond(200, storybooks);
+        scope.$broadcast(EVENTS.HOST_UPDATED,{address: ''});
+        httpBackend.flush();
+        expect(AvailableCtrl.storiesLoaded).to.be.true;
+    });
+
+    it('should not have loaded the storybooks in case of an undefined host', function () {
+        host.setHost(null);
+        scope.$broadcast(EVENTS.HOST_UPDATED,null);
+        expect(AvailableCtrl.storiesLoaded).to.be.false;
     });
 
     it('should have every item initially collapsed', function () {
