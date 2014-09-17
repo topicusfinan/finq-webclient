@@ -78,7 +78,7 @@ angular.module('finqApp.controller')
         var loadEnvironments = function() {
             environmentService.load().then(function(environments) {
                 loaded.environments = true;
-                console.debug('Loaded '+environments.length+' hosting environments for story execution');
+                console.debug('Loaded '+environments.length+' environments for story execution');
             },function(error) {
                 that.loadError = error;
             },function(notice) {

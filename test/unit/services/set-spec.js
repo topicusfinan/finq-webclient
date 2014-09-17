@@ -14,11 +14,10 @@ describe('Unit: SetService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, set, setServiceMock, host) {
+    beforeEach(inject(function ($httpBackend, set, setServiceMock) {
         setService = set;
         setMockData = setServiceMock.sets;
         $httpBackend.expectGET('/set/list').respond(200, setMockData);
-        host.setHost({address: ''});
         setService.list().then(function(setData) {
             sets = setData;
         });
@@ -43,10 +42,9 @@ describe('Unit: SetService initialization with an unstable backend', function() 
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, set, host) {
+    beforeEach(inject(function ($httpBackend, set) {
         setService = set;
         $httpBackend.expectGET('/set/list').respond(503);
-        host.setHost({address: ''});
         setService.list().then(null,function(error) {
             feedback = error;
         });

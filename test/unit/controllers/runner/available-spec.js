@@ -11,7 +11,7 @@ describe('Unit: AvailableCtrl initialization', function() {
         EVENTS,
         emitSpy,
         scope,
-        host,
+        environments,
         storybooks;
 
     beforeEach(function() {
@@ -19,14 +19,14 @@ describe('Unit: AvailableCtrl initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, storyServiceMock, _host_) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, environment, environmentServiceMock, storyServiceMock) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         storybooks = storyServiceMock.books;
+        environments = environmentServiceMock.environments;
         httpBackend = $httpBackend;
         emitSpy = sinon.spy(scope, '$emit');
-        host = _host_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             pagination : {
@@ -34,8 +34,12 @@ describe('Unit: AvailableCtrl initialization', function() {
             }
         });
         $httpBackend.expectGET('/app/info').respond(200);
+        $httpBackend.expectGET('/environment/list').respond(200, environments);
+        httpBackend.expectGET('/story/list').respond(200, storybooks);
         config.load().then(function() {
-            AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
+            environment.load().then(function() {
+                AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
+            });
         });
         $httpBackend.flush();
     }));
@@ -48,17 +52,7 @@ describe('Unit: AvailableCtrl initialization', function() {
     });
 
     it('should have loaded the storybooks', function () {
-        host.setHost({address: ''});
-        httpBackend.expectGET('/story/list').respond(200, storybooks);
-        scope.$broadcast(EVENTS.HOST_UPDATED,{address: ''});
-        httpBackend.flush();
         expect(AvailableCtrl.storiesLoaded).to.be.true;
-    });
-
-    it('should not have loaded the storybooks in case of an undefined host', function () {
-        host.setHost(null);
-        scope.$broadcast(EVENTS.HOST_UPDATED,null);
-        expect(AvailableCtrl.storiesLoaded).to.be.false;
     });
 
     it('should have every item initially collapsed', function () {
@@ -81,12 +75,10 @@ describe('Unit: AvailableCtrl initialization', function() {
         expect(AvailableCtrl.filter.set.key).to.equal(setEventData.key);
     });
 
-    it('should respond to an update environment filter request by setting the filter key and resetting the other filters', function () {
+    it('should respond to an update environement request by setting the environment key', function () {
         var envEventData = {id: 'env', key: 1};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
         expect(AvailableCtrl.filter.env.key).to.equal(envEventData.key);
-        expect(AvailableCtrl.filter.tag.key).to.be.null;
-        expect(AvailableCtrl.filter.set.key).to.be.null;
     });
 
     it('should expand a book that is expanded', function () {
@@ -118,6 +110,19 @@ describe('Unit: AvailableCtrl initialization', function() {
 
     it('should initially not have any more pages than the current page for pagination', function () {
         expect(AvailableCtrl.hasMorePages()).to.not.be.true;
+    });
+
+    it('should load a list of environments to populate the environment filter', function () {
+        expect(AvailableCtrl.environments.list.length).to.equal(environments.length + 1);
+    });
+
+    it('should add a default filter item to the environments list', function () {
+        expect(AvailableCtrl.environments.list[0].key).to.be.null;
+        expect(AvailableCtrl.environments.list[1]).to.deep.equal(environments[0]);
+    });
+
+    it('should set the current active environment filter to the default value', function () {
+        expect(AvailableCtrl.environments.active).to.deep.equal({key: null, value: ''});
     });
 
 });

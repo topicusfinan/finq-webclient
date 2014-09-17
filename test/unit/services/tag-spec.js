@@ -14,10 +14,9 @@ describe('Unit: TagService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, tag, tagServiceMock, host) {
+    beforeEach(inject(function ($httpBackend, tag, tagServiceMock) {
         tagService = tag;
         tagMockData = tagServiceMock.tags;
-        host.setHost({address: ''});
         $httpBackend.expectGET('/tag/list').respond(200, tagMockData);
         tagService.list().then(function(tagData) {
             tags = tagData;
@@ -43,10 +42,9 @@ describe('Unit: TagService initialization with an unstable backend', function() 
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, tag, host) {
+    beforeEach(inject(function ($httpBackend, tag) {
         tagService = tag;
         $httpBackend.expectGET('/tag/list').respond(503);
-        host.setHost({address: ''});
         tagService.list().then(null,function(error) {
             feedback = error;
         });

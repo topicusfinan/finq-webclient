@@ -9,11 +9,11 @@
  * Makes it possible to execute CRUD and list operations on tags.
  */
 angular.module('finqApp.service')
-    .service('tag', ['host','$q', function (host,$q) {
+    .service('tag', ['backend','$q', function (backend,$q) {
         var tags = null;
         var load = function() {
             var deferred = $q.defer();
-            host.get('/tag/list').success(function(tagData) {
+            backend.get('/tag/list').success(function(tagData) {
                 tags = tagData;
                 deferred.resolve(tags);
             }).error(function() {

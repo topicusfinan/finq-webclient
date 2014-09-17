@@ -22,8 +22,7 @@ angular.module('finqApp.controller')
         'storybookSearch',
         'storyCollapse',
         'environment',
-        'host',
-        function ($scope,$translate,$timeout,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,environmentService,hostProvider) {
+        function ($scope,$translate,$timeout,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,environmentService) {
         var that = this;
 
         this.filter = {
@@ -56,12 +55,27 @@ angular.module('finqApp.controller')
         });
 
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
-            if (filterInfo.id === 'env') {
-                hostProvider.setHost(environmentService.getByKey(filterInfo.key));
-                that.filter.tag.key = null;
-                that.filter.set.key = null;
-            }
             that.filter[filterInfo.id].key = filterInfo.key;
+        });
+
+        environmentService.list().then(function (environments) {
+            that.environments = {
+                active: {
+                    key: null,
+                    value: ''
+                },
+                list: [{key: null, value: ''}].concat(environments)
+            };
+            $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
+                that.environments.active.value = translatedValue;
+                that.environments.list[0].value = translatedValue;
+            });
+        });
+
+        storyService.list().then(function(bookList) {
+            that.storiesLoaded = true;
+            storybookSearchService.initialize(bookList);
+            storyCollapseService.initialize(bookList);
         });
 
         // delay the loaded indication to allow for appear effects
@@ -85,27 +99,5 @@ angular.module('finqApp.controller')
         this.hasMorePages = function() {
             return storybookSearchService.hasMorePages;
         };
-
-        $scope.$on(EVENTS.HOST_UPDATED,function(event,newHost) {
-            if (newHost !== null) {
-                storyService.list(true).then(function(bookList) {
-                    that.storiesLoaded = true;
-                    storybookSearchService.initialize(bookList);
-                    storyCollapseService.initialize(bookList);
-                    // use a timeout here to ensure the event is broadcasted in the next digest cycle
-                    $timeout(function() {
-                        $scope.$broadcast(EVENTS.CONTENT_LIST_UPDATED,that.storyListRef);
-                    });
-                });
-            } else {
-                that.storiesLoaded = false;
-                storybookSearchService.initialize([]);
-                storyCollapseService.initialize([]);
-                // use a timeout here to ensure the event is broadcasted in the next digest cycle
-                $timeout(function() {
-                    $scope.$broadcast(EVENTS.CONTENT_LIST_UPDATED,that.storyListRef);
-                });
-            }
-        });
 
     }]);
