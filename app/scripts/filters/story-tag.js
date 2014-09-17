@@ -11,15 +11,15 @@
  */
 angular.module('finqApp.filter')
     .filter('storyTagFilter', function() {
-        return function(stories, tagToInclude) {
+        return function(stories, tagsToInclude) {
             var filteredStories = [];
-            if (tagToInclude === null) {
+            if (!tagsToInclude.length) {
                 return stories;
             }
             angular.forEach(stories, function(story) {
                 var include = false;
                 angular.forEach(story.tags, function(tag) {
-                    if (tag === tagToInclude) {
+                    if (tagsToInclude.indexOf(tag) > -1) {
                         include = true;
                     }
                 });

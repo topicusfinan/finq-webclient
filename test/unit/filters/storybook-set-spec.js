@@ -21,7 +21,7 @@ describe('Unit: Storybook Set Filter execution', function() {
     }));
 
     it('should keep all books and stories in case of a clear filter', function () {
-        var filteredBooks = storybookSetFilter(storybooks,null);
+        var filteredBooks = storybookSetFilter(storybooks,[]);
         expect(filteredBooks.length).to.equal(2);
         expect(filteredBooks[0].stories.length).to.equal(2);
         expect(filteredBooks[1].stories.length).to.equal(1);
@@ -33,14 +33,14 @@ describe('Unit: Storybook Set Filter execution', function() {
     });
 
     it('should filter books in case an actual set filter is used that excludes all stories in a book', function () {
-        var filteredBooks = storybookSetFilter(storybooks,1);
+        var filteredBooks = storybookSetFilter(storybooks,[1]);
         expect(filteredBooks.length).to.equal(1);
         expect(filteredBooks[0].stories.length).to.equal(2);
         expect(filteredBooks[0].title).to.equal(storybooks[0].title);
     });
 
     it('should keep books in case at least one story in the book satisfies the filter', function () {
-        var filteredBooks = storybookSetFilter(storybooks,2);
+        var filteredBooks = storybookSetFilter(storybooks,[2]);
         expect(filteredBooks.length).to.equal(2);
         expect(filteredBooks[0].stories.length).to.equal(2);
         expect(filteredBooks[0].title).to.equal(storybooks[0].title);

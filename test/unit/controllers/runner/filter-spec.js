@@ -37,29 +37,11 @@ describe('Unit: AvailableCtrlFilter initialization', function() {
     }));
 
     it('should load a list of sets to populate the set filter', function () {
-        expect(AvailableFilterCtrl.sets.list.length).to.equal(sets.length + 1);
-    });
-
-    it('should add a default filter item to the set list', function () {
-        expect(AvailableFilterCtrl.sets.list[0].key).to.be.null;
-        expect(AvailableFilterCtrl.sets.list[1]).to.deep.equal(sets[0]);
-    });
-
-    it('should set the current active set filter to the default value', function () {
-        expect(AvailableFilterCtrl.sets.active).to.deep.equal({key: null, value: ''});
+        expect(AvailableFilterCtrl.sets).to.deep.equal(sets);
     });
 
     it('should load a list of tags to populate the tag filter', function () {
-        expect(AvailableFilterCtrl.tags.list.length).to.equal(tags.length + 1);
-    });
-
-    it('should add a default filter item to the tag list', function () {
-        expect(AvailableFilterCtrl.tags.list[0].key).to.be.null;
-        expect(AvailableFilterCtrl.tags.list[1]).to.deep.equal(tags[0]);
-    });
-
-    it('should set the current active tag filter to the default value', function () {
-        expect(AvailableFilterCtrl.tags.active).to.deep.equal({key: null, value: ''});
+        expect(AvailableFilterCtrl.tags).to.deep.equal(tags);
     });
 
     it('should set the filter to fully loaded', function () {

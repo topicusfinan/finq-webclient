@@ -21,7 +21,7 @@ describe('Unit: Storybook Tag Filter execution', function() {
     }));
 
     it('should keep all books and stories in case of a clear filter', function () {
-        var filteredBooks = storybookTagFilter(storybooks,null);
+        var filteredBooks = storybookTagFilter(storybooks,[]);
         expect(filteredBooks.length).to.equal(2);
         expect(filteredBooks[0].stories.length).to.equal(2);
         expect(filteredBooks[1].stories.length).to.equal(1);
@@ -33,14 +33,14 @@ describe('Unit: Storybook Tag Filter execution', function() {
     });
 
     it('should filter books but keep those that have at least one story that has the associated tag', function () {
-        var filteredBooks = storybookTagFilter(storybooks,'basket');
+        var filteredBooks = storybookTagFilter(storybooks,['basket']);
         expect(filteredBooks.length).to.equal(1);
         expect(filteredBooks[0].stories.length).to.equal(2);
         expect(filteredBooks[0].title).to.equal(storybooks[0].title);
     });
 
     it('should filter books in case an actual tag filter is used that excludes all stories in a book', function () {
-        var filteredBooks = storybookTagFilter(storybooks,'write');
+        var filteredBooks = storybookTagFilter(storybooks,['write']);
         expect(filteredBooks.length).to.equal(1);
         expect(filteredBooks[0].stories.length).to.equal(1);
         expect(filteredBooks[0].title).to.equal(storybooks[1].title);

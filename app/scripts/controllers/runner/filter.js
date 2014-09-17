@@ -26,6 +26,8 @@ angular.module('finqApp.controller')
             set: true,
             tag: false
         };
+        this.tagPlaceholder = 'FILTERS.TAGS.DEFAULT_VALUE';
+        this.setPlaceholder = 'FILTERS.SETS.DEFAULT_VALUE';
 
         var loadFilter = function() {
             var stepsLoaded = 0,
@@ -39,45 +41,15 @@ angular.module('finqApp.controller')
             };
 
             setService.list().then(function (sets) {
-                setupEmptySetList();
-                that.sets.list = that.sets.list.concat(sets);
+                that.sets = sets;
                 evalLoaded();
             });
 
             tagService.list().then(function (tags) {
-                setupEmptyTagList();
-                that.tags.list = that.tags.list.concat(tags);
+                that.tags = tags;
                 evalLoaded();
             });
 
-        };
-
-        var setupEmptySetList = function() {
-            that.sets = {
-                active: {
-                    key: null,
-                    value: ''
-                },
-                list: [{key: null, value: ''}]
-            };
-            $translate('FILTERS.SETS.DEFAULT_VALUE').then(function (translatedValue) {
-                that.sets.active.value = translatedValue;
-                that.sets.list[0].value = translatedValue;
-            });
-        };
-
-        var setupEmptyTagList = function() {
-            that.tags = {
-                active: {
-                    key: null,
-                    value: ''
-                },
-                list: [{key: null, value: ''}]
-            };
-            $translate('FILTERS.TAGS.DEFAULT_VALUE').then(function (translatedValue) {
-                that.tags.active.value = translatedValue;
-                that.tags.list[0].value = translatedValue;
-            });
         };
 
         loadFilter();

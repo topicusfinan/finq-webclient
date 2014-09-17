@@ -28,7 +28,6 @@
     },
     "RUNNER" : {
         "TITLE" : "Run",
-        "SELECT_ENVIRONMENT" : "Select an environment",
         "AVAILABLE" : {
             "TITLE" : "Available scenarios",
             "FILTER" : {

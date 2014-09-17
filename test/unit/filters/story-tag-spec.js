@@ -21,14 +21,14 @@ describe('Unit: Story Tag Filter execution', function() {
     }));
 
     it('should keep all stories in case of a clear filter', function () {
-        var filteredStories = storyTagFilter(stories,null);
+        var filteredStories = storyTagFilter(stories,[]);
         expect(filteredStories.length).to.equal(2);
         expect(filteredStories[0].title).to.equal(stories[0].title);
         expect(filteredStories[1].title).to.equal(stories[1].title);
     });
 
     it('should filter stories in case they do not match the filter', function () {
-        var filteredStories = storyTagFilter(stories,'basket');
+        var filteredStories = storyTagFilter(stories,['basket']);
         expect(filteredStories.length).to.equal(1);
         expect(filteredStories[0].title).to.equal(stories[1].title);
     });

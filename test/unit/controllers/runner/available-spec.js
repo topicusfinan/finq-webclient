@@ -63,22 +63,22 @@ describe('Unit: AvailableCtrl initialization', function() {
         expect(AvailableCtrl.selectedItem).to.be.null;
     });
 
-    it('should respond to an update tag filter request by setting the filter key', function () {
-        var tagEventData = {id: 'tag', key: 1};
+    it('should respond to an update tag filter request by setting the filter keys', function () {
+        var tagEventData = {id: 'tag', keys: [1]};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,tagEventData);
-        expect(AvailableCtrl.filter.tag.key).to.equal(tagEventData.key);
+        expect(AvailableCtrl.filter.tag.keys).to.deep.equal(tagEventData.keys);
     });
 
-    it('should respond to an update set filter request by setting the filter key', function () {
-        var setEventData = {id: 'set', key: 1};
+    it('should respond to an update set filter request by setting the filter keys', function () {
+        var setEventData = {id: 'set', keys: [1]};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,setEventData);
-        expect(AvailableCtrl.filter.set.key).to.equal(setEventData.key);
+        expect(AvailableCtrl.filter.set.keys).to.deep.equal(setEventData.keys);
     });
 
-    it('should respond to an update environement request by setting the environment key', function () {
-        var envEventData = {id: 'env', key: 1};
+    it('should respond to an update environement request by setting the environment keys', function () {
+        var envEventData = {id: 'env', keys: [1]};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
-        expect(AvailableCtrl.filter.env.key).to.equal(envEventData.key);
+        expect(AvailableCtrl.filter.env.keys).to.deep.equal(envEventData.keys);
     });
 
     it('should expand a book that is expanded', function () {
@@ -113,16 +113,7 @@ describe('Unit: AvailableCtrl initialization', function() {
     });
 
     it('should load a list of environments to populate the environment filter', function () {
-        expect(AvailableCtrl.environments.list.length).to.equal(environments.length + 1);
-    });
-
-    it('should add a default filter item to the environments list', function () {
-        expect(AvailableCtrl.environments.list[0].key).to.be.null;
-        expect(AvailableCtrl.environments.list[1]).to.deep.equal(environments[0]);
-    });
-
-    it('should set the current active environment filter to the default value', function () {
-        expect(AvailableCtrl.environments.active).to.deep.equal({key: null, value: ''});
+        expect(AvailableCtrl.environments.length).to.equal(environments.length);
     });
 
 });

@@ -40,6 +40,7 @@ angular.module('finqApp.controller')
             }
         };
         this.storyListRef = 'stories';
+        that.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
         this.selectedItem = null;
         this.maxScenarios = configProvider.client().pagination.maxScenarios;
         this.currentPage = 0;
@@ -59,17 +60,7 @@ angular.module('finqApp.controller')
         });
 
         environmentService.list().then(function (environments) {
-            that.environments = {
-                active: [{
-                    key: null,
-                    value: ''
-                }],
-                list: [{key: null, value: ''}].concat(environments)
-            };
-            $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
-                that.environments.active.value = translatedValue;
-                that.environments.list[0].value = translatedValue;
-            });
+            that.environments = environments;
         });
 
         storyService.list().then(function(bookList) {

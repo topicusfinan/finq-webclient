@@ -11,15 +11,15 @@
  */
 angular.module('finqApp.filter')
     .filter('storySetFilter', function() {
-        return function(stories, setToInclude) {
+        return function(stories, setsToInclude) {
             var filteredStories = [];
-            if (setToInclude === null) {
+            if (!setsToInclude.length) {
                 return stories;
             }
             angular.forEach(stories, function(story) {
                 var include = false;
                 angular.forEach(story.sets, function(set) {
-                    if (set === setToInclude) {
+                    if (setsToInclude.indexOf(set) > -1) {
                         include = true;
                     }
                 });

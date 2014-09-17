@@ -8,20 +8,7 @@
  *
  * A filter dropdown select button with dynamic options linked to models. To use it add the attribute
  * "filter-select" to your DOM tag and provide it with a reference to the controller object that contains
- * the list of values that the user can select. This object needs to be in the following format:
- *
- * {
- *     "active" : [{
- *         "key" : <key that identifies the active select item>,
- *         "value" : <visual representation of the selected item>
- *     }],
- *     "list" : [
- *         {
- *             "key" : <option key>
- *             "value" : <option display value>
- *         }
- *     ]
- * }
+ * the list of values that the user can select. This has to be a list of key value pairs.
  */
 angular.module('finqApp.directive')
     .directive('filterSelect', ['$timeout','$translate','EVENTS', function ($timeout,$translate,EVENTS) {
@@ -44,11 +31,12 @@ angular.module('finqApp.directive')
                         key: null,
                         value: ''
                     }];
-                    active = placeholder;
+                    active = angular.copy(placeholder);
                     scope.options = placeholder.concat(scope.options);
-                    $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
+                    $translate(scope.placeholder).then(function (translatedValue) {
                         active[0].value = translatedValue;
                         scope.options[0].value = translatedValue;
+                        updateValue();
                     });
                 }
                 if (scope.defkey !== undefined) {
@@ -71,6 +59,7 @@ angular.module('finqApp.directive')
                     throw new Error('Missing default value or placeholder for filter '+scope.id);
                 }
                 var hideTimer;
+                var blockHide = false;
                 scope.show = false;
 
                 scope.toggle = function() {
@@ -80,7 +69,11 @@ angular.module('finqApp.directive')
                 scope.hide = function() {
                     hideTimer = $timeout(
                         function () {
-                            scope.show = false;
+                            if (blockHide) {
+                                blockHide = !blockHide;
+                            } else {
+                                scope.show = false;
+                            }
                         },
                         100
                     );
@@ -96,9 +89,24 @@ angular.module('finqApp.directive')
                         id: scope.id,
                         keys: newKeys
                     });
+                    updateValue();
                 };
-                scope.getValue = function() {
-                    // implement
+
+                scope.isActive = function(key) {
+                    for (var i=0; i<active.length; i++) {
+                        if (active[i].key === key) {
+                            return true;
+                        }
+                    }
+                    return false;
+                };
+
+                var updateValue = function() {
+                    var val = [];
+                    for (var i=0; i<active.length; i++) {
+                        val.push(active[i].value);
+                    }
+                    scope.value = val.join(', ');
                 };
 
                 var singleSelect = function(key,value) {
@@ -107,16 +115,27 @@ angular.module('finqApp.directive')
                     }
                     active[0].key = key;
                     active[0].value = value;
-                    return [key];
+                    return key === null ? [] : [key];
                 };
 
                 var multipleToggle = function(key,value) {
                     var keys = [],
                         found = false;
+                    blockHide = true;
+                    if (key === null) {
+                        active = [{
+                            key: scope.options[0].key,
+                            value: scope.options[0].value
+                        }];
+                        return [];
+                    }
+                    if (active.length && active[0].key === null) {
+                        active.splice(0,1);
+                    }
                     for (var i=0; i<active.length; i++) {
                         if (active[i].key === key) {
                             found = true;
-                            active.splice(i,1);
+                            active.splice(i--,1);
                         } else {
                             keys.push(active[i].key);
                         }
@@ -126,9 +145,21 @@ angular.module('finqApp.directive')
                             key: key,
                             value: value
                         });
+                        if (key !== null) {
+                            keys.push(key);
+                        }
+                    }
+                    if (!keys.length) {
+                        if (scope.options[0].key === null) {
+                            return multipleToggle(null,scope.options[0].value);
+                        } else {
+                            return multipleToggle(key,value);
+                        }
                     }
                     return keys;
                 };
+
+                updateValue();
             }
         };
     }]);
