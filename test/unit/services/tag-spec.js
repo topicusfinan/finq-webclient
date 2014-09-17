@@ -32,3 +32,29 @@ describe('Unit: TagService initialization', function() {
     });
 
 });
+
+describe('Unit: TagService initialization with an unstable backend', function() {
+
+    var tagService,
+        feedback;
+
+    beforeEach(function() {
+        module('finqApp');
+        module('finqApp.service');
+        module('finqApp.mock');
+    });
+    beforeEach(inject(function ($httpBackend, tag, host) {
+        tagService = tag;
+        $httpBackend.expectGET('/tag/list').respond(503);
+        host.setHost({address: ''});
+        tagService.list().then(null,function(error) {
+            feedback = error;
+        });
+        $httpBackend.flush();
+    }));
+
+    it('should fail to load the test tags', function () {
+        expect(feedback).to.not.be.undefined;
+    });
+
+});

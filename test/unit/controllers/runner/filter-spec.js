@@ -150,5 +150,11 @@ describe('Unit: AvailableCtrl initialization without a set host', function() {
         expect(AvailableFilterCtrl.tags.list.length).to.equal(tags.length + 1);
     });
 
+    it('should respond to a host updated event by clearing the set and tag lists in case no host was selected', function () {
+        host.setHost(null);
+        scope.$broadcast(EVENTS.HOST_UPDATED,null);
+        expect(AvailableFilterCtrl.sets.list.length).to.equal(1);
+        expect(AvailableFilterCtrl.tags.list.length).to.equal(1);
+    });
 
 });

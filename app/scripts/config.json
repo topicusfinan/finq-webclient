@@ -2,6 +2,6 @@
     "address" : "",
     "searchWait": 250,
     "pagination": {
-        "maxScenarios": 50
+        "maxScenarios": 1000
     }
 }

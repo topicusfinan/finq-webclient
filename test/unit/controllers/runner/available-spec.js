@@ -81,10 +81,12 @@ describe('Unit: AvailableCtrl initialization', function() {
         expect(AvailableCtrl.filter.set.key).to.equal(setEventData.key);
     });
 
-    it('should respond to an update environment filter request by setting the filter key', function () {
+    it('should respond to an update environment filter request by setting the filter key and resetting the other filters', function () {
         var envEventData = {id: 'env', key: 1};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
         expect(AvailableCtrl.filter.env.key).to.equal(envEventData.key);
+        expect(AvailableCtrl.filter.tag.key).to.be.null;
+        expect(AvailableCtrl.filter.set.key).to.be.null;
     });
 
     it('should expand a book that is expanded', function () {

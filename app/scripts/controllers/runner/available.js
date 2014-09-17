@@ -40,6 +40,7 @@ angular.module('finqApp.controller')
                 key: null
             }
         };
+        this.storyListRef = 'stories';
         this.selectedItem = null;
         this.maxScenarios = configProvider.client().pagination.maxScenarios;
         this.currentPage = 0;
@@ -57,6 +58,8 @@ angular.module('finqApp.controller')
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             if (filterInfo.id === 'env') {
                 hostProvider.setHost(environmentService.getByKey(filterInfo.key));
+                that.filter.tag.key = null;
+                that.filter.set.key = null;
             }
             that.filter[filterInfo.id].key = filterInfo.key;
         });
@@ -89,11 +92,19 @@ angular.module('finqApp.controller')
                     that.storiesLoaded = true;
                     storybookSearchService.initialize(bookList);
                     storyCollapseService.initialize(bookList);
+                    // use a timeout here to ensure the event is broadcasted in the next digest cycle
+                    $timeout(function() {
+                        $scope.$broadcast(EVENTS.CONTENT_LIST_UPDATED,that.storyListRef);
+                    });
                 });
             } else {
                 that.storiesLoaded = false;
                 storybookSearchService.initialize([]);
                 storyCollapseService.initialize([]);
+                // use a timeout here to ensure the event is broadcasted in the next digest cycle
+                $timeout(function() {
+                    $scope.$broadcast(EVENTS.CONTENT_LIST_UPDATED,that.storyListRef);
+                });
             }
         });
 
