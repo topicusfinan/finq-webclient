@@ -28,15 +28,15 @@ angular.module('finqApp.controller')
         this.filter = {
             set: {
                 id: 'set',
-                key: null
+                keys: []
             },
             tag: {
                 id: 'tag',
-                key: null
+                keys: []
             },
             env: {
                 id: 'env',
-                key: null
+                keys: []
             }
         };
         this.storyListRef = 'stories';
@@ -55,15 +55,15 @@ angular.module('finqApp.controller')
         });
 
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
-            that.filter[filterInfo.id].key = filterInfo.key;
+            that.filter[filterInfo.id].keys = filterInfo.keys;
         });
 
         environmentService.list().then(function (environments) {
             that.environments = {
-                active: {
+                active: [{
                     key: null,
                     value: ''
-                },
+                }],
                 list: [{key: null, value: ''}].concat(environments)
             };
             $translate('FILTERS.ENVIRONMENTS.DEFAULT_VALUE').then(function (translatedValue) {
