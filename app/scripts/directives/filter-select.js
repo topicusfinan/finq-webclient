@@ -24,50 +24,53 @@ angular.module('finqApp.directive')
             templateUrl: 'views/directives/select.html',
             controller: 'FilterSelectCtrl',
             link: function (scope) {
-                var placeholder;
-
-                if (scope.placeholder !== undefined) {
-                    placeholder = [{
-                        key: null,
-                        value: ''
-                    }];
-                    scope.active = angular.copy(placeholder);
-                    scope.options = placeholder.concat(scope.options);
-                    $translate(scope.placeholder).then(function (translatedValue) {
-                        scope.active[0].value = translatedValue;
-                        scope.options[0].value = translatedValue;
-                        scope.updateValue();
-                    });
-                }
-                if (scope.defkey !== undefined) {
-                    var found = false;
-                    for (var i=0; i<scope.options.length; i++) {
-                        if (scope.options[i].key === scope.defkey) {
-                            scope.active = [{
-                                key: scope.options[i].key,
-                                value: scope.options[i].value
-                            }];
-                            found = true;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        throw new Error('Invalid default filter value for filter '+scope.id+' the key '+scope.defkey+' could not be found in the passed options list');
-                    }
-                }
-                if (scope.defkey === undefined && scope.placeholder === undefined) {
-                    throw new Error('Missing default value or placeholder for filter '+scope.id);
-                }
-
-                scope.updateValue();
+                scope.initialize();
             }
         };
     }])
-    .controller('FilterSelectCtrl', ['$scope', '$timeout', 'EVENTS', function($scope,$timeout,EVENTS) {
+    .controller('FilterSelectCtrl', ['$scope', '$timeout', '$translate', 'EVENTS', function($scope,$timeout,$translate,EVENTS) {
         var hideTimer;
         var blockHide = false;
 
         $scope.show = false;
+        $scope.initialize = function() {
+            var placeholder;
+
+            if ($scope.placeholder !== undefined) {
+                placeholder = [{
+                    key: null,
+                    value: ''
+                }];
+                $scope.active = angular.copy(placeholder);
+                $scope.options = placeholder.concat($scope.options);
+                $translate($scope.placeholder).then(function (translatedValue) {
+                    $scope.active[0].value = translatedValue;
+                    $scope.options[0].value = translatedValue;
+                    updateValue();
+                });
+            }
+            if ($scope.defkey !== undefined) {
+                var found = false;
+                for (var i=0; i<$scope.options.length; i++) {
+                    if ($scope.options[i].key === $scope.defkey) {
+                        $scope.active = [{
+                            key: $scope.options[i].key,
+                            value: $scope.options[i].value
+                        }];
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    throw new Error('Invalid default filter value for filter '+$scope.id+' the key '+$scope.defkey+' could not be found in the passed options list');
+                }
+            }
+            if ($scope.defkey === undefined && $scope.placeholder === undefined) {
+                throw new Error('Missing default value or placeholder for filter '+$scope.id);
+            }
+
+            updateValue();
+        };
         $scope.toggle = function() {
             $scope.show = !$scope.show;
             $timeout.cancel(hideTimer);
@@ -95,7 +98,7 @@ angular.module('finqApp.directive')
                 id: $scope.id,
                 keys: newKeys
             });
-            $scope.updateValue();
+            updateValue();
         };
 
         $scope.isActive = function(key) {
@@ -107,7 +110,7 @@ angular.module('finqApp.directive')
             return false;
         };
 
-        $scope.updateValue = function() {
+        var updateValue = function() {
             var val = [];
             for (var i=0; i<$scope.active.length; i++) {
                 val.push($scope.active[i].value);

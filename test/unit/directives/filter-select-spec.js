@@ -54,6 +54,13 @@ describe('Unit: FilterSelect directive controller', function() {
         });
     });
 
+    it('should keep the current target selected in case it is selected again with a single select', function() {
+        scope.select(scope.options[1].key,scope.options[1].value);
+        scope.select(scope.options[1].key,scope.options[1].value);
+        expect(scope.active[0].key).to.equal(scope.options[1].key);
+        expect(scope.active[0].value).to.equal(scope.options[1].value);
+    });
+
     it('should select both targets in case of a multiple select', function() {
         var emitSpy = sinon.spy(scope, '$emit');
         scope.multiple = true;
@@ -77,6 +84,20 @@ describe('Unit: FilterSelect directive controller', function() {
         expect(scope.active.length).to.equal(1);
         expect(scope.active[0].key).to.equal(scope.options[0].key);
         expect(scope.active[0].value).to.equal(scope.options[0].value);
+        expect(scope.value).to.equal(scope.active[0].value);
+    });
+
+    it('should deactivate the placeholder in case the any other option is selected in a multiple select', function() {
+        scope.multiple = true;
+        scope.options = [{
+            key: null,
+            value: 'placeholder'
+        }].concat(scope.options);
+        scope.select(scope.options[0].key,scope.options[0].value);
+        scope.select(scope.options[1].key,scope.options[1].value);
+        expect(scope.active.length).to.equal(1);
+        expect(scope.active[0].key).to.equal(scope.options[1].key);
+        expect(scope.active[0].value).to.equal(scope.options[1].value);
         expect(scope.value).to.equal(scope.active[0].value);
     });
 
@@ -139,6 +160,45 @@ describe('Unit: FilterSelect directive controller', function() {
         expect(scope.isActive(scope.options[0].key)).to.be.true;
         expect(scope.isActive(scope.options[1].key)).to.be.false;
         expect(scope.isActive(scope.options[2].key)).to.be.false;
+    });
+
+    it('should add the placeholder to the options list during initialization in case a placeholder was provided', function() {
+        scope.placeholder = 'test';
+        scope.initialize();
+        expect(scope.options[0]).to.deep.equal({key: null, value: ''});
+    });
+
+    it('should set the placeholder as the active value during initialization in case a placeholder was provided', function() {
+        scope.placeholder = 'test';
+        scope.initialize();
+        expect(scope.active[0]).to.deep.equal({key: null, value: ''});
+    });
+
+    it('should select the default value during initialization if it was provided', function() {
+        scope.defkey = 1;
+        scope.initialize();
+        expect(scope.active[0]).to.deep.equal(scope.options[1]);
+    });
+
+    it('should throw an error during initialization in case neither a placeholder nor a default value was set', function() {
+        var error;
+        try {
+            scope.initialize();
+        } catch (err) {
+            error = err;
+        }
+        expect(error).to.not.be.undefined;
+    });
+
+    it('should throw an error during initialization in case an invalid default key was provided', function() {
+        var error;
+        scope.defkey = 2;
+        try {
+            scope.initialize();
+        } catch (err) {
+            error = err;
+        }
+        expect(error).to.not.be.undefined;
     });
 
 });
