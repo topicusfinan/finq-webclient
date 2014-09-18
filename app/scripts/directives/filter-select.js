@@ -11,7 +11,7 @@
  * the list of values that the user can select. This has to be a list of key value pairs.
  */
 angular.module('finqApp.directive')
-    .directive('filterSelect', ['$timeout','$translate','EVENTS', function ($timeout,$translate,EVENTS) {
+    .directive('filterSelect', ['$translate', function ($translate) {
         return {
             scope: {
                 options: '=filterSelect',
@@ -22,28 +22,28 @@ angular.module('finqApp.directive')
             },
             restrict: 'A',
             templateUrl: 'views/directives/select.html',
+            controller: 'FilterSelectCtrl',
             link: function (scope) {
-                var active,
-                    placeholder;
+                var placeholder;
 
                 if (scope.placeholder !== undefined) {
                     placeholder = [{
                         key: null,
                         value: ''
                     }];
-                    active = angular.copy(placeholder);
+                    scope.active = angular.copy(placeholder);
                     scope.options = placeholder.concat(scope.options);
                     $translate(scope.placeholder).then(function (translatedValue) {
-                        active[0].value = translatedValue;
+                        scope.active[0].value = translatedValue;
                         scope.options[0].value = translatedValue;
-                        updateValue();
+                        scope.updateValue();
                     });
                 }
                 if (scope.defkey !== undefined) {
                     var found = false;
                     for (var i=0; i<scope.options.length; i++) {
                         if (scope.options[i].key === scope.defkey) {
-                            active = [{
+                            scope.active = [{
                                 key: scope.options[i].key,
                                 value: scope.options[i].value
                             }];
@@ -58,108 +58,110 @@ angular.module('finqApp.directive')
                 if (scope.defkey === undefined && scope.placeholder === undefined) {
                     throw new Error('Missing default value or placeholder for filter '+scope.id);
                 }
-                var hideTimer;
-                var blockHide = false;
-                scope.show = false;
 
-                scope.toggle = function() {
-                    scope.show = !scope.show;
-                    $timeout.cancel(hideTimer);
-                };
-                scope.hide = function() {
-                    hideTimer = $timeout(
-                        function () {
-                            if (blockHide) {
-                                blockHide = !blockHide;
-                            } else {
-                                scope.show = false;
-                            }
-                        },
-                        100
-                    );
-                };
-                scope.select = function(key,value) {
-                    var newKeys;
-                    if (scope.multiple) {
-                        newKeys = multipleToggle(key,value);
-                    } else {
-                        newKeys = singleSelect(key,value);
-                    }
-                    scope.$emit(EVENTS.FILTER_SELECT_UPDATED,{
-                        id: scope.id,
-                        keys: newKeys
-                    });
-                    updateValue();
-                };
-
-                scope.isActive = function(key) {
-                    for (var i=0; i<active.length; i++) {
-                        if (active[i].key === key) {
-                            return true;
-                        }
-                    }
-                    return false;
-                };
-
-                var updateValue = function() {
-                    var val = [];
-                    for (var i=0; i<active.length; i++) {
-                        val.push(active[i].value);
-                    }
-                    scope.value = val.join(', ');
-                };
-
-                var singleSelect = function(key,value) {
-                    if (active[0].key === key) {
-                        return;
-                    }
-                    active[0].key = key;
-                    active[0].value = value;
-                    return key === null ? [] : [key];
-                };
-
-                var multipleToggle = function(key,value) {
-                    var keys = [],
-                        found = false;
-                    blockHide = true;
-                    if (key === null) {
-                        active = [{
-                            key: scope.options[0].key,
-                            value: scope.options[0].value
-                        }];
-                        return [];
-                    }
-                    if (active.length && active[0].key === null) {
-                        active.splice(0,1);
-                    }
-                    for (var i=0; i<active.length; i++) {
-                        if (active[i].key === key) {
-                            found = true;
-                            active.splice(i--,1);
-                        } else {
-                            keys.push(active[i].key);
-                        }
-                    }
-                    if (!found) {
-                        active.push({
-                            key: key,
-                            value: value
-                        });
-                        if (key !== null) {
-                            keys.push(key);
-                        }
-                    }
-                    if (!keys.length) {
-                        if (scope.options[0].key === null) {
-                            return multipleToggle(null,scope.options[0].value);
-                        } else {
-                            return multipleToggle(key,value);
-                        }
-                    }
-                    return keys;
-                };
-
-                updateValue();
+                scope.updateValue();
             }
+        };
+    }])
+    .controller('FilterSelectCtrl', ['$scope', '$timeout', 'EVENTS', function($scope,$timeout,EVENTS) {
+        var hideTimer;
+        var blockHide = false;
+
+        $scope.show = false;
+        $scope.toggle = function() {
+            $scope.show = !$scope.show;
+            $timeout.cancel(hideTimer);
+        };
+        $scope.hide = function() {
+            hideTimer = $timeout(
+                function () {
+                    if (blockHide) {
+                        blockHide = !blockHide;
+                    } else {
+                        $scope.show = false;
+                    }
+                },
+                100
+            );
+        };
+        $scope.select = function(key,value) {
+            var newKeys;
+            if ($scope.multiple) {
+                newKeys = multipleToggle(key,value);
+            } else {
+                newKeys = singleSelect(key,value);
+            }
+            $scope.$emit(EVENTS.FILTER_SELECT_UPDATED,{
+                id: $scope.id,
+                keys: newKeys
+            });
+            $scope.updateValue();
+        };
+
+        $scope.isActive = function(key) {
+            for (var i=0; i<$scope.active.length; i++) {
+                if ($scope.active[i].key === key) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        $scope.updateValue = function() {
+            var val = [];
+            for (var i=0; i<$scope.active.length; i++) {
+                val.push($scope.active[i].value);
+            }
+            $scope.value = val.join(', ');
+        };
+
+        var singleSelect = function(key,value) {
+            if ($scope.active[0].key === key) {
+                return;
+            }
+            $scope.active[0].key = key;
+            $scope.active[0].value = value;
+            return key === null ? [] : [key];
+        };
+
+        var multipleToggle = function(key,value) {
+            var keys = [],
+                found = false;
+            blockHide = true;
+            if (key === null) {
+                $scope.active = [{
+                    key: $scope.options[0].key,
+                    value: $scope.options[0].value
+                }];
+                return [];
+            }
+            if ($scope.active.length && $scope.active[0].key === null) {
+                $scope.active.splice(0,1);
+            }
+            for (var i=0; i<$scope.active.length; i++) {
+                if ($scope.active[i].key === key) {
+                    found = true;
+                    $scope.active.splice(i--,1);
+                } else {
+                    keys.push($scope.active[i].key);
+                }
+            }
+            if (!found) {
+                $scope.active.push({
+                    key: key,
+                    value: value
+                });
+                if (key !== null) {
+                    keys.push(key);
+                }
+            }
+            if (!keys.length) {
+                if ($scope.options[0].key === null) {
+                    return multipleToggle(null,$scope.options[0].value);
+                } else {
+                    return multipleToggle(key,value);
+                }
+            }
+            return keys;
         };
     }]);

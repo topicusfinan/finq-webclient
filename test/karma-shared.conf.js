@@ -48,8 +48,7 @@ module.exports = function() {
       'app/scripts/*.js',
       'app/scripts/modules/*.js',
       'app/scripts/services/*.js',
-      'app/scripts/**/*.js',
-      'app/views/**/*.html'
+      'app/scripts/**/*.js'
     ],
 
     client: {
