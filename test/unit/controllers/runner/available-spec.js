@@ -77,8 +77,10 @@ describe('Unit: AvailableCtrl initialization', function() {
 
     it('should respond to an update environement request by setting the environment keys', function () {
         var envEventData = {id: 'env', keys: [1]};
+        var broadcastSpy = sinon.spy(scope, '$broadcast');
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
         expect(AvailableCtrl.filter.env.keys).to.deep.equal(envEventData.keys);
+        expect(broadcastSpy).to.have.been.calledWith(EVENTS.SYNCHRONIZE_ENVIRONMENTS,[1]);
     });
 
     it('should expand a book that is expanded', function () {

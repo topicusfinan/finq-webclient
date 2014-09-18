@@ -177,7 +177,6 @@ describe('Unit: FilterSelect directive controller', function() {
     it('should select the default value during initialization if it was provided', function() {
         scope.defkey = 1;
         scope.initialize();
-
         expect(scope.active[0]).to.deep.equal(scope.options[1]);
     });
 
@@ -200,6 +199,14 @@ describe('Unit: FilterSelect directive controller', function() {
             error = err;
         }
         expect(error).to.not.be.undefined;
+    });
+
+    it('should synchronize itself with pushed keys', function() {
+        scope.synchronize([scope.options[0].key,scope.options[1].key]);
+        expect(scope.active[0].key).to.equal(scope.options[0].key);
+        expect(scope.active[0].value).to.equal(scope.options[0].value);
+        expect(scope.active[1].key).to.equal(scope.options[1].key);
+        expect(scope.active[1].value).to.equal(scope.options[1].value);
     });
 
 });

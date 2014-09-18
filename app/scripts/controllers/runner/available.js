@@ -41,6 +41,7 @@ angular.module('finqApp.controller')
         };
         this.storyListRef = 'stories';
         that.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
+        this.envSyncEvent = EVENTS.SYNCHRONIZE_ENVIRONMENTS;
         this.selectedItem = null;
         this.maxScenarios = configProvider.client().pagination.maxScenarios;
         this.currentPage = 0;
@@ -57,6 +58,9 @@ angular.module('finqApp.controller')
 
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             that.filter[filterInfo.id].keys = filterInfo.keys;
+            if (filterInfo.id === 'env') {
+                $scope.$broadcast(that.envSyncEvent,filterInfo.keys);
+            }
         });
 
         environmentService.list().then(function (environments) {

@@ -18,13 +18,24 @@ angular.module('finqApp.directive')
                 multiple: '=',
                 defkey: '=default',
                 placeholder: '=',
-                id: '=filterId'
+                id: '=filterId',
+                syncEvent: '@synchronize'
             },
             restrict: 'A',
             templateUrl: 'views/directives/select.html',
             controller: 'FilterSelectCtrl',
             link: function (scope) {
                 scope.initialize();
+
+                scope.$watch('passedOptions', function() {
+                    scope.initialize();
+                });
+
+                if (scope.syncEvent !== undefined) {
+                    scope.$on(scope.syncEvent,function(event, keys) {
+                        scope.synchronize(keys);
+                    });
+                }
             }
         };
     }])
@@ -37,6 +48,7 @@ angular.module('finqApp.directive')
             var placeholder;
 
             $scope.options = angular.copy($scope.passedOptions);
+
             if ($scope.placeholder !== undefined) {
                 placeholder = [{
                     key: null,
@@ -50,6 +62,7 @@ angular.module('finqApp.directive')
                     updateValue();
                 });
             }
+
             if ($scope.defkey !== undefined) {
                 var found = false;
                 for (var i=0; i<$scope.options.length; i++) {
@@ -66,10 +79,24 @@ angular.module('finqApp.directive')
                     throw new Error('Invalid default filter value for filter '+$scope.id+' the key '+$scope.defkey+' could not be found in the passed options list');
                 }
             }
+
             if ($scope.defkey === undefined && $scope.placeholder === undefined) {
                 throw new Error('Missing default value or placeholder for filter '+$scope.id);
             }
 
+            updateValue();
+        };
+        $scope.synchronize = function(keys) {
+            $scope.active = [];
+            for (var i=0; i<$scope.options.length; i++) {
+                if (keys.indexOf($scope.options[i].key) > -1) {
+                    $scope.active.push({
+                        key: $scope.options[i].key,
+                        value: $scope.options[i].value
+                    });
+                }
+            }
+            console.log($scope.options);
             updateValue();
         };
         $scope.toggle = function() {
@@ -101,7 +128,6 @@ angular.module('finqApp.directive')
             });
             updateValue();
         };
-
         $scope.isActive = function(key) {
             for (var i=0; i<$scope.active.length; i++) {
                 if ($scope.active[i].key === key) {
@@ -125,7 +151,7 @@ angular.module('finqApp.directive')
             }
             $scope.active[0].key = key;
             $scope.active[0].value = value;
-            return key === null ? [] : [key];
+            return [key];
         };
 
         var multipleToggle = function(key,value) {
@@ -137,7 +163,7 @@ angular.module('finqApp.directive')
                     key: $scope.options[0].key,
                     value: $scope.options[0].value
                 }];
-                return [];
+                return [null];
             }
             if ($scope.active.length && $scope.active[0].key === null) {
                 $scope.active.splice(0,1);
@@ -155,9 +181,7 @@ angular.module('finqApp.directive')
                     key: key,
                     value: value
                 });
-                if (key !== null) {
-                    keys.push(key);
-                }
+                keys.push(key);
             }
             if (!keys.length) {
                 if ($scope.options[0].key === null) {

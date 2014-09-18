@@ -13,13 +13,9 @@
 angular.module('finqApp.controller')
     .controller('AvailableFilterCtrl', [
         '$scope',
-        '$translate',
-        '$timeout',
-        'EVENTS',
-        'MODULES',
         'set',
         'tag',
-        function ($scope,$translate,$timeout,EVENTS,MODULES,setService,tagService) {
+        function ($scope,setService,tagService) {
         var that = this;
 
         this.expand = {
