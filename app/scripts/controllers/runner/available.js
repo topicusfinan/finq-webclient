@@ -59,7 +59,7 @@ angular.module('finqApp.controller')
         $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             that.filter[filterInfo.id].keys = filterInfo.keys;
             if (filterInfo.id === 'env') {
-                $scope.$broadcast(that.envSyncEvent,filterInfo.keys);
+                $scope.$broadcast(that.envSyncEvent,filterInfo.keysFull);
             }
         });
 

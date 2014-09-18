@@ -21,7 +21,7 @@
         background: $base-accent-color;
         color: $highlight-color;
 
-        .select button {
+        .select > button {
             background: $select-list-hl-button-bg-color;
             border: $select-list-hl-button-border;
 
@@ -37,7 +37,7 @@
         }
     }
 
-    > div .select button {
+    > div .select > button {
         background: $select-list-button-bg-color;
         border: $select-list-button-border;
         padding: ($filter-button-padding / 2) $filter-button-padding;

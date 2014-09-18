@@ -96,7 +96,6 @@ angular.module('finqApp.directive')
                     });
                 }
             }
-            console.log($scope.options);
             updateValue();
         };
         $scope.toggle = function() {
@@ -116,15 +115,26 @@ angular.module('finqApp.directive')
             );
         };
         $scope.select = function(key,value) {
-            var newKeys;
+            var newKeys,
+                realKeys = [];
+            blockHide = true;
             if ($scope.multiple) {
                 newKeys = multipleToggle(key,value);
             } else {
                 newKeys = singleSelect(key,value);
+                if (!newKeys) {
+                    return;
+                }
+            }
+            for (var i=0; i<newKeys.length; i++) {
+                if (newKeys[i] !== null) {
+                    realKeys.push(newKeys[i]);
+                }
             }
             $scope.$emit(EVENTS.FILTER_SELECT_UPDATED,{
                 id: $scope.id,
-                keys: newKeys
+                keys: realKeys,
+                keysFull: newKeys
             });
             updateValue();
         };
@@ -147,7 +157,7 @@ angular.module('finqApp.directive')
 
         var singleSelect = function(key,value) {
             if ($scope.active[0].key === key) {
-                return;
+                return false;
             }
             $scope.active[0].key = key;
             $scope.active[0].value = value;
@@ -157,7 +167,6 @@ angular.module('finqApp.directive')
         var multipleToggle = function(key,value) {
             var keys = [],
                 found = false;
-            blockHide = true;
             if (key === null) {
                 $scope.active = [{
                     key: $scope.options[0].key,

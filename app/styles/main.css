@@ -260,7 +260,7 @@ input[type="submit"] {
     background-position: 0 0; }
   100% {
     background-position: 40px 0; } }
-.select .select-dropdown li.active:after {
+.select .select-dropdown li.active button:after {
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
@@ -491,11 +491,11 @@ div.layout {
     font-size: 1.5em;
     line-height: 1.5em; }
   .top-filter > div button,
-  .top-filter > div .select button {
+  .top-filter > div .select > button {
     font-size: 1.4em; }
   .top-filter > div button {
     margin-top: 0.45em; }
-  .top-filter > div .select button {
+  .top-filter > div .select > button {
     margin-top: 0.35em; }
 
 .main-content-list {
@@ -534,10 +534,10 @@ div.layout {
       .main-content-list > li.cl > div.active, .main-content-list > li.cl > div:hover {
         background: #049cdb; }
       .main-content-list > li.cl > div button,
-      .main-content-list > li.cl > div .select button {
+      .main-content-list > li.cl > div .select > button {
         font-size: 1.233em;
         margin-top: 0.3em; }
-      .main-content-list > li.cl > div .select button {
+      .main-content-list > li.cl > div .select > button {
         margin-top: 0.2em; }
       .main-content-list > li.cl > div > div > span {
         margin: 0 0.25em; }
@@ -559,10 +559,10 @@ div.layout {
         .main-content-list > li.cl > ul li.cl > div.active, .main-content-list > li.cl > ul li.cl > div:hover {
           background: #049cdb; }
         .main-content-list > li.cl > ul li.cl > div button,
-        .main-content-list > li.cl > ul li.cl > div .select button {
+        .main-content-list > li.cl > ul li.cl > div .select > button {
           font-size: 1.1em;
           margin-top: 0.27em; }
-        .main-content-list > li.cl > ul li.cl > div .select button {
+        .main-content-list > li.cl > ul li.cl > div .select > button {
           margin-top: 0.17em; }
         .main-content-list > li.cl > ul li.cl > div > div > span {
           margin: 0 0.25em; }
@@ -590,9 +590,9 @@ div.layout {
           .main-content-list > li.cl > ul li.cl > ul li.cl > div.active, .main-content-list > li.cl > ul li.cl > ul li.cl > div:hover {
             background: #049cdb; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div button,
-          .main-content-list > li.cl > ul li.cl > ul li.cl > div .select button {
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div .select > button {
             margin-top: 0.2em; }
-          .main-content-list > li.cl > ul li.cl > ul li.cl > div .select button {
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div .select > button {
             margin-top: 0.1em; }
         .main-content-list > li.cl > ul li.cl > ul li.cl:first-child > div {
           margin-top: 0; }
@@ -620,25 +620,25 @@ div.layout {
   .main-content-list li.cl > div.active {
     background: #049cdb;
     color: #fff; }
-    .top-filter.active .select button,
-    .main-content-list li.cl > div.active .select button {
+    .top-filter.active .select > button,
+    .main-content-list li.cl > div.active .select > button {
       background: none;
       border: #fff 2px solid; }
-      .top-filter.active .select button span,
-      .main-content-list li.cl > div.active .select button span {
+      .top-filter.active .select > button span,
+      .main-content-list li.cl > div.active .select > button span {
         color: #fff; }
     .top-filter.active .actions,
     .main-content-list li.cl > div.active .actions {
       opacity: 1;
       width: auto;
       overflow: visible; }
-  .top-filter > div .select button,
-  .main-content-list li.cl > div > div .select button {
+  .top-filter > div .select > button,
+  .main-content-list li.cl > div > div .select > button {
     background: #DDD;
     border: #DDD 2px solid;
     padding: 0.25em 0.5em; }
-    .top-filter > div .select button span,
-    .main-content-list li.cl > div > div .select button span {
+    .top-filter > div .select > button span,
+    .main-content-list li.cl > div > div .select > button span {
       color: #049cdb; }
   .top-filter > div button,
   .main-content-list li.cl > div > div button {
@@ -654,19 +654,19 @@ div.layout {
 
 .select {
   position: relative; }
-  .select button {
+  .select > button {
     text-align: left;
     border: #DDD 2px solid;
     position: relative; }
-    .select button.active span {
+    .select > button.active span {
       min-width: 10em; }
-    .select button i {
+    .select > button i {
       position: absolute;
       right: 0.6em;
       top: 25%;
       margin-left: 0.4em;
       color: #262626; }
-    .select button span {
+    .select > button span {
       display: block;
       overflow: hidden;
       white-space: nowrap;
@@ -690,22 +690,35 @@ div.layout {
     .select .select-dropdown ul {
       max-height: 12em;
       overflow-y: auto; }
-    .select .select-dropdown li {
+    .select .select-dropdown li:hover,
+    .select .select-dropdown li.active {
+      color: #049cdb; }
+    .select .select-dropdown li:hover {
+      background: #f2f2f2;
+      cursor: pointer; }
+    .select .select-dropdown li.active button {
+      padding-right: 2em; }
+      .select .select-dropdown li.active button:after {
+        line-height: inherit;
+        content: '\f00c';
+        color: #666666;
+        position: absolute;
+        right: 1em; }
+    .select .select-dropdown li button {
       display: block;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      padding: .3em 1em; }
-      .select .select-dropdown li:hover, .select .select-dropdown li.active {
-        color: #049cdb; }
-      .select .select-dropdown li:hover {
-        background: #f2f2f2;
-        cursor: pointer; }
-      .select .select-dropdown li.active:after {
-        line-height: inherit;
-        content: '\f00c';
-        color: #666666;
-        float: right; }
+      border: 0;
+      padding: .3em 1em;
+      margin: 0;
+      color: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      background: none;
+      width: 100%;
+      text-align: left;
+      line-height: inherit; }
 
 .hero-notice {
   width: 100%;

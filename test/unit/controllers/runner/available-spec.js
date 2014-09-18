@@ -64,19 +64,19 @@ describe('Unit: AvailableCtrl initialization', function() {
     });
 
     it('should respond to an update tag filter request by setting the filter keys', function () {
-        var tagEventData = {id: 'tag', keys: [1]};
+        var tagEventData = {id: 'tag', keys: [1], keysFull: [1]};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,tagEventData);
         expect(AvailableCtrl.filter.tag.keys).to.deep.equal(tagEventData.keys);
     });
 
     it('should respond to an update set filter request by setting the filter keys', function () {
-        var setEventData = {id: 'set', keys: [1]};
+        var setEventData = {id: 'set', keys: [1], keysFull: [1]};
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,setEventData);
         expect(AvailableCtrl.filter.set.keys).to.deep.equal(setEventData.keys);
     });
 
     it('should respond to an update environement request by setting the environment keys', function () {
-        var envEventData = {id: 'env', keys: [1]};
+        var envEventData = {id: 'env', keys: [1], keysFull: [1]};
         var broadcastSpy = sinon.spy(scope, '$broadcast');
         scope.$emit(EVENTS.FILTER_SELECT_UPDATED,envEventData);
         expect(AvailableCtrl.filter.env.keys).to.deep.equal(envEventData.keys);

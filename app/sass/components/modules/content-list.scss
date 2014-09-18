@@ -56,12 +56,12 @@
             }
 
             button,
-            .select button {
+            .select > button {
                 font-size: $content-list-item-1-font-size - .1;
                 margin-top: $content-list-1-button-margin-top;
             }
 
-            .select button {
+            .select > button {
                 margin-top: $content-list-1-select-margin-top;
             }
 
@@ -99,12 +99,12 @@
                     }
 
                     button,
-                    .select button {
+                    .select > button {
                         font-size: $content-list-item-2-font-size - .1;
                         margin-top: $content-list-2-button-margin-top;
                     }
 
-                    .select button {
+                    .select > button {
                         margin-top: $content-list-2-select-margin-top;
                     }
 
@@ -148,11 +148,11 @@
                         }
 
                         button,
-                        .select button {
+                        .select > button {
                             margin-top: $content-list-3-button-margin-top;
                         }
 
-                        .select button {
+                        .select > button {
                             margin-top: $content-list-3-select-margin-top;
                         }
                     }
