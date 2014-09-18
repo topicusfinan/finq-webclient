@@ -16,7 +16,7 @@ describe('Unit: FilterSelect directive controller', function() {
             key: 0,
             value: 'test'
         }];
-        scope.options = [{
+        scope.passedOptions = scope.options = [{
             key: 0,
             value: 'test'
         }, {
@@ -177,6 +177,7 @@ describe('Unit: FilterSelect directive controller', function() {
     it('should select the default value during initialization if it was provided', function() {
         scope.defkey = 1;
         scope.initialize();
+
         expect(scope.active[0]).to.deep.equal(scope.options[1]);
     });
 

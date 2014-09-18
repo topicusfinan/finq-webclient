@@ -11,10 +11,10 @@
  * the list of values that the user can select. This has to be a list of key value pairs.
  */
 angular.module('finqApp.directive')
-    .directive('filterSelect', ['$translate', function ($translate) {
+    .directive('filterSelect', ['$translate', function () {
         return {
             scope: {
-                options: '=filterSelect',
+                passedOptions: '=filterSelect',
                 multiple: '=',
                 defkey: '=default',
                 placeholder: '=',
@@ -36,6 +36,7 @@ angular.module('finqApp.directive')
         $scope.initialize = function() {
             var placeholder;
 
+            $scope.options = angular.copy($scope.passedOptions);
             if ($scope.placeholder !== undefined) {
                 placeholder = [{
                     key: null,
