@@ -3,6 +3,7 @@
 describe('Unit: FilterSelect directive controller', function() {
     var FilterSelectCtrl,
         EVENTS,
+        rootScope,
         scope;
 
     beforeEach(function() {
@@ -10,6 +11,7 @@ describe('Unit: FilterSelect directive controller', function() {
     });
     beforeEach(inject(function ($controller, $rootScope, _EVENTS_) {
         scope = $rootScope.$new();
+        rootScope = $rootScope;
         EVENTS = _EVENTS_;
         FilterSelectCtrl = $controller('FilterSelectCtrl', {$scope: scope});
         scope.active = [{
@@ -28,6 +30,7 @@ describe('Unit: FilterSelect directive controller', function() {
 
     it('should initially be collapsed', function() {
         expect(scope.show).to.be.false;
+
     });
 
     it('should toggle between collapsed and expanded', function() {
@@ -50,8 +53,7 @@ describe('Unit: FilterSelect directive controller', function() {
         expect(scope.active[0].value).to.equal(scope.options[1].value);
         expect(emitSpy).to.have.been.calledWith(EVENTS.FILTER_SELECT_UPDATED,{
             id: scope.id,
-            keys: [scope.active[0].key],
-            keysFull: [scope.active[0].key]
+            keys: [scope.active[0].key]
         });
     });
 
@@ -74,8 +76,7 @@ describe('Unit: FilterSelect directive controller', function() {
         expect(scope.value).to.equal(scope.active[0].value+', '+scope.active[1].value);
         expect(emitSpy).to.have.been.calledWith(EVENTS.FILTER_SELECT_UPDATED,{
             id: scope.id,
-            keys: [scope.active[0].key,scope.active[1].key],
-            keysFull: [scope.active[0].key,scope.active[1].key]
+            keys: [scope.active[0].key,scope.active[1].key]
         });
     });
 
@@ -209,6 +210,16 @@ describe('Unit: FilterSelect directive controller', function() {
         expect(scope.active[0].value).to.equal(scope.options[0].value);
         expect(scope.active[1].key).to.equal(scope.options[1].key);
         expect(scope.active[1].value).to.equal(scope.options[1].value);
+    });
+
+    it('should broadcast a synchronization event in case it is configured to do so', function() {
+        scope.synchronizeById = 'test';
+        var broadcastSpy = sinon.spy(rootScope, '$broadcast');
+        scope.select(scope.options[1].key,scope.options[1].value);
+        expect(broadcastSpy).to.have.been.calledWith(EVENTS.SYNCHRONIZE_FILTER,{
+            id: scope.id,
+            keys: [scope.active[0].key]
+        });
     });
 
 });

@@ -3,8 +3,6 @@
 </button>
 <div class="select-dropdown ng-hide" ng-show="show" outside-click="hide()">
     <ul>
-        <li ng-repeat="option in options" ng-click="select(option.key,option.value)" ng-class="{true: 'active'}[isActive(option.key)]">
-            <button>{{option.value}}</button>
-        </li>
+        <li ng-repeat="option in options" ng-click="select(option.key,option.value)" ng-class="{true: 'active'}[isActive(option.key)]">{{option.value}}</li>
     </ul>
 </div>

@@ -14,7 +14,7 @@
             <span translate="RUNNER.AVAILABLE.FILTER.RUN_ALL"></span>
         </button>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="{{available.envSyncEvent}}"></div>
+        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true"></div>
     </div>
 </div>
 <ul class="main-content-list ng-hide filter-2 appear-delayed" ng-show="available.storiesLoaded">
@@ -30,7 +30,7 @@
                     <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                 </button>
                 <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="{{available.envSyncEvent}}"></div>
+                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true"></div>
             </div>
         </div>
         <ul>
@@ -46,7 +46,7 @@
                             <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                         </button>
                         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-                        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="{{available.envSyncEvent}}"></div>
+                        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true"></div>
                     </div>
                 </div>
                 <ul ng-class="{'expand':story.expand === true || expand() === 'book'+book.id || expand() === 'all'}">
@@ -61,7 +61,7 @@
                                     <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                                 </button>
                                 <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-                                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="{{available.envSyncEvent}}"></div>
+                                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true"></div>
                             </div>
                         </div>
                     </li>

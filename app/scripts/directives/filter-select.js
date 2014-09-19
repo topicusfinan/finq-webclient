@@ -11,7 +11,7 @@
  * the list of values that the user can select. This has to be a list of key value pairs.
  */
 angular.module('finqApp.directive')
-    .directive('filterSelect', ['$translate', function () {
+    .directive('filterSelect', ['EVENTS', function (EVENTS) {
         return {
             scope: {
                 passedOptions: '=filterSelect',
@@ -19,7 +19,7 @@ angular.module('finqApp.directive')
                 defkey: '=default',
                 placeholder: '=',
                 id: '=filterId',
-                syncEvent: '@synchronize'
+                synchronizeById: '@synchronize'
             },
             restrict: 'A',
             templateUrl: 'views/directives/select.html',
@@ -31,15 +31,17 @@ angular.module('finqApp.directive')
                     scope.initialize();
                 });
 
-                if (scope.syncEvent !== undefined) {
-                    scope.$on(scope.syncEvent,function(event, keys) {
-                        scope.synchronize(keys);
+                if (scope.synchronizeById) {
+                    scope.$on(EVENTS.SYNCHRONIZE_FILTER,function(event, syncData) {
+                        if (syncData.id === scope.id) {
+                            scope.synchronize(syncData.keys);
+                        }
                     });
                 }
             }
         };
     }])
-    .controller('FilterSelectCtrl', ['$scope', '$timeout', '$translate', 'EVENTS', function($scope,$timeout,$translate,EVENTS) {
+    .controller('FilterSelectCtrl', ['$scope', '$rootScope', '$timeout', '$translate', 'EVENTS', function($scope,$rootScope,$timeout,$translate,EVENTS) {
         var hideTimer,
             blockHide = false;
 
@@ -133,9 +135,14 @@ angular.module('finqApp.directive')
             }
             $scope.$emit(EVENTS.FILTER_SELECT_UPDATED,{
                 id: $scope.id,
-                keys: realKeys,
-                keysFull: newKeys
+                keys: realKeys
             });
+            if ($scope.synchronizeById) {
+                $rootScope.$broadcast(EVENTS.SYNCHRONIZE_FILTER,{
+                    id: $scope.id,
+                    keys: newKeys
+                });
+            }
             updateValue();
         };
         $scope.isActive = function(key) {

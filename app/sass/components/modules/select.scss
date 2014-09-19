@@ -45,43 +45,37 @@
             overflow-y: auto;
         }
 
-        li:hover,
-        li.active {
-            color: $base-accent-color;
-        }
-
-        li:hover {
-            background: $select-list-hl-bg-color;
-            cursor: pointer;
-        }
-
-        li.active button {
-            padding-right: 2em;
-
-            &:after {
-
-                @extend %icon;
-                line-height: inherit;
-                content: '\f00c';
-                color: $select-list-color;
-                position: absolute;
-                right: 1em;
-            }
-        }
-
-        li button {
+        li {
 
             @include ellipsis;
             border: 0;
             padding: .3em 1em;
             margin: 0;
-            color: inherit;
-            font-size: inherit;
-            font-weight: inherit;
-            background: none;
-            width: 100%;
-            text-align: left;
-            line-height: inherit;
+
+            &:hover,
+            &.active {
+                color: $base-accent-color;
+            }
+
+            &:hover {
+                background: $select-list-hl-bg-color;
+                cursor: pointer;
+            }
+
+            &.active {
+                padding-right: 2em;
+
+                &:after {
+
+                    @extend %icon;
+                    line-height: inherit;
+                    content: '\f00c';
+                    color: $select-list-color;
+                    position: absolute;
+                    right: 1em;
+                }
+            }
         }
+
     }
 }
