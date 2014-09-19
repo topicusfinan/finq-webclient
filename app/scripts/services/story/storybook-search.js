@@ -14,7 +14,8 @@
  */
 angular.module('finqApp.service')
     .service('storybookSearch', ['CONFIG_CONSTANTS', function (CONFIG) {
-        var books,
+        var that = this,
+            books,
             searchList = {
                 global : {
                     scenarios: []
@@ -72,7 +73,9 @@ angular.module('finqApp.service')
             });
         };
 
+        this.query = '';
         this.suggest = function(query, bookId) {
+            that.query = query;
             var resultType = bookId === undefined ? 'book' : 'story';
             if (searchList.global.engine === undefined) {
                 throw new Error('Storybook search has not been initialized');

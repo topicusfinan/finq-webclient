@@ -10,24 +10,8 @@
  * set will be in the result.
  */
 angular.module('finqApp.filter')
-    .filter('storySetFilter', function() {
+    .filter('storySetFilter', ['storyFilter', function(storyFilterService) {
         return function(stories, setsToInclude) {
-            var filteredStories = [];
-            if (!setsToInclude.length) {
-                return stories;
-            }
-            angular.forEach(stories, function(story) {
-                var include = false;
-                angular.forEach(story.sets, function(set) {
-                    if (setsToInclude.indexOf(set) > -1) {
-                        include = true;
-                    }
-                });
-                if (include) {
-                    filteredStories.push(story);
-                }
-            });
-
-            return filteredStories;
+            return storyFilterService.storySet(stories,setsToInclude);
         };
-    });
+    }]);

@@ -10,24 +10,34 @@
  */
 angular.module('finqApp.service')
     .service('story', ['backend','$q',function (backend,$q) {
-        var stories = null;
+        var storybooks = null;
 
         var load = function() {
             var deferred = $q.defer();
             backend.get('/story/list').success(function(storyData) {
-                stories = storyData;
-                deferred.resolve(stories);
+                storybooks = storyData;
+                deferred.resolve(storybooks);
             }).error(function() {
-                deferred.reject('Loading stories failed');
+                deferred.reject('Loading storybooks failed');
             });
             return deferred.promise;
         };
 
         this.list = function(forceReload) {
-            if (forceReload || stories === null) {
+            if (forceReload || storybooks === null) {
                 return load();
             } else {
-                return $q.when(stories);
+                return $q.when(storybooks);
             }
+        };
+
+        this.listStoriesByBook = function(bookIds) {
+            var stories = [];
+            angular.forEach(storybooks,function(book) {
+                if (bookIds === undefined || bookIds.indexOf(book.id) > -1) {
+                    stories = stories.concat(book.stories);
+                }
+            });
+            return stories;
         };
     }]);

@@ -21,8 +21,10 @@ angular.module('finqApp.controller')
         'story',
         'storybookSearch',
         'storyCollapse',
+        'storyRun',
+        'storyFilter',
         'environment',
-        function ($scope,$translate,$timeout,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,environmentService) {
+        function ($scope,$translate,$timeout,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,storyRunService,storyFilterService,environmentService) {
         var that = this;
 
         this.filter = {
@@ -89,6 +91,41 @@ angular.module('finqApp.controller')
 
         this.hasMorePages = function() {
             return storybookSearchService.hasMorePages;
+        };
+
+        this.run = function(type,id) {
+            if (!that.filter.evn.keys.length) {
+                // show feedback, environment should be selected
+            } else {
+                var stories;
+                switch (type) {
+                    case 'scenario':
+                        storyRunService.runScenario(id);
+                        break;
+                    case 'story':
+                        storyRunService.runStory(id);
+                        break;
+                    case 'book':
+                        stories = storyService.listStoriesByBook([id]);
+                        stories = storyFilterService.storySearch(stories,storybookSearchService.query,id);
+                        stories = storyFilterService.storySet(stories,that.filter.set.keys);
+                        stories = storyFilterService.storyTag(stories,that.filter.tag.keys);
+                        angular.forEach(stories,function(story) {
+                            storyRunService.runStory(story.id);
+                        });
+                        break;
+                    case 'all':
+                        stories = storyService.listStoriesByBook();
+                        stories = storyFilterService.storySearch(stories,storybookSearchService.query,id);
+                        stories = storyFilterService.storySet(stories,that.filter.set.keys);
+                        stories = storyFilterService.storyTag(stories,that.filter.tag.keys);
+                        angular.forEach(stories,function(story) {
+                            storyRunService.runStory(story.id);
+                        });
+                        break;
+
+                }
+            }
         };
 
     }]);
