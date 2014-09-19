@@ -40,8 +40,8 @@ angular.module('finqApp.directive')
         };
     }])
     .controller('FilterSelectCtrl', ['$scope', '$timeout', '$translate', 'EVENTS', function($scope,$timeout,$translate,EVENTS) {
-        var hideTimer;
-        var blockHide = false;
+        var hideTimer,
+            blockHide = false;
 
         $scope.show = false;
         $scope.initialize = function() {
@@ -101,23 +101,23 @@ angular.module('finqApp.directive')
         $scope.toggle = function() {
             $scope.show = !$scope.show;
             $timeout.cancel(hideTimer);
+            blockHide = true;
         };
         $scope.hide = function() {
-            hideTimer = $timeout(
-                function () {
-                    if (blockHide) {
-                        blockHide = !blockHide;
-                    } else {
+            if (blockHide) {
+                blockHide = !blockHide;
+            } else {
+                hideTimer = $timeout(
+                    function () {
                         $scope.show = false;
-                    }
-                },
-                100
-            );
+                    },
+                    100
+                );
+            }
         };
         $scope.select = function(key,value) {
             var newKeys,
                 realKeys = [];
-            blockHide = true;
             if ($scope.multiple) {
                 newKeys = multipleToggle(key,value);
             } else {
