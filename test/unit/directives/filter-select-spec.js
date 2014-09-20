@@ -222,4 +222,18 @@ describe('Unit: FilterSelect directive controller', function() {
         });
     });
 
+    it('should paginate in case the amount of items in the list exceeds the configured maximum', function() {
+        scope.defkey = 1;
+        scope.maxItems = 1;
+        scope.initialize();
+        expect(scope.hasNext()).to.be.true;
+    });
+
+    it('should not paginate in case the amount of items in the list does not exceed the configured maximum', function() {
+        scope.defkey = 1;
+        scope.maxItems = 4;
+        scope.initialize();
+        expect(scope.hasNext()).to.be.false;
+    });
+
 });

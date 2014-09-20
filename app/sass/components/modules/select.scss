@@ -40,9 +40,8 @@
         border: $select-list-border;
         z-index: 2;
 
-        ul {
-            max-height: $select-list-max-height;
-            overflow-y: auto;
+        &.paginated {
+            padding: 0;
         }
 
         li {
@@ -77,5 +76,17 @@
             }
         }
 
+        button {
+            background: none;
+            color: $select-list-color;
+            width: 100%;
+            padding: 0;
+            margin: -$select-list-button-padding 0;
+            border-radius: 0;
+
+            &:hover {
+                background: darken($select-list-bg-color, 10%);
+            }
+        }
     }
 }

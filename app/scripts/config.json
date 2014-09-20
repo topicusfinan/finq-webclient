@@ -2,6 +2,7 @@
     "address" : "",
     "searchWait": 250,
     "pagination": {
-        "maxScenarios": 1000
+        "maxScenarios": 1000,
+        "maxSelectDropdownItems": 8
     }
 }

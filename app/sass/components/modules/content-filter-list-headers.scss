@@ -37,6 +37,17 @@
         }
     }
 
+    > div > button span,
+    > div .select > button span {
+        line-height: 1 + $filter-button-padding;
+    }
+
+    > div > button {
+        background: $secondary-button-bg-color;
+        border: $filter-button-border;
+        padding: ($filter-button-padding / 2) $filter-button-padding * 2;
+    }
+
     > div .select > button {
         background: $select-list-button-bg-color;
         border: $select-list-button-border;
@@ -44,16 +55,6 @@
 
         span {
             color: $base-accent-color;
-        }
-    }
-
-    > div button {
-        background: $secondary-button-bg-color;
-        border: $filter-button-border;
-        padding: ($filter-button-padding / 2) $filter-button-padding * 2;
-
-        span {
-            line-height: 1 + $filter-button-padding;
         }
     }
 

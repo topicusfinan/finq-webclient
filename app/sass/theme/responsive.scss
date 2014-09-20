@@ -44,6 +44,16 @@ $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
     .main-content-list.filter-2,
     .top-filter.filter-2 {
         min-width: 60em;
+
+        .select button {
+            span {
+                max-width: $select-list-button-max-width / 1.5;
+            }
+
+            &.active span {
+                min-width: $select-list-button-max-width / 1.5;
+            }
+        }
     }
 
     .top-filter.filter-2 {
@@ -60,16 +70,7 @@ $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
                 width: 0;
                 opacity: 0;
             }
-        }
 
-        .select button {
-            span {
-                max-width: $select-list-button-max-width / 1.5;
-            }
-
-            &.active span {
-                min-width: $select-list-button-max-width / 1.5;
-            }
         }
     }
 }

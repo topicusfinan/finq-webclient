@@ -1,8 +1,10 @@
 <button ng-click="toggle()" ng-class="{true: 'active'}[show]">
     <span>{{value}}</span><i class="fa fa-caret-down"></i>
 </button>
-<div class="select-dropdown ng-hide" ng-show="show" outside-click="hide()">
+<div class="select-dropdown ng-hide" ng-show="show" outside-click="hide()" ng-class="{true: 'paginated'}[hasMultiplePages]">
+    <button ng-show="hasMultiplePages" ng-disabled="currentPage === 0" ng-click="currentPage = currentPage-1"><i class="fa fa-caret-up"></i></button>
     <ul>
-        <li ng-repeat="option in options" ng-click="select(option.key,option.value)" ng-class="{true: 'active'}[isActive(option.key)]">{{option.value}}</li>
+        <li class="list-animate" ng-repeat="option in options | basicPagination: currentPage : maxItems" ng-click="select(option.key,option.value)" ng-class="{true: 'active'}[isActive(option.key)]">{{option.value}}</li>
     </ul>
+    <button ng-show="hasMultiplePages" ng-disabled="!hasNext()" ng-click="currentPage = currentPage+1"><i class="fa fa-caret-down"></i></button>
 </div>

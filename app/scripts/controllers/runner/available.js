@@ -45,6 +45,7 @@ angular.module('finqApp.controller')
         that.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
         this.selectedItem = null;
         this.maxScenarios = configProvider.client().pagination.maxScenarios;
+        this.maxSelectItems = configProvider.client().pagination.maxSelectDropdownItems;
         this.currentPage = 0;
 
         $scope.storybooks = storyCollapseService.getBooks;

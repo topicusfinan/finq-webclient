@@ -98,7 +98,7 @@
                         background: $base-accent-color;
                     }
 
-                    button,
+                    > div > button,
                     .select > button {
                         font-size: $content-list-item-2-font-size - .1;
                         margin-top: $content-list-2-button-margin-top;
@@ -147,7 +147,7 @@
                             background: $base-accent-color;
                         }
 
-                        button,
+                        > div > button,
                         .select > button {
                             margin-top: $content-list-3-button-margin-top;
                         }

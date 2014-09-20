@@ -19,7 +19,8 @@ angular.module('finqApp.directive')
                 defkey: '=default',
                 placeholder: '=',
                 id: '=filterId',
-                synchronizeById: '@synchronize'
+                synchronizeById: '@synchronize',
+                maxItems: '@'
             },
             restrict: 'A',
             templateUrl: 'views/directives/select.html',
@@ -27,7 +28,7 @@ angular.module('finqApp.directive')
             link: function (scope) {
                 scope.initialize();
 
-                scope.$watch('passedOptions', function() {
+                scope.$watchCollection('passedOptions', function() {
                     scope.initialize();
                 });
 
@@ -41,15 +42,18 @@ angular.module('finqApp.directive')
             }
         };
     }])
-    .controller('FilterSelectCtrl', ['$scope', '$rootScope', '$timeout', '$translate', 'EVENTS', function($scope,$rootScope,$timeout,$translate,EVENTS) {
+    .controller('FilterSelectCtrl', ['$scope', '$filter', '$rootScope', '$timeout', '$translate', 'EVENTS', function($scope,$filter,$rootScope,$timeout,$translate,EVENTS) {
         var hideTimer,
-            blockHide = false;
+            blockHide = false,
+            orderBy = $filter('orderBy');
 
         $scope.show = false;
+        $scope.hasMultiplePages = false;
+        $scope.currentPage = 0;
         $scope.initialize = function() {
             var placeholder;
 
-            $scope.options = angular.copy($scope.passedOptions);
+            $scope.options = orderBy(angular.copy($scope.passedOptions),'value');
 
             if ($scope.placeholder !== undefined) {
                 placeholder = [{
@@ -87,6 +91,11 @@ angular.module('finqApp.directive')
             }
 
             updateValue();
+
+            if ($scope.maxItems === undefined) {
+                $scope.maxItems = $scope.options.length;
+            }
+            $scope.hasMultiplePages = $scope.options.length > $scope.maxItems;
         };
         $scope.synchronize = function(keys) {
             $scope.active = [];
@@ -207,5 +216,9 @@ angular.module('finqApp.directive')
                 }
             }
             return keys;
+        };
+
+        $scope.hasNext = function() {
+            return $scope.maxItems * ($scope.currentPage+1) < $scope.options.length;
         };
     }]);
