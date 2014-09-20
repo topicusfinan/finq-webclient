@@ -12,6 +12,10 @@ angular.module('finqApp.mock')
     .value('tagServiceMock', {
         tags: [
             {
+                key : 'additional',
+                value : 'additional'
+            },
+            {
                 key : 'book',
                 value : 'book'
             },

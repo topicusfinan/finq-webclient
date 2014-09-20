@@ -95,34 +95,45 @@ angular.module('finqApp.controller')
         };
 
         this.run = function(type,id) {
+            var story,
+                scenarios,
+                scenarioIds = [],
+                i, j;
+
+            var runByBook = function(bookId) {
+                var stories = storyService.listStoriesByBook(bookId === null ? null : [bookId]);
+                stories = storyFilterService.storySearch(stories,storybookSearchService.query,id);
+                stories = storyFilterService.storySet(stories,that.filter.set.keys);
+                stories = storyFilterService.storyTag(stories,that.filter.tag.keys);
+                for (i=0; i<stories.length; i++) {
+                    scenarios = storyFilterService.scenarioTag(stories[i].scenarios,stories[i].tags,that.filter.tag.keys);
+                    for (j=0; j<scenarios.length; j++) {
+                        scenarioIds.push(scenarios[j].id);
+                    }
+                }
+                storyRunService.runScenarios(scenarioIds);
+            };
+
             if (!that.filter.evn.keys.length) {
-                // show feedback, environment should be selected
+                // TODO show feedback, environment should be selected
             } else {
-                var stories;
                 switch (type) {
                     case 'scenario':
                         storyRunService.runScenario(id);
                         break;
                     case 'story':
-                        storyRunService.runStory(id);
+                        story = storyService.findStoryById([id]);
+                        scenarios = storyFilterService.scenarioTag(story.scenarios,story.tags,that.filter.tag.keys);
+                        for (i=0; i<scenarios.length; i++) {
+                            scenarioIds.push(scenarios[i].id);
+                        }
+                        storyRunService.runScenarios(scenarioIds);
                         break;
                     case 'book':
-                        stories = storyService.listStoriesByBook([id]);
-                        stories = storyFilterService.storySearch(stories,storybookSearchService.query,id);
-                        stories = storyFilterService.storySet(stories,that.filter.set.keys);
-                        stories = storyFilterService.storyTag(stories,that.filter.tag.keys);
-                        angular.forEach(stories,function(story) {
-                            storyRunService.runStory(story.id);
-                        });
+                        runByBook(id);
                         break;
                     case 'all':
-                        stories = storyService.listStoriesByBook();
-                        stories = storyFilterService.storySearch(stories,storybookSearchService.query,id);
-                        stories = storyFilterService.storySet(stories,that.filter.set.keys);
-                        stories = storyFilterService.storyTag(stories,that.filter.tag.keys);
-                        angular.forEach(stories,function(story) {
-                            storyRunService.runStory(story.id);
-                        });
+                        runByBook(null);
                         break;
 
                 }

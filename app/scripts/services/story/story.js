@@ -33,11 +33,23 @@ angular.module('finqApp.service')
 
         this.listStoriesByBook = function(bookIds) {
             var stories = [];
-            angular.forEach(storybooks,function(book) {
-                if (bookIds === undefined || bookIds.indexOf(book.id) > -1) {
+            angular.forEach(storybooks, function(book) {
+                if (bookIds === null || bookIds.indexOf(book.id) > -1) {
                     stories = stories.concat(book.stories);
                 }
             });
             return stories;
+        };
+
+        this.findStoryById = function(storyId) {
+            var i, j;
+            for (i=0; i<storybooks.length; i++) {
+                for (j=0; j<storybooks[i].stories.length; j++) {
+                    if (storybooks[i].stories[j].id === storyId) {
+                        return storybooks[i].stories[j];
+                    }
+                }
+            }
+            return null;
         };
     }]);

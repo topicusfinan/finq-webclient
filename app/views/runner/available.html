@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <ul ng-class="{'expand':story.expand === true || expand() === 'book'+book.id || expand() === 'all'}">
-                    <li class="ic cl" ng-repeat="scenario in story.scenarios">
+                    <li class="ic cl" ng-repeat="scenario in story.scenarios | scenarioTagFilter:story.tags:available.filter.tag.keys">
                         <div ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
                             <div class="title">
                                 <span>{{ scenario.title }}</span>

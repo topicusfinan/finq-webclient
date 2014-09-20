@@ -12,23 +12,40 @@
 angular.module('finqApp.filter')
     .filter('storybookTagFilter', function() {
         return function(books, tagsToInclude) {
-            var filteredBooks = [];
+            var filteredBooks = [],
+                i, j, k, l;
             if (!tagsToInclude.length) {
                 return books;
             }
-            angular.forEach(books, function(book) {
+            for (i=0; i<books.length; i++) {
                 var include = false;
-                angular.forEach(book.stories, function(story) {
-                    angular.forEach(story.tags, function(tag) {
-                        if (tagsToInclude.indexOf(tag) > -1) {
+                for (j=0; j<books[i].stories.length; j++) {
+                    for (k=0; k<books[i].stories[j].tags.length; k++) {
+                        if (tagsToInclude.indexOf(books[i].stories[j].tags[k]) > -1) {
                             include = true;
+                            break;
                         }
-                    });
-                });
-                if (include) {
-                    filteredBooks.push(book);
+                    }
+                    if (!include) {
+                        for (k=0; k<books[i].stories[j].scenarios.length; k++) {
+                            for (l=0; l<books[i].stories[j].scenarios[k].tags.length; l++) {
+                                if (tagsToInclude.indexOf(books[i].stories[j].scenarios[k].tags[l]) > -1) {
+                                    include = true;
+                                    break;
+                                }
+                            }
+                            if (include) {
+                                break;
+                            }
+                        }
+                    } else {
+                        break;
+                    }
                 }
-            });
+                if (include) {
+                    filteredBooks.push(books[i]);
+                }
+            }
 
             return filteredBooks;
         };

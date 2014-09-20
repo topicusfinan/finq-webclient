@@ -45,6 +45,7 @@ angular.module('finqApp.mock')
                             {
                                 id: 23452343,
                                 title: 'A customer adds a EUR 30 book to their empty basket',
+                                tags: [],
                                 steps: [
                                     {
                                         title: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId',
@@ -76,6 +77,9 @@ angular.module('finqApp.mock')
                             {
                                 id: 23452345,
                                 title: 'A customer adds an additional EUR 20 book to their basket',
+                                tags: [
+                                    'additional'
+                                ],
                                 steps: [
                                     {
                                         title: 'when the customer with id $customerId orders a new book with $bookId resulting in a basket with id $basketId',
@@ -149,6 +153,7 @@ angular.module('finqApp.mock')
                             {
                                 id: 33452343,
                                 title: 'A customer removes the only item they have in their basket',
+                                tags: [],
                                 steps: [
                                     {
                                         title: 'when the customer with id $customerId removes a product with id $bookId from their basket with id $basketId',
@@ -163,6 +168,7 @@ angular.module('finqApp.mock')
                             {
                                 id: 33452345,
                                 title: 'A customer removes an item they have in their basket, but there are some left',
+                                tags: [],
                                 steps: [
                                     {
                                         title: 'when the customer with id $customerId orders a new book with id $otherBookId',
@@ -229,6 +235,7 @@ angular.module('finqApp.mock')
                             {
                                 id: 63452343,
                                 title: 'A user writes a new story and is allowed to do so',
+                                tags: [],
                                 steps: [
                                     {
                                         title: 'when the user with id $userId is given the role with id $roleId',

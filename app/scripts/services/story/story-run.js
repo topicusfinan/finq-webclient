@@ -6,18 +6,18 @@
  * @description
  * # Story run service
  *
- * Execute a scenario or a collection of scenarios by executing a full story or storybook.
+ * Execute a scenario or a collection of scenarios.
  *
  */
 angular.module('finqApp.service')
     .service('storyRun', function () {
 
-        this.runStory = function() {
-            // execute by storyId
-        };
-
         this.runScenario = function() {
             // execute by scenarioId
+        };
+
+        this.runScenarios = function() {
+            // execute by scenarioIds
         };
 
     });
