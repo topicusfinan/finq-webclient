@@ -16,21 +16,20 @@ describe('Unit: FilterSelect directive controller', function() {
         FilterSelectCtrl = $controller('FilterSelectCtrl', {$scope: scope});
         scope.active = [{
             key: 0,
-            value: 'test'
+            value: 'alpha'
         }];
         scope.passedOptions = scope.options = [{
             key: 0,
-            value: 'test'
+            value: 'alpha'
         }, {
             key: 1,
-            value: 'test2'
+            value: 'beta'
         }];
         scope.id = 'selectId';
     }));
 
     it('should initially be collapsed', function() {
         expect(scope.show).to.be.false;
-
     });
 
     it('should toggle between collapsed and expanded', function() {
@@ -234,6 +233,21 @@ describe('Unit: FilterSelect directive controller', function() {
         scope.maxItems = 4;
         scope.initialize();
         expect(scope.hasNext()).to.be.false;
+    });
+
+    it('should not sort the active items on top, just below the placeholder, until after a toggle', function() {
+        scope.placeholder = 'test';
+        scope.initialize();
+        scope.select(scope.options[2].key,scope.options[2].value);
+        expect(scope.options[1]).to.deep.equal(scope.passedOptions[0]);
+    });
+
+    it('should sort the active items on top, just below the placeholder, after a toggle', function() {
+        scope.placeholder = 'test';
+        scope.initialize();
+        scope.select(scope.options[2].key,scope.options[2].value);
+        scope.toggle();
+        expect(scope.options[1]).to.deep.equal(scope.passedOptions[1]);
     });
 
 });

@@ -712,6 +712,8 @@ div.layout {
           color: #666666;
           position: absolute;
           right: 1em; }
+      .select .select-dropdown li.placeholder {
+        border-bottom: #DDD 1px dashed; }
     .select .select-dropdown button {
       background: none;
       color: #666666;

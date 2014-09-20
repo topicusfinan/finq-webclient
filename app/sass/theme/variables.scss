@@ -88,6 +88,7 @@ $select-list-button-bg-color:           $base-button-color;
 $select-list-hl-bg-color:               darken($select-list-bg-color, 5%);
 $select-list-hl-button-border:          $highlight-color 2px solid;
 $select-list-hl-button-bg-color:        none;
+$select-list-placeholder-border:        $light-gray 1px dashed;
 
 // content list formatting and colors
 $content-list-bg-color:                 lighten($section-header-bg-color, 20%);

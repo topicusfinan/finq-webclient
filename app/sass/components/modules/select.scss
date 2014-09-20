@@ -74,6 +74,10 @@
                     right: 1em;
                 }
             }
+
+            &.placeholder {
+                border-bottom: $select-list-placeholder-border;
+            }
         }
 
         button {

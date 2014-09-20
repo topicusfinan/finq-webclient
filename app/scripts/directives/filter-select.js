@@ -45,11 +45,13 @@ angular.module('finqApp.directive')
     .controller('FilterSelectCtrl', ['$scope', '$filter', '$rootScope', '$timeout', '$translate', 'EVENTS', function($scope,$filter,$rootScope,$timeout,$translate,EVENTS) {
         var hideTimer,
             blockHide = false,
+            dirty = false,
             orderBy = $filter('orderBy');
 
         $scope.show = false;
         $scope.hasMultiplePages = false;
         $scope.currentPage = 0;
+
         $scope.initialize = function() {
             var placeholder;
 
@@ -97,6 +99,7 @@ angular.module('finqApp.directive')
             }
             $scope.hasMultiplePages = $scope.options.length > $scope.maxItems;
         };
+
         $scope.synchronize = function(keys) {
             $scope.active = [];
             for (var i=0; i<$scope.options.length; i++) {
@@ -109,11 +112,18 @@ angular.module('finqApp.directive')
             }
             updateValue();
         };
+
         $scope.toggle = function() {
             $scope.show = !$scope.show;
             $timeout.cancel(hideTimer);
             blockHide = true;
+            $scope.currentPage = 0;
+            if ($scope.show && dirty) {
+                sortOptions();
+                dirty = false;
+            }
         };
+
         $scope.hide = function() {
             if (blockHide) {
                 blockHide = !blockHide;
@@ -126,6 +136,7 @@ angular.module('finqApp.directive')
                 );
             }
         };
+
         $scope.select = function(key,value) {
             var newKeys,
                 realKeys = [];
@@ -153,7 +164,9 @@ angular.module('finqApp.directive')
                 });
             }
             updateValue();
+            dirty = true;
         };
+
         $scope.isActive = function(key) {
             for (var i=0; i<$scope.active.length; i++) {
                 if ($scope.active[i].key === key) {
@@ -161,6 +174,10 @@ angular.module('finqApp.directive')
                 }
             }
             return false;
+        };
+
+        $scope.hasNext = function() {
+            return $scope.maxItems * ($scope.currentPage+1) < $scope.options.length;
         };
 
         var updateValue = function() {
@@ -218,7 +235,31 @@ angular.module('finqApp.directive')
             return keys;
         };
 
-        $scope.hasNext = function() {
-            return $scope.maxItems * ($scope.currentPage+1) < $scope.options.length;
+        var sortOptions = function() {
+            var placeholder = [],
+                precedence = [],
+                other = [],
+                i, j;
+            if ($scope.placeholder !== undefined) {
+                placeholder.push({
+                    key: null,
+                    value: $scope.options[0].value
+                });
+            }
+            for (i = $scope.placeholder !== undefined ? 1 : 0; i<$scope.options.length; i++) {
+                var active = false,
+                    option = angular.copy($scope.options[i]);
+                for (j = 0; j<$scope.active.length; j++) {
+                    if ($scope.active[j].key === $scope.options[i].key) {
+                        precedence.push(option);
+                        active = true;
+                        break;
+                    }
+                }
+                if (!active) {
+                    other.push(option);
+                }
+            }
+            $scope.options = placeholder.concat(orderBy(precedence,'value')).concat(orderBy(other,'value'));
         };
     }]);

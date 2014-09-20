@@ -6,7 +6,7 @@
         <div class="select" filter-select="filter.sets" filter-id="available.filter.set.id" placeholder="filter.setPlaceholder" ng-hide="!filter.expand.set" max-items="{{available.maxSelectItems}}"></div>
         <i class="fa fa-tag" ng-class="{'inactive':!available.filter.tag.keys.length}" ng-click="filter.expand.tag = !filter.expand.tag"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG" ng-hide="!available.filter.tag.keys.length && !filter.expand.tag"></span>
-        <div class="select" filter-select="filter.tags" filter-id="available.filter.tag.id" placeholder="filter.tagPlaceholder" multiple="true" ng-hide="!filter.expand.tag" max-items="3"></div>
+        <div class="select" filter-select="filter.tags" filter-id="available.filter.tag.id" placeholder="filter.tagPlaceholder" multiple="true" ng-hide="!filter.expand.tag" max-items="{{available.maxSelectItems}}"></div>
     </div>
     <div class="actions">
         <button ng-click="run('all')">
