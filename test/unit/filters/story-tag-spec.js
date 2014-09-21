@@ -33,4 +33,10 @@ describe('Unit: Story Tag Filter execution', function() {
         expect(filteredStories[0].title).to.equal(stories[1].title);
     });
 
+    it('should filter stories in case their scenarios do not match the filter', function () {
+        var filteredStories = storyTagFilter(stories,['additional']);
+        expect(filteredStories.length).to.equal(1);
+        expect(filteredStories[0].title).to.equal(stories[0].title);
+    });
+
 });

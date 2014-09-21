@@ -40,7 +40,6 @@ describe('Unit: TagService initialization with an unstable backend', function() 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
-        module('finqApp.mock');
     });
     beforeEach(inject(function ($httpBackend, tag) {
         tagService = tag;
@@ -51,7 +50,7 @@ describe('Unit: TagService initialization with an unstable backend', function() 
         $httpBackend.flush();
     }));
 
-    it('should fail to load the test tags', function () {
+    it('should fail to load the tags', function () {
         expect(feedback).to.not.be.undefined;
     });
 

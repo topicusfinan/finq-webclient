@@ -46,4 +46,11 @@ describe('Unit: Storybook Tag Filter execution', function() {
         expect(filteredBooks[0].title).to.equal(storybooks[1].title);
     });
 
+    it('should filter books but keep those that have at least one scenario that has the associated tag', function () {
+        var filteredBooks = storybookTagFilter(storybooks,['additional']);
+        expect(filteredBooks.length).to.equal(1);
+        expect(filteredBooks[0].stories.length).to.equal(2);
+        expect(filteredBooks[0].title).to.equal(storybooks[0].title);
+    });
+
 });

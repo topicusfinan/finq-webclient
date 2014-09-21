@@ -40,7 +40,6 @@ describe('Unit: SetService initialization with an unstable backend', function() 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
-        module('finqApp.mock');
     });
     beforeEach(inject(function ($httpBackend, set) {
         setService = set;
@@ -51,7 +50,7 @@ describe('Unit: SetService initialization with an unstable backend', function() 
         $httpBackend.flush();
     }));
 
-    it('should fail to load the test sets', function () {
+    it('should fail to load the sets', function () {
         expect(feedback).to.not.be.undefined;
     });
 
