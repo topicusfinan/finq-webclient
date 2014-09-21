@@ -10,8 +10,27 @@
  * tag will be in the result.
  */
 angular.module('finqApp.filter')
-    .filter('scenarioTagFilter', ['storyFilter', function(storyFilterService) {
+    .filter('scenarioTagFilter', function() {
         return function(scenarios, storyTags, tagsToInclude) {
-            return storyFilterService.scenarioTag(scenarios,storyTags,tagsToInclude);
+            var filteredScenarios = [],
+                i, j;
+            if (!tagsToInclude.length) {
+                return scenarios;
+            }
+            for (i=0; i<storyTags.length; i++) {
+                if (tagsToInclude.indexOf(storyTags[i]) > -1) {
+                    return scenarios;
+                }
+            }
+            for (i=0; i<scenarios.length; i++) {
+                for (j=0; j<scenarios[i].tags.length; j++) {
+                    if (tagsToInclude.indexOf(scenarios[i].tags[j]) > -1) {
+                        filteredScenarios.push(scenarios[i]);
+                        break;
+                    }
+                }
+            }
+
+            return filteredScenarios;
         };
-    }]);
+    });

@@ -15,6 +15,7 @@ angular.module('finqApp.controller')
         '$scope',
         '$translate',
         '$timeout',
+        '$filter',
         'EVENTS',
         'MODULES',
         'config',
@@ -22,10 +23,13 @@ angular.module('finqApp.controller')
         'storybookSearch',
         'storyCollapse',
         'storyRun',
-        'storyFilter',
         'environment',
-        function ($scope,$translate,$timeout,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,storyRunService,storyFilterService,environmentService) {
-        var that = this;
+        function ($scope,$translate,$timeout,$filter,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
+        var that = this,
+            searchFilter = $filter('storySearchFilter'),
+            setFilter = $filter('storySetFilter'),
+            storyTagFilter = $filter('storyTagFilter'),
+            scenarioTagFilter = $filter('scenarioTagFilter');
 
         this.filter = {
             set: {
@@ -102,11 +106,11 @@ angular.module('finqApp.controller')
 
             var runByBook = function(bookId) {
                 var stories = storyService.listStoriesByBook(bookId === null ? null : [bookId]);
-                stories = storyFilterService.storySearch(stories,storybookSearchService.query,id);
-                stories = storyFilterService.storySet(stories,that.filter.set.keys);
-                stories = storyFilterService.storyTag(stories,that.filter.tag.keys);
+                stories = searchFilter(stories,storybookSearchService.query,id);
+                stories = setFilter(stories,that.filter.set.keys);
+                stories = storyTagFilter(stories,that.filter.tag.keys);
                 for (i=0; i<stories.length; i++) {
-                    scenarios = storyFilterService.scenarioTag(stories[i].scenarios,stories[i].tags,that.filter.tag.keys);
+                    scenarios = scenarioTagFilter(stories[i].scenarios,stories[i].tags,that.filter.tag.keys);
                     for (j=0; j<scenarios.length; j++) {
                         scenarioIds.push(scenarios[j].id);
                     }
@@ -123,7 +127,7 @@ angular.module('finqApp.controller')
                         break;
                     case 'story':
                         story = storyService.findStoryById([id]);
-                        scenarios = storyFilterService.scenarioTag(story.scenarios,story.tags,that.filter.tag.keys);
+                        scenarios = scenarioTagFilter(story.scenarios,story.tags,that.filter.tag.keys);
                         for (i=0; i<scenarios.length; i++) {
                             scenarioIds.push(scenarios[i].id);
                         }

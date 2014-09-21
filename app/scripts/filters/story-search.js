@@ -14,8 +14,19 @@
  * to use.
  */
 angular.module('finqApp.filter')
-    .filter('storySearchFilter', ['storyFilter', function(storyFilterService) {
+    .filter('storySearchFilter', ['storybookSearch', function(storybookSearchService) {
         return function(stories, query, bookId) {
-            return storyFilterService.storySearch(stories,query,bookId);
+            var filteredStories = [];
+            if (query === '') {
+                return stories;
+            }
+            var storyIds = storybookSearchService.suggest(query, bookId);
+            angular.forEach(stories, function(story) {
+                if (storyIds.indexOf(story.id) !== -1) {
+                    filteredStories.push(story);
+                }
+            });
+
+            return filteredStories;
         };
     }]);
