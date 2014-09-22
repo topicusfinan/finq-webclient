@@ -10,13 +10,13 @@
  * authenticated user.
  */
 angular.module('finqApp.service')
-    .service('authenticate', ['backend','$q','$timeout', function (backend,$q,$timeout) {
+    .service('authenticate', ['backend','$q', function (backend,$q) {
         var currentUser = null;
         var token = null;
 
         this.load = function() {
             var deferred = $q.defer();
-            var notice = $timeout(function () {
+            var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
             backend.get('/auth/user',{
@@ -27,14 +27,14 @@ angular.module('finqApp.service')
             }).error(function(errorCode) {
                 deferred.reject(errorCode);
             }).finally(function() {
-                $timeout.cancel(notice);
+                clearTimeout(notice);
             });
             return deferred.promise;
         };
 
         this.authenticate = function(email,password) {
             var deferred = $q.defer();
-            var notice = $timeout(function () {
+            var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
             backend.post('/auth/login',{
@@ -46,7 +46,7 @@ angular.module('finqApp.service')
             }).error(function(errorCode) {
                 deferred.reject(errorCode);
             }).finally(function() {
-                notice.cancel();
+                clearTimeout(notice);
             });
             return deferred.promise;
         };

@@ -126,7 +126,7 @@ describe('Unit: AvailableCtrl initialization', function() {
         var scenarioId = storybooks[0].stories[0].scenarios[0].id;
         var feedbackSpy = sinon.spy(feedbackService, 'error');
         AvailableCtrl.run('scenario',scenarioId);
-        expect(feedbackSpy).to.have.been.calledWith(FEEDBACK.ERROR.NO_ENVIRONMENT_SELECTED);
+        expect(feedbackSpy).to.have.been.calledWith(FEEDBACK.ERROR.RUN.NO_ENVIRONMENT_SELECTED);
     });
 
     it('should be able to run a scenario by id in case an environment was selected', function () {

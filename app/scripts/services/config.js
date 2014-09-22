@@ -13,11 +13,11 @@
  * the server upon the loading of the application.
  */
 angular.module('finqApp.service')
-    .provider('config', [function () {
+    .provider('config', function () {
         var configData = {};
-        var loadConfigData = function($http,$q,$timeout,backend) {
+        var loadConfigData = function($http,$q,backend) {
             var deferred = $q.defer();
-            var notice = $timeout(function () {
+            var notice = setTimeout(function () {
                 deferred.notify('Loading configuration is taking too long');
             },5000);
             $http.get('/scripts/config.json').success(function (clientConfig) {
@@ -32,15 +32,15 @@ angular.module('finqApp.service')
             }).error(function() {
                 deferred.reject('Failed to load client configuration');
             }).finally(function() {
-                $timeout.cancel(notice);
+                clearTimeout(notice);
             });
             return deferred.promise;
         };
         return {
-            $get: function ($http,$q,$timeout,backend) {
+            $get: function ($http,$q,backend) {
                 return {
                     load: function() {
-                        return loadConfigData($http,$q,$timeout,backend);
+                        return loadConfigData($http,$q,backend);
                     },
                     client: function() {
                         return configData.client;
@@ -51,4 +51,4 @@ angular.module('finqApp.service')
                 };
             }
          };
-    }]);
+    });

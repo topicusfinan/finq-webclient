@@ -10,7 +10,29 @@
     },
     "FEEDBACK": {
         "ERROR": {
-            "NO_ENVIRONMENT_SELECTED": "Please select an environment to run your test on"
+            "RUN": {
+                "NO_ENVIRONMENT_SELECTED": "Please select an environment to run your test",
+                "REQUEST_FAILED": "Your request could not be completed due to an error"
+            },
+            "SUBSCRIBE": {
+                "SUBSCRIPTION_FAILED": "Unable to subscribe to progress notifications"
+            }
+        },
+        "SUCCESS": {
+            "RUN": {
+                "MULTIPLE_REQUEST": "Started execution of {{count}} scenarios",
+                "SINGLE_REQUEST": "Started execution of your scenario"
+            }
+        },
+        "ALERT": {
+            "RUN": {
+                "NO_SCENARIOS_SELECTED": "No scenarios match your current filter"
+            }
+        },
+        "NOTICE": {
+            "RUN": {
+                "REQUEST_IS_TAKING_LONG": "The backend is very slow about responding.."
+            }
         }
     },
     "LOADER": {

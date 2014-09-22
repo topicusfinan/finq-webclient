@@ -10,13 +10,13 @@
  * actions on the environments themselves, but rather on the configuration of environments in the backend routing.
  */
 angular.module('finqApp.service')
-    .service('environment', ['backend','$q','$timeout', function (backend,$q,$timeout) {
+    .service('environment', ['backend','$q', function (backend,$q) {
         var that = this,
             environments = null;
 
         this.load = function() {
             var deferred = $q.defer();
-            var notice = $timeout(function () {
+            var notice = setTimeout(function () {
                 deferred.notify('Loading environments is taking too long');
             },5000);
             backend.get('/environment/list').success(function(environmentData) {
@@ -25,7 +25,7 @@ angular.module('finqApp.service')
             }).error(function() {
                 deferred.reject('Loading environments failed');
             }).finally(function() {
-                $timeout.cancel(notice);
+                clearTimeout(notice);
             });
             return deferred.promise;
         };

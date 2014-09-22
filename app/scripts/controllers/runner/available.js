@@ -116,7 +116,7 @@ angular.module('finqApp.controller')
             };
 
             if (!that.filter.env.keys.length) {
-                feedbackService.error(FEEDBACK.ERROR.NO_ENVIRONMENT_SELECTED);
+                feedbackService.error(FEEDBACK.ERROR.RUN.NO_ENVIRONMENT_SELECTED);
             } else {
                 switch (type) {
                     case 'scenario':

@@ -131,7 +131,6 @@ div.layout {
 .feedback {
 
     @include transition(all cubic-bezier(.295, .305, .065, 1.455) .3s);
-
     opacity: 1;
 
     &.ng-hide {

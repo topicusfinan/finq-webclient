@@ -28,6 +28,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/tag/list').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environment/list').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/story/list').respond(storyServiceMock.books);
+        $httpBackend.whenGET('/story/run').respond(storyServiceMock.run);
         $httpBackend.whenGET('/auth/user').respond(401);
         $httpBackend.whenPOST('/auth/login').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);

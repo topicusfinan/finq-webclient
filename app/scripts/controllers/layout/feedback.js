@@ -18,47 +18,101 @@ angular.module('finqApp.controller')
         'FEEDBACK',
         function ($scope,$translate,$timeout,configProvider,EVENTS,FEEDBACK) {
         var that = this,
-            feedbackTimeout = null;
+            feedbackTimeout = null,
+            parsingQueue = false,
+            overruledTimeout = null,
+            queue = [],
+            defaultTimeout = configProvider.client().feedbackTimeout,
+            queueTimeout = configProvider.client().feedbackQueueTimeout,
+            minTimeout = configProvider.client().minFeedbackTimeout;
 
         this.show = false;
-        this.defaultTimeout = configProvider.client().feedbackTimeout;
         this.feedback = {
             message: '',
             type: ''
         };
         this.hide = function() {
             if (feedbackTimeout !== null) {
-                $timeout.cancel(feedbackTimeout);
+                clearTimeout(feedbackTimeout);
             }
             that.show = false;
         };
 
-        $scope.$on(EVENTS.FEEDBACK,function(event,feedbackData) {
-            showFeedback(feedbackData.message,feedbackData.type,feedbackData.timeout);
+        $scope.$on(EVENTS.FEEDBACK,function(event,feedback) {
+            handleFeedback(feedback.message,feedback.type,feedback.data,feedback.timeout);
         });
 
-        var showFeedback = function(feedbackMessage,type,timeout) {
-            that.feedback.message = feedbackMessage+' (untranslated)';
-            that.feedback.type = FEEDBACK.CLASS[type];
-            $translate('FEEDBACK.'+type+'.'+feedbackMessage).then(function (translatedFeedback) {
-                that.feedback.message = translatedFeedback;
+        var handleFeedback = function(feedbackMessage,type,data,timeout) {
+            var feedback = {};
+            feedback.message = feedbackMessage+' (untranslated)';
+            feedback.type = FEEDBACK.CLASS[type];
+            $translate('FEEDBACK.'+type+'.'+feedbackMessage,data).then(function (translatedFeedback) {
+                feedback.message = translatedFeedback;
             });
+            if (that.show || parsingQueue) {
+                queueFeedback(type,feedback,timeout);
+            } else {
+                showFeedback(feedback,timeout);
+            }
+        };
+
+        var showFeedback = function(feedback,timeout) {
+            that.feedback = feedback;
             that.show = true;
-            if (timeout === undefined && that.defaultTimeout !== null) {
-                timeoutFeedback(that.defaultTimeout);
-            }
-            else if (timeout) {
+            if (timeout === undefined && defaultTimeout !== null) {
+                timeoutFeedback(defaultTimeout);
+            } else if (timeout) {
                 timeoutFeedback(timeout);
+            } else {
+                feedbackTimeout = null;
             }
+        };
+
+        var queueFeedback = function(type,feedback,timeout) {
+            if (overruledTimeout === null || (overruledTimeout === FEEDBACK.TYPE.NOTICE && type !== FEEDBACK.TYPE.NOTICE)) {
+                if (type !== FEEDBACK.TYPE.NOTICE) {
+                    timeoutFeedback(minTimeout);
+                } else {
+                    timeoutFeedback(queueTimeout);
+                }
+                overruledTimeout = type;
+            }
+            queue.push({
+                feedback: feedback,
+                timeout: timeout
+            });
         };
 
         var timeoutFeedback = function(timeout) {
             if (feedbackTimeout !== null) {
-                $timeout.cancel(feedbackTimeout);
+                clearTimeout(feedbackTimeout);
             }
-            feedbackTimeout = $timeout(function() {
+            feedbackTimeout = setTimeout(function() {
                 that.show = false;
+                evaluateQueue();
             },timeout);
+        };
+
+        var evaluateQueue = function() {
+            if (queue.length) {
+                parsingQueue = true;
+                var nextTimeout;
+                if (queue.length > 1) {
+                    if (queue[1].feedback.type !== FEEDBACK.TYPE.NOTICE) {
+                        nextTimeout = minTimeout;
+                    } else {
+                        nextTimeout = queueTimeout;
+                    }
+                } else {
+                    nextTimeout = queue[0].timeout;
+                }
+                showFeedback(queue[0].feedback,nextTimeout);
+                queue.splice(0,1);
+                parsingQueue = false;
+                $scope.$apply();
+            } else {
+                overruledTimeout = null;
+            }
         };
 
     }]);

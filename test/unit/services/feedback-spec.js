@@ -26,8 +26,7 @@ describe('Unit: FeedbackService initialization', function() {
         feedbackService.error(message);
         broadcastSpy.should.have.been.calledWith(EVENTS.FEEDBACK,{
             message: message,
-            type: FEEDBACK.TYPE.ERROR,
-            timeout: undefined
+            type: FEEDBACK.TYPE.ERROR
         });
     });
 
@@ -36,8 +35,7 @@ describe('Unit: FeedbackService initialization', function() {
         feedbackService.success(message);
         broadcastSpy.should.have.been.calledWith(EVENTS.FEEDBACK,{
             message: message,
-            type: FEEDBACK.TYPE.SUCCESS,
-            timeout: undefined
+            type: FEEDBACK.TYPE.SUCCESS
         });
     });
 
@@ -46,8 +44,7 @@ describe('Unit: FeedbackService initialization', function() {
         feedbackService.alert(message);
         broadcastSpy.should.have.been.calledWith(EVENTS.FEEDBACK,{
             message: message,
-            type: FEEDBACK.TYPE.ALERT,
-            timeout: undefined
+            type: FEEDBACK.TYPE.ALERT
         });
     });
 
@@ -56,18 +53,27 @@ describe('Unit: FeedbackService initialization', function() {
         feedbackService.notice(message);
         broadcastSpy.should.have.been.calledWith(EVENTS.FEEDBACK,{
             message: message,
-            type: FEEDBACK.TYPE.NOTICE,
-            timeout: undefined
+            type: FEEDBACK.TYPE.NOTICE
         });
     });
 
     it('should publish an event for notice feedback with a specified timeout', function () {
         var message = 'test';
-        feedbackService.notice(message,3000);
+        feedbackService.notice(message,undefined,3000);
         broadcastSpy.should.have.been.calledWith(EVENTS.FEEDBACK,{
             message: message,
             type: FEEDBACK.TYPE.NOTICE,
             timeout: 3000
+        });
+    });
+
+    it('should publish an event for success feedback with additional data', function () {
+        var message = 'test';
+        feedbackService.notice(message,{test: 'test2'});
+        broadcastSpy.should.have.been.calledWith(EVENTS.FEEDBACK,{
+            message: message,
+            type: FEEDBACK.TYPE.NOTICE,
+            data: {test: 'test2'}
         });
     });
 

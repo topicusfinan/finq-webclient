@@ -25,7 +25,29 @@ angular.module('finqApp')
             'NOTICE': 'notice'
         },
         'ERROR': {
-            'NO_ENVIRONMENT_SELECTED': 'NO_ENVIRONMENT_SELECTED'
+            'RUN': {
+                'NO_ENVIRONMENT_SELECTED': 'RUN.NO_ENVIRONMENT_SELECTED',
+                'REQUEST_FAILED': 'RUN.REQUEST_FAILED'
+            },
+            'SUBSCRIBE': {
+                'SUBSCRIPTION_FAILED': 'SUBSCRIBE.SUBSCRIPTION_FAILED'
+            }
+        },
+        'NOTICE': {
+            'RUN': {
+                'REQUEST_IS_TAKING_LONG': 'RUN.REQUEST_IS_TAKING_LONG'
+            }
+        },
+        'ALERT': {
+            'RUN': {
+                'NO_SCENARIOS_SELECTED': 'RUN.NO_SCENARIOS_SELECTED'
+            }
+        },
+        'SUCCESS': {
+            'RUN': {
+                'MULTIPLE_REQUEST': 'RUN.MULTIPLE_REQUEST',
+                'SINGLE_REQUEST': 'RUN.SINGLE_REQUEST'
+            }
         }
     })
     .constant('EVENTS',{

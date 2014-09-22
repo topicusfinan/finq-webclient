@@ -10,11 +10,11 @@
  * accessible through the standard ui-translation functionality.
  */
 angular.module('finqApp.service')
-    .service('translate', ['backend','$q','$translate','$timeout', function (backend,$q,$translate,$timeout) {
+    .service('translate', ['backend','$q','$translate', function (backend,$q,$translate) {
         var translations;
         this.load = function(lang) {
             var deferred = $q.defer();
-            var notice = $timeout(function () {
+            var notice = setTimeout(function () {
                 deferred.notify('Loading translations is taking too long');
             },5000);
             backend.get('/lang/'+lang+'.json').success(function(data) {
@@ -25,7 +25,7 @@ angular.module('finqApp.service')
             }).error(function() {
                 deferred.reject('Failed to load translations');
             }).finally(function() {
-                $timeout.cancel(notice);
+                clearTimeout(notice);
             });
             return deferred.promise;
         };

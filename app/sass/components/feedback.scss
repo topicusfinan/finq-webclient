@@ -6,7 +6,7 @@ footer.feedback {
     text-align: center;
     left: $menu-size;
     padding: $layout-feedback-padding;
-    height: 3.8em;
+    height: $layout-feedback-height;
 
     span {
         font-size: $layout-feedback-size;
