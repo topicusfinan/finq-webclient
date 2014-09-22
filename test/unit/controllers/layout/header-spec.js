@@ -16,7 +16,7 @@ describe('Unit: HeaderCtrl initialization', function() {
         configProvider = config;
         EVENTS = _EVENTS_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
-            searchTimeout: 10,
+            searchWait: 10,
             address: ''
         });
         $httpBackend.expectGET('/app/info').respond(200, {
@@ -46,6 +46,7 @@ describe('Unit: HeaderCtrl initialization', function() {
             emitSpy.should.have.been.called.once;
             done();
         },15);
+
     });
 
 });
