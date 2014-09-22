@@ -1,5 +1,8 @@
 $error-color:                           lighten($red, 15%);
 $notice-color:                          $yellow;
+$alert-color:                           $orange;
+$success-color:                         $green;
+$default-feedback-bg-color:             $gray;
 
 // body colors
 $body-bg-color:                         darken(#fff, 10%);
@@ -41,6 +44,9 @@ $layout-details-col:                    6;
 $header-title-size:                     modular-scale($base-font-size, 1, $octave);
 $layout-menu-size:                      modular-scale($base-font-size, 1, $minor-third);
 $layout-menu-header-size:               modular-scale($base-font-size, 1, $octave);
+$layout-feedback-size:                  1.2em;
+$layout-feedback-padding:               .5em 0;
+$layout-feedback-height:                2.8em;
 
 // login formatting
 $login-font-size:                       modular-scale($base-font-size, 1, $perfect-fifth);

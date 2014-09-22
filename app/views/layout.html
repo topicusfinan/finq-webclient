@@ -9,11 +9,12 @@
 </header>
 <aside class="ng-hide" ng-controller="MenuCtrl as menu" ng-show="menu.loaded">
     <ul class="modules">
-        <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-class="{true: 'active'}[module.active]"><i class="fa {{module.id | lowercase}}"></i></li>
+        <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-class="{'active': module.active}"><i class="fa {{module.id | lowercase}}"></i></li>
     </ul>
     <h1>{{menu.activeModuleName}}</h1>
     <ul class="sections">
-        <li class="list-animate" ng-repeat="section in menu.sections" ng-class="{true: 'active'}[section.active]">{{section.title}}</li>
+        <li class="list-animate" ng-repeat="section in menu.sections" ng-class="{'active': section.active}">{{section.title}}</li>
     </ul>
 </aside>
 <div class="main" ng-view></div>
+<footer ng-controller="FeedbackCtrl as fb" class="feedback" ng-class="fb.feedback.type" ng-show="fb.show"><span>{{fb.feedback.message}}</span><i class="fa fa-angle-down" ng-click="fb.hide()"></i></footer>

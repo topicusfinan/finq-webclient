@@ -1,0 +1,48 @@
+footer.feedback {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: $default-feedback-bg-color;
+    text-align: center;
+    left: $menu-size;
+    padding: $layout-feedback-padding;
+    height: 3.8em;
+
+    span {
+        font-size: $layout-feedback-size;
+    }
+
+    &.error {
+        background-color: $error-color;
+        color: $body-bg-color;
+    }
+
+    &.success {
+        background-color: $success-color;
+        color: $body-bg-color;
+    }
+
+    &.alert {
+        background-color: $alert-color;
+        color: $body-bg-color;
+    }
+
+    &.notice {
+        background-color: $notice-color;
+        color: $body-color;
+    }
+
+    i {
+        opacity: .75;
+        font-size: $layout-feedback-size * 1.5;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: $layout-feedback-size / 4  $layout-feedback-size / 3;
+
+        &:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+    }
+}

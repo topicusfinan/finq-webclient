@@ -12,12 +12,12 @@
 angular.module('finqApp.service')
     .service('storyRun', function () {
 
-        this.runScenario = function() {
-            // execute by scenarioId
+        this.runScenario = function(scenarioId) {
+            console.log(scenarioId);
         };
 
-        this.runScenarios = function() {
-            // execute by scenarioIds
+        this.runScenarios = function(scenarioIds) {
+            console.log(scenarioIds);
         };
 
     });

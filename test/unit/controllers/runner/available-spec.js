@@ -9,9 +9,12 @@ describe('Unit: AvailableCtrl initialization', function() {
         httpBackend,
         MODULES,
         EVENTS,
+        FEEDBACK,
         emitSpy,
         scope,
         environments,
+        storyRunService,
+        feedbackService,
         storybooks;
 
     beforeEach(function() {
@@ -19,13 +22,16 @@ describe('Unit: AvailableCtrl initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, config, environment, environmentServiceMock, storyServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, storyRun, feedback) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
+        FEEDBACK = _FEEDBACK_;
         storybooks = storyServiceMock.books;
         environments = environmentServiceMock.environments;
         httpBackend = $httpBackend;
+        storyRunService = storyRun;
+        feedbackService = feedback;
         emitSpy = sinon.spy(scope, '$emit');
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
@@ -114,6 +120,99 @@ describe('Unit: AvailableCtrl initialization', function() {
 
     it('should load a list of environments to populate the environment filter', function () {
         expect(AvailableCtrl.environments.length).to.equal(environments.length);
+    });
+
+    it('should trigger an error in case the user did not select an environment when attempting to run a scenario', function () {
+        var scenarioId = storybooks[0].stories[0].scenarios[0].id;
+        var feedbackSpy = sinon.spy(feedbackService, 'error');
+        AvailableCtrl.run('scenario',scenarioId);
+        expect(feedbackSpy).to.have.been.calledWith(FEEDBACK.ERROR.NO_ENVIRONMENT_SELECTED);
+    });
+
+    it('should be able to run a scenario by id in case an environment was selected', function () {
+        var scenarioId = storybooks[0].stories[0].scenarios[0].id;
+        var runSpy = sinon.spy(storyRunService, 'runScenario');
+        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.run('scenario',scenarioId);
+        expect(runSpy).to.have.been.calledWith(scenarioId);
+    });
+
+    it('should be able to run a story by id in case an environment was selected', function () {
+        var storyId = storybooks[0].stories[0].id;
+        var runSpy = sinon.spy(storyRunService, 'runScenarios');
+        var scenarioIds = [];
+        for (var i=0; i<storybooks[0].stories[0].scenarios.length; i++) {
+            scenarioIds.push(storybooks[0].stories[0].scenarios[i].id);
+        }
+        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.run('story',storyId);
+        expect(runSpy).to.have.been.calledWith(scenarioIds);
+    });
+
+    it('should be able to run a storybook by id in case an environment was selected', function () {
+        var bookId = storybooks[0].id;
+        var runSpy = sinon.spy(storyRunService, 'runScenarios');
+        var scenarioIds = [];
+        for (var i=0; i<storybooks[0].stories.length; i++) {
+           for (var j=0; j<storybooks[0].stories[i].scenarios.length; j++) {
+                scenarioIds.push(storybooks[0].stories[i].scenarios[j].id);
+            }
+        }
+        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.run('book',bookId);
+        expect(runSpy).to.have.been.calledWith(scenarioIds);
+    });
+
+    it('should be able to run all stories in case an environment was selected', function () {
+        var runSpy = sinon.spy(storyRunService, 'runScenarios');
+        var scenarioIds = [];
+        for (var i=0; i<storybooks.length; i++) {
+            for (var j=0; j<storybooks[i].stories.length; j++) {
+               for (var k=0; k<storybooks[i].stories[j].scenarios.length; k++) {
+                    scenarioIds.push(storybooks[i].stories[j].scenarios[k].id);
+                }
+            }
+        }
+        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.run('all');
+        expect(runSpy).to.have.been.calledWith(scenarioIds);
+    });
+
+    it('should be able to apply tag filters when executing a story', function () {
+        var storyId = storybooks[0].stories[0].id;
+        var runSpy = sinon.spy(storyRunService, 'runScenarios');
+        var scenarioIds = [];
+        for (var i=0; i<storybooks[0].stories[0].scenarios.length; i++) {
+            if (storybooks[0].stories[0].scenarios[i].tags.indexOf('additional') > -1) {
+                scenarioIds.push(storybooks[0].stories[0].scenarios[i].id);
+            }
+        }
+        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.filter.tag.keys = ['additional'];
+        AvailableCtrl.run('story',storyId);
+        expect(runSpy).to.have.been.calledWith(scenarioIds);
+    });
+
+    it('should be able to apply tag filters when running by books and all stories', function () {
+        var runSpy = sinon.spy(storyRunService, 'runScenarios');
+        var scenarioIds = [];
+        for (var i=0; i<storybooks.length; i++) {
+            for (var j=0; j<storybooks[i].stories.length; j++) {
+                var evaluate = true;
+                if (storybooks[i].stories[j].tags.indexOf('write') > -1) {
+                    evaluate = false;
+                }
+                for (var k=0; k<storybooks[i].stories[j].scenarios.length; k++) {
+                    if (!evaluate || storybooks[i].stories[j].scenarios[k].tags.indexOf('additional') > -1) {
+                        scenarioIds.push(storybooks[i].stories[j].scenarios[k].id);
+                    }
+                }
+            }
+        }
+        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.filter.tag.keys = ['write','additional'];
+        AvailableCtrl.run('all');
+        expect(runSpy).to.have.been.calledWith(scenarioIds);
     });
 
 });

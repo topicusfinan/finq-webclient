@@ -13,22 +13,21 @@
 angular.module('finqApp.controller')
     .controller('AvailableCtrl', [
         '$scope',
-        '$translate',
         '$timeout',
         '$filter',
         'EVENTS',
+        'FEEDBACK',
         'MODULES',
         'config',
+        'feedback',
         'story',
         'storybookSearch',
         'storyCollapse',
         'storyRun',
         'environment',
-        function ($scope,$translate,$timeout,$filter,EVENTS,MODULES,configProvider,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
+        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
         var that = this,
-            searchFilter = $filter('storySearchFilter'),
-            setFilter = $filter('storySetFilter'),
-            storyTagFilter = $filter('storyTagFilter'),
+            availableStoryFilter = $filter('availableStoryFilter'),
             scenarioTagFilter = $filter('scenarioTagFilter');
 
         this.filter = {
@@ -106,9 +105,7 @@ angular.module('finqApp.controller')
 
             var runByBook = function(bookId) {
                 var stories = storyService.listStoriesByBook(bookId === null ? null : [bookId]);
-                stories = searchFilter(stories,storybookSearchService.query,id);
-                stories = setFilter(stories,that.filter.set.keys);
-                stories = storyTagFilter(stories,that.filter.tag.keys);
+                stories = availableStoryFilter(stories,storybookSearchService.query,id,that.filter.set.keys,that.filter.tag.keys);
                 for (i=0; i<stories.length; i++) {
                     scenarios = scenarioTagFilter(stories[i].scenarios,stories[i].tags,that.filter.tag.keys);
                     for (j=0; j<scenarios.length; j++) {
@@ -118,15 +115,15 @@ angular.module('finqApp.controller')
                 storyRunService.runScenarios(scenarioIds);
             };
 
-            if (!that.filter.evn.keys.length) {
-                // TODO show feedback, environment should be selected
+            if (!that.filter.env.keys.length) {
+                feedbackService.error(FEEDBACK.ERROR.NO_ENVIRONMENT_SELECTED);
             } else {
                 switch (type) {
                     case 'scenario':
                         storyRunService.runScenario(id);
                         break;
                     case 'story':
-                        story = storyService.findStoryById([id]);
+                        story = storyService.findStoryById(id);
                         scenarios = scenarioTagFilter(story.scenarios,story.tags,that.filter.tag.keys);
                         for (i=0; i<scenarios.length; i++) {
                             scenarioIds.push(scenarios[i].id);

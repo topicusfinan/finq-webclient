@@ -11,6 +11,23 @@ angular.module('finqApp')
     .constant('CONFIG_CONSTANTS',{
         'MAX_SEARCH_RESULTS' : 1000
     })
+    .constant('FEEDBACK', {
+        'TYPE': {
+            'SUCCESS': 'SUCCESS',
+            'ERROR': 'ERROR',
+            'ALERT': 'ALERT',
+            'NOTICE': 'NOTICE'
+        },
+        'CLASS': {
+            'SUCCESS': 'success',
+            'ERROR': 'error',
+            'ALERT': 'alert',
+            'NOTICE': 'notice'
+        },
+        'ERROR': {
+            'NO_ENVIRONMENT_SELECTED': 'NO_ENVIRONMENT_SELECTED'
+        }
+    })
     .constant('EVENTS',{
         'PAGE_CONTROLLER_UPDATED': 'finqApp.pageControllerUpdated',
         'NAVIGATION_UPDATED' : 'finqApp.navigationUpdated',
@@ -18,7 +35,8 @@ angular.module('finqApp')
         'SEARCH_UPDATED' : 'finqApp.searchUpdated',
         'FILTER_SELECT_UPDATED' : 'finqApp.filterSelectUpdated',
         'CONTENT_LIST_UPDATED' : 'finqApp.contentListUpdated',
-        'SYNCHRONIZE_FILTER': 'finqApp.synchronizeFilter'
+        'SYNCHRONIZE_FILTER': 'finqApp.synchronizeFilter',
+        'FEEDBACK': 'finqApp.feedback'
     }).constant('MODULES',{
         'REPORTER' : {
             id: 'REPORTER',

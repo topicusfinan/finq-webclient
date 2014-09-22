@@ -8,6 +8,11 @@
             "PREV" : "Previous page"
         }
     },
+    "FEEDBACK": {
+        "ERROR": {
+            "NO_ENVIRONMENT_SELECTED": "Please select an environment to run your test on"
+        }
+    },
     "LOADER": {
         "LOADED" : "All done!"
     },

@@ -1,6 +1,7 @@
 {
     "address" : "",
     "searchWait": 250,
+    "feedbackTimeout": 7000,
     "pagination": {
         "maxScenarios": 1000,
         "maxSelectDropdownItems": 8
