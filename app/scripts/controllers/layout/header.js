@@ -20,7 +20,7 @@ angular.module('finqApp.controller')
             prevQuery = '',
             searchTimeout = null;
         this.title = configProvider.server().subject;
-        this.timeout = configProvider.client().searchTimeout;
+        this.timeout = configProvider.client().searchWait;
         this.query = '';
 
         // delay the loaded indication to allow for appear effects
@@ -30,12 +30,13 @@ angular.module('finqApp.controller')
 
         this.search = function() {
             if (searchTimeout !== null) {
-                $timeout.cancel(searchTimeout);
+                clearTimeout(searchTimeout);
             }
-            searchTimeout = $timeout(function() {
+            searchTimeout = setTimeout(function() {
                 if (that.query !== prevQuery) {
                     $scope.$emit(EVENTS.SEARCH_UPDATED,that.query);
                     prevQuery = that.query;
+                    $scope.$apply();
                 }
             },that.timeout);
         };
