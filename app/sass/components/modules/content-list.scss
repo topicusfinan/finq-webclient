@@ -116,6 +116,16 @@
                         left: $section-list-icon-left * $content-list-item-2-icon-left;
                         top: $content-list-item-2-icon-top;
                         font-size: $content-list-item-2-icon-size;
+
+                        &:after {
+
+                            @extend %icon;
+                            content: '\f0da';
+                        }
+
+                        &.expand:after {
+                            content: '\f0d7';
+                        }
                     }
 
                     > div.title > span,

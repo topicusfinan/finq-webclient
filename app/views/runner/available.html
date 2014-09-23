@@ -37,7 +37,7 @@
             <li class="ic cl" ng-repeat="story in book.stories | availableStoryFilter:app.searchQuery:book.id:available.filter.set.keys:available.filter.tag.keys">
                 <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.expandStory(book.id,story.id)">
                     <div class="title">
-                        <i class="fa fa-caret-right"></i>
+                        <i class="fa" ng-class="{'expand':story.expand === true || expand() === 'book'+book.id || expand() === 'all'}"></i>
                         <span>{{ story.title }}</span>
                     </div>
                     <div class="actions">
