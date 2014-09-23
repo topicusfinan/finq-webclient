@@ -34,7 +34,7 @@ angular.module('finqApp.controller')
             }
             searchTimeout = setTimeout(function() {
                 if (that.query !== prevQuery) {
-                    $scope.$emit(EVENTS.SEARCH_UPDATED,that.query);
+                    $scope.$emit(EVENTS.SCOPE.SEARCH_UPDATED,that.query);
                     prevQuery = that.query;
                     $scope.$apply();
                 }

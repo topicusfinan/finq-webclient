@@ -38,7 +38,7 @@ angular.module('finqApp.service')
             if (timeout !== undefined) {
                 feedback.timeout = timeout;
             }
-            $rootScope.$broadcast(EVENTS.FEEDBACK,feedback);
+            $rootScope.$broadcast(EVENTS.SCOPE.FEEDBACK,feedback);
         };
 
     }]);

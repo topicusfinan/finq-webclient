@@ -20,12 +20,13 @@ angular.module('finqApp.controller')
         'MODULES',
         'config',
         'feedback',
+        'sectionState',
         'story',
         'storybookSearch',
         'storyCollapse',
         'storyRun',
         'environment',
-        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
+        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,sectionStateService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
         var that = this,
             availableStoryFilter = $filter('availableStoryFilter'),
             scenarioTagFilter = $filter('scenarioTagFilter');
@@ -54,16 +55,11 @@ angular.module('finqApp.controller')
         $scope.storybooks = storyCollapseService.getBooks;
         $scope.expand = storyCollapseService.getExpand;
 
-        // emit the controller updated event immediately after loading to update the page information
-        $scope.$emit(EVENTS.PAGE_CONTROLLER_UPDATED,{
-            module: MODULES.RUNNER,
-            // our default section is the list with available scenarios that can be run
-            section: MODULES.RUNNER.sections.AVAILABLE
-        });
-
-        $scope.$on(EVENTS.FILTER_SELECT_UPDATED,function(event,filterInfo) {
+        $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             that.filter[filterInfo.id].keys = filterInfo.keys;
         });
+
+        sectionStateService.setCurrentSection(MODULES.RUNNER.sections.AVAILABLE);
 
         environmentService.list().then(function (environments) {
             that.environments = environments;

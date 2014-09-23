@@ -13,7 +13,7 @@
     </ul>
     <h1>{{menu.activeModuleName}}</h1>
     <ul class="sections">
-        <li class="list-animate" ng-repeat="section in menu.sections" ng-class="{'active': section.active}">{{section.title}}</li>
+        <li class="list-animate" ng-repeat="section in menu.sections" ng-class="{'active': section.active}">{{section.title}}<span class="count">{{menu.getSectionCount(section.id)}}</span></li>
     </ul>
 </aside>
 <div class="main" ng-view></div>

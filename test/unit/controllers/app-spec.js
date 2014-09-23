@@ -22,18 +22,18 @@ describe('Unit: AppCtrl initialization', function() {
 describe('Unit: AppCtrl receiving configuration loaded event', function() {
 
     var AppCtrl,
-        E,
+        EVENTS,
         scope,
         NEW_TITLE = 'Awesomeness';
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, EVENTS) {
-        E = EVENTS;
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_) {
+        EVENTS = _EVENTS_;
         scope = $rootScope.$new();
         AppCtrl = $controller('AppCtrl', {
             $scope: scope
         });
-        scope.$broadcast(E.CONFIG_LOADED,{
+        scope.$broadcast(EVENTS.SCOPE.CONFIG_LOADED,{
             title: NEW_TITLE
         });
     }));
@@ -47,7 +47,7 @@ describe('Unit: AppCtrl receiving configuration loaded event', function() {
 describe('Unit: AppCtrl receiving controller updated event', function() {
 
     var AppCtrl,
-        E,
+        EVENTS,
         MOD,
         scope,
         pageFactory,
@@ -58,8 +58,8 @@ describe('Unit: AppCtrl receiving controller updated event', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($controller, $rootScope, EVENTS, MODULES, page) {
-        E = EVENTS;
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, MODULES, page) {
+        EVENTS = _EVENTS_;
         MOD = MODULES;
         pageFactory = page;
         eventData = {
@@ -71,12 +71,8 @@ describe('Unit: AppCtrl receiving controller updated event', function() {
             $scope: scope
         });
         broadcastSpy = sinon.spy(scope, '$broadcast');
-        scope.$emit(E.PAGE_CONTROLLER_UPDATED,eventData);
+        scope.$emit(EVENTS.SCOPE.SECTION_STATE_CHANGED,eventData);
     }));
-
-    it('should trigger the broadcasting of a navigation event', function () {
-        expect(broadcastSpy).to.have.been.calledWith(E.NAVIGATION_UPDATED,eventData);
-    });
 
     it('should update the active module and section in the page factory', function () {
         var activeSection = pageFactory.getActiveSection();

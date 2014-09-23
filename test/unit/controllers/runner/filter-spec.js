@@ -6,7 +6,6 @@
 describe('Unit: AvailableCtrlFilter initialization', function() {
 
     var AvailableFilterCtrl,
-        EVENTS,
         scope,
         sets,
         tags;
@@ -16,9 +15,8 @@ describe('Unit: AvailableCtrlFilter initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, config, setServiceMock, tagServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, setServiceMock, tagServiceMock) {
         scope = $rootScope.$new();
-        EVENTS = _EVENTS_;
         sets = setServiceMock.sets;
         tags = tagServiceMock.tags;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {

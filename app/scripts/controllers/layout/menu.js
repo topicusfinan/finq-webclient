@@ -22,16 +22,25 @@ angular.module('finqApp.controller')
         'EVENTS',
         'page',
         function ($scope,$translate,$timeout,MODULES,EVENTS,pageFactory) {
-        var that = this;
+        var that = this,
+            activeSection = pageFactory.getActiveSection(),
+            sectionCount = {};
+
         this.modules = [];
         this.sections = [];
         this.activeModuleName = '';
-        var activeSection = pageFactory.getActiveSection();
 
         // delay the loaded indication to allow for appear effects
         $timeout(function() {
             that.loaded = true;
         },10);
+
+        this.getSectionCount = function(sectionId) {
+            if (sectionCount[sectionId]) {
+                return sectionCount[sectionId];
+            }
+            return '';
+        };
 
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {
@@ -70,7 +79,7 @@ angular.module('finqApp.controller')
         });
 
         // handle navigation changes by updating the active module and reloading or updating the section listing
-        $scope.$on(EVENTS.NAVIGATION_UPDATED,function(event,updateInfo) {
+        $scope.$on(EVENTS.SCOPE.SECTION_STATE_CHANGED,function(event,updateInfo) {
             var newActiveModule = updateInfo.module;
             var newActiveSection = updateInfo.section;
             if (activeSection.moduleId !== newActiveModule.id) {
@@ -100,4 +109,9 @@ angular.module('finqApp.controller')
                 moduleId: newActiveModule.id
             };
         });
+
+        $scope.$on(EVENTS.SCOPE.SUBSECTION_COUNT_UPDATED,function(event,updateInfo) {
+            sectionCount[updateInfo.sectionId] = updateInfo.count;
+        });
+
     }]);

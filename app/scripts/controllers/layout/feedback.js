@@ -38,7 +38,7 @@ angular.module('finqApp.controller')
             that.show = false;
         };
 
-        $scope.$on(EVENTS.FEEDBACK,function(event,feedback) {
+        $scope.$on(EVENTS.SCOPE.FEEDBACK,function(event,feedback) {
             handleFeedback(feedback.message,feedback.type,feedback.data,feedback.timeout);
         });
 
@@ -66,6 +66,7 @@ angular.module('finqApp.controller')
             } else {
                 feedbackTimeout = null;
             }
+            $scope.$apply();
         };
 
         var queueFeedback = function(type,feedback,timeout) {
@@ -79,6 +80,7 @@ angular.module('finqApp.controller')
             }
             queue.push({
                 feedback: feedback,
+                type: type,
                 timeout: timeout
             });
         };
@@ -88,6 +90,7 @@ angular.module('finqApp.controller')
                 clearTimeout(feedbackTimeout);
             }
             feedbackTimeout = setTimeout(function() {
+                overruledTimeout = null;
                 that.show = false;
                 evaluateQueue();
             },timeout);
@@ -98,7 +101,7 @@ angular.module('finqApp.controller')
                 parsingQueue = true;
                 var nextTimeout;
                 if (queue.length > 1) {
-                    if (queue[1].feedback.type !== FEEDBACK.TYPE.NOTICE) {
+                    if (queue[1].type !== FEEDBACK.TYPE.NOTICE) {
                         nextTimeout = minTimeout;
                     } else {
                         nextTimeout = queueTimeout;
@@ -109,9 +112,6 @@ angular.module('finqApp.controller')
                 showFeedback(queue[0].feedback,nextTimeout);
                 queue.splice(0,1);
                 parsingQueue = false;
-                $scope.$apply();
-            } else {
-                overruledTimeout = null;
             }
         };
 

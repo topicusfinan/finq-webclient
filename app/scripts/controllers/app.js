@@ -25,22 +25,19 @@ angular.module('finqApp.controller')
 
             $state.go('intro.loading');
 
-            $scope.$on(EVENTS.CONFIG_LOADED,function(event, serverConfigData){
+            $scope.$on(EVENTS.SCOPE.CONFIG_LOADED,function(event, serverConfigData){
                 that.title = serverConfigData.title;
             });
-            $scope.$on(EVENTS.PAGE_CONTROLLER_UPDATED,function(event,moduleInfo) {
+
+            $scope.$on(EVENTS.SCOPE.SECTION_STATE_CHANGED,function(event, moduleInfo){
                 // update the page title
                 pageFactory.setActiveSection(moduleInfo.module,moduleInfo.section);
                 $translate(moduleInfo.section.id+'.TITLE').then(function (translatedValue) {
                     that.title = pageFactory.getPageTitle(configProvider.server().title,translatedValue);
                 });
-                // broadcast a navigation updated event to inform other controllers
-                $scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
-                    module: moduleInfo.module,
-                    section: moduleInfo.section
-                });
             });
-            $scope.$on(EVENTS.SEARCH_UPDATED,function(event, query){
+
+            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED,function(event, query){
                 that.searchQuery = query;
             });
         }

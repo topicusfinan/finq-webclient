@@ -64,7 +64,7 @@ describe('Unit: MenuCtrl receiving the first navigation event', function() {
         MenuCtrl = $controller('MenuCtrl', {
             $scope: scope
         });
-        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : FIRST_TARGET_SECTION}
         });
@@ -116,11 +116,11 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
         MenuCtrl = $controller('MenuCtrl', {
             $scope: scope
         });
-        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : FIRST_TARGET_SECTION}
         });
-        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
             module: {id : SECOND_TARGET_MODULE},
             section: {id : SECOND_TARGET_SECTION}
         });
@@ -171,11 +171,11 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
         MenuCtrl = $controller('MenuCtrl', {
             $scope: scope
         });
-        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : FIRST_TARGET_SECTION}
         });
-        scope.$broadcast(EVENTS.NAVIGATION_UPDATED,{
+        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
             module: {id : FIRST_TARGET_MODULE},
             section: {id : SECOND_TARGET_SECTION}
         });

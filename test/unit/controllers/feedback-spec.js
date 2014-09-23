@@ -40,7 +40,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
     });
 
     it('should respond to a show feedback event', function () {
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
@@ -52,7 +52,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
     });
 
     it('should respond to a hide feedback request by hiding the feedback', function () {
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
@@ -61,7 +61,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
     });
 
     it('should hide feedback after the default amount of time in case not otherwise specified', function (done) {
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
@@ -75,11 +75,11 @@ describe('Unit: FeedbackCtrl initialization', function() {
     });
 
     it('should queue a secondary feedback request and not immediately show it', function () {
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test2',
             type: FEEDBACK.TYPE.SUCCESS
         });
@@ -91,11 +91,11 @@ describe('Unit: FeedbackCtrl initialization', function() {
     });
 
     it('should show queued feedback after the minimum amount of time in case of non notice queued feedback', function (done) {
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test2',
             type: FEEDBACK.TYPE.SUCCESS
         });
@@ -109,11 +109,11 @@ describe('Unit: FeedbackCtrl initialization', function() {
     });
 
     it('should show queued feedback after the standard queue amount of time in case of notice queued feedback', function (done) {
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test2',
             type: FEEDBACK.TYPE.NOTICE
         });
@@ -133,21 +133,21 @@ describe('Unit: FeedbackCtrl initialization', function() {
     });
 
     it('should hasten the rendering of queued feedback in case the next queued feedback is not a notice', function (done) {
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test2',
             type: FEEDBACK.TYPE.NOTICE
         });
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test3',
             type: FEEDBACK.TYPE.SUCCESS
         });
-        scope.$emit(EVENTS.FEEDBACK,{
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test4',
-            type: FEEDBACK.TYPE.ERROR
+            type: FEEDBACK.TYPE.NOTICE
         });
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
@@ -163,11 +163,17 @@ describe('Unit: FeedbackCtrl initialization', function() {
         },25);
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test3 (untranslated)',
+                type: FEEDBACK.CLASS.SUCCESS
+            });
+        },35);
+        setTimeout(function() {
+            expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test4 (untranslated)',
-                type: FEEDBACK.CLASS.ERROR
+                type: FEEDBACK.CLASS.NOTICE
             });
             done();
-        },35);
+        },45);
     });
 
 });

@@ -19,7 +19,7 @@ angular.module('finqApp.directive')
             restrict: 'A',
             templateUrl: 'views/directives/paginate.html',
             link: function (scope) {
-                scope.$on(EVENTS.CONTENT_LIST_UPDATED,function(event,updatedListRef) {
+                scope.$on(EVENTS.SCOPE.CONTENT_LIST_UPDATED,function(event,updatedListRef) {
                     if (scope.listRef === updatedListRef) {
                         scope.hasMultiplePages = scope.hasNext();
                     }

@@ -50,7 +50,7 @@ describe('Unit: FilterSelect directive controller', function() {
         scope.select(scope.options[1].key,scope.options[1].value);
         expect(scope.active[0].key).to.equal(scope.options[1].key);
         expect(scope.active[0].value).to.equal(scope.options[1].value);
-        expect(emitSpy).to.have.been.calledWith(EVENTS.FILTER_SELECT_UPDATED,{
+        expect(emitSpy).to.have.been.calledWith(EVENTS.SCOPE.FILTER_SELECT_UPDATED,{
             id: scope.id,
             keys: [scope.active[0].key]
         });
@@ -73,7 +73,7 @@ describe('Unit: FilterSelect directive controller', function() {
         expect(scope.active[1].key).to.equal(scope.options[1].key);
         expect(scope.active[1].value).to.equal(scope.options[1].value);
         expect(scope.value).to.equal(scope.active[0].value+', '+scope.active[1].value);
-        expect(emitSpy).to.have.been.calledWith(EVENTS.FILTER_SELECT_UPDATED,{
+        expect(emitSpy).to.have.been.calledWith(EVENTS.SCOPE.FILTER_SELECT_UPDATED,{
             id: scope.id,
             keys: [scope.active[0].key,scope.active[1].key]
         });
@@ -215,7 +215,7 @@ describe('Unit: FilterSelect directive controller', function() {
         scope.synchronizeById = 'test';
         var broadcastSpy = sinon.spy(rootScope, '$broadcast');
         scope.select(scope.options[1].key,scope.options[1].value);
-        expect(broadcastSpy).to.have.been.calledWith(EVENTS.SYNCHRONIZE_FILTER,{
+        expect(broadcastSpy).to.have.been.calledWith(EVENTS.SCOPE.SYNCHRONIZE_FILTER,{
             id: scope.id,
             keys: [scope.active[0].key]
         });

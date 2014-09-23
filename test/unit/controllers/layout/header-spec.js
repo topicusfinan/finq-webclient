@@ -42,7 +42,7 @@ describe('Unit: HeaderCtrl initialization', function() {
         HeaderCtrl.query = 'test2';
         HeaderCtrl.search();
         setTimeout(function() {
-            expect(emitSpy).to.have.been.calledWith(EVENTS.SEARCH_UPDATED,'test2');
+            expect(emitSpy).to.have.been.calledWith(EVENTS.SCOPE.SEARCH_UPDATED,'test2');
             emitSpy.should.have.been.called.once;
             done();
         },15);

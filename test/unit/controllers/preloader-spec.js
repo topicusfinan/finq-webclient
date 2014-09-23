@@ -5,8 +5,7 @@
 
 describe('Unit: Preloader initialization', function() {
 
-    var EVENTS,
-        state,
+    var state,
         scope,
         emitSpy,
         httpBackend,
@@ -20,13 +19,12 @@ describe('Unit: Preloader initialization', function() {
         module('finqApp');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, $state, appServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $state, appServiceMock) {
         scope = $rootScope.$new();
         state = $state;
         httpBackend = $httpBackend;
         controller = $controller;
         appService = appServiceMock;
-        EVENTS = _EVENTS_;
         emitSpy = sinon.spy(scope, '$emit');
         stateSpy = sinon.spy(state, 'go');
         langData = {

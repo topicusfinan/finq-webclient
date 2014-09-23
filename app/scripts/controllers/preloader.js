@@ -53,7 +53,7 @@ angular.module('finqApp.controller')
         configProvider.load().then(function(serverConfigData) {
             loaded.config = true;
             console.debug(serverConfigData.title+' application configuration loaded');
-            $scope.$emit(EVENTS.CONFIG_LOADED,serverConfigData);
+            $scope.$emit(EVENTS.SCOPE.CONFIG_LOADED,serverConfigData);
             loadEnvironments();
             tryAuthentication();
         },function(error) {

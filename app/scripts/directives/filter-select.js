@@ -33,7 +33,7 @@ angular.module('finqApp.directive')
                 });
 
                 if (scope.synchronizeById) {
-                    scope.$on(EVENTS.SYNCHRONIZE_FILTER,function(event, syncData) {
+                    scope.$on(EVENTS.SCOPE.SYNCHRONIZE_FILTER,function(event, syncData) {
                         if (syncData.id === scope.id) {
                             scope.synchronize(syncData.keys);
                         }
@@ -153,12 +153,12 @@ angular.module('finqApp.directive')
                     realKeys.push(newKeys[i]);
                 }
             }
-            $scope.$emit(EVENTS.FILTER_SELECT_UPDATED,{
+            $scope.$emit(EVENTS.SCOPE.FILTER_SELECT_UPDATED,{
                 id: $scope.id,
                 keys: realKeys
             });
             if ($scope.synchronizeById) {
-                $rootScope.$broadcast(EVENTS.SYNCHRONIZE_FILTER,{
+                $rootScope.$broadcast(EVENTS.SCOPE.SYNCHRONIZE_FILTER,{
                     id: $scope.id,
                     keys: newKeys
                 });
