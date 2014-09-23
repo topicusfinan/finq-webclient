@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service:storyRun
+ * @name finqApp.service.story:storyRun
  * @description
  * # Story run service
  *
@@ -17,11 +17,13 @@ angular.module('finqApp.service')
         'FEEDBACK',
         'EVENTS',
         'subscription',
-        'sectionState',
-        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,subscriptionService,sectionStateService) {
+        'module',
+        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,subscriptionService,moduleService) {
+        var that = this,
+            runningScenarios = [];
 
         this.runScenario = function(scenarioId) {
-            return run({scenario: scenarioId});
+            return that.runScenarios([scenarioId]);
         };
 
         this.runScenarios = function(scenarioIds) {
@@ -36,16 +38,20 @@ angular.module('finqApp.service')
             var notice = $timeout(function () {
                 feedbackService.notice(FEEDBACK.NOTICE.RUN.REQUEST_IS_TAKING_LONG);
             },5000);
-            backend.get('/story/run',data).success(function(runReference) {
-                if (data.scenarios !== undefined && data.scenarios.length > 1) {
+            backend.get('/story/run',data).success(function(runData) {
+                runningScenarios.push(runData);
+                if (data.scenarios.length > 1) {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{
                         count: data.scenarios.length
                     });
                 } else {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST);
                 }
-                sectionStateService.handleEvent(EVENTS.INTERNAL.SCENARIO_RUN_STARTED);
-                subscriptionService.subscribe(runReference.id);
+                moduleService.handleEvent(EVENTS.INTERNAL.SCENARIO_RUN_STARTED,{
+                    reference: runData.id,
+                    scenarios: data.scenarios
+                });
+                subscriptionService.subscribe(runData.id);
             }).error(function(error) {
                 feedbackService.error(FEEDBACK.ERROR.RUN.REQUEST_FAILED);
                 console.debug(error);

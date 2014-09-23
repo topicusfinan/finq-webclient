@@ -16,9 +16,17 @@ describe('Unit: Available Story Filter execution', function() {
             availableStoryFilter = $injector.get('$filter')('availableStoryFilter');
         });
     });
-    beforeEach(inject(function (storyServiceMock,storybookSearch) {
+    beforeEach(inject(function (storyServiceMock,$httpBackend,config,storybookSearch) {
         storybooks = storyServiceMock.books;
-        storybookSearch.initialize(storybooks);
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            maxSearchResults: 1000
+        });
+        $httpBackend.expectGET('/app/info').respond(200);
+        config.load().then(function() {
+            storybookSearch.initialize(storybooks);
+        });
+        $httpBackend.flush();
     }));
 
     it('should return all stories in case of a clean filter combination', function () {

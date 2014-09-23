@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service:story
+ * @name finqApp.service.story:story
  * @description
  * # Story service
  *

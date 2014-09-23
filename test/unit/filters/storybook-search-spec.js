@@ -17,10 +17,18 @@ describe('Unit: Storybook Search Filter execution', function() {
             storybookSearchFilter = $injector.get('$filter')('storybookSearchFilter');
         });
     });
-    beforeEach(inject(function (storyServiceMock,storybookSearch) {
+    beforeEach(inject(function (storyServiceMock,$httpBackend,config,storybookSearch) {
         storybookSearchService = storybookSearch;
         storybooks = storyServiceMock.books;
-        storybookSearch.initialize(storybooks);
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            maxSearchResults: 1000
+        });
+        $httpBackend.expectGET('/app/info').respond(200);
+        config.load().then(function() {
+            storybookSearch.initialize(storybooks);
+        });
+        $httpBackend.flush();
     }));
 
     it('should keep all books listed in case of an empty search', function () {

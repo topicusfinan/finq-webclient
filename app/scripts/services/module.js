@@ -10,12 +10,14 @@
  * and other forms of state indicators for sections and modules.
  */
 angular.module('finqApp.service')
-    .service('sectionState', ['$rootScope','EVENTS','MODULES',function ($rootScope,EVENTS,MODULES) {
+    .service('module', ['$rootScope','EVENTS','MODULES',function ($rootScope,EVENTS,MODULES) {
         var moduleServices = {};
 
         this.linkModule = function(moduleId,moduleService) {
             moduleServices[moduleId] = moduleService;
-            moduleService.initialize();
+            if (typeof moduleService.initialize === 'function') {
+                moduleService.initialize();
+            }
         };
 
         this.handleEvent = function(event,eventData) {
@@ -24,21 +26,22 @@ angular.module('finqApp.service')
             });
         };
 
-        this.updateSectionBadge = function(section) {
-            var module = MODULES[section.id.split('.')[0]];
-            $rootScope.$broadcast(EVENTS.SCOPE.SECTION_BADGE_UPDATED,{
-                module: module,
-                section: section
+        this.updateSectionBadge = function(section,count) {
+            $rootScope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
+                section: section,
+                count: count
             });
         };
 
-        this.updateModuleBadge = function(module) {
-            $rootScope.$broadcast(EVENTS.SCOPE.MODULE_BADGE_UPDATED,module);
+        this.updateModuleBadge = function(module,count) {
+            $rootScope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
+                module: module,
+                count: count
+            });
         };
 
         this.setCurrentSection = function(section) {
             var module = MODULES[section.id.split('.')[0]];
-            // broadcast a navigation updated event to inform other controllers
             $rootScope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
                 module: module,
                 section: section

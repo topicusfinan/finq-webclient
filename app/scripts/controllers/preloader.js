@@ -21,7 +21,8 @@ angular.module('finqApp.controller')
         'translate',
         'authenticate',
         'environment',
-        function ($state,$scope,configProvider,EVENTS,translateService,authenticateService,environmentService) {
+        'setup',
+        function ($state,$scope,configProvider,EVENTS,translateService,authenticateService,environmentService,setup) {
         var that = this;
         this.progress = '0%';
         this.loaded = false;
@@ -105,6 +106,7 @@ angular.module('finqApp.controller')
         var loadComplete = function() {
             that.loadingText = loadedText;
             that.loaded = true;
+            setup.setupModules();
             if (that.authenticated) {
                 $state.go('authenticated');
             } else {

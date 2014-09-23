@@ -1,0 +1,68 @@
+@keyframes badge {
+    0%,
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+        transition-timing-function: cubic-bezier(.215, .610, .355, 1);
+    }
+
+    0% {
+        transform: scale3d(.3, .3, .3);
+    }
+
+    20% {
+        transform: scale3d(1.2, 1.2, 1.2);
+    }
+
+    40% {
+        transform: scale3d(.9, .9, .9);
+    }
+
+    60% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    80% {
+        transform: scale3d(.95, .95, .95);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes feedback {
+    0%,
+    40%,
+    80%,
+    100% {
+        transition-timing-function: cubic-bezier(.215, .610, .355, 1);
+    }
+
+    0% {
+        transform: scaleY(.3);
+    }
+
+    20% {
+        transform: scaleY(1.2);
+    }
+
+    40% {
+        transform: scaleY(1);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scaleY(1.1);
+    }
+
+    80% {
+        transform: scaleY(.95) translateY(.2);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+}

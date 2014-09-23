@@ -11,19 +11,19 @@
  */
 angular.module('finqApp.controller')
     .controller('AppCtrl', [
-        '$state',
-        '$scope',
+        'setup',
         '$route',
+        '$scope',
         '$translate',
         'config',
         'page',
         'EVENTS',
-        function ($state,$scope,$route,$translate,configProvider,pageFactory,EVENTS) {
+        function (setup,$route,$scope,$translate,configProvider,pageFactory,EVENTS) {
             var that = this;
             this.title = 'Finq';
             this.searchQuery = '';
 
-            $state.go('intro.loading');
+            setup.initialize();
 
             $scope.$on(EVENTS.SCOPE.CONFIG_LOADED,function(event, serverConfigData){
                 that.title = serverConfigData.title;

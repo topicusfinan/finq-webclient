@@ -3,7 +3,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service:storybookSearch
+ * @name finqApp.service.story:storybookSearch
  * @description
  * # Storybook search service
  *
@@ -13,7 +13,7 @@
  *
  */
 angular.module('finqApp.service')
-    .service('storybookSearch', ['CONFIG_CONSTANTS', function (CONFIG) {
+    .service('storybookSearch', ['config', function (configProvider) {
         var that = this,
             books,
             searchList = {
@@ -56,7 +56,7 @@ angular.module('finqApp.service')
                     return Bloodhound.tokenizers.whitespace(d.title);
                 },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
-                limit: CONFIG.MAX_SEARCH_RESULTS,
+                limit: configProvider.client().maxSearchResults,
                 local: searchList.global.scenarios
             });
             searchList.global.engine.initialize();
@@ -66,7 +66,7 @@ angular.module('finqApp.service')
                         return Bloodhound.tokenizers.whitespace(d.title);
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    limit: CONFIG.MAX_SEARCH_RESULTS,
+                    limit: configProvider.client().maxSearchResults,
                     local: searchList.books[book.id].scenarios
                 });
                 searchList.books[book.id].engine.initialize();

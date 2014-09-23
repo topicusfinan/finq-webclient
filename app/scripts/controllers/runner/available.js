@@ -20,13 +20,13 @@ angular.module('finqApp.controller')
         'MODULES',
         'config',
         'feedback',
-        'sectionState',
+        'module',
         'story',
         'storybookSearch',
         'storyCollapse',
         'storyRun',
         'environment',
-        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,sectionStateService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
+        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,moduleService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
         var that = this,
             availableStoryFilter = $filter('availableStoryFilter'),
             scenarioTagFilter = $filter('scenarioTagFilter');
@@ -59,7 +59,7 @@ angular.module('finqApp.controller')
             that.filter[filterInfo.id].keys = filterInfo.keys;
         });
 
-        sectionStateService.setCurrentSection(MODULES.RUNNER.sections.AVAILABLE);
+        moduleService.setCurrentSection(MODULES.RUNNER.sections.AVAILABLE);
 
         environmentService.list().then(function (environments) {
             that.environments = environments;

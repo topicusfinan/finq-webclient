@@ -33,6 +33,10 @@ $hero-notice-color:                     $gray;
 $hero-notice-font-size:                 2em;
 $hero-notice-top:                       3em;
 
+$badge-bg-color:                        $red;
+$badge-color:                           #fff;
+$badge-radius:                          .3em;
+
 // layout formatting
 $header-height:                         modular-scale($base-font-size, 2, $octave);
 $layout-columns:                        24;

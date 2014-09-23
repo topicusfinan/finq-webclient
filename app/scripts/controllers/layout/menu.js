@@ -24,7 +24,8 @@ angular.module('finqApp.controller')
         function ($scope,$translate,$timeout,MODULES,EVENTS,pageFactory) {
         var that = this,
             activeSection = pageFactory.getActiveSection(),
-            sectionCount = {};
+            sectionBadge = {},
+            moduleBadge = {};
 
         this.modules = [];
         this.sections = [];
@@ -35,13 +36,6 @@ angular.module('finqApp.controller')
             that.loaded = true;
         },10);
 
-        this.getSectionCount = function(sectionId) {
-            if (sectionCount[sectionId]) {
-                return sectionCount[sectionId];
-            }
-            return '';
-        };
-
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {
             that.sections = [];
@@ -51,6 +45,7 @@ angular.module('finqApp.controller')
                 that.sections.push({
                     id: section.id,
                     title: '',
+                    badge: sectionBadge[section.id] !== undefined ? sectionBadge[section.id] : 0,
                     active: sectionIsActive
                 });
                 // translations can be loaded after the menu is setup, so we ensure display values are up to date
@@ -66,6 +61,7 @@ angular.module('finqApp.controller')
             that.modules[moduleIndex] = {
                 id: module.id,
                 title: '',
+                badge: moduleBadge[module.id] !== undefined ? moduleBadge[module.id] : 0,
                 active: false,
                 sections: module.sections
             };
@@ -89,6 +85,7 @@ angular.module('finqApp.controller')
                         module.active = false;
                     } else if (module.id === newActiveModule.id) {
                         module.active = true;
+                        updateModuleBadge(0);
                         that.activeModuleName = module.title;
                         rebuildSectionList(module.sections,newActiveSection.id);
                     }
@@ -100,6 +97,7 @@ angular.module('finqApp.controller')
                         section.active = false;
                     } else if (section.id === newActiveSection.id) {
                         section.active = true;
+                        updateSectionBadge(0);
                     }
                 });
             }
@@ -110,8 +108,43 @@ angular.module('finqApp.controller')
             };
         });
 
-        $scope.$on(EVENTS.SCOPE.SUBSECTION_COUNT_UPDATED,function(event,updateInfo) {
-            sectionCount[updateInfo.sectionId] = updateInfo.count;
+        $scope.$on(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,function(event,updateInfo) {
+            if (activeSection.sectionId !== updateInfo.section.id) {
+                var currentCount = sectionBadge[updateInfo.section.id];
+                if (currentCount === undefined) {
+                    currentCount = 0;
+                }
+                updateSectionBadge(updateInfo.section.id, currentCount + updateInfo.count);
+            }
         });
+
+        $scope.$on(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,function(event,updateInfo) {
+            if (activeSection.moduleId !== updateInfo.module.id) {
+                var currentCount = moduleBadge[updateInfo.module.id];
+                if (currentCount === undefined) {
+                    currentCount = 0;
+                }
+                updateModuleBadge(updateInfo.module.id, currentCount + updateInfo.count);
+            }
+        });
+
+        var updateSectionBadge = function(sectionId,targetCount) {
+            sectionBadge[sectionId] = targetCount;
+            angular.forEach(that.sections,function(section) {
+                if (section.id === sectionId) {
+                    section.badge = targetCount;
+                }
+            });
+            console.log(sectionBadge);
+        };
+
+        var updateModuleBadge = function(moduleId,targetCount) {
+            moduleBadge[moduleId] = targetCount;
+            angular.forEach(that.modules,function(module) {
+                if (module.id === moduleId) {
+                    module.badge = targetCount;
+                }
+            });
+        };
 
     }]);

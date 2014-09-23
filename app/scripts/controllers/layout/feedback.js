@@ -57,16 +57,17 @@ angular.module('finqApp.controller')
         };
 
         var showFeedback = function(feedback,timeout) {
-            that.feedback = feedback;
             that.show = true;
-            if (timeout === undefined && defaultTimeout !== null) {
-                timeoutFeedback(defaultTimeout);
-            } else if (timeout) {
-                timeoutFeedback(timeout);
-            } else {
-                feedbackTimeout = null;
-            }
-            $scope.$apply();
+            $timeout(function() {
+                that.feedback = feedback;
+                if (timeout === undefined && defaultTimeout !== null) {
+                    timeoutFeedback(defaultTimeout);
+                } else if (timeout) {
+                    timeoutFeedback(timeout);
+                } else {
+                    feedbackTimeout = null;
+                }
+            });
         };
 
         var queueFeedback = function(type,feedback,timeout) {

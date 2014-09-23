@@ -16,9 +16,17 @@ describe('Unit: Story Search Filter execution', function() {
             storySearchFilter = $injector.get('$filter')('storySearchFilter');
         });
     });
-    beforeEach(inject(function (storyServiceMock,storybookSearch) {
+    beforeEach(inject(function (storyServiceMock,$httpBackend,config,storybookSearch) {
         storybooks = storyServiceMock.books;
-        storybookSearch.initialize(storybooks);
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            maxSearchResults: 1000
+        });
+        $httpBackend.expectGET('/app/info').respond(200);
+        config.load().then(function() {
+            storybookSearch.initialize(storybooks);
+        });
+        $httpBackend.flush();
     }));
 
     it('should keep all stories listed in case of an empty search', function () {

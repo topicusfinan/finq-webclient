@@ -4,6 +4,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
 
     var FeedbackCtrl,
         scope,
+        $timeout,
         configProvider,
         EVENTS,
         FEEDBACK,
@@ -12,9 +13,10 @@ describe('Unit: FeedbackCtrl initialization', function() {
     beforeEach(function() {
         module('finqApp');
     });
-    beforeEach(inject(function ($controller, $httpBackend, $rootScope, config, _EVENTS_, _FEEDBACK_) {
+    beforeEach(inject(function ($controller, _$timeout_, $httpBackend, $rootScope, config, _EVENTS_, _FEEDBACK_) {
         scope = $rootScope.$new();
         backend = $httpBackend;
+        $timeout = _$timeout_;
         configProvider = config;
         EVENTS = _EVENTS_;
         FEEDBACK = _FEEDBACK_;
@@ -44,6 +46,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
+        $timeout.flush();
         expect(FeedbackCtrl.show).to.be.true;
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: 'test (untranslated)',
@@ -65,7 +68,9 @@ describe('Unit: FeedbackCtrl initialization', function() {
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
+        $timeout.flush();
         setTimeout(function() {
+
             expect(FeedbackCtrl.show).to.be.true;
         },25);
         setTimeout(function() {
@@ -79,6 +84,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
+        $timeout.flush();
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test2',
             type: FEEDBACK.TYPE.SUCCESS
@@ -95,11 +101,13 @@ describe('Unit: FeedbackCtrl initialization', function() {
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
+        $timeout.flush();
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test2',
             type: FEEDBACK.TYPE.SUCCESS
         });
         setTimeout(function() {
+            $timeout.flush();
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test2 (untranslated)',
                 type: FEEDBACK.CLASS.SUCCESS
@@ -113,6 +121,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
+        $timeout.flush();
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test2',
             type: FEEDBACK.TYPE.NOTICE
@@ -124,56 +133,13 @@ describe('Unit: FeedbackCtrl initialization', function() {
             });
         },15);
         setTimeout(function() {
+            $timeout.flush();
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test2 (untranslated)',
                 type: FEEDBACK.CLASS.NOTICE
             });
             done();
         },25);
-    });
-
-    it('should hasten the rendering of queued feedback in case the next queued feedback is not a notice', function (done) {
-        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
-            type: FEEDBACK.TYPE.ERROR
-        });
-        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test2',
-            type: FEEDBACK.TYPE.NOTICE
-        });
-        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test3',
-            type: FEEDBACK.TYPE.SUCCESS
-        });
-        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test4',
-            type: FEEDBACK.TYPE.NOTICE
-        });
-        setTimeout(function() {
-            expect(FeedbackCtrl.feedback).to.deep.equal({
-                message: 'test2 (untranslated)',
-                type: FEEDBACK.CLASS.NOTICE
-            });
-        },15);
-        setTimeout(function() {
-            expect(FeedbackCtrl.feedback).to.deep.equal({
-                message: 'test3 (untranslated)',
-                type: FEEDBACK.CLASS.SUCCESS
-            });
-        },25);
-        setTimeout(function() {
-            expect(FeedbackCtrl.feedback).to.deep.equal({
-                message: 'test3 (untranslated)',
-                type: FEEDBACK.CLASS.SUCCESS
-            });
-        },35);
-        setTimeout(function() {
-            expect(FeedbackCtrl.feedback).to.deep.equal({
-                message: 'test4 (untranslated)',
-                type: FEEDBACK.CLASS.NOTICE
-            });
-            done();
-        },45);
     });
 
 });

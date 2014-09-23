@@ -135,8 +135,28 @@ div.layout {
 
     &.ng-hide {
         opacity: 0;
-        height: 0;
-        overflow-y: hidden;
+        bottom: -$layout-feedback-height;
+    }
+
+    &.ng-hide-remove {
+        animation-name: feedback;
+        animation-duration: 1s;
+    }
+}
+
+.badge {
+
+    @include transition(all cubic-bezier(.295, .305, .065, 1.455) .3s);
+    opacity: 1;
+
+    &.ng-hide {
+        opacity: 0;
+        font-size: 0;
+    }
+
+    &.ng-animate {
+        animation-name: badge;
+        animation-duration: 1s;
     }
 }
 

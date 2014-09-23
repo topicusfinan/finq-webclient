@@ -45,12 +45,17 @@
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/constants.js"></script>
+
+        <script src="scripts/constants/events.js"></script>
+        <script src="scripts/constants/feedback.js"></script>
+        <script src="scripts/constants/modules.js"></script>
+
         <script src="scripts/modules/runner.js"></script>
         <script src="scripts/modules/organizer.js"></script>
         <script src="scripts/modules/reporter.js"></script>
         <script src="scripts/modules/writer.js"></script>
         <script src="scripts/modules/translate.js"></script>
+
         <script src="scripts/controllers/app.js"></script>
         <script src="scripts/controllers/preloader.js"></script>
         <script src="scripts/controllers/login.js"></script>
@@ -59,10 +64,13 @@
         <script src="scripts/controllers/layout/feedback.js"></script>
         <script src="scripts/controllers/runner/available.js"></script>
         <script src="scripts/controllers/runner/filter.js"></script>
+
         <script src="scripts/services/config.js"></script>
+        <script src="scripts/services/setup.js"></script>
         <script src="scripts/services/backend.js"></script>
         <script src="scripts/services/page.js"></script>
-        <script src="scripts/services/section-state.js"></script>
+        <script src="scripts/services/module.js"></script>
+        <script src="scripts/services/module/runner.js"></script>
         <script src="scripts/services/translate.js"></script>
         <script src="scripts/services/authenticate.js"></script>
         <script src="scripts/services/feedback.js"></script>
@@ -74,6 +82,7 @@
         <script src="scripts/services/story/story-collapse.js"></script>
         <script src="scripts/services/story/story-run.js"></script>
         <script src="scripts/services/story/storybook-search.js"></script>
+
         <script src="scripts/filters/storybook-set.js"></script>
         <script src="scripts/filters/story-set.js"></script>
         <script src="scripts/filters/storybook-tag.js"></script>
@@ -85,6 +94,7 @@
         <script src="scripts/filters/storybook-pagination.js"></script>
         <script src="scripts/filters/combined/available-storybook.js"></script>
         <script src="scripts/filters/combined/available-story.js"></script>
+
         <script src="scripts/directives/include.js"></script>
         <script src="scripts/directives/outside-click.js"></script>
         <script src="scripts/directives/filter-select.js"></script>

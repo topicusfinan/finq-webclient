@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.service:StoryCollapse
+ * @name finqApp.service.story:StoryCollapse
  * @description
  * # Story collapse support service
  *
