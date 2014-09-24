@@ -52,4 +52,18 @@ angular.module('finqApp.service')
             }
             return null;
         };
+
+        this.findScenarioById = function(scenarioId) {
+            var i, j, k;
+            for (i=0; i<storybooks.length; i++) {
+                for (j=0; j<storybooks[i].stories.length; j++) {
+                    for (k=0; k<storybooks[i].stories[j].scenarios.length; k++) {
+                        if (storybooks[i].stories[j].scenarios[k].id === scenarioId) {
+                            return storybooks[i].stories[j].scenarios[k];
+                        }
+                    }
+                }
+            }
+            return null;
+        };
     }]);

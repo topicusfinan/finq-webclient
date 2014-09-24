@@ -7,6 +7,9 @@ describe('Unit: RunnerService', function() {
 
     var runnerService,
         moduleService,
+        subscriptionService,
+        storyMockData,
+        backend,
         EVENTS,
         MODULES;
 
@@ -14,21 +17,30 @@ describe('Unit: RunnerService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (module, runner, _EVENTS_, _MODULES_) {
+    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _MODULES_, story, subscription, storyServiceMock) {
         runnerService = runner;
         moduleService = module;
+        subscriptionService = subscription;
+        storyMockData = storyServiceMock.books;
+        backend = $httpBackend;
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
+        $httpBackend.expectGET('/story/list').respond(200, storyMockData);
+        story.list();
+        $httpBackend.flush();
     }));
 
     it('should handle a scenario run started event by requesting to update the module and section badges for running scenarios', function () {
         var sectionBadgeSpy = sinon.spy(moduleService, 'updateSectionBadge');
         var moduleBadgeSpy = sinon.spy(moduleService, 'updateModuleBadge');
+        var subscribeSpy = sinon.spy(subscriptionService, 'subscribe');
+        backend.expectGET('/subscription/subscribe').respond(503,'subscribing failed as expected');
         runnerService.handle(EVENTS.INTERNAL.SCENARIO_RUN_STARTED, {
-            scenarios: [1,2,3]
+            scenarios: [storyMockData[0].stories[0].scenarios[0].id,storyMockData[0].stories[0].scenarios[1].id]
         });
-        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,3);
+        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,2);
         moduleBadgeSpy.should.have.been.calledWith(MODULES.RUNNER,1);
+        subscribeSpy.should.have.been.called.once;
     });
 
 });

@@ -16,9 +16,8 @@ angular.module('finqApp.service')
         'feedback',
         'FEEDBACK',
         'EVENTS',
-        'subscription',
         'module',
-        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,subscriptionService,moduleService) {
+        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,moduleService) {
         var that = this,
             runningScenarios = [];
 
@@ -51,7 +50,6 @@ angular.module('finqApp.service')
                     reference: runData.id,
                     scenarios: data.scenarios
                 });
-                subscriptionService.subscribe(runData.id);
             }).error(function(error) {
                 feedbackService.error(FEEDBACK.ERROR.RUN.REQUEST_FAILED);
                 console.debug(error);
