@@ -54,11 +54,25 @@ describe('Unit: FeedbackCtrl initialization', function() {
         });
     });
 
+    it('should respond to a show feedback event with a specific timeout by using that timeout', function (done) {
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: 'test',
+            type: FEEDBACK.TYPE.ERROR,
+            timeout: 5
+        });
+        $timeout.flush();
+        setTimeout(function() {
+            expect(FeedbackCtrl.show).to.be.false;
+            done();
+        },10);
+    });
+
     it('should respond to a hide feedback request by hiding the feedback', function () {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: 'test',
             type: FEEDBACK.TYPE.ERROR
         });
+        $timeout.flush();
         FeedbackCtrl.hide();
         expect(FeedbackCtrl.show).to.be.false;
     });
@@ -70,7 +84,6 @@ describe('Unit: FeedbackCtrl initialization', function() {
         });
         $timeout.flush();
         setTimeout(function() {
-
             expect(FeedbackCtrl.show).to.be.true;
         },25);
         setTimeout(function() {
@@ -126,6 +139,10 @@ describe('Unit: FeedbackCtrl initialization', function() {
             message: 'test2',
             type: FEEDBACK.TYPE.NOTICE
         });
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: 'test3',
+            type: FEEDBACK.TYPE.NOTICE
+        });
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test (untranslated)',
@@ -134,12 +151,50 @@ describe('Unit: FeedbackCtrl initialization', function() {
         },15);
         setTimeout(function() {
             $timeout.flush();
+        },25);
+        setTimeout(function() {
+            try {
+                // we should not have a timeout to flush here because the next notice in line is not to be shown yet
+                $timeout.flush();
+            } catch (error) {
+                expect(error).to.not.be.null;
+                done();
+            }
+        },45);
+    });
+
+    it('should show queued feedback after the standard queue amount of time in case of non notice queued feedback', function (done) {
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: 'test',
+            type: FEEDBACK.TYPE.ERROR
+        });
+        $timeout.flush();
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: 'test2',
+            type: FEEDBACK.TYPE.NOTICE
+        });
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: 'test3',
+            type: FEEDBACK.TYPE.SUCCESS
+        });
+        setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
-                message: 'test2 (untranslated)',
-                type: FEEDBACK.CLASS.NOTICE
+                message: 'test (untranslated)',
+                type: FEEDBACK.CLASS.ERROR
+            });
+        },15);
+        setTimeout(function() {
+            $timeout.flush();
+        },25);
+        setTimeout(function() {
+            // we should have a timeout here because the next in line is a success message that takes higher precedence than a notice
+            $timeout.flush();
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test3 (untranslated)',
+                type: FEEDBACK.CLASS.SUCCESS
             });
             done();
-        },25);
+        },45);
     });
 
 });

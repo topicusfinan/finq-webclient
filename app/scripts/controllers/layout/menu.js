@@ -42,6 +42,9 @@ angular.module('finqApp.controller')
             angular.forEach(sectionList, function(section) {
                 var sectionIsActive = activeSectionId === section.id;
                 var sectionIndex = that.sections.length;
+                if (sectionIsActive) {
+                    updateSectionBadge(section.id,0);
+                }
                 that.sections.push({
                     id: section.id,
                     title: '',
@@ -85,7 +88,7 @@ angular.module('finqApp.controller')
                         module.active = false;
                     } else if (module.id === newActiveModule.id) {
                         module.active = true;
-                        updateModuleBadge(0);
+                        updateModuleBadge(module.id,0);
                         that.activeModuleName = module.title;
                         rebuildSectionList(module.sections,newActiveSection.id);
                     }
@@ -97,7 +100,7 @@ angular.module('finqApp.controller')
                         section.active = false;
                     } else if (section.id === newActiveSection.id) {
                         section.active = true;
-                        updateSectionBadge(0);
+                        updateSectionBadge(section.id,0);
                     }
                 });
             }
@@ -135,7 +138,6 @@ angular.module('finqApp.controller')
                     section.badge = targetCount;
                 }
             });
-            console.log(sectionBadge);
         };
 
         var updateModuleBadge = function(moduleId,targetCount) {

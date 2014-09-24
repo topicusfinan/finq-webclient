@@ -207,3 +207,143 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
     });
 
 });
+
+describe('Unit: MenuCtrl responding to notification updates', function() {
+
+    var MenuCtrl,
+        EVENTS,
+        MODULES,
+        scope;
+
+    beforeEach(module('finqApp'));
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+        EVENTS = _EVENTS_;
+        MODULES = _MODULES_;
+        scope = $rootScope.$new();
+        MenuCtrl = $controller('MenuCtrl', {
+            $scope: scope
+        });
+        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+            module: {id : MODULES.REPORTER.id},
+            section: {id : MODULES.REPORTER.sections.REPORTS.id}
+        });
+    }));
+
+    it('should respond to a section notification update event by updating the badge of a non active section', function() {
+        scope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
+            section: {id : MODULES.RUNNER.sections.RUNNING.id},
+            count: 1
+        });
+        for(var x = 0; x < MenuCtrl.sections.length; x++) {
+            if (MenuCtrl.sections[x].id === MODULES.RUNNER.sections.RUNNING.id) {
+                expect(MenuCtrl.sections[x].badge).to.equal(1);
+            } else {
+                expect(MenuCtrl.sections[x].badge).to.equal(0);
+            }
+        }
+    });
+
+    it('should respond to a module notification update event by updating the badge of a non active module', function() {
+        scope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
+            module: {id : MODULES.RUNNER.id},
+            count: 1
+        });
+        for(var x = 0; x < MenuCtrl.modules.length; x++) {
+            if (MenuCtrl.modules[x].id === MODULES.RUNNER.id) {
+                expect(MenuCtrl.modules[x].badge).to.equal(1);
+            } else {
+                expect(MenuCtrl.modules[x].badge).to.equal(0);
+            }
+        }
+    });
+
+    it('should increase the badge of a non active section in case another notification update is received', function() {
+        scope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
+            section: {id : MODULES.RUNNER.sections.RUNNING.id},
+            count: 1
+        });
+        scope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
+            section: {id : MODULES.RUNNER.sections.RUNNING.id},
+            count: 3
+        });
+        for(var x = 0; x < MenuCtrl.sections.length; x++) {
+            if (MenuCtrl.sections[x].id === MODULES.RUNNER.sections.RUNNING.id) {
+                expect(MenuCtrl.sections[x].badge).to.equal(4);
+            } else {
+                expect(MenuCtrl.sections[x].badge).to.equal(0);
+            }
+        }
+    });
+
+    it('should increase the badge of a non active module in case another notification update is received', function() {
+        scope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
+            module: {id : MODULES.RUNNER.id},
+            count: 1
+        });
+        scope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
+            module: {id : MODULES.RUNNER.id},
+            count: 3
+        });
+        for(var x = 0; x < MenuCtrl.modules.length; x++) {
+            if (MenuCtrl.modules[x].id === MODULES.RUNNER.id) {
+                expect(MenuCtrl.modules[x].badge).to.equal(4);
+            } else {
+                expect(MenuCtrl.modules[x].badge).to.equal(0);
+            }
+        }
+    });
+
+    it('should not respond to a section notification update event and not update the badge of an active section', function() {
+        scope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
+            section: {id : MODULES.REPORTER.sections.REPORTS.id},
+            count: 1
+        });
+        for(var x = 0; x < MenuCtrl.sections.length; x++) {
+            expect(MenuCtrl.sections[x].badge).to.equal(0);
+        }
+    });
+
+    it('should not respond to a section notification update event and not update the badge of an active module', function() {
+        scope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
+            module: {id : MODULES.REPORTER.id},
+            count: 1
+        });
+        for(var x = 0; x < MenuCtrl.modules.length; x++) {
+            expect(MenuCtrl.modules[x].badge).to.equal(0);
+        }
+    });
+
+    it('should reset the badge of a section in case it becomes active but keep unrelated badges in tact', function() {
+        scope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
+            section: {id : MODULES.RUNNER.sections.RUNNING.id},
+            count: 1
+        });
+        scope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
+            section: {id : MODULES.RUNNER.sections.AVAILABLE.id},
+            count: 1
+        });
+        scope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
+            module: {id : MODULES.WRITER.id},
+            count: 1
+        });
+        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+            module: {id : MODULES.RUNNER.id},
+            section: {id : MODULES.RUNNER.sections.RUNNING.id}
+        });
+        for(var x = 0; x < MenuCtrl.sections.length; x++) {
+            if (MenuCtrl.sections[x].id === MODULES.RUNNER.sections.AVAILABLE.id) {
+                expect(MenuCtrl.sections[x].badge).to.equal(1);
+            } else {
+                expect(MenuCtrl.sections[x].badge).to.equal(0);
+            }
+        }
+        for(x = 0; x < MenuCtrl.modules.length; x++) {
+            if (MenuCtrl.modules[x].id === MODULES.WRITER.id) {
+                expect(MenuCtrl.modules[x].badge).to.equal(1);
+            } else {
+                expect(MenuCtrl.modules[x].badge).to.equal(0);
+            }
+        }
+    });
+
+});

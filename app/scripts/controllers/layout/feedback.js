@@ -60,12 +60,12 @@ angular.module('finqApp.controller')
             that.show = true;
             $timeout(function() {
                 that.feedback = feedback;
-                if (timeout === undefined && defaultTimeout !== null) {
+                if (!timeout && defaultTimeout !== null) {
                     timeoutFeedback(defaultTimeout);
                 } else if (timeout) {
                     timeoutFeedback(timeout);
-                } else {
-                    feedbackTimeout = null;
+                } else if (feedbackTimeout !== null) {
+                    clearTimeout(feedbackTimeout);
                 }
             });
         };
