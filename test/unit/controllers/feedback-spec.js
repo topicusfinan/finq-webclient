@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: FeedbackCtrl initialization', function() {
+describe('Unit: FeedbackCtrl', function() {
 
     var FeedbackCtrl,
         scope,
@@ -22,9 +22,12 @@ describe('Unit: FeedbackCtrl initialization', function() {
         FEEDBACK = _FEEDBACK_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
-            feedbackTimeout: 30,
-            feedbackQueueTimeout: 20,
-            minFeedbackTimeout: 10
+            feedback: {
+                replaceTime: 10,
+                cleanTimeout: 30,
+                queueTimeout: 20,
+                minTimeout: 10
+            }
         });
         $httpBackend.expectGET('/app/info').respond(200);
         config.load().then(function() {
@@ -50,6 +53,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
         expect(FeedbackCtrl.show).to.be.true;
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: 'test (untranslated)',
+            reference: 'test',
             type: FEEDBACK.CLASS.ERROR
         });
     });
@@ -105,6 +109,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
         expect(FeedbackCtrl.show).to.be.true;
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: 'test (untranslated)',
+            reference: 'test',
             type: FEEDBACK.CLASS.ERROR
         });
     });
@@ -123,6 +128,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
             $timeout.flush();
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test2 (untranslated)',
+                reference: 'test2',
                 type: FEEDBACK.CLASS.SUCCESS
             });
             done();
@@ -146,6 +152,7 @@ describe('Unit: FeedbackCtrl initialization', function() {
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test (untranslated)',
+                reference: 'test',
                 type: FEEDBACK.CLASS.ERROR
             });
         },15);
@@ -180,21 +187,20 @@ describe('Unit: FeedbackCtrl initialization', function() {
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test (untranslated)',
+                reference: 'test',
                 type: FEEDBACK.CLASS.ERROR
             });
         },15);
-        setTimeout(function() {
-            $timeout.flush();
-        },25);
         setTimeout(function() {
             // we should have a timeout here because the next in line is a success message that takes higher precedence than a notice
             $timeout.flush();
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test3 (untranslated)',
+                reference: 'test3',
                 type: FEEDBACK.CLASS.SUCCESS
             });
             done();
-        },45);
+        },25);
     });
 
 });
