@@ -18,37 +18,39 @@ angular.module('finqApp.service')
         'EVENTS',
         'module',
         function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,moduleService) {
-        var that = this,
-            runningScenarios = [];
+        var that = this;
 
-        this.runScenario = function(scenarioId) {
-            return that.runScenarios([scenarioId]);
+        this.runStory = function(storyData) {
+            return that.runStories([storyData]);
         };
 
-        this.runScenarios = function(scenarioIds) {
-            if (!scenarioIds.length) {
+        this.runStories = function(storyDataList) {
+            if (!storyDataList.length) {
                 feedbackService.alert(FEEDBACK.ALERT.RUN.NO_SCENARIOS_SELECTED);
             } else {
-                return run({scenarios: scenarioIds});
+                return run(storyDataList);
             }
         };
 
-        var run = function(data) {
+        var run = function(storyDataList) {
             var notice = $timeout(function () {
                 feedbackService.notice(FEEDBACK.NOTICE.RUN.REQUEST_IS_TAKING_LONG);
             },5000);
-            backend.get('/story/run',data).success(function(runData) {
-                runningScenarios.push(runData);
-                if (data.scenarios.length > 1) {
+            backend.post('/story/run',storyDataList).success(function(runData) {
+                var scenarios = [];
+                angular.forEach(storyDataList,function(storyData) {
+                    scenarios = scenarios.concat(storyData.scenarios);
+                });
+                if (scenarios.length > 1) {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{
-                        count: data.scenarios.length
+                        count: scenarios.length
                     });
                 } else {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST);
                 }
                 moduleService.handleEvent(EVENTS.INTERNAL.SCENARIO_RUN_STARTED,{
                     reference: runData.id,
-                    scenarios: data.scenarios
+                    scenarios: scenarios
                 });
             }).error(function(error) {
                 feedbackService.error(FEEDBACK.ERROR.RUN.REQUEST_FAILED);

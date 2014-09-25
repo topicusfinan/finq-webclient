@@ -22,32 +22,35 @@ describe('Unit: StoryRun service', function() {
     }));
 
     it('should subscribe to the progress of a scenario run in case of a successful run initialization of a single scenario', function () {
-        backend.expectGET('/story/run').respond(200, {id: 1});
+        backend.expectPOST('/story/run').respond(200, {id: 1});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
-        storyRunService.runScenario(1);
+        storyRunService.runStory({story: 1,scenarios: [1]});
         backend.flush();
         feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST);
     });
 
     it('should subscribe to the progress of a scenario run in case of a successful run initialization of multiple scenarios', function () {
-        backend.expectGET('/story/run').respond(200, {id: 1});
+        backend.expectPOST('/story/run').respond(200, {id: 1});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
-        storyRunService.runScenarios([1,2]);
+        storyRunService.runStories([
+            {story: 1,scenarios: [1]},
+            {story: 2,scenarios: [2]}
+        ]);
         backend.flush();
         feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{count: 2});
     });
 
     it('should respond to a failed attempt to run a scenario by showing the user feedback', function () {
-        backend.expectGET('/story/run').respond(503, 'fail to run as expected');
+        backend.expectPOST('/story/run').respond(503, 'fail to run as expected');
         var feedbackSpy = sinon.spy(feedbackService, 'error');
-        storyRunService.runScenario(1);
+        storyRunService.runStory({story: 1,scenarios: [1]});
         backend.flush();
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ERROR.RUN.REQUEST_FAILED);
     });
 
     it('should not attempt to run an empty scenario set, but instead show an alert', function () {
         var feedbackSpy = sinon.spy(feedbackService, 'alert');
-        storyRunService.runScenarios([]);
+        storyRunService.runStories([]);
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ALERT.RUN.NO_SCENARIOS_SELECTED);
     });
 

@@ -28,7 +28,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/tag/list').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environment/list').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/story/list').respond(storyServiceMock.books);
-        $httpBackend.whenGET('/story/run').respond(storyServiceMock.run);
+        $httpBackend.whenPOST('/story/run').respond(storyServiceMock.run);
         $httpBackend.whenGET('/auth/user').respond(401);
         $httpBackend.whenPOST('/auth/login').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
@@ -43,6 +43,30 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenPOST(/.*/).passThrough();
         $httpBackend.whenDELETE(/.*/).passThrough();
         $httpBackend.whenPUT(/.*/).passThrough();
-    }]);
+    }]).service('socket', function($rootScope){
+        this.events = {};
+
+        this.on = function(eventName, callback){
+            if(!this.events[eventName]) {
+                this.events[eventName] = [];
+            }
+            this.events[eventName].push(callback);
+        };
+
+        this.emit = function(eventName, data, emitCallback){
+            console.debug('Mocking the handling of socket.io event: '+eventName);
+            if(this.events[eventName]){
+                angular.forEach(this.events[eventName], function(callback){
+                    $rootScope.$apply(function() {
+                        callback(data);
+                    });
+                });
+            }
+            if(emitCallback) {
+                emitCallback();
+            }
+        };
+
+    });
 
 angular.module('finqApp').requires.push('finqApp.mock');

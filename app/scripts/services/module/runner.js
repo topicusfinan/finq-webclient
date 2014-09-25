@@ -12,7 +12,7 @@
 angular.module('finqApp.service')
     .service('runner', ['module','MODULES','EVENTS','story','subscription',function (moduleService,MODULES,EVENTS,storyService,subscriptionService) {
         var that = this,
-            runningScenarios = [];
+            runningScenarios = {};
 
         this.handle = function(event,eventData) {
             switch (event) {
@@ -23,9 +23,10 @@ angular.module('finqApp.service')
             }
         };
 
-        this.handleRunUpdate = function() {
-            // TODO determine how to handle run update info by defining what kind of update info
-            // can be received and how it should update the running scenarios data
+        this.handleRunUpdate = function(runId, progressInfo) {
+            if (runningScenarios[runId]) {
+                runningScenarios[runId].progress = progressInfo;
+            }
         };
 
         var handleScenarioRunStarted = function(runData) {
@@ -33,14 +34,14 @@ angular.module('finqApp.service')
             moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING,runData.scenarios.length);
             angular.forEach(runData.scenarios,function(scenarioId) {
                 var scenario = storyService.findScenarioById(scenarioId);
-                runningScenarios.push({
-                    sessionId: runData.id,
+                runningScenarios[runData.id] = {
                     scenario: scenario,
                     progress: {
                         currentStep: null,
-                        status: undefined
+                        status: undefined,
+                        message: undefined
                     }
-                });
+                };
             });
             subscriptionService.subscribe(runData.id,that.handleRunUpdate);
         };

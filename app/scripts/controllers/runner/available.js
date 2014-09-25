@@ -96,19 +96,24 @@ angular.module('finqApp.controller')
         this.run = function(type,id) {
             var story,
                 scenarios,
-                scenarioIds = [],
                 i, j;
 
             var runByBook = function(bookId) {
                 var stories = storyService.listStoriesByBook(bookId === null ? null : [bookId]);
+                var runStories = [];
                 stories = availableStoryFilter(stories,storybookSearchService.query,id,that.filter.set.keys,that.filter.tag.keys);
                 for (i=0; i<stories.length; i++) {
+                    var runScenarios = [];
                     scenarios = scenarioTagFilter(stories[i].scenarios,stories[i].tags,that.filter.tag.keys);
                     for (j=0; j<scenarios.length; j++) {
-                        scenarioIds.push(scenarios[j].id);
+                        runScenarios.push(scenarios[j].id);
                     }
+                    runStories.push({
+                        story: stories[i].id,
+                        scenarios: runScenarios
+                    });
                 }
-                storyRunService.runScenarios(scenarioIds);
+                storyRunService.runStories(runStories);
             };
 
             if (!that.filter.env.keys.length) {
@@ -116,15 +121,23 @@ angular.module('finqApp.controller')
             } else {
                 switch (type) {
                     case 'scenario':
-                        storyRunService.runScenario(id);
+                        story = storyService.findStoryByScenarioId(id);
+                        storyRunService.runStory({
+                            story: story.id,
+                            scenarios: [id]
+                        });
                         break;
                     case 'story':
                         story = storyService.findStoryById(id);
                         scenarios = scenarioTagFilter(story.scenarios,story.tags,that.filter.tag.keys);
+                        var runScenarios = [];
                         for (i=0; i<scenarios.length; i++) {
-                            scenarioIds.push(scenarios[i].id);
+                            runScenarios.push(scenarios[i].id);
                         }
-                        storyRunService.runScenarios(scenarioIds);
+                        storyRunService.runStory({
+                            story: story.id,
+                            scenarios: runScenarios
+                        });
                         break;
                     case 'book':
                         runByBook(id);

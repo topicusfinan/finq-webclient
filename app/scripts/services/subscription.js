@@ -10,23 +10,25 @@
  *
  */
 angular.module('finqApp.service')
-    .service('subscription', ['backend','feedback','FEEDBACK',function (backend,feedbackService,FEEDBACK) {
+    .service('subscription', ['backend','feedback','FEEDBACK','socket',function (backend,feedbackService,FEEDBACK,socketService) {
         var subscriptions = [];
 
+        socketService.on('run:status', function(data) {
+            angular.forEach(subscriptions, function(subscription) {
+                if (subscription.run === data.id) {
+                    subscription.handler(data.id,data.progress);
+                }
+            });
+        });
+
         this.subscribe = function(runId,updateHandler) {
-            backend.get('/subscription/subscribe',{
+            socketService.emit('run:subscribe',{
                 run: runId
-            }).success(function() {
+            },function() {
                 subscriptions.push({
                     run: runId,
                     handler: updateHandler
                 });
-                // TODO interact with a websocket for the actual subscription info handling
-                // when an update is received for a specific run, the handler should be called
-                // with the update information for the subscription that matches the runId.
-            }).error(function(error) {
-                feedbackService.error(FEEDBACK.ERROR.SUBSCRIBE.SUBSCRIPTION_FAILED);
-                console.debug(error);
             });
         };
 

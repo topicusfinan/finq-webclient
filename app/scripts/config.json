@@ -1,5 +1,6 @@
 {
     "address" : "",
+    "socketEndpoint" : "",
     "searchWait": 250,
     "feedbackTimeout": 5000,
     "feedbackQueueTimeout": 2000,
@@ -7,6 +8,6 @@
     "maxSearchResults": 1000,
     "pagination": {
         "maxScenarios": 1000,
-        "maxSelectDropdownItems": 8
+        "maxSelectDropdownItems": 4
     }
 }

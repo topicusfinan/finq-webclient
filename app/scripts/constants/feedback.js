@@ -25,9 +25,6 @@ angular.module('finqApp')
             'RUN': {
                 'NO_ENVIRONMENT_SELECTED': 'RUN.NO_ENVIRONMENT_SELECTED',
                 'REQUEST_FAILED': 'RUN.REQUEST_FAILED'
-            },
-            'SUBSCRIBE': {
-                'SUBSCRIPTION_FAILED': 'SUBSCRIBE.SUBSCRIPTION_FAILED'
             }
         },
         'NOTICE': {
