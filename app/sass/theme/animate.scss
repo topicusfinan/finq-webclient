@@ -43,10 +43,12 @@
 
     0% {
         transform: scaleY(.3);
+        bottom: -$layout-feedback-height;
     }
 
     20% {
         transform: scaleY(1.2);
+        bottom: -$layout-feedback-height*.1;
     }
 
     40% {
@@ -54,12 +56,11 @@
     }
 
     60% {
-        opacity: 1;
         transform: scaleY(1.1);
     }
 
     80% {
-        transform: scaleY(.95) translateY(.2);
+        transform: scaleY(.98);
     }
 
     100% {

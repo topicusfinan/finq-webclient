@@ -43,16 +43,18 @@ angular.module('finqApp.controller')
             handleFeedback(feedback.message,feedback.type,feedback.data,feedback.timeout);
         });
 
-        var handleFeedback = function(feedbackReference,type,data,timeout) {
+        var handleFeedback = function(feedbackTemplate,type,data,timeout) {
             var feedback = {};
-            feedback.message = feedbackReference+' (untranslated)';
-            feedback.reference = feedbackReference;
+            feedback.message = feedbackTemplate.key+' (untranslated)';
+            feedback.reference = feedbackTemplate.key;
             feedback.type = FEEDBACK.CLASS[type];
-            $translate('FEEDBACK.'+type+'.'+feedbackReference,data).then(function (translatedFeedback) {
+            feedback.data = data;
+            feedback.tpl = feedbackTemplate;
+            $translate('FEEDBACK.'+type+'.'+feedbackTemplate.key,data).then(function (translatedFeedback) {
                 feedback.message = translatedFeedback;
             });
             if (that.show || parsingQueue) {
-                clearQueued(FEEDBACK.TYPE.NOTICE);
+                clearOrUpdateQueued(FEEDBACK.TYPE.NOTICE);
                 if (feedback.reference === that.feedback.reference && !queue.length) {
                     replaceFeedback(feedback,timeout);
                 } else {
@@ -86,12 +88,13 @@ angular.module('finqApp.controller')
                 }
                 timeoutOverrulingType = type;
             }
-            clearQueued(type,feedback.reference);
-            queue.push({
-                feedback: feedback,
-                type: type,
-                timeout: timeout
-            });
+            if (!clearOrUpdateQueued(type,feedback)) {
+                queue.push({
+                    feedback: feedback,
+                    type: type,
+                    timeout: timeout
+                });
+            }
         };
 
         var replaceFeedback = function(feedback,timeout) {
@@ -133,12 +136,28 @@ angular.module('finqApp.controller')
             }
         };
 
-        var clearQueued = function(type,reference) {
+        var clearOrUpdateQueued = function(type,feedback) {
             for (var i=0; i<queue.length; i++) {
-                if (queue[i].type === type && (!reference || queue[i].feedback.reference === reference)) {
-                    queue.splice(i--,1);
+                if (queue[i].type === type && (!feedback || queue[i].feedback.reference === feedback.reference)) {
+                    if (feedback && feedback.tpl.incrementable) {
+                        updateFeedback(queue[i],feedback);
+                        return true;
+                    } else {
+                        queue.splice(i--,1);
+                        return false;
+                    }
                 }
             }
+        };
+
+        var updateFeedback = function(queuedItem, newFeedback) {
+            angular.forEach(newFeedback.data, function(value, key) {
+                queuedItem.feedback.data[key] = queuedItem.feedback.data[key] + value;
+            });
+            var feedback = queuedItem.feedback;
+            $translate('FEEDBACK.'+queuedItem.type+'.'+newFeedback.tpl.key,queuedItem.feedback.data).then(function (translatedFeedback) {
+                feedback.message = translatedFeedback;
+            });
         };
 
     }]);

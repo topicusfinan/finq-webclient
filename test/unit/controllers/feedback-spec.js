@@ -46,7 +46,7 @@ describe('Unit: FeedbackCtrl', function() {
 
     it('should respond to a show feedback event', function () {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
@@ -54,13 +54,15 @@ describe('Unit: FeedbackCtrl', function() {
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: 'test (untranslated)',
             reference: 'test',
-            type: FEEDBACK.CLASS.ERROR
+            type: FEEDBACK.CLASS.ERROR,
+            data: undefined,
+            tpl: {key: 'test'}
         });
     });
 
     it('should respond to a show feedback event with a specific timeout by using that timeout', function (done) {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR,
             timeout: 5
         });
@@ -73,7 +75,7 @@ describe('Unit: FeedbackCtrl', function() {
 
     it('should respond to a hide feedback request by hiding the feedback', function () {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
@@ -83,7 +85,7 @@ describe('Unit: FeedbackCtrl', function() {
 
     it('should hide feedback after the default amount of time in case not otherwise specified', function (done) {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
@@ -98,30 +100,32 @@ describe('Unit: FeedbackCtrl', function() {
 
     it('should queue a secondary feedback request and not immediately show it', function () {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test2',
+            message: {key: 'test2'},
             type: FEEDBACK.TYPE.SUCCESS
         });
         expect(FeedbackCtrl.show).to.be.true;
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: 'test (untranslated)',
             reference: 'test',
-            type: FEEDBACK.CLASS.ERROR
+            type: FEEDBACK.CLASS.ERROR,
+            data: undefined,
+            tpl: {key: 'test'}
         });
     });
 
     it('should show queued feedback after the minimum amount of time in case of non notice queued feedback', function (done) {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test2',
+            message: {key: 'test2'},
             type: FEEDBACK.TYPE.SUCCESS
         });
         setTimeout(function() {
@@ -129,7 +133,9 @@ describe('Unit: FeedbackCtrl', function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test2 (untranslated)',
                 reference: 'test2',
-                type: FEEDBACK.CLASS.SUCCESS
+                type: FEEDBACK.CLASS.SUCCESS,
+                data: undefined,
+                tpl: {key: 'test2'}
             });
             done();
         },15);
@@ -137,23 +143,25 @@ describe('Unit: FeedbackCtrl', function() {
 
     it('should show queued feedback after the standard queue amount of time in case of notice queued feedback', function (done) {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test2',
+            message: {key: 'test2'},
             type: FEEDBACK.TYPE.NOTICE
         });
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test3',
+            message: {key: 'test3'},
             type: FEEDBACK.TYPE.NOTICE
         });
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test (untranslated)',
                 reference: 'test',
-                type: FEEDBACK.CLASS.ERROR
+                type: FEEDBACK.CLASS.ERROR,
+                data: undefined,
+                tpl: {key: 'test'}
             });
         },15);
         setTimeout(function() {
@@ -172,23 +180,25 @@ describe('Unit: FeedbackCtrl', function() {
 
     it('should show queued feedback after the standard queue amount of time in case of non notice queued feedback', function (done) {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test',
+            message: {key: 'test'},
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test2',
+            message: {key: 'test2'},
             type: FEEDBACK.TYPE.NOTICE
         });
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
-            message: 'test3',
+            message: {key: 'test3'},
             type: FEEDBACK.TYPE.SUCCESS
         });
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test (untranslated)',
                 reference: 'test',
-                type: FEEDBACK.CLASS.ERROR
+                type: FEEDBACK.CLASS.ERROR,
+                data: undefined,
+                tpl: {key: 'test'}
             });
         },15);
         setTimeout(function() {
@@ -197,7 +207,58 @@ describe('Unit: FeedbackCtrl', function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test3 (untranslated)',
                 reference: 'test3',
-                type: FEEDBACK.CLASS.SUCCESS
+                type: FEEDBACK.CLASS.SUCCESS,
+                data: undefined,
+                tpl: {key: 'test3'}
+            });
+            done();
+        },25);
+    });
+
+    it('should increment values in a queued feedback item in case it supports this', function (done) {
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test'},
+            type: FEEDBACK.TYPE.ERROR
+        });
+        $timeout.flush();
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {
+                key: 'test2',
+                incrementable: true
+            },
+            type: FEEDBACK.TYPE.SUCCESS,
+            data: {count: 3}
+        });
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {
+                key: 'test2',
+                incrementable: true
+            },
+            type: FEEDBACK.TYPE.SUCCESS,
+            data: {count: 4}
+        });
+        setTimeout(function() {
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test (untranslated)',
+                reference: 'test',
+                type: FEEDBACK.CLASS.ERROR,
+                data: undefined,
+                tpl: {key: 'test'}
+            });
+        },15);
+        setTimeout(function() {
+            // we should have a timeout here because the next in line is a success message that takes higher precedence than a notice
+            $timeout.flush();
+            console.log(FeedbackCtrl.feedback);
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test2 (untranslated)',
+                reference: 'test2',
+                type: FEEDBACK.CLASS.SUCCESS,
+                data: {count: 7},
+                tpl: {
+                    key: 'test2',
+                    incrementable: true
+                }
             });
             done();
         },25);

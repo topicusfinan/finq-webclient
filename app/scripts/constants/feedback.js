@@ -23,24 +23,27 @@ angular.module('finqApp')
         },
         'ERROR': {
             'RUN': {
-                'NO_ENVIRONMENT_SELECTED': 'RUN.NO_ENVIRONMENT_SELECTED',
-                'REQUEST_FAILED': 'RUN.REQUEST_FAILED'
+                'NO_ENVIRONMENT_SELECTED': {'key':'RUN.NO_ENVIRONMENT_SELECTED'},
+                'REQUEST_FAILED': {'key':'RUN.REQUEST_FAILED'}
             }
         },
         'NOTICE': {
             'RUN': {
-                'REQUEST_IS_TAKING_LONG': 'RUN.REQUEST_IS_TAKING_LONG'
+                'REQUEST_IS_TAKING_LONG': {'key':'RUN.REQUEST_IS_TAKING_LONG'}
             }
         },
         'ALERT': {
             'RUN': {
-                'NO_SCENARIOS_SELECTED': 'RUN.NO_SCENARIOS_SELECTED'
+                'NO_SCENARIOS_SELECTED': {'key':'RUN.NO_SCENARIOS_SELECTED'}
             }
         },
         'SUCCESS': {
             'RUN': {
-                'MULTIPLE_REQUEST': 'RUN.MULTIPLE_REQUEST',
-                'SINGLE_REQUEST': 'RUN.SINGLE_REQUEST'
+                'MULTIPLE_REQUEST': {
+                    'key':'RUN.MULTIPLE_REQUEST',
+                    'incrementable': true
+                },
+                'SINGLE_REQUEST': {'key':'RUN.SINGLE_REQUEST'}
             }
         }
     });

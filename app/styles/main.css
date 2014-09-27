@@ -1012,15 +1012,16 @@ div.layout > aside {
   .appear-delayed.ng-hide {
     opacity: 0; }
 
-.feedback {
+footer.feedback {
   -webkit-transition: all cubic-bezier(0.295, 0.305, 0.065, 1.455) 0.3s;
   -moz-transition: all cubic-bezier(0.295, 0.305, 0.065, 1.455) 0.3s;
   transition: all cubic-bezier(0.295, 0.305, 0.065, 1.455) 0.3s;
-  opacity: 1; }
-  .feedback.ng-hide {
-    opacity: 0;
-    bottom: -3.5em; }
-  .feedback.ng-hide-remove {
+  opacity: 1;
+  height: 3.85em;
+  bottom: -0.35em; }
+  footer.feedback.ng-hide {
+    opacity: 0; }
+  footer.feedback.ng-hide-remove {
     animation-name: feedback;
     animation-duration: 1s; }
 
@@ -1108,16 +1109,17 @@ input.ng-invalid {
     100% {
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
   0% {
-    transform: scaleY(0.3); }
+    transform: scaleY(0.3);
+    bottom: -3.5em; }
   20% {
-    transform: scaleY(1.2); }
+    transform: scaleY(1.2);
+    bottom: -0.35em; }
   40% {
     transform: scaleY(1); }
   60% {
-    opacity: 1;
     transform: scaleY(1.1); }
   80% {
-    transform: scaleY(0.95) translateY(0.2); }
+    transform: scaleY(0.98); }
   100% {
     transform: scaleY(1); } }
 
