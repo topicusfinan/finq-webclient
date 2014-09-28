@@ -10,22 +10,24 @@
  * events, and provide information on the runner module to other services and controllers.
  */
 angular.module('finqApp.service')
-    .service('runner', ['module','MODULES','EVENTS','story','subscription',function (moduleService,MODULES,EVENTS,storyService,subscriptionService) {
-        var that = this,
-            runningScenarios = {};
+    .service('runner', ['module','MODULES','EVENTS','story',function (moduleService,MODULES,EVENTS,storyService) {
+        var runningScenarios = {};
 
         this.handle = function(event,eventData) {
             switch (event) {
                 case EVENTS.INTERNAL.SCENARIO_RUN_STARTED:
                     handleScenarioRunStarted(eventData);
                     break;
+                case EVENTS.SOCKET.RUN_STATUS_UPDATED:
+                    handleRunUpdate(eventData);
+                    break;
                 default: break;
             }
         };
 
-        this.handleRunUpdate = function(runId, progressInfo) {
-            if (runningScenarios[runId]) {
-                runningScenarios[runId].progress = progressInfo;
+        var handleRunUpdate = function(runData) {
+            if (runningScenarios[runData.id]) {
+                runningScenarios[runData.id].progress = runData.progress;
             }
         };
 
@@ -43,7 +45,6 @@ angular.module('finqApp.service')
                     }
                 };
             });
-            subscriptionService.subscribe(runData.id,that.handleRunUpdate);
         };
 
     }]);

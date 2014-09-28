@@ -18,7 +18,8 @@ angular.module('finqApp.service')
         'EVENTS',
         'module',
         'environment',
-        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,moduleService,environmentService) {
+        'subscription',
+        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,moduleService,environmentService,subscriptionService) {
         var that = this;
 
         this.runStory = function(storyData,environmentKey) {
@@ -53,6 +54,7 @@ angular.module('finqApp.service')
                 } else {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST);
                 }
+                subscriptionService.subscribe(runData.id);
                 moduleService.handleEvent(EVENTS.INTERNAL.SCENARIO_RUN_STARTED,{
                     reference: runData.id,
                     scenarios: scenarios

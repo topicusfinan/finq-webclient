@@ -22,5 +22,9 @@ angular.module('finqApp')
         },
         'INTERNAL': {
             'SCENARIO_RUN_STARTED': 'finqApp.internal.scenarioRunStarted'
+        },
+        'SOCKET': {
+            'RUN_STATUS_UPDATED': 'run:status',
+            'RUN_SUBSCRIBE': 'run:subscribe'
         }
     });

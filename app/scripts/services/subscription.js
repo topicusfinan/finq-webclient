@@ -10,25 +10,22 @@
  *
  */
 angular.module('finqApp.service')
-    .service('subscription', ['backend','feedback','FEEDBACK','socket',function (backend,feedbackService,FEEDBACK,socketService) {
-        var subscriptions = [];
+    .service('subscription', [
+        'backend',
+        'feedback',
+        'FEEDBACK',
+        'socket',
+        'EVENTS',
+        'module',
+        function (backend,feedbackService,FEEDBACK,socketService,EVENTS,moduleService) {
 
-        socketService.on('run:status', function(data) {
-            angular.forEach(subscriptions, function(subscription) {
-                if (subscription.run === data.id) {
-                    subscription.handler(data.id,data.progress);
-                }
-            });
+        socketService.on(EVENTS.SOCKET.RUN_STATUS_UPDATED, function(data) {
+            moduleService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, data);
         });
 
-        this.subscribe = function(runId,updateHandler) {
-            socketService.emit('run:subscribe',{
+        this.subscribe = function(runId) {
+            socketService.emit(EVENTS.SOCKET.RUN_SUBSCRIBE,{
                 run: runId
-            },function() {
-                subscriptions.push({
-                    run: runId,
-                    handler: updateHandler
-                });
             });
         };
 

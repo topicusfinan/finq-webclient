@@ -8,25 +8,29 @@ describe('Unit: StoryRun service', function() {
     var storyRunService,
         feedbackService,
         FEEDBACK,
+        subscriptionService,
         backend;
 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, storyRun, feedback, _FEEDBACK_) {
+    beforeEach(inject(function ($httpBackend, storyRun, feedback, _FEEDBACK_, subscription) {
         backend = $httpBackend;
         storyRunService = storyRun;
         feedbackService = feedback;
         FEEDBACK = _FEEDBACK_;
+        subscriptionService = subscription;
     }));
 
     it('should subscribe to the progress of a scenario run in case of a successful run initialization of a single scenario', function () {
         backend.expectPOST('/story/run').respond(200, {id: 1});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
+        var subscribeSpy = sinon.spy(subscriptionService, 'subscribe');
         storyRunService.runStory({story: 1,scenarios: [1]}, 1);
         backend.flush();
         feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST);
+        subscribeSpy.should.have.been.called.once;
     });
 
     it('should subscribe to the progress of a scenario run in case of a successful run initialization of multiple scenarios', function () {
