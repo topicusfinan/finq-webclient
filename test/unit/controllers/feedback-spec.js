@@ -178,6 +178,105 @@ describe('Unit: FeedbackCtrl', function() {
         },45);
     });
 
+    it('should adjust the timeout for queued feedback depending on the next item in the queue line', function (done) {
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test'},
+            type: FEEDBACK.TYPE.ERROR
+        });
+        $timeout.flush();
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test2'},
+            type: FEEDBACK.TYPE.SUCCESS
+        });
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test3'},
+            type: FEEDBACK.TYPE.ERROR
+        });
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test4'},
+            type: FEEDBACK.TYPE.NOTICE
+        });
+        setTimeout(function() {
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test (untranslated)',
+                reference: 'test',
+                type: FEEDBACK.CLASS.ERROR,
+                data: undefined,
+                tpl: {key: 'test'}
+            });
+        },15);
+        setTimeout(function() {
+            $timeout.flush();
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test2 (untranslated)',
+                reference: 'test2',
+                type: FEEDBACK.CLASS.SUCCESS,
+                data: undefined,
+                tpl: {key: 'test2'}
+            });
+        },25);
+        setTimeout(function() {
+            $timeout.flush();
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test3 (untranslated)',
+                reference: 'test3',
+                type: FEEDBACK.CLASS.ERROR,
+                data: undefined,
+                tpl: {key: 'test3'}
+            });
+        },48);
+        setTimeout(function() {
+            try {
+                // we should not have a timeout to flush here because the next notice in line is not to be shown yet
+                $timeout.flush();
+            } catch (error) {}
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test3 (untranslated)',
+                reference: 'test3',
+                type: FEEDBACK.CLASS.ERROR,
+                data: undefined,
+                tpl: {key: 'test3'}
+            });
+            done();
+        },60);
+        setTimeout(function() {
+            $timeout.flush();
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test4 (untranslated)',
+                reference: 'test4',
+                type: FEEDBACK.CLASS.NOTICE,
+                data: undefined,
+                tpl: {key: 'test4'}
+            });
+
+        },70);
+    });
+
+    it('should replace feedback in case the current feedback is of the same type as a new feedback message that is pushed and there is no queue', function (done) {
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test'},
+            type: FEEDBACK.TYPE.ERROR,
+            data: {count: 1}
+        });
+        $timeout.flush();
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test'},
+            type: FEEDBACK.TYPE.ERROR,
+            data: {count: 2}
+        });
+        setTimeout(function() {
+            $timeout.flush();
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test (untranslated)',
+                reference: 'test',
+                type: FEEDBACK.CLASS.ERROR,
+                data: {count: 2},
+                tpl: {key: 'test'}
+            });
+            done();
+        },15);
+    });
+
     it('should show queued feedback after the standard queue amount of time in case of non notice queued feedback', function (done) {
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: {key: 'test'},
@@ -227,7 +326,7 @@ describe('Unit: FeedbackCtrl', function() {
                 incrementable: true
             },
             type: FEEDBACK.TYPE.SUCCESS,
-            data: {count: 3}
+            data: {count: 3, desc: 'test2'}
         });
         scope.$emit(EVENTS.SCOPE.FEEDBACK,{
             message: {
@@ -235,7 +334,7 @@ describe('Unit: FeedbackCtrl', function() {
                 incrementable: true
             },
             type: FEEDBACK.TYPE.SUCCESS,
-            data: {count: 4}
+            data: {count: 4, desc: 'test2'}
         });
         setTimeout(function() {
             expect(FeedbackCtrl.feedback).to.deep.equal({
@@ -249,12 +348,59 @@ describe('Unit: FeedbackCtrl', function() {
         setTimeout(function() {
             // we should have a timeout here because the next in line is a success message that takes higher precedence than a notice
             $timeout.flush();
-            console.log(FeedbackCtrl.feedback);
             expect(FeedbackCtrl.feedback).to.deep.equal({
                 message: 'test2 (untranslated)',
                 reference: 'test2',
                 type: FEEDBACK.CLASS.SUCCESS,
-                data: {count: 7},
+                data: {count: 7, desc: 'test2'},
+                tpl: {
+                    key: 'test2',
+                    incrementable: true
+                }
+            });
+            done();
+        },25);
+    });
+
+    it('should not increment values in a queued feedback item in case there is a variable that does not support this', function (done) {
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {key: 'test'},
+            type: FEEDBACK.TYPE.ERROR
+        });
+        $timeout.flush();
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {
+                key: 'test2',
+                incrementable: true
+            },
+            type: FEEDBACK.TYPE.SUCCESS,
+            data: {count: 3, desc: 'test2'}
+        });
+        scope.$emit(EVENTS.SCOPE.FEEDBACK,{
+            message: {
+                key: 'test2',
+                incrementable: true
+            },
+            type: FEEDBACK.TYPE.SUCCESS,
+            data: {count: 4, desc: 'test3'}
+        });
+        setTimeout(function() {
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test (untranslated)',
+                reference: 'test',
+                type: FEEDBACK.CLASS.ERROR,
+                data: undefined,
+                tpl: {key: 'test'}
+            });
+        },15);
+        setTimeout(function() {
+            // we should have a timeout here because the next in line is a success message that takes higher precedence than a notice
+            $timeout.flush();
+            expect(FeedbackCtrl.feedback).to.deep.equal({
+                message: 'test2 (untranslated)',
+                reference: 'test2',
+                type: FEEDBACK.CLASS.SUCCESS,
+                data: {count: 4, desc: 'test3'},
                 tpl: {
                     key: 'test2',
                     incrementable: true

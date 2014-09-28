@@ -113,7 +113,7 @@ angular.module('finqApp.controller')
                         scenarios: runScenarios
                     });
                 }
-                storyRunService.runStories(runStories);
+                storyRunService.runStories(runStories,that.filter.env.keys[0]);
             };
 
             if (!that.filter.env.keys.length) {
@@ -125,7 +125,7 @@ angular.module('finqApp.controller')
                         storyRunService.runStory({
                             story: story.id,
                             scenarios: [id]
-                        });
+                        },that.filter.env.keys[0]);
                         break;
                     case 'story':
                         story = storyService.findStoryById(id);
@@ -137,7 +137,7 @@ angular.module('finqApp.controller')
                         storyRunService.runStory({
                             story: story.id,
                             scenarios: runScenarios
-                        });
+                        },that.filter.env.keys[0]);
                         break;
                     case 'book':
                         runByBook(id);

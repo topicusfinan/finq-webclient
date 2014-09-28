@@ -38,4 +38,16 @@ angular.module('finqApp.service')
             }
         };
 
+        this.getValueByKey = function(key) {
+            if (!environments) {
+                return null;
+            }
+            for (var i=0; i<environments.length; i++) {
+                if (environments[i].key === key) {
+                    return environments[i].value;
+                }
+            }
+            return null;
+        };
+
     }]);

@@ -74,8 +74,6 @@ angular.module('finqApp.controller')
                 timeoutFeedback(cleanTimeout);
             } else if (timeout) {
                 timeoutFeedback(timeout);
-            } else if (feedbackTimeout !== null) {
-                clearTimeout(feedbackTimeout);
             }
         };
 
@@ -140,24 +138,34 @@ angular.module('finqApp.controller')
             for (var i=0; i<queue.length; i++) {
                 if (queue[i].type === type && (!feedback || queue[i].feedback.reference === feedback.reference)) {
                     if (feedback && feedback.tpl.incrementable) {
-                        updateFeedback(queue[i],feedback);
-                        return true;
-                    } else {
-                        queue.splice(i--,1);
-                        return false;
+                        if (updateFeedback(queue[i],feedback)) {
+                            return true;
+                        }
                     }
+                    queue.splice(i--,1);
+                    return false;
                 }
             }
         };
 
         var updateFeedback = function(queuedItem, newFeedback) {
+            var updated = true,
+                updatedData = queuedItem.feedback.data;
             angular.forEach(newFeedback.data, function(value, key) {
-                queuedItem.feedback.data[key] = queuedItem.feedback.data[key] + value;
+                if (!isNaN(parseFloat(value)) && isFinite(value)) {
+                    updatedData[key] = updatedData[key] + value;
+                } else if (updatedData[key] !== value) {
+                    updated = false;
+                }
             });
             var feedback = queuedItem.feedback;
             $translate('FEEDBACK.'+queuedItem.type+'.'+newFeedback.tpl.key,queuedItem.feedback.data).then(function (translatedFeedback) {
                 feedback.message = translatedFeedback;
             });
+            if (updated) {
+                queuedItem.feedback.data = updatedData;
+            }
+            return updated;
         };
 
     }]);

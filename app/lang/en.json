@@ -20,8 +20,8 @@
         },
         "SUCCESS": {
             "RUN": {
-                "MULTIPLE_REQUEST": "Started execution of {{count}} scenarios",
-                "SINGLE_REQUEST": "Started execution of your scenario"
+                "MULTIPLE_REQUEST": "Started execution of {{count}} scenarios on {{environment}}",
+                "SINGLE_REQUEST": "Started execution of your scenario on {{environment}}"
             }
         },
         "ALERT": {

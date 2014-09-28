@@ -17,33 +17,38 @@ angular.module('finqApp.service')
         'FEEDBACK',
         'EVENTS',
         'module',
-        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,moduleService) {
+        'environment',
+        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,moduleService,environmentService) {
         var that = this;
 
-        this.runStory = function(storyData) {
-            return that.runStories([storyData]);
+        this.runStory = function(storyData,environmentKey) {
+            return that.runStories([storyData],environmentKey);
         };
 
-        this.runStories = function(storyDataList) {
+        this.runStories = function(storyDataList,environmentKey) {
             if (!storyDataList.length) {
                 feedbackService.alert(FEEDBACK.ALERT.RUN.NO_SCENARIOS_SELECTED);
             } else {
-                return run(storyDataList);
+                return run({
+                    stories: storyDataList,
+                    environment: environmentKey
+                });
             }
         };
 
-        var run = function(storyDataList) {
+        var run = function(runRequestData) {
             var notice = $timeout(function () {
                 feedbackService.notice(FEEDBACK.NOTICE.RUN.REQUEST_IS_TAKING_LONG);
             },5000);
-            backend.post('/story/run',storyDataList).success(function(runData) {
+            backend.post('/story/run',runRequestData).success(function(runData) {
                 var scenarios = [];
-                angular.forEach(storyDataList,function(storyData) {
+                angular.forEach(runRequestData.stories,function(storyData) {
                     scenarios = scenarios.concat(storyData.scenarios);
                 });
                 if (scenarios.length > 1) {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{
-                        count: scenarios.length
+                        count: scenarios.length,
+                        environment: environmentService.getValueByKey(runRequestData.environment)
                     });
                 } else {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST);
