@@ -13,10 +13,10 @@ angular.module('finqApp.service')
     .service('module', ['$rootScope','EVENTS','MODULES',function ($rootScope,EVENTS,MODULES) {
         var moduleServices = {};
 
-        this.linkModule = function(module,moduleService) {
-            moduleServices[module.id] = moduleService;
-            if (typeof moduleService.initialize === 'function') {
-                moduleService.initialize();
+        this.linkModule = function(module,moduleSpecificService) {
+            moduleServices[module.id] = moduleSpecificService;
+            if (typeof moduleSpecificService.initialize === 'function') {
+                moduleSpecificService.initialize();
             }
         };
 

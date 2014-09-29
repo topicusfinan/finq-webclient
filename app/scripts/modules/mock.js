@@ -53,6 +53,18 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
             this.events[eventName].push(callback);
         };
 
+        this.off = function(eventName){
+            if(this.events[eventName]) {
+                delete this.events[eventName];
+            }
+        };
+
+        this.isConnected = function() {
+            return false;
+        };
+
+        this.connect = function() {};
+
         this.emit = function(eventName, data, emitCallback){
             console.debug('Mocking the handling of socket.io event: '+eventName);
             if(this.events[eventName]){

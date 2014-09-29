@@ -11,21 +11,51 @@
  */
 angular.module('finqApp.service')
     .service('subscription', [
-        'backend',
-        'feedback',
-        'FEEDBACK',
         'socket',
         'EVENTS',
-        'module',
-        function (backend,feedbackService,FEEDBACK,socketService,EVENTS,moduleService) {
+        function (socketService,EVENTS) {
+        var handlers = {},
+            handlerRef = 0;
 
-        socketService.on(EVENTS.SOCKET.RUN_STATUS_UPDATED, function(data) {
-            moduleService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, data);
-        });
+        this.subscribe = function(event, eventData) {
+            switch (event) {
+                case EVENTS.SOCKET.RUN_STATUS_UPDATED:
+                    socketService.emit(EVENTS.SOCKET.RUN_SUBSCRIBE,{
+                        run: eventData.run
+                    });
+                    break;
+            }
+        };
 
-        this.subscribe = function(runId) {
-            socketService.emit(EVENTS.SOCKET.RUN_SUBSCRIBE,{
-                run: runId
+        this.register = function(event, handler) {
+            if (!socketService.isConnected()) {
+                socketService.connect();
+            }
+            if (!handlers[event]) {
+                handlers[event] = {};
+                registerSocketEvent(event);
+            }
+            handlers[event][handlerRef] = handler;
+            return handlerRef++;
+        };
+
+        this.unRegister = function(event, reference) {
+            if (handlers[event] && handlers[event][reference]) {
+                delete handlers[event][reference];
+                if (Object.keys(handlers[event]).length === 0) {
+                    delete handlers[event];
+                    socketService.off(event);
+                }
+                return true;
+            }
+            return false;
+        };
+
+        var registerSocketEvent = function(event) {
+            socketService.on(event, function(data) {
+                angular.forEach(handlers[event], function(handler) {
+                    handler.handle(event, data);
+                });
             });
         };
 

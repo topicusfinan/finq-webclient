@@ -14,8 +14,8 @@
                 "NO_ENVIRONMENT_SELECTED": "Please select an environment to run your test",
                 "REQUEST_FAILED": "Your request could not be completed due to an error"
             },
-            "SUBSCRIBE": {
-                "SUBSCRIPTION_FAILED": "Unable to subscribe to progress notifications"
+            "SOCKET": {
+                "UNABLE_TO_RECONNECT": "Unable to reconnect to the server"
             }
         },
         "SUCCESS": {
@@ -27,11 +27,18 @@
         "ALERT": {
             "RUN": {
                 "NO_SCENARIOS_SELECTED": "No scenarios match your current filter"
+            },
+            "SOCKET": {
+                "RECONNECTION_TROUBLE": "Oh no, we're having some trouble reconnecting to the server"
             }
         },
         "NOTICE": {
             "RUN": {
                 "REQUEST_IS_TAKING_LONG": "The backend is very slow about responding.."
+            },
+            "SOCKET": {
+                "RECONNECTING": "Lost the connection with the server, trying to reconnect",
+                "RECONNECTED": "Successfully reconnected to the server"
             }
         }
     },

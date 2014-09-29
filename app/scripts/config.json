@@ -1,6 +1,13 @@
 {
     "address" : "",
-    "socketEndpoint" : "",
+    "socket": {
+        "endpoint": "",
+        "reconnectionAttempts": 10,
+        "reconnectionDelay": 1000,
+        "reconnectionDelayMax": 5000,
+        "timeout": 20000,
+        "reconnectAlertCnt": 3
+    },
     "searchWait": 250,
     "maxSearchResults": 1000,
     "pagination": {
