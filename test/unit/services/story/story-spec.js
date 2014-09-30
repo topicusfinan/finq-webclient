@@ -3,10 +3,11 @@
  */
 'use strict';
 
-describe('Unit: StoryService initialization', function() {
+describe('Unit: StoryService', function() {
 
     var storyService,
         storyMockData,
+        $rootScope,
         storybooks;
 
     beforeEach(function() {
@@ -14,8 +15,9 @@ describe('Unit: StoryService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, story, storyServiceMock) {
+    beforeEach(inject(function ($httpBackend, story, storyServiceMock, _$rootScope_) {
         storyService = story;
+        $rootScope = _$rootScope_;
         storyMockData = storyServiceMock.books;
         $httpBackend.expectGET('/story/list').respond(200, storyMockData);
         storyService.list().then(function(storyData) {
@@ -43,6 +45,34 @@ describe('Unit: StoryService initialization', function() {
     it('should return null in case no story was found by id', function () {
         var story = storyService.findStoryById(null);
         expect(story).to.be.null;
+    });
+
+    it('should be possible to find a scenario by id', function () {
+        var scenario = storyService.findScenarioById(storybooks[0].stories[0].scenarios[0].id);
+        expect(scenario).to.deep.equal(storybooks[0].stories[0].scenarios[0]);
+    });
+
+    it('should return null in case no scenario was found by id', function () {
+        var scenario = storyService.findScenarioById(null);
+        expect(scenario).to.be.null;
+    });
+
+    it('should be possible to find a story by a scenario id', function () {
+        var story = storyService.findStoryByScenarioId(storybooks[0].stories[0].scenarios[0].id);
+        expect(story).to.deep.equal(storybooks[0].stories[0]);
+    });
+
+    it('should return null in case no story was found by a scenario id', function () {
+        var story = storyService.findStoryByScenarioId(null);
+        expect(story).to.be.null;
+    });
+
+    it('should retrieve a loaded story list in case the listing function is called again', function (done) {
+        storyService.list().then(function(list) {
+            expect(list).to.deep.equal(storybooks);
+            done();
+        });
+        $rootScope.$digest();
     });
 
 });

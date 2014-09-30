@@ -7,6 +7,7 @@ describe('Unit: TagService initialization', function() {
 
     var tagService,
         tagMockData,
+        $rootScope,
         tags;
 
     beforeEach(function() {
@@ -14,8 +15,9 @@ describe('Unit: TagService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, tag, tagServiceMock) {
+    beforeEach(inject(function ($httpBackend, tag, tagServiceMock, _$rootScope_) {
         tagService = tag;
+        $rootScope = _$rootScope_;
         tagMockData = tagServiceMock.tags;
         $httpBackend.expectGET('/tag/list').respond(200, tagMockData);
         tagService.list().then(function(tagData) {
@@ -28,6 +30,14 @@ describe('Unit: TagService initialization', function() {
         expect(tags).to.not.be.undefined;
         expect(tags).to.not.be.empty;
         expect(tags[0]).to.deep.equal(tagMockData[0]);
+    });
+
+    it('should retrieve a loaded tag list in case the listing function is called again', function (done) {
+        tagService.list().then(function(list) {
+            expect(list).to.deep.equal(tags);
+            done();
+        });
+        $rootScope.$digest();
     });
 
 });

@@ -237,7 +237,6 @@ describe('Unit: FeedbackCtrl', function() {
                 data: undefined,
                 tpl: {key: 'test3'}
             });
-            done();
         },60);
         setTimeout(function() {
             $timeout.flush();
@@ -248,8 +247,8 @@ describe('Unit: FeedbackCtrl', function() {
                 data: undefined,
                 tpl: {key: 'test4'}
             });
-
-        },70);
+            done();
+        },78);
     });
 
     it('should replace feedback in case the current feedback is of the same type as a new feedback message that is pushed and there is no queue', function (done) {

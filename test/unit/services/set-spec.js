@@ -7,6 +7,7 @@ describe('Unit: SetService initialization', function() {
 
     var setService,
         setMockData,
+        $rootScope,
         sets;
 
     beforeEach(function() {
@@ -14,8 +15,9 @@ describe('Unit: SetService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, set, setServiceMock) {
+    beforeEach(inject(function ($httpBackend, set, setServiceMock, _$rootScope_) {
         setService = set;
+        $rootScope = _$rootScope_;
         setMockData = setServiceMock.sets;
         $httpBackend.expectGET('/set/list').respond(200, setMockData);
         setService.list().then(function(setData) {
@@ -28,6 +30,14 @@ describe('Unit: SetService initialization', function() {
         expect(sets).to.not.be.null;
         expect(sets).to.not.be.empty;
         expect(sets[0]).to.deep.equal(setMockData[0]);
+    });
+
+    it('should retrieve a loaded set list in case the listing function is called again', function (done) {
+        setService.list().then(function(list) {
+            expect(list).to.deep.equal(sets);
+            done();
+        });
+        $rootScope.$digest();
     });
 
 });

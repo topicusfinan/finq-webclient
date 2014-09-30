@@ -42,4 +42,16 @@ describe('Unit: RunnerService', function() {
         subscribeSpy.should.have.been.called.once;
     });
 
+    it('should handle a progress update for a run that is subscribed to', function () {
+        runnerService.handle(EVENTS.INTERNAL.SCENARIO_RUN_STARTED, {
+            id: 1,
+            scenarios: [storyMockData[0].stories[0].scenarios[0].id,storyMockData[0].stories[0].scenarios[1].id]
+        });
+        runnerService.handle(EVENTS.INTERNAL.RUN_STATUS_UPDATED, {
+            id: 1,
+            progress: null
+        });
+        // TODO extend this test by validating if the progress was administered properly when that functionality has been built
+    });
+
 });
