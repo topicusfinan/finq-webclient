@@ -14,10 +14,23 @@ describe('Unit: SubscriptionService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (subscription, _EVENTS_, socket) {
+    beforeEach(inject(function ($httpBackend, subscription, _EVENTS_, socket, config) {
         subscriptionService = subscription;
         socketService = socket;
         EVENTS = _EVENTS_;
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            socket: {
+                endpoint: '',
+                reconnectionAttempts: 10,
+                reconnectionDelay: 1000,
+                reconnectionDelayMax: 5000,
+                timeout: 20000,
+                reconnectAlertCnt: 3
+            }
+        });
+        config.load();
+        $httpBackend.flush();
     }));
 
     it('should support subscribing to a story run by calling the socketservice', function () {
@@ -30,7 +43,6 @@ describe('Unit: SubscriptionService', function() {
         var onSpy = sinon.spy(socketService,'on');
         subscriptionService.register(EVENTS.SOCKET.RUN_STATUS_UPDATED,'test');
         onSpy.should.have.been.called.once;
-        expect(socketService.events[EVENTS.SOCKET.RUN_STATUS_UPDATED].length).to.equal(1);
     });
 
     it('should support unregistering an existing event listener', function () {

@@ -16,12 +16,25 @@ describe('Unit: ModuleService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$rootScope_, _MODULES_, _EVENTS_, module, runner) {
+    beforeEach(inject(function ($httpBackend, _$rootScope_, _MODULES_, _EVENTS_, module, runner, config) {
         $rootScope = _$rootScope_;
         moduleService = module;
         runnerService = runner;
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            socket: {
+                endpoint: '',
+                reconnectionAttempts: 10,
+                reconnectionDelay: 1000,
+                reconnectionDelayMax: 5000,
+                timeout: 20000,
+                reconnectAlertCnt: 3
+            }
+        });
+        config.load();
+        $httpBackend.flush();
     }));
 
     it('should trigger the handling of events by linked module services', function () {

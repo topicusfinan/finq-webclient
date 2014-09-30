@@ -17,7 +17,7 @@ describe('Unit: RunnerService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _MODULES_, story, storyServiceMock, subscription) {
+    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _MODULES_, story, storyServiceMock, subscription, config) {
         runnerService = runner;
         moduleService = module;
         storyMockData = storyServiceMock.books;
@@ -25,7 +25,19 @@ describe('Unit: RunnerService', function() {
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
         subscriptionService = subscription;
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            socket: {
+                endpoint: '',
+                reconnectionAttempts: 10,
+                reconnectionDelay: 1000,
+                reconnectionDelayMax: 5000,
+                timeout: 20000,
+                reconnectAlertCnt: 3
+            }
+        });
         $httpBackend.expectGET('/story/list').respond(200, storyMockData);
+        config.load();
         story.list();
         $httpBackend.flush();
     }));

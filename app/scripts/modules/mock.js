@@ -43,42 +43,56 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenPOST(/.*/).passThrough();
         $httpBackend.whenDELETE(/.*/).passThrough();
         $httpBackend.whenPUT(/.*/).passThrough();
-    }]).service('socket', function($rootScope){
-        this.events = {};
-
-        this.on = function(eventName, callback){
-            if(!this.events[eventName]) {
-                this.events[eventName] = [];
-            }
-            this.events[eventName].push(callback);
-        };
-
-        this.off = function(eventName){
-            if(this.events[eventName]) {
-                delete this.events[eventName];
-            }
-        };
-
-        this.isConnected = function() {
-            return false;
-        };
-
-        this.connect = function() {};
-
-        this.emit = function(eventName, data, emitCallback){
-            console.debug('Mocking the handling of socket.io event: '+eventName);
-            if(this.events[eventName]){
-                angular.forEach(this.events[eventName], function(callback){
-                    $rootScope.$apply(function() {
-                        callback(data);
-                    });
-                });
-            }
-            if(emitCallback) {
-                emitCallback();
-            }
-        };
-
-    });
+    }]);
 
 angular.module('finqApp').requires.push('finqApp.mock');
+
+/* jshint ignore:start */
+var io = {
+  connect: createMockSocketObject
+};
+
+function createMockSocketObject () {
+
+    return {
+        _listeners: {},
+        on: function (ev, fn) {
+            (this._listeners[ev] = this._listeners[ev] || []).push(fn);
+        },
+        once: function (ev, fn) {
+            (this._listeners[ev] = this._listeners[ev] || []).push(fn);
+            fn._once = true;
+        },
+        emit: function (ev, data) {
+            var that = this;
+            if (this._listeners[ev]) {
+                this._listeners[ev].forEach(function (listener) {
+                    if (listener._once) {
+                        that.removeListener(ev, listener);
+                    }
+                    listener(data);
+                });
+            }
+        },
+        removeListener: function (ev, fn) {
+            if (fn) {
+                var index = this._listeners[ev].indexOf(fn);
+                if (index > -1) {
+                    this._listeners[ev].splice(index, 1);
+                }
+            } else {
+                delete this._listeners[ev];
+            }
+        },
+        removeAllListeners: function (ev) {
+            if (ev) {
+                delete this._listeners[ev];
+            } else {
+                this._listeners = {};
+            }
+        },
+        disconnect: function () {}
+    };
+
+}
+/* jshint ignore:end */

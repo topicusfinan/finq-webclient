@@ -46,21 +46,17 @@ angular.module('finqApp.service')
                 reconnect = true;
                 if (count === 1) {
                     console.debug('Connection to the server lost, attempting to reconnect');
-                    feedbackService.error(FEEDBACK.NOTICE.SOCKET.RECONNECTING);
+                    feedbackService.notice(FEEDBACK.NOTICE.SOCKET.RECONNECTING);
                 }
                 console.debug('Reconnection attempt '+count);
                 if (count === configProvider.client().socket.reconnectAlertCnt) {
-                    feedbackService.error(FEEDBACK.ALERT.SOCKET.RECONNECTION_TROUBLE);
+                    feedbackService.alert(FEEDBACK.ALERT.SOCKET.RECONNECTION_TROUBLE);
                 }
             });
-            socket.on('reconnect', function(count) {
+            socket.on('reconnect', function() {
                 connected = true;
                 reconnect = false;
-                if (count === 1) {
-                    console.debug('Successfully reconnected on the first try after a lost connection');
-                } else {
-                    feedbackService.error(FEEDBACK.NOTICE.SOCKET.RECONNECTED);
-                }
+                feedbackService.notice(FEEDBACK.NOTICE.SOCKET.RECONNECTED);
             });
             socket.on('reconnect_failed', function() {
                 reconnect = false;
@@ -80,12 +76,8 @@ angular.module('finqApp.service')
             });
         };
 
-        this.off = function(eventName, callback) {
-            if (callback) {
-                socket.removeListener(eventName, callback);
-            } else {
-                socket.removeAllListeners(eventName);
-            }
+        this.off = function(eventName) {
+            socket.removeAllListeners(eventName);
         };
 
         this.emit = function (eventName, data, callback) {

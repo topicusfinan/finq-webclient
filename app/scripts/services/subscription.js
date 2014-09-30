@@ -18,6 +18,9 @@ angular.module('finqApp.service')
             handlerRef = 0;
 
         this.subscribe = function(event, eventData) {
+            if (!socketService.isConnected()) {
+                socketService.connect();
+            }
             switch (event) {
                 case EVENTS.SOCKET.RUN_STATUS_UPDATED:
                     socketService.emit(EVENTS.SOCKET.RUN_SUBSCRIBE,{
