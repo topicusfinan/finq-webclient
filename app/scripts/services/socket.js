@@ -76,6 +76,18 @@ angular.module('finqApp.service')
             });
         };
 
+        this.once = function (eventName, callback) {
+            if (socket === undefined) {
+                throw new Error('Cannot subscribe without first making a connection');
+            }
+            socket.once(eventName, function () {
+                var args = arguments;
+                $rootScope.$apply(function () {
+                    callback.apply(socket, args);
+                });
+            });
+        };
+
         this.off = function(eventName) {
             socket.removeAllListeners(eventName);
         };
@@ -93,4 +105,5 @@ angular.module('finqApp.service')
                 });
             });
         };
+
   }]);

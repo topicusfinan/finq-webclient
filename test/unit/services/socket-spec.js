@@ -104,4 +104,24 @@ describe('Unit: SocketService', function() {
         testSpy.should.not.have.been.called.once;
     });
 
+    it('should be possible to remove listeners for all events', function () {
+        var testFn = {test: function() {}};
+        var testSpy = sinon.spy(testFn,'test');
+        socketService.connect();
+        socketService.on('test',testFn.test);
+        socketService.off();
+        socketService.emit('test');
+        testSpy.should.not.have.been.called.once;
+    });
+
+    it('should be possible to add a listener to a custom event for only one event cycle', function () {
+        var testFn = {test: function() {}};
+        var testSpy = sinon.spy(testFn,'test');
+        socketService.connect();
+        socketService.once('test',testFn.test);
+        socketService.emit('test');
+        socketService.emit('test',{a:1});
+        testSpy.should.not.have.been.calledWith('test',{a:1});
+    });
+
 });
