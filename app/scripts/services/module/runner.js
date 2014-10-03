@@ -13,11 +13,11 @@ angular.module('finqApp.service')
     .service('runner', ['module','MODULES','EVENTS','story','subscription',function (moduleService,MODULES,EVENTS,storyService,subscriptionService) {
         var that = this,
             updateListener = null,
-            runningScenarios = {};
+            runningStories = {};
 
         this.handle = function(event,eventData) {
             switch (event) {
-                case EVENTS.INTERNAL.SCENARIO_RUN_STARTED:
+                case EVENTS.INTERNAL.STORY_RUN_STARTED:
                     handleScenarioRunStarted(eventData);
                     break;
                 case EVENTS.SOCKET.RUN_STATUS_UPDATED:
@@ -28,23 +28,27 @@ angular.module('finqApp.service')
         };
 
         var handleRunUpdate = function(runData) {
-            if (runningScenarios[runData.id]) {
-                runningScenarios[runData.id].progress = runData.progress;
+            if (runningStories[runData.id]) {
+                runningStories[runData.id].progress = runData.progress;
             }
         };
 
         var handleScenarioRunStarted = function(runData) {
             moduleService.updateModuleBadge(MODULES.RUNNER,1);
-            moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING,runData.scenarios.length);
-            angular.forEach(runData.scenarios,function(scenarioId) {
-                var scenario = storyService.findScenarioById(scenarioId);
-                runningScenarios[runData.id] = {
-                    scenario: scenario,
-                    progress: {
+            moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING,runData.stories.length);
+            angular.forEach(runData.stories,function(storyRun) {
+                var progress = [];
+                angular.forEach(storyRun.scenarios, function(scenario) {
+                    progress.push({
+                        scenario: scenario,
                         currentStep: null,
                         status: undefined,
                         message: undefined
-                    }
+                    });
+                });
+                runningStories[runData.id] = {
+                    story: storyRun.story,
+                    progress: progress
                 };
             });
             subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,{run: runData.id});

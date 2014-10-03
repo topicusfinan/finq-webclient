@@ -46,18 +46,19 @@ describe('Unit: RunnerService', function() {
         var sectionBadgeSpy = sinon.spy(moduleService, 'updateSectionBadge');
         var moduleBadgeSpy = sinon.spy(moduleService, 'updateModuleBadge');
         var subscribeSpy = sinon.spy(subscriptionService, 'subscribe');
-        runnerService.handle(EVENTS.INTERNAL.SCENARIO_RUN_STARTED, {
-            scenarios: [storyMockData[0].stories[0].scenarios[0].id,storyMockData[0].stories[0].scenarios[1].id]
+        runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
+            id: 1,
+            stories: [storyMockData[0].stories[0].id]
         });
-        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,2);
+        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,1);
         moduleBadgeSpy.should.have.been.calledWith(MODULES.RUNNER,1);
         subscribeSpy.should.have.been.called.once;
     });
 
     it('should handle a progress update for a run that is subscribed to', function () {
-        runnerService.handle(EVENTS.INTERNAL.SCENARIO_RUN_STARTED, {
+        runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
-            scenarios: [storyMockData[0].stories[0].scenarios[0].id,storyMockData[0].stories[0].scenarios[1].id]
+            stories: [storyMockData[0].stories[0].id]
         });
         runnerService.handle(EVENTS.INTERNAL.RUN_STATUS_UPDATED, {
             id: 1,

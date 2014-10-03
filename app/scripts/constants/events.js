@@ -21,7 +21,7 @@ angular.module('finqApp')
             'MODULE_NOTIFICATIONS_UPDATED': 'finqApp.scope.moduleNotificationsUpdated'
         },
         'INTERNAL': {
-            'SCENARIO_RUN_STARTED': 'finqApp.internal.scenarioRunStarted'
+            'STORY_RUN_STARTED': 'finqApp.internal.storyRunStarted'
         },
         'SOCKET': {
             'RUN_STATUS_UPDATED': 'run:status',
