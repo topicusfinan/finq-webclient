@@ -47,7 +47,7 @@ angular.module('finqApp.controller')
 
         var loginSuccess = function() {
             submitting = false;
-            $state.go('authenticated');
+            $state.go('authorized');
         };
 
         var loginFailed = function(error) {

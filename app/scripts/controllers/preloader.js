@@ -26,7 +26,7 @@ angular.module('finqApp.controller')
         var that = this;
         this.progress = '0%';
         this.loaded = false;
-        this.authenticated = false;
+        this.authorized = false;
         this.loadingText = 'Loading...';
         this.loadError = '';
         this.loadNotice = '';
@@ -56,19 +56,25 @@ angular.module('finqApp.controller')
             console.debug(serverConfigData.title+' application configuration loaded');
             $scope.$emit(EVENTS.SCOPE.CONFIG_LOADED,serverConfigData);
             loadEnvironments();
-            tryAuthentication();
+            authorize(serverConfigData.authenticate);
         },function(error) {
             that.loadError = error;
         },function(notice) {
             that.loadNotice = notice;
         });
 
-        var tryAuthentication = function() {
+        var authorize = function(authenticationRequired) {
+            if (!authenticationRequired) {
+                that.authorized = true;
+                loaded.user = true;
+                evalLoaded();
+                return;
+            }
             authenticateService.load().then(function(user) {
-                that.authenticated = true;
+                that.authorized = true;
                 console.debug('Authentication completed: user '+user.name+' authenticated successfully');
             }, function() {
-                that.authenticated = false;
+                that.authorized = false;
                 console.debug('Automatic authentication failed: no user found, login required');
             }).finally(function() {
                 loaded.user = true;
@@ -80,6 +86,7 @@ angular.module('finqApp.controller')
             environmentService.load().then(function(environments) {
                 loaded.environments = true;
                 console.debug('Loaded '+environments.length+' environments for story execution');
+                evalLoaded();
             },function(error) {
                 that.loadError = error;
             },function(notice) {
@@ -107,8 +114,8 @@ angular.module('finqApp.controller')
             that.loadingText = loadedText;
             that.loaded = true;
             setup.setupModules();
-            if (that.authenticated) {
-                $state.go('authenticated');
+            if (that.authorized) {
+                $state.go('authorized');
             } else {
                 $state.go('intro.login');
             }

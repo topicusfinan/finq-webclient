@@ -53,7 +53,7 @@ angular
             templateUrl: 'views/intro/login.html'
         }).state('intro.loading', {
             templateUrl: 'views/intro/preloader.html'
-        }).state('authenticated', {
+        }).state('authorized', {
             templateUrl: 'views/layout.html'
         });
     }]);

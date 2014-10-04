@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Unit: Preloader initialization', function() {
+describe('Unit: PreloaderCtrl', function() {
 
     var state,
         scope,
@@ -13,18 +13,20 @@ describe('Unit: Preloader initialization', function() {
         appService,
         langData,
         environments,
+        configProvider,
         stateSpy;
 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $state, appServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $state, appServiceMock, config) {
         scope = $rootScope.$new();
         state = $state;
         httpBackend = $httpBackend;
         controller = $controller;
         appService = appServiceMock;
+        configProvider = config;
         emitSpy = sinon.spy(scope, '$emit');
         stateSpy = sinon.spy(state, 'go');
         langData = {
@@ -73,7 +75,7 @@ describe('Unit: Preloader initialization', function() {
     it('should fail to load in case a missing environment list', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
-        httpBackend.expectGET('/app/info').respond(200, appService.info);
+        httpBackend.expectGET('/app/info').respond(200, appService);
         httpBackend.expectGET('/environment/list').respond(503);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
@@ -86,7 +88,8 @@ describe('Unit: Preloader initialization', function() {
     it('should succeed in loading if all data is retrieved properly but go to login if authorization fails', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
-        httpBackend.expectGET('/app/info').respond(200, appService.info);
+        appService.authenticate = true;
+        httpBackend.expectGET('/app/info').respond(200, appService);
         httpBackend.expectGET('/environment/list').respond(200, environments);
         httpBackend.expectGET('/auth/user').respond(503);
         httpBackend.expectGET('views/intro/intro.html').respond(404);
@@ -94,23 +97,38 @@ describe('Unit: Preloader initialization', function() {
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loaded).to.be.true;
-        expect(PreloaderCtrl.authenticated).to.be.false;
+        expect(PreloaderCtrl.authorized).to.be.false;
         stateSpy.should.have.been.calledWith('intro.login');
     });
 
     it('should succeed in loading if all data is retrieved properly and skip login if authorization succeeds', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
-        httpBackend.expectGET('/app/info').respond(200, appService.info);
+        appService.authenticate = true;
+        httpBackend.expectGET('/app/info').respond(200, appService);
         httpBackend.expectGET('/environment/list').respond(200, environments);
         httpBackend.expectGET('/auth/user').respond(200, {name: 'test'});
         httpBackend.expectGET('views/layout.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loaded).to.be.true;
-        expect(PreloaderCtrl.authenticated).to.be.true;
+        expect(PreloaderCtrl.authorized).to.be.true;
         expect(PreloaderCtrl.progress).to.equal('100%');
-        stateSpy.should.have.been.calledWith('authenticated');
+        stateSpy.should.have.been.calledWith('authorized');
+    });
+
+    it('should support skipping of authentication', function () {
+        httpBackend.expectGET('/lang/en.json').respond(200, langData);
+        httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
+        appService.authenticate = false;
+        httpBackend.expectGET('/app/info').respond(200, appService);
+        httpBackend.expectGET('/environment/list').respond(200, environments);
+        httpBackend.expectGET('views/layout.html').respond(404);
+        var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
+        httpBackend.flush();
+        expect(PreloaderCtrl.loaded).to.be.true;
+        expect(PreloaderCtrl.authorized).to.be.true;
+        stateSpy.should.have.been.calledWith('authorized');
     });
 
 });

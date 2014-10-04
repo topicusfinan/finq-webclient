@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Unit: LoginCtrl initialization and login', function() {
+describe('Unit: LoginCtrl', function() {
 
     var LoginCtrl,
         scope,
