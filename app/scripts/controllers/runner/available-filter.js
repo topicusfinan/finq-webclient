@@ -2,20 +2,15 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.controller:AvailableCtrl
+ * @name finqApp.controller:AvailableFilterCtrl
  * @description
- * # Available scenarios Controller
+ * # Available filter Controller
  *
- * The available controller allows a user to execute tests. It provides lists of available tests that can
- * be run, and provides the user with the ability to execute a particular test. Such a test can
- * either be run in the background or in debug mode.
+ * This filter allows the filtering of stories, storybooks and scenarios based on a list of properties
+ * within the available story section.
  */
 angular.module('finqApp.controller')
-    .controller('AvailableFilterCtrl', [
-        '$scope',
-        'set',
-        'tag',
-        function ($scope,setService,tagService) {
+    .controller('AvailableFilterCtrl', ['set','tag',function (setService,tagService) {
         var that = this;
 
         this.expand = {

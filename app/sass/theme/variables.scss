@@ -74,6 +74,7 @@ $section-header-icon-top:               .5em;
 $section-header-icon-size:              modular-scale($base-font-size, 1, $octave);
 $section-list-side-padding:             1em;
 $section-list-icon-left:                $header-height / $section-header-font-size / 5 * 1em;
+$section-list-text-pad:                 $section-list-icon-left;
 $section-list-icon-text-pad:            modular-scale($section-list-icon-left, 3, $major-seventh);
 
 // filter buttons

@@ -4,6 +4,7 @@ $full-menu-max-size-bp:           new-breakpoint(min-width 82em);
 $full-menu-min-size:              14em;
 $full-menu-max-size:              17em;
 
+$full-filter-size-bp-1-no-act:    new-breakpoint(max-width 54em);
 $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
 
 @include media($full-menu-min-size-bp) {
@@ -44,6 +45,41 @@ $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
 
         > footer.feedback {
             left: $full-menu-max-size;
+        }
+    }
+}
+
+@include media($full-filter-size-bp-1-no-act) {
+    .main-content-list.filter-1,
+    .top-filter.filter-1 {
+        min-width: 30em;
+
+        .select button {
+            span {
+                max-width: $select-list-button-max-width / 1.5;
+            }
+
+            &.active span {
+                min-width: $select-list-button-max-width / 1.5;
+            }
+        }
+    }
+
+    .top-filter.filter-1 {
+        .filters {
+            > i {
+                display: inline-block;
+
+                &.show {
+                    margin: (($header-height - $section-header-font-size) / 4.5) $filter-button-padding / -2 0 $filter-button-padding / 2;
+                }
+            }
+
+            > span {
+                width: 0;
+                opacity: 0;
+            }
+
         }
     }
 }

@@ -18,7 +18,7 @@
     </div>
 </div>
 <ul class="main-content-list ng-hide filter-2 appear-delayed" ng-show="available.storiesLoaded">
-    <li class="ic cl list-animate" ng-repeat="book in storybooks() | availableStorybookFilter:app.searchQuery:available.filter.set.keys:available.filter.tag.keys:available.currentPage:available.maxScenarios">
+    <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | availableStorybookFilter:app.searchQuery:available.filter.set.keys:available.filter.tag.keys:available.currentPage:available.maxScenarios)">
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">
                 <i class="fa fa-bars" ng-click="available.toggleExpand('book',book.id)"></i>
@@ -70,4 +70,5 @@
         </ul>
     </li>
 </ul>
+<h1 class="hero-notice ng-hide" translate="RUNNER.AVAILABLE.NO_STORIES" ng-show="available.storiesLoaded && filteredBooks.length === 0"></h1>
 <div pagination ng-show="available.storiesLoaded" class="pagination appear-delayed ng-hide" has-next="available.hasMorePages()" current-page="available.currentPage" list-ref="available.storyListRef" />

@@ -1,0 +1,13 @@
+<div class="top-filter appear-delayed ng-hide filter-1" ng-show="running.loaded" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
+    <div class="filters">
+        <i class="fa fa-globe" ng-class="{'inactive':!running.filter.env.keys.length}"></i>
+        <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
+        <div class="select" filter-select="filter.environments" filter-id="running.filter.env.id" placeholder="filter.envPlaceholder" max-items="{{running.maxSelectItems}}"></div>
+    </div>
+</div>
+<ul class="main-content-list ng-hide filter-1 appear-delayed" ng-show="running.loaded">
+    <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs()">
+
+    </li>
+</ul>
+<h1 class="hero-notice ng-hide" translate="RUNNER.RUNNING.NO_RUNS" ng-show="running.loaded && runs().length === 0"></h1>

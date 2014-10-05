@@ -5,6 +5,7 @@
     background: $section-header-bg-color;
     color: $section-header-color;
     white-space: nowrap;
+    padding-left: $section-list-text-pad;
 
     &.ic {
         padding-left: $section-list-icon-text-pad;

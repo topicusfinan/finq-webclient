@@ -32,18 +32,9 @@ angular.module('finqApp.controller')
             scenarioTagFilter = $filter('scenarioTagFilter');
 
         this.filter = {
-            set: {
-                id: 'set',
-                keys: []
-            },
-            tag: {
-                id: 'tag',
-                keys: []
-            },
-            env: {
-                id: 'env',
-                keys: []
-            }
+            set: {id: 'set', keys: []},
+            tag: {id: 'tag', keys: []},
+            env: {id: 'env', keys: []}
         };
         this.storyListRef = 'stories';
         that.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';

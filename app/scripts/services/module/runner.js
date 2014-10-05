@@ -27,6 +27,11 @@ angular.module('finqApp.service')
             }
         };
 
+        this.getRunningStories = function() {
+            return [];
+            // TODO: implement
+        };
+
         var handleRunUpdate = function(runData) {
             if (runningStories[runData.id]) {
                 runningStories[runData.id].progress = runData.progress;

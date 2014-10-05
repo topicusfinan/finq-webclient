@@ -70,10 +70,15 @@
                 "RUN_ALL": "Run all",
                 "BEFORE_ENVIRONMENT": "on",
                 "RUN": "Run"
-            }
+            },
+            "NO_STORIES" : "There are no stories available that match your filter"
         },
         "RUNNING" : {
-            "TITLE" : "Running"
+            "TITLE" : "Running",
+            "FILTER" : {
+                "BEFORE_ENVIRONMENT": "Stories started on"
+            },
+            "NO_RUNS" : "There are no stories running that match your filter"
         },
         "DEBUGGING" : {
             "TITLE" : "Debugging"
