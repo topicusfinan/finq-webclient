@@ -54,7 +54,8 @@ angular
         }).state('intro.loading', {
             templateUrl: 'views/intro/preloader.html'
         }).state('authorized', {
-            templateUrl: 'views/layout.html'
+            templateUrl: 'views/layout.html',
+            controller: 'LayoutCtrl as layout'
         });
     }]);
 

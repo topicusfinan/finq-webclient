@@ -23,11 +23,6 @@ angular.module('finqApp.controller')
         this.timeout = configProvider.client().searchWait;
         this.query = '';
 
-        // delay the loaded indication to allow for appear effects
-        $timeout(function() {
-            that.loaded = true;
-        },10);
-
         this.search = function() {
             if (searchTimeout !== null) {
                 clearTimeout(searchTimeout);

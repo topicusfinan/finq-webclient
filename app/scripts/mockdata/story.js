@@ -10,9 +10,6 @@
  */
 angular.module('finqApp.mock')
     .value('storyServiceMock', {
-        run: {
-            id: 1234
-        },
         books: [
             {
                 id: 46432790,

@@ -32,11 +32,6 @@ angular.module('finqApp.controller')
         this.sections = [];
         this.activeModuleName = '';
 
-        // delay the loaded indication to allow for appear effects
-        $timeout(function() {
-            that.loaded = true;
-        },10);
-
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {
             that.sections = [];

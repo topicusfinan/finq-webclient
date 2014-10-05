@@ -1,13 +1,13 @@
 <header ng-controller="HeaderCtrl as header">
-    <div class="title ng-hide" ng-show="header.loaded">
+    <div class="title ng-hide" ng-show="layout.loaded">
         <span>{{ header.title }}</span>
     </div>
-    <div class="search ng-hide" ng-show="header.loaded">
+    <div class="search ng-hide" ng-show="layout.loaded">
         <i class="fa fa-search"></i>
         <input type="text" placeholder="Search" ng-model="header.query" ng-change="header.search()">
     </div>
 </header>
-<aside class="ng-hide" ng-controller="MenuCtrl as menu" ng-show="menu.loaded">
+<aside class="ng-hide" ng-controller="MenuCtrl as menu" ng-show="layout.loaded">
     <ul class="modules">
         <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-click="go(module.url)" ng-class="{'active': module.active}"><i class="fa {{module.id | lowercase}}"></i><span class="badge" ng-show="module.badge > 0">{{module.badge}}</span></li>
     </ul>
@@ -16,5 +16,5 @@
         <li class="list-animate" ng-repeat="section in menu.sections" ng-click="go(section.url)" ng-class="{'active': section.active}"><span>{{section.title}}</span><span class="badge" ng-show="section.badge > 0">{{section.badge}}</span></li>
     </ul>
 </aside>
-<div class="main" ng-view></div>
+<div class="main ng-hide" ng-show="layout.loaded" ng-view></div>
 <footer ng-controller="FeedbackCtrl as fb" class="feedback" ng-class="fb.feedback.type" ng-show="fb.show"><span>{{fb.feedback.message}}</span><i class="fa fa-times" ng-click="fb.hide()"></i></footer>

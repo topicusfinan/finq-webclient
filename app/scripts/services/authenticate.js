@@ -51,4 +51,8 @@ angular.module('finqApp.service')
             return deferred.promise;
         };
 
+        this.getCurrentUser = function() {
+            return currentUser;
+        };
+
     }]);

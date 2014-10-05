@@ -10,15 +10,21 @@
  * events, and provide information on the runner module to other services and controllers.
  */
 angular.module('finqApp.service')
-    .service('runner', ['module','MODULES','EVENTS','story','subscription',function (moduleService,MODULES,EVENTS,storyService,subscriptionService) {
+    .service('runner', [
+        'module',
+        'MODULES',
+        'EVENTS',
+        'story',
+        'subscription',
+        function (moduleService,MODULES,EVENTS,storyService,subscriptionService) {
         var that = this,
             updateListener = null,
-            runningStories = {};
+            runningStories = [];
 
         this.handle = function(event,eventData) {
             switch (event) {
                 case EVENTS.INTERNAL.STORY_RUN_STARTED:
-                    handleScenarioRunStarted(eventData);
+                    handleStoryRunStarted(eventData);
                     break;
                 case EVENTS.SOCKET.RUN_STATUS_UPDATED:
                     handleRunUpdate(eventData);
@@ -28,33 +34,35 @@ angular.module('finqApp.service')
         };
 
         this.getRunningStories = function() {
-            return [];
-            // TODO: implement
+            return runningStories;
         };
 
         var handleRunUpdate = function(runData) {
-            if (runningStories[runData.id]) {
-                runningStories[runData.id].progress = runData.progress;
+            for (var i=0; i<runningStories.length; i++) {
+                if (runningStories[i].run === runData.id) {
+                    runningStories[i].progress = runData.progress;
+                    break;
+                }
             }
         };
 
-        var handleScenarioRunStarted = function(runData) {
-            moduleService.updateModuleBadge(MODULES.RUNNER,1);
-            moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING,runData.stories.length);
-            angular.forEach(runData.stories,function(storyRun) {
-                var progress = [];
-                angular.forEach(storyRun.scenarios, function(scenario) {
-                    progress.push({
-                        scenario: scenario,
-                        currentStep: null,
-                        status: undefined,
-                        message: undefined
-                    });
+        var handleStoryRunStarted = function(runData) {
+            var progress = [];
+            angular.forEach(runData.story.scenarios, function(scenario) {
+                progress.push({
+                    scenario: scenario,
+                    currentStep: null,
+                    status: undefined,
+                    message: undefined
                 });
-                runningStories[runData.id] = {
-                    story: storyRun.story,
-                    progress: progress
-                };
+            });
+            runningStories.push({
+                run: runData.reference,
+                story: runData.story,
+                progress: progress,
+                startedOn: runData.startedOn,
+                environment: runData.environment,
+                startedBy: runData.startedBy
             });
             subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,{run: runData.id});
             if (!updateListener) {

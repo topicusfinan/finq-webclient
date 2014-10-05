@@ -28,7 +28,15 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/tag/list').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environment/list').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/story/list').respond(storyServiceMock.books);
-        $httpBackend.whenPOST('/story/run').respond(storyServiceMock.run);
+        $httpBackend.whenPOST('/story/run').respond(function(method, url, data) {
+            var jsonData = angular.fromJson(data);
+            return [200,{
+                id: Math.floor((Math.random() * 10000) + 1),
+                startedBy: authServiceMock.user,
+                startedOn: new Date(),
+                environment: jsonData.environment
+            }];
+        });
         $httpBackend.whenGET('/auth/user').respond(401);
         $httpBackend.whenPOST('/auth/login').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);

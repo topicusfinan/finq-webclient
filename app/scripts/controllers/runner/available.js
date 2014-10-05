@@ -62,11 +62,6 @@ angular.module('finqApp.controller')
             storyCollapseService.initialize(bookList);
         });
 
-        // delay the loaded indication to allow for appear effects
-        $timeout(function() {
-            that.loaded = true;
-        },10);
-
         this.toggleExpand = function(type,bookId) {
             storyCollapseService.toggleExpand(type,bookId);
         };

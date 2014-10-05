@@ -36,9 +36,4 @@ angular.module('finqApp.controller')
 
         moduleService.setCurrentSection(MODULES.RUNNER.sections.RUNNING);
 
-        // delay the loaded indication to allow for appear effects
-        $timeout(function() {
-            that.loaded = true;
-        },10);
-
     }]);

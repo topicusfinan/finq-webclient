@@ -26,7 +26,7 @@
         },
         "ALERT": {
             "RUN": {
-                "NO_SCENARIOS_SELECTED": "No scenarios match your current filter"
+                "NO_STORIES_SELECTED": "No scenarios match your current filter"
             },
             "SOCKET": {
                 "RECONNECTION_TROUBLE": "Oh no, we're having some trouble reconnecting to the server"

@@ -41,7 +41,7 @@ angular.module('finqApp')
         },
         'ALERT': {
             'RUN': {
-                'NO_SCENARIOS_SELECTED': {'key':'RUN.NO_SCENARIOS_SELECTED'}
+                'NO_STORIES_SELECTED': {'key':'RUN.NO_STORIES_SELECTED'}
             },
             'SOCKET': {
                 'RECONNECTION_TROUBLE': {'key': 'SOCKET.RECONNECTION_TROUBLE'}

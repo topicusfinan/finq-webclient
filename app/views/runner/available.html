@@ -1,4 +1,4 @@
-<div class="top-filter ic appear-delayed ng-hide filter-2" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
+<div class="top-filter ic ng-hide filter-2" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
     <i class="fa fa-bars" ng-click="available.toggleExpand('all')"></i>
     <div class="filters">
         <i class="fa fa-folder-open-o" ng-class="{'inactive':!available.filter.set.keys.length}" ng-click="filter.expand.set = !filter.expand.set"></i>
@@ -17,7 +17,7 @@
         <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
     </div>
 </div>
-<ul class="main-content-list ng-hide filter-2 appear-delayed" ng-show="available.storiesLoaded">
+<ul class="main-content-list ng-hide filter-2" ng-show="available.storiesLoaded">
     <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | availableStorybookFilter:app.searchQuery:available.filter.set.keys:available.filter.tag.keys:available.currentPage:available.maxScenarios)">
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">

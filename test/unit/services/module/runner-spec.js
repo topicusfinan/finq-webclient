@@ -42,23 +42,23 @@ describe('Unit: RunnerService', function() {
         $httpBackend.flush();
     }));
 
-    it('should handle a story run started event by requesting to update the module and section badges for running scenarios', function () {
-        var sectionBadgeSpy = sinon.spy(moduleService, 'updateSectionBadge');
-        var moduleBadgeSpy = sinon.spy(moduleService, 'updateModuleBadge');
+    it('should subscribe to updates for a run in case a run was started', function () {
         var subscribeSpy = sinon.spy(subscriptionService, 'subscribe');
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
-            id: 1,
-            stories: [storyMockData[0].stories[0].id]
+            reference: 1,
+            story: {
+                scenarios: [1,2]
+            }
         });
-        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,1);
-        moduleBadgeSpy.should.have.been.calledWith(MODULES.RUNNER,1);
         subscribeSpy.should.have.been.called.once;
     });
 
     it('should handle a progress update for a run that is subscribed to', function () {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
-            stories: [storyMockData[0].stories[0].id]
+            story: {
+                scenarios: [1,2]
+            }
         });
         runnerService.handle(EVENTS.INTERNAL.RUN_STATUS_UPDATED, {
             id: 1,
