@@ -3,11 +3,13 @@
 describe('Unit: MenuCtrl initialization', function() {
 
     var MenuCtrl,
+        location,
         scope;
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope) {
+    beforeEach(inject(function ($controller, $rootScope, $location) {
         scope = $rootScope.$new();
+        location = $location;
         MenuCtrl = $controller('MenuCtrl', {
             $scope: scope
         });
@@ -43,6 +45,12 @@ describe('Unit: MenuCtrl initialization', function() {
 
     it('should initially have its loaded indication not set to true', function () {
         expect(MenuCtrl.loaded).not.to.be.true;
+    });
+
+    it('should be able to handle a request for navigation', function () {
+        var locSpy = sinon.spy(location,'path');
+        scope.go('/runner/available');
+        locSpy.should.have.been.calledWith('/runner/available');
     });
 
 });

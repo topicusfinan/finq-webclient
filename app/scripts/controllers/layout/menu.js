@@ -18,10 +18,11 @@ angular.module('finqApp.controller')
         '$scope',
         '$translate',
         '$timeout',
+        '$location',
         'MODULES',
         'EVENTS',
         'page',
-        function ($scope,$translate,$timeout,MODULES,EVENTS,pageFactory) {
+        function ($scope,$translate,$timeout,$location,MODULES,EVENTS,pageFactory) {
         var that = this,
             activeSection = pageFactory.getActiveSection(),
             sectionBadge = {},
@@ -48,6 +49,7 @@ angular.module('finqApp.controller')
                 that.sections.push({
                     id: section.id,
                     title: '',
+                    url: moduleToUrl(section),
                     badge: sectionBadge[section.id] !== undefined ? sectionBadge[section.id] : 0,
                     active: sectionIsActive
                 });
@@ -58,12 +60,17 @@ angular.module('finqApp.controller')
             });
         };
 
+        var moduleToUrl = function(sectionOrModule) {
+            return '/'+sectionOrModule.id.toLowerCase().replace('.','/');
+        };
+
         // initial load of the modules and the active section
         angular.forEach(MODULES, function(module) {
             var moduleIndex = that.modules.length;
             that.modules[moduleIndex] = {
                 id: module.id,
                 title: '',
+                url: moduleToUrl(module),
                 badge: moduleBadge[module.id] !== undefined ? moduleBadge[module.id] : 0,
                 active: false,
                 sections: module.sections
@@ -76,6 +83,10 @@ angular.module('finqApp.controller')
                 that.modules[moduleIndex].title = translatedTitle;
             });
         });
+
+        $scope.go = function (path) {
+            $location.path(path);
+        };
 
         // handle navigation changes by updating the active module and reloading or updating the section listing
         $scope.$on(EVENTS.SCOPE.SECTION_STATE_CHANGED,function(event,updateInfo) {
