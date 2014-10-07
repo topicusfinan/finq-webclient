@@ -34,11 +34,6 @@ describe('Unit: Available Storybook Filter execution', function() {
         expect(filteredBooks.length).to.equal(2);
     });
 
-    it('should return a limited set of story books in case the pagination filter applies', function () {
-        var filteredBooks = availableStorybookFilter(storybooks,'',[],[],0,1);
-        expect(filteredBooks.length).to.equal(1);
-    });
-
     it('should return a limited set of story books in case the set filter applies', function () {
         var filteredBooks = availableStorybookFilter(storybooks,'',[storybooks[0].stories[0].sets[0]],[],0,10);
         expect(filteredBooks.length).to.equal(1);

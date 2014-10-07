@@ -13,6 +13,7 @@ describe('Unit: AvailableCtrl', function() {
         emitSpy,
         scope,
         environments,
+        runnerFilterService,
         storyRunService,
         feedbackService,
         storybooks;
@@ -22,8 +23,9 @@ describe('Unit: AvailableCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, storyRun, feedback) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, storyRun, feedback, story, runnerFilter) {
         scope = $rootScope.$new();
+        runnerFilterService = runnerFilter;
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         FEEDBACK = _FEEDBACK_;
@@ -41,18 +43,17 @@ describe('Unit: AvailableCtrl', function() {
         });
         $httpBackend.expectGET('/app/info').respond(200);
         $httpBackend.expectGET('/environment/list').respond(200, environments);
-        httpBackend.expectGET('/story/list').respond(200, storybooks);
+        $httpBackend.expectGET('/story/list').respond(200, storybooks);
         config.load().then(function() {
             environment.load().then(function() {
-                AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
+                story.list().then(function() {
+                    AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
+                    runnerFilter.initialize();
+                });
             });
         });
         $httpBackend.flush();
     }));
-
-    it('should have loaded the storybooks', function () {
-        expect(AvailableCtrl.storiesLoaded).to.be.true;
-    });
 
     it('should have every item initially collapsed', function () {
         expect(scope.expand()).to.be.null;
@@ -127,7 +128,7 @@ describe('Unit: AvailableCtrl', function() {
         var runSpy = sinon.spy(storyRunService, 'runStory');
         AvailableCtrl.filter.env.keys = [1];
         AvailableCtrl.run('scenario',scenarioId);
-        expect(runSpy).to.have.been.calledWith({
+        runSpy.should.have.been.calledWith({
             story: storybooks[0].stories[0].id,
             scenarios: [storybooks[0].stories[0].scenarios[0].id]
         });
@@ -197,7 +198,8 @@ describe('Unit: AvailableCtrl', function() {
             }
         }
         AvailableCtrl.filter.env.keys = [1];
-        AvailableCtrl.filter.tag.keys = ['additional'];
+        runnerFilterService.applyFilter([],['additional']);
+
         AvailableCtrl.run('story',storyId);
         expect(runSpy).to.have.been.calledWith({
             story: storyId,
@@ -229,7 +231,7 @@ describe('Unit: AvailableCtrl', function() {
             }
         }
         AvailableCtrl.filter.env.keys = [1];
-        AvailableCtrl.filter.tag.keys = ['write','additional'];
+        runnerFilterService.applyFilter([],['write','additional']);
         AvailableCtrl.run('all');
         expect(runSpy).to.have.been.calledWith(stories);
     });

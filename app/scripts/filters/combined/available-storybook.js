@@ -12,17 +12,15 @@
  */
 angular.module('finqApp.filter')
     .filter('availableStorybookFilter', ['$filter', function($filter) {
-        return function(books, query, setsToInclude, tagsToInclude, iteration, maxScenarios) {
+        return function(books, query, setsToInclude, tagsToInclude) {
             var filteredBooks = [],
                 searchFilter = $filter('storybookSearchFilter'),
                 setFilter = $filter('storybookSetFilter'),
-                tagFilter = $filter('storybookTagFilter'),
-                paginationFilter = $filter('storybookPaginationFilter');
+                tagFilter = $filter('storybookTagFilter');
 
             filteredBooks = searchFilter(books,query);
             filteredBooks = setFilter(filteredBooks,setsToInclude);
             filteredBooks = tagFilter(filteredBooks,tagsToInclude);
-            filteredBooks = paginationFilter(filteredBooks,iteration,maxScenarios);
 
             return filteredBooks;
         };

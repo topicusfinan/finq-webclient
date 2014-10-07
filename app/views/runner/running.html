@@ -1,4 +1,4 @@
-<div class="top-filter ng-hide filter-1" ng-show="running.loaded" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
+<div class="top-filter filter-1" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
     <div class="filters">
         <i class="fa fa-globe" ng-class="{'inactive':!running.filter.env.keys.length}"></i>
         <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
@@ -10,4 +10,4 @@
 
     </li>
 </ul>
-<h1 class="hero-notice ng-hide" translate="RUNNER.RUNNING.NO_RUNS" ng-show="running.loaded && runs().length === 0"></h1>
+<h1 class="hero-notice" translate="RUNNER.RUNNING.NO_RUNS" ng-show="runs().length === 0"></h1>

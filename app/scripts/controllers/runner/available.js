@@ -21,15 +21,14 @@ angular.module('finqApp.controller')
         'config',
         'feedback',
         'module',
+        'runnerFilter',
         'story',
         'storybookSearch',
         'storyCollapse',
         'storyRun',
         'environment',
-        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,moduleService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
-        var that = this,
-            availableStoryFilter = $filter('availableStoryFilter'),
-            scenarioTagFilter = $filter('scenarioTagFilter');
+        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,moduleService,runnerFilterService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
+        var that = this;
 
         this.filter = {
             set: {id: 'set', keys: []},
@@ -37,17 +36,23 @@ angular.module('finqApp.controller')
             env: {id: 'env', keys: []}
         };
         this.storyListRef = 'stories';
-        that.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
+        this.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
         this.selectedItem = null;
         this.maxScenarios = configProvider.client().pagination.maxScenarios;
         this.maxSelectItems = configProvider.client().pagination.maxSelectDropdownItems;
         this.currentPage = 0;
 
-        $scope.storybooks = storyCollapseService.getBooks;
+        $scope.storybooks = runnerFilterService.getFilteredStorybooks;
         $scope.expand = storyCollapseService.getExpand;
 
         $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             that.filter[filterInfo.id].keys = filterInfo.keys;
+            runnerFilterService.applyFilter(that.filter.set.keys,that.filter.tag.keys);
+        });
+
+        $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED,function(event, query){
+            storybookSearchService.query = query;
+            runnerFilterService.applyFilter();
         });
 
         moduleService.setCurrentSection(MODULES.RUNNER.sections.AVAILABLE);
@@ -56,14 +61,9 @@ angular.module('finqApp.controller')
             that.environments = environments;
         });
 
-        storyService.list().then(function(bookList) {
-            that.storiesLoaded = true;
-            storybookSearchService.initialize(bookList);
-            storyCollapseService.initialize(bookList);
-        });
-
         this.toggleExpand = function(type,bookId) {
             storyCollapseService.toggleExpand(type,bookId);
+            runnerFilterService.applyFilter();
         };
 
         this.expandStory = function(bookId,storyId) {
@@ -73,6 +73,7 @@ angular.module('finqApp.controller')
                 return;
             }
             storyCollapseService.expandStory(bookId,storyId);
+            runnerFilterService.applyFilter();
         };
 
         this.hasMorePages = function() {
@@ -85,14 +86,12 @@ angular.module('finqApp.controller')
                 i, j;
 
             var runByBook = function(bookId) {
-                var stories = storyService.listStoriesByBook(bookId === null ? null : [bookId]);
+                var stories = runnerFilterService.getFilteredStoriesByBook(bookId === null ? null : bookId);
                 var runStories = [];
-                stories = availableStoryFilter(stories,storybookSearchService.query,id,that.filter.set.keys,that.filter.tag.keys);
                 for (i=0; i<stories.length; i++) {
                     var runScenarios = [];
-                    scenarios = scenarioTagFilter(stories[i].scenarios,stories[i].tags,that.filter.tag.keys);
-                    for (j=0; j<scenarios.length; j++) {
-                        runScenarios.push(scenarios[j].id);
+                    for (j=0; j<stories[i].scenarios.length; j++) {
+                        runScenarios.push(stories[i].scenarios[j].id);
                     }
                     runStories.push({
                         story: stories[i].id,
@@ -114,14 +113,13 @@ angular.module('finqApp.controller')
                         },that.filter.env.keys[0]);
                         break;
                     case 'story':
-                        story = storyService.findStoryById(id);
-                        scenarios = scenarioTagFilter(story.scenarios,story.tags,that.filter.tag.keys);
+                        scenarios = runnerFilterService.getFilteredScenariosByStory(id);
                         var runScenarios = [];
                         for (i=0; i<scenarios.length; i++) {
                             runScenarios.push(scenarios[i].id);
                         }
                         storyRunService.runStory({
-                            story: story.id,
+                            story: id,
                             scenarios: runScenarios
                         },that.filter.env.keys[0]);
                         break;

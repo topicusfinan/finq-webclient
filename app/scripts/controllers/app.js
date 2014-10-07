@@ -21,7 +21,6 @@ angular.module('finqApp.controller')
         function (setup,$route,$scope,$translate,configProvider,pageFactory,EVENTS) {
             var that = this;
             this.title = 'Finq';
-            this.searchQuery = '';
 
             setup.initialize();
 
@@ -35,10 +34,6 @@ angular.module('finqApp.controller')
                 $translate(moduleInfo.section.id+'.TITLE').then(function (translatedValue) {
                     that.title = pageFactory.getPageTitle(configProvider.server().title,translatedValue);
                 });
-            });
-
-            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED,function(event, query){
-                that.searchQuery = query;
             });
         }
     ]);
