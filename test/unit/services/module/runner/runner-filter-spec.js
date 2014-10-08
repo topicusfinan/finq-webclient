@@ -112,6 +112,15 @@ describe('Unit: RunnerFilterService', function() {
         backend.flush();
     });
 
+    it('should be able retrieve filtered stories by all books', function (done) {
+        backend.expectGET('/story/list').respond(200, storyMockData);
+        runnerFilterService.applyFilter([],['additional','write']).then(function() {
+            expect(runnerFilterService.getFilteredStoriesByBook(null).length).to.equal(2);
+            done();
+        });
+        backend.flush();
+    });
+
     it('should be able retrieve filtered scenarios by story', function (done) {
         backend.expectGET('/story/list').respond(200, storyMockData);
         runnerFilterService.applyFilter([],['additional']).then(function() {

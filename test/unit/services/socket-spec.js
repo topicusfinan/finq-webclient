@@ -124,4 +124,28 @@ describe('Unit: SocketService', function() {
         testSpy.should.not.have.been.calledWith('test',{a:1});
     });
 
+    it('should throw an error in case a listener is registred without establishing a connection first', function (done) {
+        try {
+            socketService.on('test');
+        } catch (error) {
+            done();
+        }
+    });
+
+    it('should throw an error in case a listener is registred once without establishing a connection first', function (done) {
+        try {
+            socketService.once('test');
+        } catch (error) {
+            done();
+        }
+    });
+
+    it('should throw an error in case an emitter is triggered without establishing a connection first', function (done) {
+        try {
+            socketService.emit('test');
+        } catch (error) {
+            done();
+        }
+    });
+
 });

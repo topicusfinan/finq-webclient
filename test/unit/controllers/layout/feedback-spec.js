@@ -248,7 +248,7 @@ describe('Unit: FeedbackCtrl', function() {
                 tpl: {key: 'test4'}
             });
             done();
-        },78);
+        },82);
     });
 
     it('should replace feedback in case the current feedback is of the same type as a new feedback message that is pushed and there is no queue', function (done) {
