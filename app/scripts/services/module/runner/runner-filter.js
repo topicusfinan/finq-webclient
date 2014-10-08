@@ -15,10 +15,15 @@ angular.module('finqApp.service')
         'story',
         'storybookSearch',
         'storyCollapse',
-        function ($filter,storyService,storybookSearchService,storyCollapseService) {
+        '$q',
+        function ($filter,storyService,storybookSearchService,storyCollapseService,$q) {
         var that = this,
-            availableStorybookFilter = $filter('availableStorybookFilter'),
-            availableStoryFilter = $filter('availableStoryFilter'),
+            storybookSearchFilter = $filter('storybookSearchFilter'),
+            storybookSetFilter = $filter('storybookSetFilter'),
+            storybookTagFilter = $filter('storybookTagFilter'),
+            storySearchFilter = $filter('storySearchFilter'),
+            storySetFilter = $filter('storySetFilter'),
+            storyTagFilter = $filter('storyTagFilter'),
             scenarioTagFilter = $filter('scenarioTagFilter'),
             unfilteredBooks = [],
             initialized = false,
@@ -29,13 +34,16 @@ angular.module('finqApp.service')
             };
 
         this.initialize = function() {
+            var deferred = $q.defer();
             storyService.list().then(function(bookList) {
                 unfilteredBooks = bookList;
                 storybookSearchService.initialize(bookList);
                 storyCollapseService.initialize(bookList);
                 that.applyFilter();
+                deferred.resolve();
             });
             initialized = true;
+            return deferred.promise;
         };
 
         this.applyFilter = function(sets,tags) {
@@ -47,21 +55,26 @@ angular.module('finqApp.service')
                 lastFilter.tags = tags;
             }
             if (!initialized) {
-                that.initialize();
+                var deferred = $q.defer();
+                that.initialize().then(function() {
+                    deferred.resolve(filteredBooks);
+                });
+                return deferred.promise;
             } else {
-                if (!sets) {
-                    sets = lastFilter.sets;
-                    tags = lastFilter.tags;
-                }
                 var query = storybookSearchService.query;
-                filteredBooks = availableStorybookFilter(unfilteredBooks,query,sets,tags);
+                filteredBooks = storybookSearchFilter(angular.copy(unfilteredBooks),query);
+                filteredBooks = storybookSetFilter(filteredBooks,sets);
+                filteredBooks = storybookTagFilter(filteredBooks,tags);
                 angular.forEach(filteredBooks, function(book) {
-                    var stories = availableStoryFilter(book.stories,query,book.id,sets,tags);
+                    var stories = storySearchFilter(book.stories,query,book.id);
+                    stories = storySetFilter(stories,sets);
+                    stories = storyTagFilter(stories,tags);
                     angular.forEach(stories, function(story) {
-                        story.scenarios = scenarioTagFilter(story.scenarios,story.tags,tags);
+                        story.scenarios = scenarioTagFilter(angular.copy(story.scenarios),story.tags,tags);
                     });
                     book.stories = stories;
                 });
+                return $q.when(filteredBooks);
             }
         };
 
