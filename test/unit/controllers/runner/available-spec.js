@@ -55,10 +55,6 @@ describe('Unit: AvailableCtrl', function() {
         $httpBackend.flush();
     }));
 
-    it('should have every item initially collapsed', function () {
-        expect(scope.expand()).to.be.null;
-    });
-
     it('should initially not have any item selected', function () {
         expect(AvailableCtrl.selectedItem).to.be.null;
     });
@@ -79,33 +75,6 @@ describe('Unit: AvailableCtrl', function() {
         var envEventData = {id: 'env', keys: [1], keysFull: [1]};
         scope.$emit(EVENTS.SCOPE.FILTER_SELECT_UPDATED,envEventData);
         expect(AvailableCtrl.filter.env.keys).to.deep.equal(envEventData.keys);
-    });
-
-    it('should expand a book that is expanded', function () {
-        AvailableCtrl.toggleExpand('book',storybooks[0].id);
-        expect(scope.expand()).to.equal('book'+storybooks[0].id);
-    });
-
-    it('should collapse a book that is collapsed', function () {
-        AvailableCtrl.toggleExpand('book',storybooks[0].id);
-        AvailableCtrl.toggleExpand('book',storybooks[0].id);
-        expect(scope.expand()).to.be.null;
-    });
-
-    it('should expand all books on request', function () {
-        AvailableCtrl.toggleExpand('all');
-        expect(scope.expand()).to.equal('all');
-    });
-
-    it('should expand a story on request', function () {
-        AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
-        expect(AvailableCtrl.selectedItem).to.equal('story'+storybooks[0].stories[0].id);
-    });
-
-    it('should activate a story on request without expanding it in case its parent is already expanded', function () {
-        AvailableCtrl.toggleExpand('book',storybooks[0].id);
-        AvailableCtrl.expandStory(storybooks[0].id,storybooks[0].stories[0].id);
-        expect(AvailableCtrl.selectedItem).to.equal('story'+storybooks[0].stories[0].id);
     });
 
     it('should initially not have any more pages than the current page for pagination', function () {

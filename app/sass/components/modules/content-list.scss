@@ -1,4 +1,20 @@
 .main-content-list {
+
+    &.expand > li.cl > ul li.cl,
+    > li.cl > ul.expand li.cl,
+    > li.cl > ul li.cl.expand {
+        > div > div.title > i:after {
+            content: '\f0d7';
+        }
+
+        > ul {
+            opacity: 1;
+            height: auto;
+            overflow-y: visible;
+        }
+    }
+
+
     margin-bottom: 6em;
 
     li.cl > div {
@@ -122,10 +138,6 @@
                             @extend %icon;
                             content: '\f0da';
                         }
-
-                        &.expand:after {
-                            content: '\f0d7';
-                        }
                     }
 
                     > div.title > span,
@@ -140,12 +152,6 @@
                     opacity: .5;
                     height: 0;
                     overflow-y: hidden;
-
-                    &.expand {
-                        opacity: 1;
-                        height: auto;
-                        overflow-y: visible;
-                    }
 
                     li.cl > div {
                         background: $content-list-item-3-bg-color;

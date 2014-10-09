@@ -1,5 +1,5 @@
 <div class="top-filter ic ng-hide filter-2" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
-    <i class="fa fa-bars" ng-click="available.toggleExpand('all')"></i>
+    <i class="fa fa-bars" ng-click="available.expander.toggleAll()"></i>
     <div class="filters">
         <i class="fa fa-folder-open-o" ng-class="{'inactive':!available.filter.set.keys.length}" ng-click="filter.expand.set = !filter.expand.set"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET" ng-hide="!available.filter.set.keys.length && !filter.expand.set"></span>
@@ -17,11 +17,11 @@
         <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
     </div>
 </div>
-<ul class="main-content-list filter-2">
+<ul id="story-list" class="main-content-list filter-2">
     <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | storybookPaginationFilter:available.currentPage:available.maxScenarios) track by book.id">
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">
-                <i class="fa fa-bars" ng-click="available.toggleExpand('book',book.id)"></i>
+                <i class="fa fa-bars" data-toggle="book"></i>
                 <span>{{ book.title }}</span>
             </div>
             <div class="actions">
@@ -35,9 +35,9 @@
         </div>
         <ul>
             <li class="ic cl" ng-repeat="story in book.stories track by story.id">
-                <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.expandStory(book.id,story.id)">
+                <div ng-class="{'active':available.selectedItem === 'story'+story.id}" data-toggle="story">
                     <div class="title">
-                        <i class="fa" ng-class="{'expand':story.expand === true || expand() === 'book'+book.id || expand() === 'all'}"></i>
+                        <i class="fa"></i>
                         <span>{{ story.title }}</span>
                     </div>
                     <div class="actions">
@@ -49,7 +49,7 @@
                         <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
                     </div>
                 </div>
-                <ul ng-class="{'expand':story.expand === true || expand() === 'book'+book.id || expand() === 'all'}">
+                <ul>
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
                         <div ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
                             <div class="title">

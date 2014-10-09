@@ -1,4 +1,5 @@
 'use strict';
+/*global StoryExpandCollapse:false */
 
 /**
  * @ngdoc overview
@@ -24,10 +25,9 @@ angular.module('finqApp.controller')
         'runnerFilter',
         'story',
         'storybookSearch',
-        'storyCollapse',
         'storyRun',
         'environment',
-        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,moduleService,runnerFilterService,storyService,storybookSearchService,storyCollapseService,storyRunService,environmentService) {
+        function ($scope,$timeout,$filter,EVENTS,FEEDBACK,MODULES,configProvider,feedbackService,moduleService,runnerFilterService,storyService,storybookSearchService,storyRunService,environmentService) {
         var that = this;
 
         this.filter = {
@@ -43,7 +43,6 @@ angular.module('finqApp.controller')
         this.currentPage = 0;
 
         $scope.storybooks = runnerFilterService.getFilteredStorybooks;
-        $scope.expand = storyCollapseService.getExpand;
 
         $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             that.filter[filterInfo.id].keys = filterInfo.keys;
@@ -61,20 +60,8 @@ angular.module('finqApp.controller')
             that.environments = environments;
         });
 
-        this.toggleExpand = function(type,bookId) {
-            storyCollapseService.toggleExpand(type,bookId);
-            runnerFilterService.applyFilter();
-        };
-
-        this.expandStory = function(bookId,storyId) {
-            var expand = storyCollapseService.getExpand();
-            that.selectedItem = 'story'+storyId;
-            if (expand === 'all' || expand === 'book'+bookId) {
-                return;
-            }
-            storyCollapseService.expandStory(bookId,storyId);
-            runnerFilterService.applyFilter();
-        };
+        this.expander = new StoryExpandCollapse('#story-list');
+        this.expander.setup();
 
         this.hasMorePages = function() {
             return storybookSearchService.hasMorePages;

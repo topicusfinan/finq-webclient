@@ -14,9 +14,8 @@ angular.module('finqApp.service')
         '$filter',
         'story',
         'storybookSearch',
-        'storyCollapse',
         '$q',
-        function ($filter,storyService,storybookSearchService,storyCollapseService,$q) {
+        function ($filter,storyService,storybookSearchService,$q) {
         var that = this,
             storybookSearchFilter = $filter('storybookSearchFilter'),
             storybookSetFilter = $filter('storybookSetFilter'),
@@ -38,7 +37,6 @@ angular.module('finqApp.service')
             storyService.list().then(function(bookList) {
                 unfilteredBooks = bookList;
                 storybookSearchService.initialize(bookList);
-                storyCollapseService.initialize(bookList);
                 that.applyFilter();
                 deferred.resolve();
             });

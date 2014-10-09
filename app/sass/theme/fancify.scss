@@ -202,14 +202,19 @@ input.ng-invalid {
         @include transition(background $animate-std-cubic .1s);
     }
 
-    > li.cl > ul li.cl > ul {
-        height: auto;
-        max-height: 0;
-        @include transition(opacity $animate-std-cubic .4s, max-height cubic-bezier(0, .6, .85, 1) .3s);
+    > li.cl > ul li.cl {
 
-        &.expand {
-            max-height: 1000px;
+        > ul {
+            height: auto;
+            max-height: 0;
+            @include transition(opacity $animate-std-cubic .4s, max-height cubic-bezier(0, .6, .85, 1) .3s);
         }
+    }
+
+    &.expand > li.cl > ul li.cl > ul,
+    > li.cl > ul.expand li.cl > ul,
+    > li.cl > ul li.cl.expand > ul {
+        max-height: 1000px;
     }
 }
 

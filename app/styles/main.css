@@ -555,6 +555,16 @@ footer.feedback {
 
 .main-content-list {
   margin-bottom: 6em; }
+  .main-content-list.expand > li.cl > ul li.cl > div > div.title > i:after,
+  .main-content-list > li.cl > ul.expand li.cl > div > div.title > i:after,
+  .main-content-list > li.cl > ul li.cl.expand > div > div.title > i:after {
+    content: '\f0d7'; }
+  .main-content-list.expand > li.cl > ul li.cl > ul,
+  .main-content-list > li.cl > ul.expand li.cl > ul,
+  .main-content-list > li.cl > ul li.cl.expand > ul {
+    opacity: 1;
+    height: auto;
+    overflow-y: visible; }
   .main-content-list li.cl > div {
     cursor: pointer;
     position: relative;
@@ -627,8 +637,6 @@ footer.feedback {
           font-size: 1.778em; }
           .main-content-list > li.cl > ul li.cl > div > div.title > i:after {
             content: '\f0da'; }
-          .main-content-list > li.cl > ul li.cl > div > div.title > i.expand:after {
-            content: '\f0d7'; }
         .main-content-list > li.cl > ul li.cl > div > div.title > span,
         .main-content-list > li.cl > ul li.cl > div > div.actions > span {
           font-size: 1.2em;
@@ -638,10 +646,6 @@ footer.feedback {
         opacity: .5;
         height: 0;
         overflow-y: hidden; }
-        .main-content-list > li.cl > ul li.cl > ul.expand {
-          opacity: 1;
-          height: auto;
-          overflow-y: visible; }
         .main-content-list > li.cl > ul li.cl > ul li.cl > div {
           background: #f7f7f7;
           padding-top: 1px;
@@ -1098,8 +1102,10 @@ input.ng-invalid {
   -webkit-transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, max-height cubic-bezier(0, 0.6, 0.85, 1) 0.3s;
   -moz-transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, max-height cubic-bezier(0, 0.6, 0.85, 1) 0.3s;
   transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s, max-height cubic-bezier(0, 0.6, 0.85, 1) 0.3s; }
-  .main-content-list > li.cl > ul li.cl > ul.expand {
-    max-height: 1000px; }
+.main-content-list.expand > li.cl > ul li.cl > ul,
+.main-content-list > li.cl > ul.expand li.cl > ul,
+.main-content-list > li.cl > ul li.cl.expand > ul {
+  max-height: 1000px; }
 
 @keyframes badge {
   0%,
