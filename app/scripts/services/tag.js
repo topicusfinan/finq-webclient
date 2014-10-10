@@ -13,7 +13,7 @@ angular.module('finqApp.service')
         var tags = null;
         var load = function() {
             var deferred = $q.defer();
-            backend.get('/tag/list').success(function(tagData) {
+            backend.get('/tags').success(function(tagData) {
                 tags = tagData;
                 deferred.resolve(tags);
             }).error(function() {

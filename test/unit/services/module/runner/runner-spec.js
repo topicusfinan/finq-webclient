@@ -36,7 +36,7 @@ describe('Unit: RunnerService', function() {
                 reconnectAlertCnt: 3
             }
         });
-        $httpBackend.expectGET('/story/list').respond(200, storyMockData);
+        $httpBackend.expectGET('/books').respond(200, storyMockData);
         config.load();
         story.list();
         $httpBackend.flush();

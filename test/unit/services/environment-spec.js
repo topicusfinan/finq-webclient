@@ -19,7 +19,7 @@ describe('Unit: EnvironmentService', function() {
         environmentService = environment;
         environmentMockData = environmentServiceMock.environments;
         $rootScope = _$rootScope_;
-        $httpBackend.expectGET('/environment/list').respond(200, environmentMockData);
+        $httpBackend.expectGET('/environments').respond(200, environmentMockData);
         environmentService.list().then(function(envData) {
             environments = envData;
         });

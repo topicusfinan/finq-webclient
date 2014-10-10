@@ -13,7 +13,7 @@ angular.module('finqApp.service')
         var sets = null;
         var load = function() {
             var deferred = $q.defer();
-            backend.get('/set/list').success(function(setData) {
+            backend.get('/sets').success(function(setData) {
                 sets = setData;
                 deferred.resolve(sets);
             }).error(function() {

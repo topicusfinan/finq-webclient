@@ -27,7 +27,7 @@ describe('Unit: StorybookSearch initialization', function() {
             address: '',
             maxSearchResults: 1000
         });
-        $httpBackend.expectGET('/app/info').respond(200);
+        $httpBackend.expectGET('/app').respond(200);
         config.load().then(function() {
             storySearchService.initialize(storybooks);
         });
@@ -46,7 +46,7 @@ describe('Unit: StorybookSearch initialization', function() {
         expect(storyIds[0]).to.not.equal(storybookIds[0]);
     });
 
-    it('should return multitple books in case a search is executed that matches multiple books', function () {
+    it('should return multiple books in case a search is executed that matches multiple books', function () {
         var storybookIds = storySearchService.suggest('a');
         expect(storybookIds.length).to.equal(2);
     });

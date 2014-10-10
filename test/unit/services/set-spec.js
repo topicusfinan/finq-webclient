@@ -19,7 +19,7 @@ describe('Unit: SetService initialization', function() {
         setService = set;
         $rootScope = _$rootScope_;
         setMockData = setServiceMock.sets;
-        $httpBackend.expectGET('/set/list').respond(200, setMockData);
+        $httpBackend.expectGET('/sets').respond(200, setMockData);
         setService.list().then(function(setData) {
             sets = setData;
         });
@@ -53,7 +53,7 @@ describe('Unit: SetService initialization with an unstable backend', function() 
     });
     beforeEach(inject(function ($httpBackend, set) {
         setService = set;
-        $httpBackend.expectGET('/set/list').respond(503);
+        $httpBackend.expectGET('/sets').respond(503);
         setService.list().then(null,function(error) {
             feedback = error;
         });

@@ -19,7 +19,7 @@ describe('Unit: TagService initialization', function() {
         tagService = tag;
         $rootScope = _$rootScope_;
         tagMockData = tagServiceMock.tags;
-        $httpBackend.expectGET('/tag/list').respond(200, tagMockData);
+        $httpBackend.expectGET('/tags').respond(200, tagMockData);
         tagService.list().then(function(tagData) {
             tags = tagData;
         });
@@ -53,7 +53,7 @@ describe('Unit: TagService initialization with an unstable backend', function() 
     });
     beforeEach(inject(function ($httpBackend, tag) {
         tagService = tag;
-        $httpBackend.expectGET('/tag/list').respond(503);
+        $httpBackend.expectGET('/tags').respond(503);
         tagService.list().then(null,function(error) {
             feedback = error;
         });

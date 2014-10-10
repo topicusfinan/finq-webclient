@@ -63,7 +63,7 @@ describe('Unit: PreloaderCtrl', function() {
     it('should fail to load in case of missing server configuration', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
-        httpBackend.expectGET('/app/info').respond(503);
+        httpBackend.expectGET('/app').respond(503);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loadError.length).to.be.above(0);
@@ -75,8 +75,8 @@ describe('Unit: PreloaderCtrl', function() {
     it('should fail to load in case a missing environment list', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
-        httpBackend.expectGET('/app/info').respond(200, appService);
-        httpBackend.expectGET('/environment/list').respond(503);
+        httpBackend.expectGET('/app').respond(200, appService);
+        httpBackend.expectGET('/environments').respond(503);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loadError.length).to.be.above(0);
@@ -89,8 +89,8 @@ describe('Unit: PreloaderCtrl', function() {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
         appService.authenticate = true;
-        httpBackend.expectGET('/app/info').respond(200, appService);
-        httpBackend.expectGET('/environment/list').respond(200, environments);
+        httpBackend.expectGET('/app').respond(200, appService);
+        httpBackend.expectGET('/environments').respond(200, environments);
         httpBackend.expectGET('/auth/user').respond(503);
         httpBackend.expectGET('views/intro/intro.html').respond(404);
         httpBackend.expectGET('views/intro/login.html').respond(404);
@@ -105,8 +105,8 @@ describe('Unit: PreloaderCtrl', function() {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
         appService.authenticate = true;
-        httpBackend.expectGET('/app/info').respond(200, appService);
-        httpBackend.expectGET('/environment/list').respond(200, environments);
+        httpBackend.expectGET('/app').respond(200, appService);
+        httpBackend.expectGET('/environments').respond(200, environments);
         httpBackend.expectGET('/auth/user').respond(200, {name: 'test'});
         httpBackend.expectGET('views/layout.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
@@ -121,8 +121,8 @@ describe('Unit: PreloaderCtrl', function() {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
         httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
         appService.authenticate = false;
-        httpBackend.expectGET('/app/info').respond(200, appService);
-        httpBackend.expectGET('/environment/list').respond(200, environments);
+        httpBackend.expectGET('/app').respond(200, appService);
+        httpBackend.expectGET('/environments').respond(200, environments);
         httpBackend.expectGET('views/layout.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();

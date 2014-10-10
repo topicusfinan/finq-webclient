@@ -29,7 +29,7 @@ describe('Unit: FeedbackCtrl', function() {
                 minTimeout: 10
             }
         });
-        $httpBackend.expectGET('/app/info').respond(200);
+        $httpBackend.expectGET('/app').respond(200);
         config.load().then(function() {
             FeedbackCtrl = $controller('FeedbackCtrl', {$scope: scope});
         });

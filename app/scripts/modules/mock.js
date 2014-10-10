@@ -23,12 +23,12 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'storyServiceMock',
     function($httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock) {
 
-        $httpBackend.whenGET('/app/info').respond(appServiceMock.info);
-        $httpBackend.whenGET('/set/list').respond(setServiceMock.sets);
-        $httpBackend.whenGET('/tag/list').respond(tagServiceMock.tags);
-        $httpBackend.whenGET('/environment/list').respond(environmentServiceMock.environments);
-        $httpBackend.whenGET('/story/list').respond(storyServiceMock.books);
-        $httpBackend.whenPOST('/story/run').respond(function(method, url, data) {
+        $httpBackend.whenGET('/app').respond(appServiceMock.info);
+        $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
+        $httpBackend.whenGET('/tags').respond(tagServiceMock.tags);
+        $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
+        $httpBackend.whenGET('/books').respond(storyServiceMock.books);
+        $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             return [200,{
                 id: Math.floor((Math.random() * 10000) + 1),

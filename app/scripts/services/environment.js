@@ -19,7 +19,7 @@ angular.module('finqApp.service')
             var notice = setTimeout(function () {
                 deferred.notify('Loading environments is taking too long');
             },5000);
-            backend.get('/environment/list').success(function(environmentData) {
+            backend.get('/environments').success(function(environmentData) {
                 environments = environmentData;
                 deferred.resolve(environments);
             }).error(function() {

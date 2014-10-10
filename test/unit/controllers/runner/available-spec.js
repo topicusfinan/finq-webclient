@@ -41,9 +41,9 @@ describe('Unit: AvailableCtrl', function() {
                 maxScenarios : 2
             }
         });
-        $httpBackend.expectGET('/app/info').respond(200);
-        $httpBackend.expectGET('/environment/list').respond(200, environments);
-        $httpBackend.expectGET('/story/list').respond(200, storybooks);
+        $httpBackend.expectGET('/app').respond(200);
+        $httpBackend.expectGET('/environments').respond(200, environments);
+        $httpBackend.expectGET('/books').respond(200, storybooks);
         config.load().then(function() {
             environment.load().then(function() {
                 story.list().then(function() {

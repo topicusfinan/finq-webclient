@@ -25,9 +25,9 @@ describe('Unit: AvailableCtrlFilter initialization', function() {
                 maxScenarios : 2
             }
         });
-        $httpBackend.expectGET('/app/info').respond(200);
-        $httpBackend.expectGET('/set/list').respond(200, sets);
-        $httpBackend.expectGET('/tag/list').respond(200, tags);
+        $httpBackend.expectGET('/app').respond(200);
+        $httpBackend.expectGET('/sets').respond(200, sets);
+        $httpBackend.expectGET('/tags').respond(200, tags);
         config.load().then(function() {
             AvailableFilterCtrl = $controller('AvailableFilterCtrl', {$scope: scope});
         });

@@ -23,7 +23,7 @@ angular.module('finqApp.service')
             $http.get('/scripts/config.json').success(function (clientConfig) {
                 configData.client = clientConfig;
                 backend.setServerAddress(clientConfig.address);
-                backend.get('/app/info').success(function (serverConfig) {
+                backend.get('/app').success(function (serverConfig) {
                     configData.server = serverConfig;
                     deferred.resolve(serverConfig);
                 }).error(function() {

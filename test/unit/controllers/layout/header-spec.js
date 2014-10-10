@@ -21,7 +21,7 @@ describe('Unit: HeaderCtrl initialization', function() {
             searchWait: 10,
             address: ''
         });
-        $httpBackend.expectGET('/app/info').respond(200, {
+        $httpBackend.expectGET('/app').respond(200, {
             subject: 'Test'
         });
         configProvider.load().then(function() {

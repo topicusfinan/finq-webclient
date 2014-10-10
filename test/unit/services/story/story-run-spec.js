@@ -26,7 +26,7 @@ describe('Unit: StoryRun service', function() {
     }));
 
     it('should render a succcess message after the successful running of a single story', function () {
-        backend.expectPOST('/story/run').respond(200, {id: 1});
+        backend.expectPOST('/run/stories').respond(200, {id: 1});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
         storyRunService.runStory({story: 1,scenarios: [1]}, 1);
         backend.flush();
@@ -34,8 +34,8 @@ describe('Unit: StoryRun service', function() {
     });
 
     it('should render a success message after the succesful running of multiple stories', function () {
-        backend.expectPOST('/story/run').respond(200, {id: 1});
-        backend.expectPOST('/story/run').respond(200, {id: 2});
+        backend.expectPOST('/run/stories').respond(200, {id: 1});
+        backend.expectPOST('/run/stories').respond(200, {id: 2});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
         storyRunService.runStories([
             {story: 1,scenarios: [1]},
@@ -46,7 +46,7 @@ describe('Unit: StoryRun service', function() {
     });
 
     it('should redirect a multiple story run call to a single story run call in case of a list consisting of one entry', function () {
-        backend.expectPOST('/story/run').respond(200, {id: 1});
+        backend.expectPOST('/run/stories').respond(200, {id: 1});
         var singleSpy = sinon.spy(storyRunService, 'runStory');
         storyRunService.runStories([
             {story: 1,scenarios: [1]}
@@ -56,7 +56,7 @@ describe('Unit: StoryRun service', function() {
     });
 
     it('should respond to a failed attempt to run a story by showing the user feedback', function () {
-        backend.expectPOST('/story/run').respond(503, 'fail to run as expected');
+        backend.expectPOST('/run/stories').respond(503, 'fail to run as expected');
         var feedbackSpy = sinon.spy(feedbackService, 'error');
         storyRunService.runStory({story: 1,scenarios: [1]}, 1);
         backend.flush();
@@ -64,8 +64,8 @@ describe('Unit: StoryRun service', function() {
     });
 
     it('should respond to a failed attempt to run multiple stories by showing the user feedback', function () {
-        backend.expectPOST('/story/run').respond(200, {id: 1});
-        backend.expectPOST('/story/run').respond(503, 'fail to run as expected');
+        backend.expectPOST('/run/stories').respond(200, {id: 1});
+        backend.expectPOST('/run/stories').respond(503, 'fail to run as expected');
         var feedbackErrorSpy = sinon.spy(feedbackService, 'error');
         var feedbackSuccessSpy = sinon.spy(feedbackService, 'success');
         storyRunService.runStories([
@@ -86,8 +86,8 @@ describe('Unit: StoryRun service', function() {
     it('should update the module and section badges after a successfull story run start', function () {
         var sectionBadgeSpy = sinon.spy(moduleService, 'updateSectionBadge');
         var moduleBadgeSpy = sinon.spy(moduleService, 'updateModuleBadge');
-        backend.expectPOST('/story/run').respond(200, {id: 1});
-        backend.expectPOST('/story/run').respond(200, {id: 2});
+        backend.expectPOST('/run/stories').respond(200, {id: 1});
+        backend.expectPOST('/run/stories').respond(200, {id: 2});
         storyRunService.runStories([
             {story: 1,scenarios: [1]},
             {story: 2,scenarios: [2]}

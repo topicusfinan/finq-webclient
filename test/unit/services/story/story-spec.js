@@ -19,7 +19,7 @@ describe('Unit: StoryService', function() {
         storyService = story;
         $rootScope = _$rootScope_;
         storyMockData = storyServiceMock.books;
-        $httpBackend.expectGET('/story/list').respond(200, storyMockData);
+        $httpBackend.expectGET('/books').respond(200, storyMockData);
         storyService.list().then(function(storyData) {
             storybooks = storyData;
         });
@@ -88,7 +88,7 @@ describe('Unit: StoryService initialization with an unstable backend', function(
     });
     beforeEach(inject(function ($httpBackend, story) {
         storyService = story;
-        $httpBackend.expectGET('/story/list').respond(503);
+        $httpBackend.expectGET('/books').respond(503);
         storyService.list().then(null,function(error) {
             feedback = error;
         });

@@ -20,7 +20,7 @@ describe('Unit: LoginCtrl', function() {
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address : ''
         });
-        $httpBackend.expectGET('/app/info').respond(200, {
+        $httpBackend.expectGET('/app').respond(200, {
             subject: 'Test'
         });
         config.load().then(function() {

@@ -24,7 +24,7 @@ describe('Unit: Storybook Search Filter execution', function() {
             address: '',
             maxSearchResults: 1000
         });
-        $httpBackend.expectGET('/app/info').respond(200);
+        $httpBackend.expectGET('/app').respond(200);
         config.load().then(function() {
             storybookSearch.initialize(storybooks);
         });

@@ -75,7 +75,7 @@ angular.module('finqApp.service')
             var notice = $timeout(function () {
                 feedbackService.notice(FEEDBACK.NOTICE.RUN.REQUEST_IS_TAKING_LONG);
             },5000);
-            backend.post('/story/run',{
+            backend.post('/run/stories',{
                 story: story,
                 environment: environment
             }).success(function(runData) {
