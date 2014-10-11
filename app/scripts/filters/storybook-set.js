@@ -20,7 +20,7 @@ angular.module('finqApp.filter')
                 var include = false;
                 angular.forEach(book.stories, function(story) {
                     angular.forEach(story.sets, function(set) {
-                        if (setsToInclude.indexOf(set) > -1) {
+                        if (setsToInclude.indexOf(set.id) > -1) {
                             include = true;
                         }
                     });

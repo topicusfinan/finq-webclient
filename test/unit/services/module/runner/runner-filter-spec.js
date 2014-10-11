@@ -66,7 +66,7 @@ describe('Unit: RunnerFilterService', function() {
 
     it('should be able to filter on tags', function (done) {
         backend.expectGET('/books').respond(200, storyMockData);
-        runnerFilterService.applyFilter([],['additional','basket']).then(function(filteredBooks) {
+        runnerFilterService.applyFilter([],[1,4]).then(function(filteredBooks) {
             expect(filteredBooks.length).to.equal(1);
             expect(filteredBooks[0].stories.length).to.equal(2);
             expect(filteredBooks[0].stories[0].scenarios.length).to.equal(1);
@@ -90,7 +90,7 @@ describe('Unit: RunnerFilterService', function() {
 
     it('should be able to reapply a previous filter', function (done) {
         backend.expectGET('/books').respond(200, storyMockData);
-        runnerFilterService.applyFilter([],['additional','basket']).then(function() {
+        runnerFilterService.applyFilter([],[1,4]).then(function() {
             runnerFilterService.applyFilter().then(function(filteredBooks) {
                 expect(filteredBooks.length).to.equal(1);
                 expect(filteredBooks[0].stories.length).to.equal(2);
@@ -104,7 +104,7 @@ describe('Unit: RunnerFilterService', function() {
 
     it('should be able retrieve filtered stories by book', function (done) {
         backend.expectGET('/books').respond(200, storyMockData);
-        runnerFilterService.applyFilter([],['additional']).then(function() {
+        runnerFilterService.applyFilter([],[1]).then(function() {
             expect(runnerFilterService.getFilteredStoriesByBook(storyMockData[0].id).length).to.equal(1);
             expect(runnerFilterService.getFilteredStoriesByBook(storyMockData[1].id).length).to.equal(0);
             done();
@@ -114,7 +114,7 @@ describe('Unit: RunnerFilterService', function() {
 
     it('should be able retrieve filtered stories by all books', function (done) {
         backend.expectGET('/books').respond(200, storyMockData);
-        runnerFilterService.applyFilter([],['additional','write']).then(function() {
+        runnerFilterService.applyFilter([],[1,5]).then(function() {
             expect(runnerFilterService.getFilteredStoriesByBook(null).length).to.equal(2);
             done();
         });
@@ -123,7 +123,7 @@ describe('Unit: RunnerFilterService', function() {
 
     it('should be able retrieve filtered scenarios by story', function (done) {
         backend.expectGET('/books').respond(200, storyMockData);
-        runnerFilterService.applyFilter([],['additional']).then(function() {
+        runnerFilterService.applyFilter([],[1]).then(function() {
             expect(runnerFilterService.getFilteredScenariosByStory(storyMockData[0].stories[0].id).length).to.equal(1);
             expect(runnerFilterService.getFilteredScenariosByStory(storyMockData[0].stories[1].id).length).to.equal(0);
             done();

@@ -19,12 +19,12 @@ angular.module('finqApp.mock')
                         id: 46421532,
                         title: 'New orders',
                         sets: [
-                            1,
-                            2
+                            {id:1},
+                            {id:2}
                         ],
                         tags: [
-                            'book',
-                            'customer'
+                            {id:2},
+                            {id:3}
                         ],
                         prologue: [
                             {
@@ -78,7 +78,7 @@ angular.module('finqApp.mock')
                                 id: 23452345,
                                 title: 'A customer adds an additional EUR 20 book to their basket',
                                 tags: [
-                                    'additional'
+                                    {id:1}
                                 ],
                                 steps: [
                                     {
@@ -122,13 +122,13 @@ angular.module('finqApp.mock')
                         id: 56421532,
                         title: 'Cancelled orders',
                         sets: [
-                            1
+                            {id:1}
                         ],
                         tags: [
-                            'book',
-                            'customer',
-                            'basket',
-                            'cancel-order'
+                            {id:2},
+                            {id:3},
+                            {id:4},
+                            {id:6}
                         ],
                         prologue: [
                             {
@@ -213,12 +213,12 @@ angular.module('finqApp.mock')
                         id: 66421532,
                         title: 'New stories',
                         sets: [
-                            2
+                            {id:2}
                         ],
                         tags: [
-                            'book',
-                            'customer',
-                            'write'
+                            {id:2},
+                            {id:3},
+                            {id:5}
                         ],
                         prologue: [
                             {

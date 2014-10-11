@@ -62,19 +62,19 @@ describe('Unit: AvailableCtrl', function() {
     it('should respond to an update tag filter request by setting the filter keys', function () {
         var tagEventData = {id: 'tag', keys: [1], keysFull: [1]};
         scope.$emit(EVENTS.SCOPE.FILTER_SELECT_UPDATED,tagEventData);
-        expect(AvailableCtrl.filter.tag.keys).to.deep.equal(tagEventData.keys);
+        expect(AvailableCtrl.filter.tag.ids).to.deep.equal(tagEventData.keys);
     });
 
     it('should respond to an update set filter request by setting the filter keys', function () {
         var setEventData = {id: 'set', keys: [1], keysFull: [1]};
         scope.$emit(EVENTS.SCOPE.FILTER_SELECT_UPDATED,setEventData);
-        expect(AvailableCtrl.filter.set.keys).to.deep.equal(setEventData.keys);
+        expect(AvailableCtrl.filter.set.ids).to.deep.equal(setEventData.keys);
     });
 
     it('should respond to an update environement request by setting the environment keys', function () {
         var envEventData = {id: 'env', keys: [1], keysFull: [1]};
         scope.$emit(EVENTS.SCOPE.FILTER_SELECT_UPDATED,envEventData);
-        expect(AvailableCtrl.filter.env.keys).to.deep.equal(envEventData.keys);
+        expect(AvailableCtrl.filter.env.ids).to.deep.equal(envEventData.keys);
     });
 
     it('should initially not have any more pages than the current page for pagination', function () {
@@ -95,7 +95,7 @@ describe('Unit: AvailableCtrl', function() {
     it('should be able to run a scenario by id in case an environment was selected', function () {
         var scenarioId = storybooks[0].stories[0].scenarios[0].id;
         var runSpy = sinon.spy(storyRunService, 'runStory');
-        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('scenario',scenarioId);
         runSpy.should.have.been.calledWith({
             story: storybooks[0].stories[0].id,
@@ -110,7 +110,7 @@ describe('Unit: AvailableCtrl', function() {
         for (var i=0; i<storybooks[0].stories[0].scenarios.length; i++) {
             scenarioIds.push(storybooks[0].stories[0].scenarios[i].id);
         }
-        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('story',storyId);
         expect(runSpy).to.have.been.calledWith({
             story: storyId,
@@ -132,7 +132,7 @@ describe('Unit: AvailableCtrl', function() {
             }
             stories.push(story);
         }
-        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('book',bookId);
         expect(runSpy).to.have.been.calledWith(stories);
     });
@@ -152,7 +152,7 @@ describe('Unit: AvailableCtrl', function() {
                 stories.push(story);
             }
         }
-        AvailableCtrl.filter.env.keys = [1];
+        AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('all');
         expect(runSpy).to.have.been.calledWith(stories);
     });
@@ -162,13 +162,14 @@ describe('Unit: AvailableCtrl', function() {
         var runSpy = sinon.spy(storyRunService, 'runStory');
         var scenarioIds = [];
         for (var i=0; i<storybooks[0].stories[0].scenarios.length; i++) {
-            if (storybooks[0].stories[0].scenarios[i].tags.indexOf('additional') > -1) {
-                scenarioIds.push(storybooks[0].stories[0].scenarios[i].id);
+            for (var j=0; j<storybooks[0].stories[0].scenarios[i].tags.length; j++) {
+                if (storybooks[0].stories[0].scenarios[i].tags[j].id === 1) {
+                    scenarioIds.push(storybooks[0].stories[0].scenarios[i].id);
+                }
             }
         }
-        AvailableCtrl.filter.env.keys = [1];
-        runnerFilterService.applyFilter([],['additional']);
-
+        AvailableCtrl.filter.env.ids = [1];
+        runnerFilterService.applyFilter([],[1]);
         AvailableCtrl.run('story',storyId);
         expect(runSpy).to.have.been.calledWith({
             story: storyId,
@@ -178,29 +179,12 @@ describe('Unit: AvailableCtrl', function() {
 
     it('should be able to apply tag filters when running by books and all stories', function () {
         var runSpy = sinon.spy(storyRunService, 'runStories');
-        var stories = [];
-        for (var i=0; i<storybooks.length; i++) {
-            for (var j=0; j<storybooks[i].stories.length; j++) {
-                var story = {
-                    story: storybooks[i].stories[j].id,
-                    scenarios: []
-                };
-                var evaluate = true;
-                if (storybooks[i].stories[j].tags.indexOf('write') > -1) {
-                    evaluate = false;
-                }
-                for (var k=0; k<storybooks[i].stories[j].scenarios.length; k++) {
-                    if (!evaluate || storybooks[i].stories[j].scenarios[k].tags.indexOf('additional') > -1) {
-                        story.scenarios.push(storybooks[i].stories[j].scenarios[k].id);
-                    }
-                }
-                if (story.scenarios.length) {
-                    stories.push(story);
-                }
-            }
-        }
-        AvailableCtrl.filter.env.keys = [1];
-        runnerFilterService.applyFilter([],['write','additional']);
+        var stories = [
+            {story: 46421532, scenarios: [23452345]},
+            {story: 66421532, scenarios: [63452343]},
+        ];
+        AvailableCtrl.filter.env.ids = [1];
+        runnerFilterService.applyFilter([],[1,5]);
         AvailableCtrl.run('all');
         expect(runSpy).to.have.been.calledWith(stories);
     });

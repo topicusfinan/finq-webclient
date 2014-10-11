@@ -28,7 +28,7 @@ describe('Unit: Scenario Tag Filter execution', function() {
     });
 
     it('should filter scenarios in case they do not match the filter', function () {
-        var filteredScenarios = scenarioTagFilter(story.scenarios,story.tags,['additional']);
+        var filteredScenarios = scenarioTagFilter(story.scenarios,story.tags,[1]);
         expect(filteredScenarios.length).to.equal(1);
         expect(filteredScenarios[0].title).to.equal(story.scenarios[1].title);
     });

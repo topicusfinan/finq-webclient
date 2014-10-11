@@ -31,9 +31,9 @@ angular.module('finqApp.controller')
         var that = this;
 
         this.filter = {
-            set: {id: 'set', keys: []},
-            tag: {id: 'tag', keys: []},
-            env: {id: 'env', keys: []}
+            set: {id: 'set', ids: []},
+            tag: {id: 'tag', ids: []},
+            env: {id: 'env', ids: []}
         };
         this.storyListRef = 'stories';
         this.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
@@ -45,8 +45,8 @@ angular.module('finqApp.controller')
         $scope.storybooks = runnerFilterService.getFilteredStorybooks;
 
         $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED,function(event,filterInfo) {
-            that.filter[filterInfo.id].keys = filterInfo.keys;
-            runnerFilterService.applyFilter(that.filter.set.keys,that.filter.tag.keys);
+            that.filter[filterInfo.id].ids = filterInfo.keys;
+            runnerFilterService.applyFilter(that.filter.set.ids,that.filter.tag.ids);
         });
 
         $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED,function(event, query){
@@ -57,7 +57,13 @@ angular.module('finqApp.controller')
         moduleService.setCurrentSection(MODULES.RUNNER.sections.AVAILABLE);
 
         environmentService.list().then(function (environments) {
-            that.environments = environments;
+            that.environments = [];
+            angular.forEach(environments, function(environment) {
+                that.environments.push({
+                    key: environment.id,
+                    value: environment.value
+                });
+            });
         });
 
         this.expander = new StoryExpandCollapse('#story-list');
@@ -85,10 +91,10 @@ angular.module('finqApp.controller')
                         scenarios: runScenarios
                     });
                 }
-                storyRunService.runStories(runStories,that.filter.env.keys[0]);
+                storyRunService.runStories(runStories,that.filter.env.ids[0]);
             };
 
-            if (!that.filter.env.keys.length) {
+            if (!that.filter.env.ids.length) {
                 feedbackService.error(FEEDBACK.ERROR.RUN.NO_ENVIRONMENT_SELECTED);
             } else {
                 switch (type) {
@@ -97,7 +103,7 @@ angular.module('finqApp.controller')
                         storyRunService.runStory({
                             story: story.id,
                             scenarios: [id]
-                        },that.filter.env.keys[0]);
+                        },that.filter.env.ids[0]);
                         break;
                     case 'story':
                         scenarios = runnerFilterService.getFilteredScenariosByStory(id);
@@ -108,7 +114,7 @@ angular.module('finqApp.controller')
                         storyRunService.runStory({
                             story: id,
                             scenarios: runScenarios
-                        },that.filter.env.keys[0]);
+                        },that.filter.env.ids[0]);
                         break;
                     case 'book':
                         runByBook(id);

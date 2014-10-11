@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Unit: AvailableCtrlFilter initialization', function() {
+describe('Unit: AvailableCtrlFilter', function() {
 
     var AvailableFilterCtrl,
         scope,
@@ -35,11 +35,21 @@ describe('Unit: AvailableCtrlFilter initialization', function() {
     }));
 
     it('should load a list of sets to populate the set filter', function () {
-        expect(AvailableFilterCtrl.sets).to.deep.equal(sets);
+        expect(AvailableFilterCtrl.sets).to.deep.equal([
+            {key: sets[0].id, value: sets[0].value},
+            {key: sets[1].id, value: sets[1].value}
+        ]);
     });
 
     it('should load a list of tags to populate the tag filter', function () {
-        expect(AvailableFilterCtrl.tags).to.deep.equal(tags);
+        expect(AvailableFilterCtrl.tags).to.deep.equal([
+            {key: tags[0].id, value: tags[0].value},
+            {key: tags[1].id, value: tags[1].value},
+            {key: tags[2].id, value: tags[2].value},
+            {key: tags[3].id, value: tags[3].value},
+            {key: tags[4].id, value: tags[4].value},
+            {key: tags[5].id, value: tags[5].value},
+        ]);
     });
 
     it('should set the filter to fully loaded', function () {

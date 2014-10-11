@@ -21,7 +21,7 @@ angular.module('finqApp.filter')
                 var include = false;
                 for (j=0; j<books[i].stories.length; j++) {
                     for (k=0; k<books[i].stories[j].tags.length; k++) {
-                        if (tagsToInclude.indexOf(books[i].stories[j].tags[k]) > -1) {
+                        if (tagsToInclude.indexOf(books[i].stories[j].tags[k].id) > -1) {
                             include = true;
                             break;
                         }
@@ -29,7 +29,7 @@ angular.module('finqApp.filter')
                     if (!include) {
                         for (k=0; k<books[i].stories[j].scenarios.length; k++) {
                             for (l=0; l<books[i].stories[j].scenarios[k].tags.length; l++) {
-                                if (tagsToInclude.indexOf(books[i].stories[j].scenarios[k].tags[l]) > -1) {
+                                if (tagsToInclude.indexOf(books[i].stories[j].scenarios[k].tags[l].id) > -1) {
                                     include = true;
                                     break;
                                 }

@@ -18,13 +18,13 @@ angular.module('finqApp.filter')
                 return scenarios;
             }
             for (i=0; i<storyTags.length; i++) {
-                if (tagsToInclude.indexOf(storyTags[i]) > -1) {
+                if (tagsToInclude.indexOf(storyTags[i].id) > -1) {
                     return scenarios;
                 }
             }
             for (i=0; i<scenarios.length; i++) {
                 for (j=0; j<scenarios[i].tags.length; j++) {
-                    if (tagsToInclude.indexOf(scenarios[i].tags[j]) > -1) {
+                    if (tagsToInclude.indexOf(scenarios[i].tags[j].id) > -1) {
                         filteredScenarios.push(scenarios[i]);
                         break;
                     }

@@ -32,12 +32,24 @@ angular.module('finqApp.controller')
             };
 
             setService.list().then(function (sets) {
-                that.sets = sets;
+                that.sets = [];
+                angular.forEach(sets, function(set) {
+                    that.sets.push({
+                        key: set.id,
+                        value: set.value
+                    });
+                });
                 evalLoaded();
             });
 
             tagService.list().then(function (tags) {
-                that.tags = tags;
+                that.tags = [];
+                angular.forEach(tags, function(tag) {
+                    that.tags.push({
+                        key: tag.id,
+                        value: tag.value
+                    });
+                });
                 evalLoaded();
             });
 
