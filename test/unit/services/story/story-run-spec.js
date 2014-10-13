@@ -35,7 +35,6 @@ describe('Unit: StoryRun service', function() {
 
     it('should render a success message after the succesful running of multiple stories', function () {
         backend.expectPOST('/run/stories').respond(200, {id: 1});
-        backend.expectPOST('/run/stories').respond(200, {id: 2});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
         storyRunService.runStories([
             {story: 1,scenarios: [1]},
@@ -43,16 +42,6 @@ describe('Unit: StoryRun service', function() {
         ], 1);
         backend.flush();
         feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{count: 2, environment: null});
-    });
-
-    it('should redirect a multiple story run call to a single story run call in case of a list consisting of one entry', function () {
-        backend.expectPOST('/run/stories').respond(200, {id: 1});
-        var singleSpy = sinon.spy(storyRunService, 'runStory');
-        storyRunService.runStories([
-            {story: 1,scenarios: [1]}
-        ], 1);
-        backend.flush();
-        singleSpy.should.have.been.calledWith({story: 1,scenarios: [1]}, 1);
     });
 
     it('should respond to a failed attempt to run a story by showing the user feedback', function () {
@@ -64,17 +53,14 @@ describe('Unit: StoryRun service', function() {
     });
 
     it('should respond to a failed attempt to run multiple stories by showing the user feedback', function () {
-        backend.expectPOST('/run/stories').respond(200, {id: 1});
         backend.expectPOST('/run/stories').respond(503, 'fail to run as expected');
         var feedbackErrorSpy = sinon.spy(feedbackService, 'error');
-        var feedbackSuccessSpy = sinon.spy(feedbackService, 'success');
         storyRunService.runStories([
             {story: 1,scenarios: [1]},
             {story: 2,scenarios: [2]}
         ], 1);
         backend.flush();
         feedbackErrorSpy.should.have.been.calledWith(FEEDBACK.ERROR.RUN.REQUEST_FAILED);
-        feedbackSuccessSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST, {environment: null});
     });
 
     it('should not attempt to run an empty story set, but instead show an alert', function () {
@@ -87,13 +73,12 @@ describe('Unit: StoryRun service', function() {
         var sectionBadgeSpy = sinon.spy(moduleService, 'updateSectionBadge');
         var moduleBadgeSpy = sinon.spy(moduleService, 'updateModuleBadge');
         backend.expectPOST('/run/stories').respond(200, {id: 1});
-        backend.expectPOST('/run/stories').respond(200, {id: 2});
         storyRunService.runStories([
             {story: 1,scenarios: [1]},
             {story: 2,scenarios: [2]}
         ], 1);
         backend.flush();
-        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,2);
+        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,1);
         moduleBadgeSpy.should.have.been.calledWith(MODULES.RUNNER,1);
     });
 

@@ -10,7 +10,7 @@
  * authenticated user.
  */
 angular.module('finqApp.service')
-    .service('authenticate', ['$http','$q','config', function ($http,$q,configProvider) {
+    .service('authenticate', ['$http','$q', function ($http,$q) {
         var currentUser = null;
         var token = null;
         var address = '';

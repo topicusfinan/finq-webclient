@@ -19,7 +19,7 @@ angular.module('finqApp.service')
         function (moduleService,MODULES,EVENTS,storyService,subscriptionService) {
         var that = this,
             updateListener = null,
-            runningStories = [];
+            runningSessions = [];
 
         this.handle = function(event,eventData) {
             switch (event) {
@@ -34,32 +34,38 @@ angular.module('finqApp.service')
         };
 
         this.getRunningStories = function() {
-            return runningStories;
+            return runningSessions;
         };
 
         var handleRunUpdate = function(runData) {
-            for (var i=0; i<runningStories.length; i++) {
-                if (runningStories[i].run === runData.id) {
-                    runningStories[i].progress = runData.progress;
+            for (var i=0; i<runningSessions.length; i++) {
+                if (runningSessions[i].run === runData.id) {
+                    runningSessions[i].progress = runData.progress;
                     break;
                 }
             }
         };
 
         var handleStoryRunStarted = function(runData) {
-            var progress = [];
-            angular.forEach(runData.story.scenarios, function(scenario) {
-                progress.push({
-                    scenario: scenario,
-                    currentStep: null,
-                    status: undefined,
-                    message: undefined
+            var runProgress = [];
+            angular.forEach(runData.stories, function(storyRun) {
+                var storyProgress = {
+                    storyId: storyRun.story,
+                    scenarios: []
+                };
+                angular.forEach(storyRun.scenarios, function(scenario) {
+                    storyProgress.scenarios.push({
+                        scenarioId: scenario,
+                        currentStep: null,
+                        status: undefined,
+                        message: undefined
+                    });
                 });
+                runProgress.push(storyProgress);
             });
-            runningStories.push({
+            runningSessions.push({
                 run: runData.reference,
-                story: runData.story,
-                progress: progress,
+                progress: runProgress,
                 startedOn: runData.startedOn,
                 environment: runData.environment,
                 startedBy: runData.startedBy
