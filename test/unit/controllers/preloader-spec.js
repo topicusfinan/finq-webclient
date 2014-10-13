@@ -62,7 +62,7 @@ describe('Unit: PreloaderCtrl', function() {
 
     it('should fail to load in case of missing server configuration', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
-        httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
+        httpBackend.expectGET('/scripts/config.json').respond(200, {address : '', authAddress: ''});
         httpBackend.expectGET('/app').respond(503);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
@@ -74,7 +74,7 @@ describe('Unit: PreloaderCtrl', function() {
 
     it('should fail to load in case a missing environment list', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
-        httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
+        httpBackend.expectGET('/scripts/config.json').respond(200, {address : '', authAddress: ''});
         httpBackend.expectGET('/app').respond(200, appService);
         httpBackend.expectGET('/environments').respond(503);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
@@ -87,7 +87,7 @@ describe('Unit: PreloaderCtrl', function() {
 
     it('should succeed in loading if all data is retrieved properly but go to login if authorization fails', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
-        httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
+        httpBackend.expectGET('/scripts/config.json').respond(200, {address : '', authAddress: ''});
         appService.authenticate = true;
         httpBackend.expectGET('/app').respond(200, appService);
         httpBackend.expectGET('/environments').respond(200, environments);
@@ -103,7 +103,7 @@ describe('Unit: PreloaderCtrl', function() {
 
     it('should succeed in loading if all data is retrieved properly and skip login if authorization succeeds', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
-        httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
+        httpBackend.expectGET('/scripts/config.json').respond(200, {address : '', authAddress: ''});
         appService.authenticate = true;
         httpBackend.expectGET('/app').respond(200, appService);
         httpBackend.expectGET('/environments').respond(200, environments);
@@ -119,7 +119,7 @@ describe('Unit: PreloaderCtrl', function() {
 
     it('should support skipping of authentication', function () {
         httpBackend.expectGET('/lang/en.json').respond(200, langData);
-        httpBackend.expectGET('/scripts/config.json').respond(200, {address : ''});
+        httpBackend.expectGET('/scripts/config.json').respond(200, {address : '', authAddress: ''});
         appService.authenticate = false;
         httpBackend.expectGET('/app').respond(200, appService);
         httpBackend.expectGET('/environments').respond(200, environments);

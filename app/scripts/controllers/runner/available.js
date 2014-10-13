@@ -43,6 +43,7 @@ angular.module('finqApp.controller')
         this.currentPage = 0;
 
         $scope.storybooks = runnerFilterService.getFilteredStorybooks;
+        $scope.initialized = runnerFilterService.initialized;
 
         $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED,function(event,filterInfo) {
             that.filter[filterInfo.id].ids = filterInfo.keys;
@@ -61,7 +62,7 @@ angular.module('finqApp.controller')
             angular.forEach(environments, function(environment) {
                 that.environments.push({
                     key: environment.id,
-                    value: environment.value
+                    value: environment.name
                 });
             });
         });

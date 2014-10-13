@@ -35,7 +35,7 @@
         </div>
         <ul>
             <li class="ic cl" ng-repeat="story in book.stories track by story.id">
-                <div ng-class="{'active':available.selectedItem === 'story'+story.id}" data-toggle="story">
+                <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.selectedItem = 'story'+story.id" data-toggle="story">
                     <div class="title">
                         <i class="fa"></i>
                         <span>{{ story.title }}</span>
@@ -70,5 +70,5 @@
         </ul>
     </li>
 </ul>
-<h1 class="hero-notice" translate="RUNNER.AVAILABLE.NO_STORIES" ng-show="filteredBooks.length === 0"></h1>
+<h1 class="hero-notice" translate="RUNNER.AVAILABLE.NO_STORIES" ng-show="filteredBooks.length === 0 && initialized"></h1>
 <div pagination class="pagination appear-delayed" has-next="available.hasMorePages()" current-page="available.currentPage" list-ref="available.storyListRef" />

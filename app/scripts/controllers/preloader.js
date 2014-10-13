@@ -56,6 +56,7 @@ angular.module('finqApp.controller')
             console.debug(serverConfigData.title+' application configuration loaded');
             $scope.$emit(EVENTS.SCOPE.CONFIG_LOADED,serverConfigData);
             loadEnvironments();
+            authenticateService.setAddress(configProvider.client().authAddress);
             authorize(serverConfigData.authenticate);
         },function(error) {
             that.loadError = error;

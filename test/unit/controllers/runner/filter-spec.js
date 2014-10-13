@@ -36,8 +36,8 @@ describe('Unit: AvailableCtrlFilter', function() {
 
     it('should load a list of sets to populate the set filter', function () {
         expect(AvailableFilterCtrl.sets).to.deep.equal([
-            {key: sets[0].id, value: sets[0].value},
-            {key: sets[1].id, value: sets[1].value}
+            {key: sets[0].id, value: sets[0].name},
+            {key: sets[1].id, value: sets[1].name}
         ]);
     });
 

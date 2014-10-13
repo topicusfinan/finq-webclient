@@ -25,13 +25,14 @@ angular.module('finqApp.service')
             storyTagFilter = $filter('storyTagFilter'),
             scenarioTagFilter = $filter('scenarioTagFilter'),
             unfilteredBooks = [],
-            initialized = false,
+            initializing = false,
             filteredBooks = [],
             lastFilter = {
                 sets: [],
                 tags: []
             };
 
+        this.initialized = false;
         this.initialize = function() {
             var deferred = $q.defer();
             storyService.list().then(function(bookList) {
@@ -39,8 +40,10 @@ angular.module('finqApp.service')
                 storybookSearchService.initialize(bookList);
                 that.applyFilter();
                 deferred.resolve();
+                initializing = false;
+                that.initialized = true;
             });
-            initialized = true;
+            initializing = true;
             return deferred.promise;
         };
 
@@ -52,7 +55,7 @@ angular.module('finqApp.service')
                 lastFilter.sets = sets;
                 lastFilter.tags = tags;
             }
-            if (!initialized) {
+            if (!that.initialized && !initializing) {
                 var deferred = $q.defer();
                 that.initialize().then(function() {
                     deferred.resolve(filteredBooks);
@@ -101,7 +104,7 @@ angular.module('finqApp.service')
         };
 
         this.getFilteredStorybooks = function() {
-            if (!initialized) {
+            if (!that.initialized && !initializing) {
                 that.initialize();
                 return [];
             }

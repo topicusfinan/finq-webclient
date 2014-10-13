@@ -36,7 +36,7 @@ angular.module('finqApp.controller')
                 angular.forEach(sets, function(set) {
                     that.sets.push({
                         key: set.id,
-                        value: set.value
+                        value: set.name
                     });
                 });
                 evalLoaded();

@@ -1,5 +1,6 @@
 {
     "address" : "",
+    "authAddress" : "",
     "socket": {
         "endpoint": "",
         "reconnectionAttempts": 10,

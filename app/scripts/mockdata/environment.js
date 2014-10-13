@@ -13,17 +13,17 @@ angular.module('finqApp.mock')
         environments: [
             {
                 id : 1,
-                value : 'Chuck Norris',
+                name : 'Chuck Norris',
                 address : ''
             },
             {
                 id : 2,
-                value : 'Steven Seagal',
+                name : 'Steven Seagal',
                 address : ''
             },
             {
                 id : 3,
-                value : 'Jason Statham',
+                name : 'Jason Statham',
                 address : ''
             }
         ]
