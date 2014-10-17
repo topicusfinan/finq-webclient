@@ -12,7 +12,7 @@
     "searchWait": 250,
     "maxSearchResults": 1000,
     "pagination": {
-        "maxScenarios": 1000,
+        "maxScenarios": 80,
         "maxSelectDropdownItems": 4
     },
     "feedback": {

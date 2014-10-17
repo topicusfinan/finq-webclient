@@ -2,9 +2,13 @@
 .main-content-list li.cl > div {
     position: relative;
 
+    > .comments,
     > .actions {
         position: absolute;
         right: $section-list-side-padding;
+    }
+
+    > .actions {
         opacity: 0;
         width: 0;
         overflow: hidden;
@@ -34,6 +38,10 @@
             opacity: 1;
             width: auto;
             overflow: visible;
+        }
+
+        .comments > span {
+            color: $highlight-color;
         }
     }
 

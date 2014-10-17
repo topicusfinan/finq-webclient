@@ -5,15 +5,17 @@
         <div class="select" filter-select="filter.environments" filter-id="running.filter.env.id" placeholder="filter.envPlaceholder" max-items="{{running.maxSelectItems}}"></div>
     </div>
 </div>
-<ul class="main-content-list ng-hide filter-1">
+<ul class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs() track by run.id">
         <div ng-class="{'active':running.selectedItem === 'run'+run.id}" ng-click="running.selectedItem = 'run'+run.id">
             <div class="title">
-                <i class="fa fa-bars" data-toggle="collection"></i>
-                <span>{{ run.title }}</span>
+                <div class="radial-progress" progress="run.progressPercentage"></div>
+                <span class="separate" btf-markdown="run.title"></span>
             </div>
             <div class="comments">
-                <span>{{ run.startMsg }}</span>
+                <span btf-markdown="run.startTimeMsg"></span>
+                <span btf-markdown="run.startedByMsg"></span>
+                <span btf-markdown="run.startedOnMsg"></span>
             </div>
         </div>
     </li>

@@ -20,7 +20,9 @@ angular.module('finqApp.controller')
         'MODULES',
         'config',
         'runner',
-        function ($scope,$timeout,$translate,moduleService,EVENTS,MODULES,configProvider,runnerService) {
+        'environment',
+        'utils',
+        function ($scope,$timeout,$translate,moduleService,EVENTS,MODULES,configProvider,runnerService,environmentService,utils) {
         var that = this;
 
         this.selectedItem = null;
@@ -38,25 +40,31 @@ angular.module('finqApp.controller')
         moduleService.setCurrentSection(MODULES.RUNNER.sections.RUNNING);
 
         var updateRunProgress = function() {
-            var currentTime = new Date();
-            angular.foreach($scope.runs, function(run) {
-                var template,
-                    timeDelta = parseInt((currentTime.getTime() - run.startedOn.getTime()) / 1000);
-                if (timeDelta < 60) {
-                    template = 'RUNNER.RUNNING.RUN.START_TIME.SECONDS';
-                } else if (timeDelta < 3600) {
-                    template = 'RUNNER.RUNNING.RUN.START_TIME.MINUTES';
-                    timeDelta = parseInt(timeDelta / 60);
-                } else {
-                    template = 'RUNNER.RUNNING.RUN.START_TIME.HOURS';
-                    timeDelta = parseInt(timeDelta / 3600);
-                }
-                $translate(template,{
-                    delta: timeDelta
-                }).then(function (translatedValue) {
-                    run.startMsg = translatedValue;
+            var runs = runnerService.getRunningSessions();
+            if (runs.length) {
+                var currentTime = new Date();
+                angular.forEach(runs, function(run) {
+                    var timeDelta = parseInt((currentTime.getTime() - run.startedOn.getTime()) / 1000);
+
+                    var pluralized = utils.pluralize('RUNNER.RUNNING.RUN.START_TIME', [
+                        {actionValue: 1, target: 'SECONDS'},
+                        {actionValue: 60, target: 'MINUTES'},
+                        {actionValue: 3600, target: 'HOURS'}
+                    ], timeDelta);
+
+                    $translate(pluralized.template,{delta: pluralized.value, id: run.id}).then(function (translatedValue) {
+                        run.startTimeMsg = translatedValue;
+                    });
+                    $translate('RUNNER.RUNNING.RUN.STARTED_BY',{name: run.startedBy.first}).then(function (translatedValue) {
+                        run.startedByMsg = translatedValue;
+                    });
+                    $translate('RUNNER.RUNNING.RUN.RUNNING_ON',{environment: environmentService.getNameById(run.environment)}).then(function (translatedValue) {
+                        run.startedOnMsg = translatedValue;
+                    });
+
+                    run.progressPercentage = 20;
                 });
-            });
+            }
             $timeout(updateRunProgress, configProvider.client().run.updateInterval);
         };
 

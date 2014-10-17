@@ -40,7 +40,7 @@ angular.module('finqApp.service')
 
         var handleRunUpdate = function(runData) {
             for (var i=0; i<runningSessions.length; i++) {
-                if (runningSessions[i].run === runData.id) {
+                if (runningSessions[i].id === runData.id) {
                     runningSessions[i].progress = runData.progress;
                     break;
                 }
@@ -50,7 +50,7 @@ angular.module('finqApp.service')
         var handleRunStarted = function(runData) {
             var largestStoryScenarioCount = 0;
             var runningSession = {
-                run: runData.reference,
+                id: runData.reference,
                 startedOn: runData.startedOn,
                 environment: runData.environment,
                 startedBy: runData.startedBy,
@@ -95,7 +95,7 @@ angular.module('finqApp.service')
             runningSession.title = runningSession.progress[runningSession.largestStoryIndex].title;
             if (runningSession.progress.length > 1) {
                 $translate('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND',{
-                    storyCount: runningSession.progress.length
+                    storyCount: runningSession.progress.length-1
                 }).then(function (translatedValue) {
                     runningSession.title += translatedValue;
                 });

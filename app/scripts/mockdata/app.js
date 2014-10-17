@@ -13,6 +13,6 @@ angular.module('finqApp.mock')
         info: {
             title : 'Finq',
             subject : 'Book store',
-            authenticate: false
+            authenticate: true
         }
     });

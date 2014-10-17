@@ -22,14 +22,14 @@
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">
                 <i class="fa fa-bars" data-toggle="collection"></i>
-                <span>{{ book.title }}</span>
+                <span class="separate">{{ book.title }}</span>
             </div>
             <div class="actions">
                 <button ng-click="available.run('book',book.id)">
                     <i class="fa fa-play"></i>
                     <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                 </button>
-                <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
+                <span class="separate" translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
                 <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
             </div>
         </div>
@@ -38,14 +38,14 @@
                 <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.selectedItem = 'story'+story.id" data-toggle="story">
                     <div class="title">
                         <i class="fa"></i>
-                        <span>{{ story.title }}</span>
+                        <span class="separate">{{ story.title }}</span>
                     </div>
                     <div class="actions">
                         <button ng-click="available.run('story',story.id)">
                             <i class="fa fa-play"></i>
                             <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                         </button>
-                        <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
+                        <span class="separate" translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
                         <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
                     </div>
                 </div>
@@ -53,14 +53,14 @@
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
                         <div ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
                             <div class="title">
-                                <span>{{ scenario.title }}</span>
+                                <span class="separate">{{ scenario.title }}</span>
                             </div>
                             <div class="actions">
                                 <button ng-click="available.run('scenario',scenario.id)">
                                     <i class="fa fa-play"></i>
                                     <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                                 </button>
-                                <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
+                                <span class="separate" translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
                                 <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
                             </div>
                         </div>

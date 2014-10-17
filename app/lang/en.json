@@ -81,13 +81,22 @@
             "NO_RUNS" : "There are no stories running that match your filter",
             "RUN" : {
                 "START_TIME": {
-                    "SECONDS": "started {{delta}} seconds ago",
-                    "MINUTES": "started {{delta}} minutes ago",
-                    "MINUTES": "started {{delta}} hours ago"
+                    "SECONDS": {
+                        "SINGULAR": "run *#{{id}}* started **{{delta}} second** ago",
+                        "PLURAL": "run *#{{id}}* started **{{delta}} seconds** ago"
+                    },
+                    "MINUTES": {
+                        "SINGULAR": "run *#{{id}}* started **{{delta}} minute** ago",
+                        "PLURAL": "run *#{{id}}* started **{{delta}} minutes** ago"
+                    },
+                    "HOURS": {
+                        "SINGULAR": "run *#{{id}}* started **{{delta}} hour** ago",
+                        "PLURAL": "run *#{{id}}* started **{{delta}} hours** ago"
+                    }
                 },
-                "STARTED_BY": "by {{name}}",
-                "RUNNING_ON": "on {{environment}}",
-                "MULTIPLE_STORIES_APPEND": " a.o. ({{storyCount}} stories)"
+                "STARTED_BY": "by **{{name}}**",
+                "RUNNING_ON": "on **{{environment}}**",
+                "MULTIPLE_STORIES_APPEND": " (and **{{storyCount}}** other stories)"
             }
         },
         "DEBUGGING" : {

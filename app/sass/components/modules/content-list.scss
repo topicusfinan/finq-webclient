@@ -47,11 +47,9 @@
     }
 
     li.cl > div {
-
-
-
         > i,
-        > div.title > i {
+        > div.title > i,
+        > div.title > .radial-progress {
             position: absolute;
         }
     }
@@ -69,6 +67,16 @@
             &.active,
             &:hover {
                 background: $base-accent-color;
+
+                > div.title > .radial-progress {
+                    .circle .mask .fill {
+                        background: $highlight-color;
+                    }
+
+                    .inset {
+                        background: $base-accent-color;
+                    }
+                }
             }
 
             button,
@@ -82,13 +90,22 @@
             }
 
             > div > span {
-                margin: 0 $filter-button-padding / 2;
+                margin: 0 $filter-button-padding / 4;
+
+                &.separate {
+                    margin: 0 $filter-button-padding / 2;
+                }
             }
 
-            > div.title > i {
+            > div.title > i,
+            > div.title > .radial-progress {
                 left: $section-list-icon-left * $content-list-item-1-icon-left;
                 top: $content-list-item-1-icon-top;
                 font-size: $content-list-item-1-icon-size;
+            }
+
+            > div.title > .radial-progress {
+                @include radial-progress(1em, .5em, darken($content-list-item-1-bg-color, 8%), $base-accent-color, $content-list-item-1-bg-color);
             }
 
             > div.title > span,
@@ -96,6 +113,17 @@
                 font-size: $content-list-item-1-font-size;
                 line-height: $content-list-item-1-font-size;
                 padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4) 0;
+            }
+
+            > div.comments > span {
+                font-size: $content-list-item-1-com-font-size;
+                line-height: $content-list-item-1-com-font-size;
+                padding: (($content-list-item-1-height - $content-list-item-1-com-font-size) / 2) 0;
+                color: $content-list-item-1-com-color;
+            }
+
+            p {
+                margin: 0;
             }
         }
 
