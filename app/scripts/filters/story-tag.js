@@ -6,8 +6,8 @@
  * @description
  * # Story tag filter
  *
- * Allows the filtering of stories by supplying the a certain tag. Only the stories in that are linked to the supplied
- * tag will be in the result.
+ * Allows the filtering of stories by supplying a list of tags. Only the stories in that are linked to the supplied
+ * tags will be in the result.
  */
 angular.module('finqApp.filter')
     .filter('storyTagFilter', function() {

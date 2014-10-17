@@ -35,9 +35,9 @@ angular.module('finqApp.service')
         this.initialized = false;
         this.initialize = function() {
             var deferred = $q.defer();
-            storyService.list().then(function(bookList) {
-                unfilteredBooks = bookList;
-                storybookSearchService.initialize(bookList);
+            storyService.list().then(function(storybooks) {
+                unfilteredBooks = storybooks;
+                storybookSearchService.initialize(storybooks);
                 that.applyFilter();
                 deferred.resolve();
                 initializing = false;

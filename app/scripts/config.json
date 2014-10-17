@@ -1,6 +1,6 @@
 {
-    "address" : "",
-    "authAddress" : "",
+    "address": "",
+    "authAddress": "",
     "socket": {
         "endpoint": "",
         "reconnectionAttempts": 10,
@@ -15,10 +15,13 @@
         "maxScenarios": 1000,
         "maxSelectDropdownItems": 4
     },
-    "feedback" : {
+    "feedback": {
         "replaceTime": 150,
         "cleanTimeout": 5000,
         "queueTimeout": 2000,
         "minTimeout": 1000
+    },
+    "run": {
+        "updateInterval": 1000
     }
 }

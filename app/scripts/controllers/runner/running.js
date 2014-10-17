@@ -14,12 +14,13 @@ angular.module('finqApp.controller')
     .controller('RunningCtrl', [
         '$scope',
         '$timeout',
+        '$translate',
         'module',
         'EVENTS',
         'MODULES',
         'config',
         'runner',
-        function ($scope,$timeout,moduleService,EVENTS,MODULES,configProvider,runnerService) {
+        function ($scope,$timeout,$translate,moduleService,EVENTS,MODULES,configProvider,runnerService) {
         var that = this;
 
         this.selectedItem = null;
@@ -32,8 +33,33 @@ angular.module('finqApp.controller')
             that.filter[filterInfo.id].keys = filterInfo.keys;
         });
 
-        $scope.runs = runnerService.getRunningStories;
+        $scope.runs = runnerService.getRunningSessions;
 
         moduleService.setCurrentSection(MODULES.RUNNER.sections.RUNNING);
+
+        var updateRunProgress = function() {
+            var currentTime = new Date();
+            angular.foreach($scope.runs, function(run) {
+                var template,
+                    timeDelta = parseInt((currentTime.getTime() - run.startedOn.getTime()) / 1000);
+                if (timeDelta < 60) {
+                    template = 'RUNNER.RUNNING.RUN.START_TIME.SECONDS';
+                } else if (timeDelta < 3600) {
+                    template = 'RUNNER.RUNNING.RUN.START_TIME.MINUTES';
+                    timeDelta = parseInt(timeDelta / 60);
+                } else {
+                    template = 'RUNNER.RUNNING.RUN.START_TIME.HOURS';
+                    timeDelta = parseInt(timeDelta / 3600);
+                }
+                $translate(template,{
+                    delta: timeDelta
+                }).then(function (translatedValue) {
+                    run.startMsg = translatedValue;
+                });
+            });
+            $timeout(updateRunProgress, configProvider.client().run.updateInterval);
+        };
+
+        updateRunProgress();
 
     }]);

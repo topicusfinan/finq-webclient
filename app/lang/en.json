@@ -78,7 +78,17 @@
             "FILTER" : {
                 "BEFORE_ENVIRONMENT": "Stories started on"
             },
-            "NO_RUNS" : "There are no stories running that match your filter"
+            "NO_RUNS" : "There are no stories running that match your filter",
+            "RUN" : {
+                "START_TIME": {
+                    "SECONDS": "started {{delta}} seconds ago",
+                    "MINUTES": "started {{delta}} minutes ago",
+                    "MINUTES": "started {{delta}} hours ago"
+                },
+                "STARTED_BY": "by {{name}}",
+                "RUNNING_ON": "on {{environment}}",
+                "MULTIPLE_STORIES_APPEND": " a.o. ({{storyCount}} stories)"
+            }
         },
         "DEBUGGING" : {
             "TITLE" : "Debugging"

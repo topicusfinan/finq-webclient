@@ -6,8 +6,8 @@
  * @description
  * # Storybook tag filter
  *
- * Allows the filtering of story books by supplying the a certain tag. Only books with stories that are linked
- * to the supplied tag will remain.
+ * Allows the filtering of story books by supplying a list of tags. Only books with stories that are linked
+ * to the supplied tags will remain.
  */
 angular.module('finqApp.filter')
     .filter('storybookTagFilter', function() {

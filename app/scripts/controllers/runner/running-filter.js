@@ -15,7 +15,13 @@ angular.module('finqApp.controller')
         that.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
 
         environmentService.list().then(function (environments) {
-            that.environments = environments;
+            that.environments = [];
+            angular.forEach(environments, function(environment) {
+                that.environments.push({
+                    key: environment.id,
+                    value: environment.name
+                });
+            });
         });
 
     }]);

@@ -46,9 +46,10 @@ describe('Unit: RunnerService', function() {
         var subscribeSpy = sinon.spy(subscriptionService, 'subscribe');
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             reference: 1,
-            story: {
-                scenarios: [1,2]
-            }
+            stories: [{
+                story: 46421532,
+                scenarios: [23452343,23452345]
+            }]
         });
         subscribeSpy.should.have.been.called.once;
     });
@@ -56,9 +57,10 @@ describe('Unit: RunnerService', function() {
     it('should handle a progress update for a run that is subscribed to', function () {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
-            story: {
-                scenarios: [1,2]
-            }
+            stories: [{
+                story: 46421532,
+                scenarios: [23452343,23452345]
+            }]
         });
         runnerService.handle(EVENTS.INTERNAL.RUN_STATUS_UPDATED, {
             id: 1,

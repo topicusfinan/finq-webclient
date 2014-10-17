@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storyTagFilter
+ * @name finqApp.filter:scenarioTagFilter
  * @description
- * # Story tag filter
+ * # Scenario tag filter
  *
- * Allows the filtering of stories by supplying the a certain tag. Only the stories in that are linked to the supplied
- * tag will be in the result.
+ * Allows the filtering of scenarios by supplying a list of tags. Only the scenarios in that are linked to
+ * the supplied tags, or which are part of a story that is linked to one of the tags, will be in the result.
  */
 angular.module('finqApp.filter')
     .filter('scenarioTagFilter', function() {

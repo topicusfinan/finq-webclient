@@ -11,12 +11,13 @@
  */
 angular.module('finqApp.service')
     .service('runner', [
+        '$translate',
         'module',
         'MODULES',
         'EVENTS',
         'story',
         'subscription',
-        function (moduleService,MODULES,EVENTS,storyService,subscriptionService) {
+        function ($translate,moduleService,MODULES,EVENTS,storyService,subscriptionService) {
         var that = this,
             updateListener = null,
             runningSessions = [];
@@ -24,7 +25,7 @@ angular.module('finqApp.service')
         this.handle = function(event,eventData) {
             switch (event) {
                 case EVENTS.INTERNAL.STORY_RUN_STARTED:
-                    handleStoryRunStarted(eventData);
+                    handleRunStarted(eventData);
                     break;
                 case EVENTS.SOCKET.RUN_STATUS_UPDATED:
                     handleRunUpdate(eventData);
@@ -33,7 +34,7 @@ angular.module('finqApp.service')
             }
         };
 
-        this.getRunningStories = function() {
+        this.getRunningSessions = function() {
             return runningSessions;
         };
 
@@ -46,33 +47,58 @@ angular.module('finqApp.service')
             }
         };
 
-        var handleStoryRunStarted = function(runData) {
-            var runProgress = [];
-            angular.forEach(runData.stories, function(storyRun) {
-                var storyProgress = {
-                    storyId: storyRun.story,
-                    scenarios: []
-                };
-                angular.forEach(storyRun.scenarios, function(scenario) {
-                    storyProgress.scenarios.push({
-                        scenarioId: scenario,
+        var handleRunStarted = function(runData) {
+            var largestStoryScenarioCount = 0;
+            var runningSession = {
+                run: runData.reference,
+                startedOn: runData.startedOn,
+                environment: runData.environment,
+                startedBy: runData.startedBy,
+                scenariosCompleted: 0,
+                scenarioCount: 0,
+                largestStoryIndex: null,
+                progress: []
+            };
+            for (var i = 0; i<runData.stories.length; i++) {
+                runningSession.progress.push(setupStoryForRun(runData.stories[i].story,runData.stories[i].scenarios));
+                runningSession.scenarioCount += runData.stories[i].scenarios.length;
+                if (runData.stories[i].scenarios.length > largestStoryScenarioCount) {
+                    largestStoryScenarioCount = runData.stories[i].scenarios.length;
+                    runningSession.largestStoryIndex = i;
+                }
+            }
+            setupRunTitle(runningSession);
+            runningSessions.push(runningSession);
+            subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,{run: runData.id});
+            if (!updateListener) {
+                updateListener = subscriptionService.register(EVENTS.SOCKET.RUN_STATUS_UPDATED, that.handle);
+            }
+        };
+
+        var setupStoryForRun = function(storyId,scenarioIds) {
+            var story = angular.copy(storyService.findStoryById(storyId));
+            for (var i = 0; i<story.scenarios.length; i++) {
+                if (scenarioIds.indexOf(story.scenarios[i].id) === -1) {
+                    story.scenarios.splice(i--,1);
+                } else {
+                    angular.extend(story.scenarios[i],{
                         currentStep: null,
                         status: undefined,
                         message: undefined
                     });
+                }
+            }
+            return story;
+        };
+
+        var setupRunTitle = function(runningSession) {
+            runningSession.title = runningSession.progress[runningSession.largestStoryIndex].title;
+            if (runningSession.progress.length > 1) {
+                $translate('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND',{
+                    storyCount: runningSession.progress.length
+                }).then(function (translatedValue) {
+                    runningSession.title += translatedValue;
                 });
-                runProgress.push(storyProgress);
-            });
-            runningSessions.push({
-                run: runData.reference,
-                progress: runProgress,
-                startedOn: runData.startedOn,
-                environment: runData.environment,
-                startedBy: runData.startedBy
-            });
-            subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,{run: runData.id});
-            if (!updateListener) {
-                updateListener = subscriptionService.register(EVENTS.SOCKET.RUN_STATUS_UPDATED, that.handle);
             }
         };
 

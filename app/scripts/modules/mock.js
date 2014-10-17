@@ -33,7 +33,6 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
             return [200,{
                 id: Math.floor((Math.random() * 10000) + 1),
                 startedBy: authServiceMock.user,
-                startedOn: new Date(),
                 environment: jsonData.environment
             }];
         });

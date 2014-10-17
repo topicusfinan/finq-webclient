@@ -21,7 +21,7 @@
     <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | storybookPaginationFilter:available.currentPage:available.maxScenarios) track by book.id">
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">
-                <i class="fa fa-bars" data-toggle="book"></i>
+                <i class="fa fa-bars" data-toggle="collection"></i>
                 <span>{{ book.title }}</span>
             </div>
             <div class="actions">

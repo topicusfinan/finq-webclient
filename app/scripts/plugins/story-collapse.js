@@ -25,7 +25,7 @@ var StoryExpandCollapse = function(listId) {
         $list.on('click touchend','[data-toggle="story"]',function() {
             expandStory($(this));
         });
-        $list.on('click touchend','[data-toggle="book"]',function() {
+        $list.on('click touchend','[data-toggle="collection"]',function() {
             toggleBook($(this));
         });
     };

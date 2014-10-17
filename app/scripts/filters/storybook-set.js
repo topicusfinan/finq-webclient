@@ -6,8 +6,8 @@
  * @description
  * # Storybook set filter
  *
- * Allows the filtering of story books by supplying the a certain set. Only books with stories that are linked
- * to the supplied set will remain.
+ * Allows the filtering of story books by supplying a list of sets. Only books with stories that are linked
+ * to the supplied sets will remain.
  */
 angular.module('finqApp.filter')
     .filter('storybookSetFilter', function() {

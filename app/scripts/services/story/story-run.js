@@ -56,7 +56,7 @@ angular.module('finqApp.service')
                     reference: runData.id,
                     environment: runData.environment,
                     startedBy: runData.startedBy,
-                    startedOn: runData.startedOn,
+                    startedOn: new Date(),
                     stories: runRequestData.stories
                 });
                 moduleService.updateModuleBadge(MODULES.RUNNER,1);
