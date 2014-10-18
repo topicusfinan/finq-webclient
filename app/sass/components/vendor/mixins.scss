@@ -51,34 +51,3 @@
         z-index: 2;
     }
 }
-
-@mixin radial-progress($circle-size, $inset-size, $circle-background, $circle-color, $inset-color) {
-    background: $circle-background;
-    width: $circle-size;
-    height: $circle-size;
-
-    .circle {
-        .mask,
-        .fill {
-            width: $circle-size;
-            height: $circle-size;
-        }
-
-        .mask {
-            clip: rect(0, $circle-size, $circle-size, $circle-size/2);
-
-            .fill {
-                clip: rect(0, $circle-size/2, $circle-size, 0);
-                background: $circle-color;
-            }
-        }
-    }
-
-    .inset {
-        width: $inset-size;
-        height: $inset-size;
-        background: $inset-color;
-        margin-left: ($circle-size - $inset-size)/2;
-        margin-top: ($circle-size - $inset-size)/2;
-    }
-}

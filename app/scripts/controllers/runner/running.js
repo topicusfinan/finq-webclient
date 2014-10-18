@@ -23,7 +23,8 @@ angular.module('finqApp.controller')
         'environment',
         'utils',
         function ($scope,$timeout,$translate,moduleService,EVENTS,MODULES,configProvider,runnerService,environmentService,utils) {
-        var that = this;
+        var that = this,
+            updateTimer;
 
         this.selectedItem = null;
         this.maxSelectItems = configProvider.client().pagination.maxSelectDropdownItems;
@@ -63,14 +64,18 @@ angular.module('finqApp.controller')
                     });
 
                     // start of temp data
-                    run.progress.percentage = parseInt(Math.random()*100);
+                    run.progress.percentage = parseInt(Math.random()*25)*4;
                     run.progress.highlight = Math.random() > 0.5 ? 'failed' : 'none';
                     // end of temp data
                 });
             }
-            $timeout(updateRunProgress, configProvider.client().run.updateInterval);
+            updateTimer = $timeout(updateRunProgress, configProvider.client().run.updateInterval);
         };
 
         updateRunProgress();
+        var unlinkDestroy = $scope.$on('$destroy',function() {
+            $timeout.cancel(updateTimer);
+            unlinkDestroy();
+        });
 
     }]);

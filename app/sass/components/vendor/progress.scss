@@ -89,8 +89,9 @@
     }
 
     $i: 0;
+    $steps: 25;
     $increment: 180deg / 100;
-    @for $i from 1 through 100 {
+    @while $i <= 100 {
         .circle[data-progress="#{$i}"] {
             .mask.full,
             .fill {
@@ -105,5 +106,7 @@
                 transform: rotate($increment * $i * 2);
             }
         }
+
+        $i: $i + 100 / $steps;
     }
 }
