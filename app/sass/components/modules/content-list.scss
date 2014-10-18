@@ -106,6 +106,10 @@
 
             > div.title > .radial-progress {
                 @include radial-progress(1em, .5em, darken($content-list-item-1-bg-color, 8%), $base-accent-color, $content-list-item-1-bg-color);
+
+                .inset[data-highlight="failed"] {
+                    background: $run-failed-color;
+                }
             }
 
             > div.title > span,

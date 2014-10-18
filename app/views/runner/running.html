@@ -9,13 +9,13 @@
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs() track by run.id">
         <div ng-class="{'active':running.selectedItem === 'run'+run.id}" ng-click="running.selectedItem = 'run'+run.id">
             <div class="title">
-                <div class="radial-progress" progress="run.progressPercentage"></div>
+                <div class="radial-progress" progress="run.progress.percentage" highlight="run.progress.highlight"></div>
                 <span class="separate" btf-markdown="run.title"></span>
             </div>
             <div class="comments">
-                <span btf-markdown="run.startTimeMsg"></span>
-                <span btf-markdown="run.startedByMsg"></span>
-                <span btf-markdown="run.startedOnMsg"></span>
+                <span btf-markdown="run.msg.startTime"></span>
+                <span btf-markdown="run.msg.startedBy"></span>
+                <span btf-markdown="run.msg.startedOn"></span>
             </div>
         </div>
     </li>

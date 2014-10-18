@@ -13,7 +13,8 @@ angular.module('finqApp.directive')
     .directive('radialProgress', function () {
         return {
             scope: {
-                progress: '='
+                progress: '=',
+                highlight: '='
             },
             restrict: 'C',
             templateUrl: 'views/directives/radial-progress.html'

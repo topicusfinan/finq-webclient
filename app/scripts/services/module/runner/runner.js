@@ -57,10 +57,16 @@ angular.module('finqApp.service')
                 scenariosCompleted: 0,
                 scenarioCount: 0,
                 largestStoryIndex: null,
-                progress: []
+                progress: {
+                    stories: [],
+                    percentage: 0,
+                    highlight: 'none'
+                },
+                msg: {},
+                title: ''
             };
             for (var i = 0; i<runData.stories.length; i++) {
-                runningSession.progress.push(setupStoryForRun(runData.stories[i].story,runData.stories[i].scenarios));
+                runningSession.progress.stories.push(setupStoryForRun(runData.stories[i].story,runData.stories[i].scenarios));
                 runningSession.scenarioCount += runData.stories[i].scenarios.length;
                 if (runData.stories[i].scenarios.length > largestStoryScenarioCount) {
                     largestStoryScenarioCount = runData.stories[i].scenarios.length;
@@ -92,10 +98,10 @@ angular.module('finqApp.service')
         };
 
         var setupRunTitle = function(runningSession) {
-            runningSession.title = runningSession.progress[runningSession.largestStoryIndex].title;
-            if (runningSession.progress.length > 1) {
+            runningSession.title = runningSession.progress.stories[runningSession.largestStoryIndex].title;
+            if (runningSession.progress.stories.length > 1) {
                 $translate('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND',{
-                    storyCount: runningSession.progress.length-1
+                    storyCount: runningSession.progress.stories.length-1
                 }).then(function (translatedValue) {
                     runningSession.title += translatedValue;
                 });

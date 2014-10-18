@@ -1,4 +1,4 @@
-$error-color:                           lighten($red, 15%);
+$error-color:                           $light-red;
 $notice-color:                          $yellow;
 $alert-color:                           $orange;
 $success-color:                         $green;
@@ -130,3 +130,5 @@ $content-list-3-select-margin-top:      .10em;
 $content-list-item-3-spacing:           1px;
 $content-list-item-3-bg-color:          lighten($section-header-bg-color, 20%);
 $content-list-3-bg-color:               $content-list-item-1-bg-color;
+
+$run-failed-color:                      $light-red;

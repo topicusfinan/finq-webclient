@@ -53,16 +53,19 @@ angular.module('finqApp.controller')
                     ], timeDelta);
 
                     $translate(pluralized.template,{delta: pluralized.value, id: run.id}).then(function (translatedValue) {
-                        run.startTimeMsg = translatedValue;
+                        run.msg.startTime = translatedValue;
                     });
                     $translate('RUNNER.RUNNING.RUN.STARTED_BY',{name: run.startedBy.first}).then(function (translatedValue) {
-                        run.startedByMsg = translatedValue;
+                        run.msg.startedBy = translatedValue;
                     });
                     $translate('RUNNER.RUNNING.RUN.RUNNING_ON',{environment: environmentService.getNameById(run.environment)}).then(function (translatedValue) {
-                        run.startedOnMsg = translatedValue;
+                        run.msg.startedOn = translatedValue;
                     });
 
-                    run.progressPercentage = 20;
+                    // start of temp data
+                    run.progress.percentage = parseInt(Math.random()*100);
+                    run.progress.highlight = Math.random() > 0.5 ? 'failed' : 'none';
+                    // end of temp data
                 });
             }
             $timeout(updateRunProgress, configProvider.client().run.updateInterval);
