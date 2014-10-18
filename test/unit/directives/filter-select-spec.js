@@ -177,24 +177,13 @@ describe('Unit: FilterSelect directive controller', function() {
     });
 
     it('should select the default value during initialization if it was provided', function() {
-        scope.defkey = 1;
+        scope.defkey = '1';
         scope.initialize();
         expect(scope.active[0]).to.deep.equal(scope.options[1]);
     });
 
     it('should throw an error during initialization in case neither a placeholder nor a default value was set', function() {
         var error;
-        try {
-            scope.initialize();
-        } catch (err) {
-            error = err;
-        }
-        expect(error).to.not.be.undefined;
-    });
-
-    it('should throw an error during initialization in case an invalid default key was provided', function() {
-        var error;
-        scope.defkey = 2;
         try {
             scope.initialize();
         } catch (err) {
@@ -222,14 +211,14 @@ describe('Unit: FilterSelect directive controller', function() {
     });
 
     it('should paginate in case the amount of items in the list exceeds the configured maximum', function() {
-        scope.defkey = 1;
+        scope.defkey = '1';
         scope.maxItems = 1;
         scope.initialize();
         expect(scope.hasNext()).to.be.true;
     });
 
     it('should not paginate in case the amount of items in the list does not exceed the configured maximum', function() {
-        scope.defkey = 1;
+        scope.defkey = '1';
         scope.maxItems = 4;
         scope.initialize();
         expect(scope.hasNext()).to.be.false;

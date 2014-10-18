@@ -46,6 +46,7 @@ angular.module('finqApp.directive')
         var hideTimer,
             blockHide = false,
             dirty = false,
+            keyType,
             orderBy = $filter('orderBy');
 
         $scope.show = false;
@@ -56,6 +57,9 @@ angular.module('finqApp.directive')
             var placeholder;
 
             $scope.options = orderBy(angular.copy($scope.passedOptions),'value');
+            if ($scope.options.length) {
+                keyType = typeof $scope.options[0].key;
+            }
 
             if ($scope.placeholder !== undefined) {
                 placeholder = [{
@@ -65,26 +69,18 @@ angular.module('finqApp.directive')
                 $scope.active = angular.copy(placeholder);
                 $scope.options = placeholder.concat($scope.options);
                 $translate($scope.placeholder).then(function (translatedValue) {
-                    $scope.active[0].value = translatedValue;
                     $scope.options[0].value = translatedValue;
-                    updateValue();
+                    if ($scope.defkey === undefined) {
+                        $scope.active[0].value = translatedValue;
+                        updateValue();
+                    }
                 });
             }
 
             if ($scope.defkey !== undefined) {
-                var found = false;
-                for (var i=0; i<$scope.options.length; i++) {
-                    if ($scope.options[i].key === $scope.defkey) {
-                        $scope.active = [{
-                            key: $scope.options[i].key,
-                            value: $scope.options[i].value
-                        }];
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    throw new Error('Invalid default filter value for filter '+$scope.id+' the key '+$scope.defkey+' could not be found in the passed options list');
+                var defKeys = $scope.defkey.split(',');
+                for (var i=0; i<defKeys.length; i++) {
+                    $scope.select(defKeys[i]);
                 }
             }
 
@@ -137,9 +133,11 @@ angular.module('finqApp.directive')
             }
         };
 
-        $scope.select = function(key,value) {
+        $scope.select = function(key) {
+            key = keyType === 'number' && key !== null ? parseInt(key) : key;
             var newKeys,
-                realKeys = [];
+                realKeys = [],
+                value = findValueByKey(key);
             if ($scope.multiple) {
                 newKeys = multipleToggle(key,value);
             } else {
@@ -261,5 +259,13 @@ angular.module('finqApp.directive')
                 }
             }
             $scope.options = placeholder.concat(orderBy(precedence,'value')).concat(orderBy(other,'value'));
+        };
+
+        var findValueByKey = function(key) {
+            for (var i=0; i<$scope.options.length; i++) {
+                if ($scope.options[i].key === key) {
+                    return $scope.options[i].value;
+                }
+            }
         };
     }]);

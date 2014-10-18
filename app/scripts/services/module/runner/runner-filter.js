@@ -111,4 +111,8 @@ angular.module('finqApp.service')
             return filteredBooks;
         };
 
+        this.getLastFilter = function() {
+            return lastFilter;
+        };
+
     }]);

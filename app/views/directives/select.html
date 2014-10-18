@@ -4,7 +4,7 @@
 <div class="select-dropdown ng-hide" ng-show="show" outside-click="hide()" ng-class="{'paginated': hasMultiplePages}">
     <button ng-show="hasMultiplePages" ng-disabled="currentPage === 0" ng-click="currentPage = currentPage-1"><i class="fa fa-caret-up"></i></button>
     <ul>
-        <li class="list-animate" ng-repeat="option in options | basicPagination: currentPage : maxItems" ng-click="select(option.key,option.value)" ng-class="{'active': isActive(option.key), 'placeholder': option.key === null}">{{option.value}}</li>
+        <li class="list-animate" ng-repeat="option in options | basicPagination: currentPage : maxItems" ng-click="select(option.key)" ng-class="{'active': isActive(option.key), 'placeholder': option.key === null}">{{option.value}}</li>
     </ul>
     <button ng-show="hasMultiplePages" ng-disabled="!hasNext()" ng-click="currentPage = currentPage+1"><i class="fa fa-caret-down"></i></button>
 </div>

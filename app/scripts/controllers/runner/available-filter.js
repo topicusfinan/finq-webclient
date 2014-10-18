@@ -10,12 +10,17 @@
  * within the available story section.
  */
 angular.module('finqApp.controller')
-    .controller('AvailableFilterCtrl', ['set','tag',function (setService,tagService) {
-        var that = this;
+    .controller('AvailableFilterCtrl', [
+        'set',
+        'tag',
+        'runnerFilter',
+        function (setService,tagService,runnerFilterService) {
+        var that = this,
+            currentActiveFilter = runnerFilterService.getLastFilter();
 
         this.expand = {
             set: true,
-            tag: false
+            tag: currentActiveFilter.tags.length > 0
         };
         this.tagPlaceholder = 'FILTERS.TAGS.DEFAULT_VALUE';
         this.setPlaceholder = 'FILTERS.SETS.DEFAULT_VALUE';
@@ -31,6 +36,8 @@ angular.module('finqApp.controller')
                 }
             };
 
+
+
             setService.list().then(function (sets) {
                 that.sets = [];
                 angular.forEach(sets, function(set) {
@@ -39,6 +46,7 @@ angular.module('finqApp.controller')
                         value: set.name
                     });
                 });
+                that.setsDefault = currentActiveFilter.sets.length ? currentActiveFilter.sets.join(',') : undefined;
                 evalLoaded();
             });
 
@@ -50,6 +58,7 @@ angular.module('finqApp.controller')
                         value: tag.value
                     });
                 });
+                that.tagsDefault = currentActiveFilter.tags.length ? currentActiveFilter.tags.join(',') : undefined;
                 evalLoaded();
             });
 
