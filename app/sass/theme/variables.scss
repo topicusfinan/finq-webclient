@@ -111,6 +111,7 @@ $content-list-item-1-height:            modular-scale($base-font-size, 2, $minor
 $content-list-item-1-bg-color:          lighten($section-header-bg-color, 5%);
 $content-list-item-1-font-size:         modular-scale($base-font-size, 1, $perfect-fourth);
 $content-list-item-1-icon-size:         modular-scale($base-font-size, 1, $minor-seventh);
+$content-list-item-1-progress-size:     1.75em; // to avoid rounding errors we make this a simple number
 $content-list-item-1-icon-top:          .4em;
 $content-list-item-1-icon-left:         1.25;
 $content-list-item-1-com-font-size:     $base-font-size;
@@ -122,8 +123,10 @@ $content-list-item-2-height:            modular-scale($base-font-size, 2, $major
 $content-list-item-2-bg-color:          lighten($section-header-bg-color, 15%);
 $content-list-item-2-font-size:         modular-scale($base-font-size, 1, $minor-third);
 $content-list-item-2-icon-size:         modular-scale($base-font-size, 1, $minor-seventh);
+$content-list-item-2-progress-size:     1.5em; // to avoid rounding errors we make this a simple number
 $content-list-item-2-icon-top:          .25em;
 $content-list-item-2-icon-left:         1.75;
+$content-list-item-2-progress-top:      .4em;
 
 $content-list-3-button-margin-top:      .20em;
 $content-list-3-select-margin-top:      .10em;

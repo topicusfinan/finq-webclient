@@ -26,6 +26,10 @@
         &:hover {
             background: $base-accent-color;
             color: $highlight-color;
+
+            > div.comments span {
+                color: $highlight-color;
+            }
         }
 
         > div.title {
@@ -54,6 +58,21 @@
         }
     }
 
+    > li.cl > div.active,
+    > li.cl > div:hover,
+    > li.cl > ul li.cl > div.active,
+    > li.cl > ul li.cl > div:hover {
+        > div.title > .radial-progress {
+            .circle .mask .fill {
+                background: $highlight-color;
+            }
+
+            .inset {
+                background: $base-accent-color;
+            }
+        }
+    }
+
     > li.cl {
         border-top: $content-list-bg-color $content-list-item-spacing solid;
         background: $content-list-bg-color;
@@ -68,14 +87,8 @@
             &:hover {
                 background: $base-accent-color;
 
-                > div.title > .radial-progress {
-                    .circle .mask .fill {
-                        background: $highlight-color;
-                    }
-
-                    .inset {
-                        background: $base-accent-color;
-                    }
+                > div.comments {
+                    background: $base-accent-color;
                 }
             }
 
@@ -101,11 +114,15 @@
             > div.title > .radial-progress {
                 left: $section-list-icon-left * $content-list-item-1-icon-left;
                 top: $content-list-item-1-icon-top;
+            }
+
+            > div.title > i {
                 font-size: $content-list-item-1-icon-size;
             }
 
             > div.title > .radial-progress {
                 @include radial-progress(1em, .5em, darken($content-list-item-1-bg-color, 8%), $base-accent-color, $content-list-item-1-bg-color);
+                font-size: $content-list-item-1-progress-size;
 
                 .inset[data-highlight="failed"] {
                     background: $run-failed-color;
@@ -119,11 +136,15 @@
                 padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4) 0;
             }
 
-            > div.comments > span {
-                font-size: $content-list-item-1-com-font-size;
-                line-height: $content-list-item-1-com-font-size;
-                padding: (($content-list-item-1-height - $content-list-item-1-com-font-size) / 2) 0;
-                color: $content-list-item-1-com-color;
+            > div.comments {
+                background: $content-list-item-1-bg-color;
+
+                > span {
+                    font-size: $content-list-item-1-com-font-size;
+                    line-height: $content-list-item-1-com-font-size;
+                    padding: (($content-list-item-1-height - $content-list-item-1-com-font-size) / 2) 0;
+                    color: $content-list-item-1-com-color;
+                }
             }
 
             p {
@@ -160,10 +181,18 @@
                         margin: 0 $filter-button-padding / 2;
                     }
 
-                    > div.title > i {
+                    > div.title > i,
+                    > div.title > .radial-progress {
                         left: $section-list-icon-left * $content-list-item-2-icon-left;
-                        top: $content-list-item-2-icon-top;
+                    }
+
+                    > div.title > .radial-progress {
+                        top: $content-list-item-2-progress-top;
+                    }
+
+                    > div.title > i {
                         font-size: $content-list-item-2-icon-size;
+                        top: $content-list-item-2-icon-top;
 
                         &:after {
 
@@ -177,6 +206,15 @@
                         font-size: $content-list-item-2-font-size;
                         line-height: $content-list-item-2-font-size;
                         padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 3) 0;
+                    }
+
+                    > div.title > .radial-progress {
+                        @include radial-progress(1em, .5em, darken($content-list-item-2-bg-color, 8%), $base-accent-color, $content-list-item-2-bg-color);
+                        font-size: $content-list-item-2-progress-size;
+
+                        .inset[data-highlight="failed"] {
+                            background: $run-failed-color;
+                        }
                     }
                 }
 

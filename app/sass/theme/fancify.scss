@@ -198,8 +198,13 @@ input.ng-invalid {
 
 .main-content-list {
 
-    li.cl > div {
+    li.cl > div,
+    li.cl > div > div.comments {
         @include transition(background $animate-std-cubic .1s);
+    }
+
+    li.cl > div > div.title.limited span {
+        @include ellipsis();
     }
 
     > li.cl > ul li.cl {

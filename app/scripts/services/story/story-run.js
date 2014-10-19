@@ -49,7 +49,7 @@ angular.module('finqApp.service')
                     });
                 } else {
                     feedbackService.success(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST,{
-                        environment: null
+                        environment: environmentService.getNameById(runRequestData.environment)
                     });
                 }
                 moduleService.handleEvent(EVENTS.INTERNAL.STORY_RUN_STARTED,{

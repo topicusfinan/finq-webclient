@@ -8,16 +8,26 @@
 <ul class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs() track by run.id">
         <div ng-class="{'active':running.selectedItem === 'run'+run.id}" ng-click="running.selectedItem = 'run'+run.id">
-            <div class="title">
+            <div class="title limited">
                 <div class="radial-progress" progress="run.progress.percentage" highlight="run.progress.highlight"></div>
-                <span class="separate" btf-markdown="run.title"></span>
+                <span class="separate">{{run.title}}</span>
             </div>
             <div class="comments">
-                <span btf-markdown="run.msg.startTime"></span>
+                <span btf-markdown="run.msg.runtime"></span>
                 <span btf-markdown="run.msg.startedBy"></span>
                 <span btf-markdown="run.msg.startedOn"></span>
             </div>
         </div>
+        <ul>
+            <li class="ic cl" ng-repeat="story in run.progress.stories track by story.id">
+                <div ng-class="{'active':running.selectedItem === 'story'+story.id}" ng-click="running.selectedItem = 'story'+story.id" data-toggle="story">
+                    <div class="title">
+                        <div class="radial-progress" progress="story.progress.percentage" highlight="story.progress.highlight"></div>
+                        <span class="separate">{{ story.title }}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </li>
 </ul>
 <h1 class="hero-notice" translate="RUNNER.RUNNING.NO_RUNS" ng-show="runs().length === 0"></h1>

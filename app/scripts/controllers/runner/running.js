@@ -45,34 +45,52 @@ angular.module('finqApp.controller')
             if (runs.length) {
                 var currentTime = new Date();
                 angular.forEach(runs, function(run) {
-                    var timeDelta = parseInt((currentTime.getTime() - run.startedOn.getTime()) / 1000);
-
-                    var pluralized = utils.pluralize('RUNNER.RUNNING.RUN.START_TIME', [
-                        {actionValue: 1, target: 'SECONDS'},
-                        {actionValue: 60, target: 'MINUTES'},
-                        {actionValue: 3600, target: 'HOURS'}
-                    ], timeDelta);
-
-                    $translate(pluralized.template,{delta: pluralized.value, id: run.id}).then(function (translatedValue) {
-                        run.msg.startTime = translatedValue;
-                    });
-                    $translate('RUNNER.RUNNING.RUN.STARTED_BY',{name: run.startedBy.first}).then(function (translatedValue) {
-                        run.msg.startedBy = translatedValue;
-                    });
-                    $translate('RUNNER.RUNNING.RUN.RUNNING_ON',{environment: environmentService.getNameById(run.environment)}).then(function (translatedValue) {
-                        run.msg.startedOn = translatedValue;
-                    });
-
-                    // start of temp data
-                    run.progress.percentage = parseInt(Math.random()*25)*4;
-                    run.progress.highlight = Math.random() > 0.5 ? 'failed' : 'none';
-                    // end of temp data
+                    determineRuntime(currentTime, run);
+                    setupInitialRunMessages(run);
+                    determineProgress(run);
                 });
             }
             updateTimer = $timeout(updateRunProgress, configProvider.client().run.updateInterval);
         };
 
+        var determineProgress = function(run) {
+            var calculateProgress = function(progressInfo,totalScenarios) {
+                progressInfo.percentage = parseInt(progressInfo.scenariosCompleted/totalScenarios*25)*4;
+                progressInfo.highlight = progressInfo.failed ? 'failed' : 'none';
+            };
+
+            calculateProgress(run.progress,run.totalScenarios);
+            angular.forEach(run.progress.stories,function(story) {
+                calculateProgress(story.progress,story.scenarios.length);
+            });
+        };
+
+        var determineRuntime = function(currentTime, run) {
+            var timeDelta = parseInt((currentTime.getTime() - run.startedOn.getTime()) / 1000);
+            var pluralized = utils.pluralize('RUNNER.RUNNING.RUN.START_TIME', [
+                {actionValue: 1, target: 'SECONDS'},
+                {actionValue: 60, target: 'MINUTES'},
+                {actionValue: 3600, target: 'HOURS'}
+            ], timeDelta);
+
+            $translate(pluralized.template,{delta: pluralized.value, id: run.id}).then(function (translatedValue) {
+                run.msg.runtime = translatedValue;
+            });
+        };
+
+        var setupInitialRunMessages = function(run) {
+            if (run.msg.startedBy === undefined) {
+                $translate('RUNNER.RUNNING.RUN.STARTED_BY',{name: run.startedBy.first}).then(function (translatedValue) {
+                    run.msg.startedBy = translatedValue;
+                });
+                $translate('RUNNER.RUNNING.RUN.RUNNING_ON',{environment: environmentService.getNameById(run.environment)}).then(function (translatedValue) {
+                    run.msg.startedOn = translatedValue;
+                });
+            }
+        };
+
         updateRunProgress();
+
         var unlinkDestroy = $scope.$on('$destroy',function() {
             $timeout.cancel(updateTimer);
             unlinkDestroy();

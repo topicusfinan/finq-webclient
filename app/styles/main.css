@@ -841,6 +841,8 @@ footer.feedback {
     .main-content-list li.cl > div:hover {
       background: #049cdb;
       color: #fff; }
+      .main-content-list li.cl > div:hover > div.comments span {
+        color: #fff; }
     .main-content-list li.cl > div > div.title {
       float: left; }
       .main-content-list li.cl > div > div.title > i {
@@ -857,6 +859,16 @@ footer.feedback {
   .main-content-list li.cl > div > div.title > i,
   .main-content-list li.cl > div > div.title > .radial-progress {
     position: absolute; }
+  .main-content-list > li.cl > div.active > div.title > .radial-progress .circle .mask .fill,
+  .main-content-list > li.cl > div:hover > div.title > .radial-progress .circle .mask .fill,
+  .main-content-list > li.cl > ul li.cl > div.active > div.title > .radial-progress .circle .mask .fill,
+  .main-content-list > li.cl > ul li.cl > div:hover > div.title > .radial-progress .circle .mask .fill {
+    background: #fff; }
+  .main-content-list > li.cl > div.active > div.title > .radial-progress .inset,
+  .main-content-list > li.cl > div:hover > div.title > .radial-progress .inset,
+  .main-content-list > li.cl > ul li.cl > div.active > div.title > .radial-progress .inset,
+  .main-content-list > li.cl > ul li.cl > div:hover > div.title > .radial-progress .inset {
+    background: #049cdb; }
   .main-content-list > li.cl {
     border-top: #f7f7f7 2px solid;
     background: #f7f7f7; }
@@ -867,9 +879,7 @@ footer.feedback {
       margin-top: 0; }
       .main-content-list > li.cl > div.active, .main-content-list > li.cl > div:hover {
         background: #049cdb; }
-        .main-content-list > li.cl > div.active > div.title > .radial-progress .circle .mask .fill, .main-content-list > li.cl > div:hover > div.title > .radial-progress .circle .mask .fill {
-          background: #fff; }
-        .main-content-list > li.cl > div.active > div.title > .radial-progress .inset, .main-content-list > li.cl > div:hover > div.title > .radial-progress .inset {
+        .main-content-list > li.cl > div.active > div.comments, .main-content-list > li.cl > div:hover > div.comments {
           background: #049cdb; }
       .main-content-list > li.cl > div button,
       .main-content-list > li.cl > div .select > button {
@@ -884,12 +894,14 @@ footer.feedback {
       .main-content-list > li.cl > div > div.title > i,
       .main-content-list > li.cl > div > div.title > .radial-progress {
         left: 0.66667em;
-        top: 0.4em;
+        top: 0.4em; }
+      .main-content-list > li.cl > div > div.title > i {
         font-size: 1.778em; }
       .main-content-list > li.cl > div > div.title > .radial-progress {
         background: #bcbcbc;
         width: 1em;
-        height: 1em; }
+        height: 1em;
+        font-size: 1.75em; }
         .main-content-list > li.cl > div > div.title > .radial-progress .circle .mask,
         .main-content-list > li.cl > div > div.title > .radial-progress .circle .fill {
           width: 1em;
@@ -912,11 +924,13 @@ footer.feedback {
         font-size: 1.333em;
         line-height: 1.333em;
         padding: 0.45707em 0; }
-      .main-content-list > li.cl > div > div.comments > span {
-        font-size: 1em;
-        line-height: 1em;
-        padding: 1.08064em 0;
-        color: #737373; }
+      .main-content-list > li.cl > div > div.comments {
+        background: #d0d0d0; }
+        .main-content-list > li.cl > div > div.comments > span {
+          font-size: 1em;
+          line-height: 1em;
+          padding: 1.08064em 0;
+          color: #737373; }
       .main-content-list > li.cl > div p {
         margin: 0; }
     .main-content-list > li.cl > ul li.cl {
@@ -935,10 +949,14 @@ footer.feedback {
           margin-top: 0.17em; }
         .main-content-list > li.cl > ul li.cl > div > div > span {
           margin: 0 0.25em; }
+        .main-content-list > li.cl > ul li.cl > div > div.title > i,
+        .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress {
+          left: 0.93333em; }
+        .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress {
+          top: 0.4em; }
         .main-content-list > li.cl > ul li.cl > div > div.title > i {
-          left: 0.93333em;
-          top: 0.25em;
-          font-size: 1.778em; }
+          font-size: 1.778em;
+          top: 0.25em; }
           .main-content-list > li.cl > ul li.cl > div > div.title > i:after {
             content: '\f0da'; }
         .main-content-list > li.cl > ul li.cl > div > div.title > span,
@@ -946,6 +964,28 @@ footer.feedback {
           font-size: 1.2em;
           line-height: 1.2em;
           padding: 0.5263em 0; }
+        .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress {
+          background: #d5d5d5;
+          width: 1em;
+          height: 1em;
+          font-size: 1.5em; }
+          .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask,
+          .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .circle .fill {
+            width: 1em;
+            height: 1em; }
+          .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask {
+            clip: rect(0, 1em, 1em, 0.5em); }
+            .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask .fill {
+              clip: rect(0, 0.5em, 1em, 0);
+              background: #049cdb; }
+          .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .inset {
+            width: 0.5em;
+            height: 0.5em;
+            background: #eaeaea;
+            margin-left: 0.25em;
+            margin-top: 0.25em; }
+          .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .inset[data-highlight="failed"] {
+            background: #c22b1c; }
       .main-content-list > li.cl > ul li.cl > ul {
         opacity: .5;
         height: 0;
@@ -1252,6 +1292,30 @@ button {
   .top-filter.filter-2 .filters > span {
     width: 0;
     opacity: 0; } }
+@media screen and (min-width: 10em) {
+  .main-content-list li.cl > div > div.title.limited span {
+    max-width: 1em; } }
+@media screen and (min-width: 48em) {
+  .main-content-list li.cl > div > div.title.limite span {
+    max-width: 3em; } }
+@media screen and (min-width: 55em) {
+  .main-content-list li.cl > div > div.title.limited span {
+    max-width: 6em; } }
+@media screen and (min-width: 60em) {
+  .main-content-list li.cl > div > div.title.limited span {
+    max-width: 9em; } }
+@media screen and (min-width: 65em) {
+  .main-content-list li.cl > div > div.title.limited span {
+    max-width: 12em; } }
+@media screen and (min-width: 70em) {
+  .main-content-list li.cl > div > div.title.limited span {
+    max-width: 15em; } }
+@media screen and (min-width: 80em) {
+  .main-content-list li.cl > div > div.title.limited span {
+    max-width: 18em; } }
+@media screen and (min-width: 90em) {
+  .main-content-list li.cl > div > div.title.limited span {
+    max-width: 21em; } }
 div.layout > header .title {
   padding-right: 0.66667em; }
   div.layout > header .title:after {
@@ -1403,10 +1467,16 @@ input.ng-invalid {
     -moz-transition: opacity linear 0.2s, width linear 0s 0.2s;
     transition: opacity linear 0.2s, width linear 0s 0.2s; }
 
-.main-content-list li.cl > div {
+.main-content-list li.cl > div,
+.main-content-list li.cl > div > div.comments {
   -webkit-transition: background cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
   -moz-transition: background cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
   transition: background cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s; }
+.main-content-list li.cl > div > div.title.limited span {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
 .main-content-list > li.cl > ul li.cl > ul {
   height: auto;
   max-height: 0;

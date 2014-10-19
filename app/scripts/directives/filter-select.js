@@ -57,9 +57,6 @@ angular.module('finqApp.directive')
             var placeholder;
 
             $scope.options = orderBy(angular.copy($scope.passedOptions),'value');
-            if ($scope.options.length) {
-                keyType = typeof $scope.options[0].key;
-            }
 
             if ($scope.placeholder !== undefined) {
                 placeholder = [{
@@ -87,8 +84,6 @@ angular.module('finqApp.directive')
             if ($scope.defkey === undefined && $scope.placeholder === undefined) {
                 throw new Error('Missing default value or placeholder for filter '+$scope.id);
             }
-
-            updateValue();
 
             if ($scope.maxItems === undefined) {
                 $scope.maxItems = $scope.options.length;
@@ -134,6 +129,13 @@ angular.module('finqApp.directive')
         };
 
         $scope.select = function(key) {
+            if (keyType === undefined && $scope.options !== undefined && $scope.options.length) {
+                if ($scope.options.length > 1) {
+                    keyType = typeof $scope.options[1].key;
+                } else {
+                    keyType = typeof $scope.options[0].key;
+                }
+            }
             key = keyType === 'number' && key !== null ? parseInt(key) : key;
             var newKeys,
                 realKeys = [],
