@@ -180,6 +180,10 @@ footer.feedback {
     }
 }
 
+.tip {
+    @include transition(opacity $animate-std-cubic .2s .2s);
+}
+
 input.ng-invalid {
     @include transition(all linear .1s);
 }
@@ -201,10 +205,6 @@ input.ng-invalid {
     li.cl > div,
     li.cl > div > div.comments {
         @include transition(background $animate-std-cubic .1s);
-    }
-
-    li.cl > div > div.title.limited span {
-        @include ellipsis();
     }
 
     > li.cl > ul li.cl {

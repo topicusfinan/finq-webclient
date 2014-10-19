@@ -45,8 +45,10 @@ angular.module('finqApp.controller')
             if (runs.length) {
                 var currentTime = new Date();
                 angular.forEach(runs, function(run) {
-                    determineRuntime(currentTime, run);
-                    setupInitialRunMessages(run);
+                    run.msg.runtime = utils.getTimeElapsed(currentTime,run.startedOn);
+                    if (run.msg.environment === undefined) {
+                        run.msg.environment = run.msg.environment = environmentService.getNameById(run.environment);
+                    }
                     determineProgress(run);
                 });
             }
@@ -63,30 +65,6 @@ angular.module('finqApp.controller')
             angular.forEach(run.progress.stories,function(story) {
                 calculateProgress(story.progress,story.scenarios.length);
             });
-        };
-
-        var determineRuntime = function(currentTime, run) {
-            var timeDelta = parseInt((currentTime.getTime() - run.startedOn.getTime()) / 1000);
-            var pluralized = utils.pluralize('RUNNER.RUNNING.RUN.START_TIME', [
-                {actionValue: 1, target: 'SECONDS'},
-                {actionValue: 60, target: 'MINUTES'},
-                {actionValue: 3600, target: 'HOURS'}
-            ], timeDelta);
-
-            $translate(pluralized.template,{delta: pluralized.value, id: run.id}).then(function (translatedValue) {
-                run.msg.runtime = translatedValue;
-            });
-        };
-
-        var setupInitialRunMessages = function(run) {
-            if (run.msg.startedBy === undefined) {
-                $translate('RUNNER.RUNNING.RUN.STARTED_BY',{name: run.startedBy.first}).then(function (translatedValue) {
-                    run.msg.startedBy = translatedValue;
-                });
-                $translate('RUNNER.RUNNING.RUN.RUNNING_ON',{environment: environmentService.getNameById(run.environment)}).then(function (translatedValue) {
-                    run.msg.startedOn = translatedValue;
-                });
-            }
         };
 
         updateRunProgress();

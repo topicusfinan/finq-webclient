@@ -10,12 +10,14 @@
         <div ng-class="{'active':running.selectedItem === 'run'+run.id}" ng-click="running.selectedItem = 'run'+run.id">
             <div class="title limited">
                 <div class="radial-progress" progress="run.progress.percentage" highlight="run.progress.highlight"></div>
-                <span class="separate">{{run.title}}</span>
+                <span class="separate">{{::run.title}}</span>
             </div>
             <div class="comments">
-                <span btf-markdown="run.msg.runtime"></span>
-                <span btf-markdown="run.msg.startedBy"></span>
-                <span btf-markdown="run.msg.startedOn"></span>
+                <span class="highlight">#{{::run.id}}</span>
+                <span>-</span>
+                <span>{{run.msg.runtime}}</span>
+                <i class="fa fa-globe separate"><span class="tip left">{{::run.msg.environment}}</span></i>
+                <i class="fa fa-user"><span class="tip left">{{::run.startedBy.name}}</span></i>
             </div>
         </div>
         <ul>
@@ -23,7 +25,7 @@
                 <div ng-class="{'active':running.selectedItem === 'story'+story.id}" ng-click="running.selectedItem = 'story'+story.id" data-toggle="story">
                     <div class="title">
                         <div class="radial-progress" progress="story.progress.percentage" highlight="story.progress.highlight"></div>
-                        <span class="separate">{{ story.title }}</span>
+                        <span class="separate">{{::story.title}}</span>
                     </div>
                 </div>
             </li>

@@ -3,10 +3,10 @@
     <div class="filters">
         <i class="fa fa-folder-open-o" ng-class="{'inactive':!available.filter.set.ids.length}" ng-click="filter.expand.set = !filter.expand.set"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET" ng-hide="!available.filter.set.ids.length && !filter.expand.set"></span>
-        <div class="select" filter-select="filter.sets" filter-id="available.filter.set.id" placeholder="filter.setPlaceholder" default="filter.setsDefault" ng-hide="!filter.expand.set" max-items="{{available.maxSelectItems}}"></div>
+        <div class="select" filter-select="filter.sets" filter-id="available.filter.set.id" placeholder="filter.setPlaceholder" default="filter.setsDefault" ng-hide="!filter.expand.set" max-items="{{::available.maxSelectItems}}"></div>
         <i class="fa fa-tag" ng-class="{'inactive':!available.filter.tag.ids.length}" ng-click="filter.expand.tag = !filter.expand.tag"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_TAG" ng-hide="!available.filter.tag.ids.length && !filter.expand.tag"></span>
-        <div class="select" filter-select="filter.tags" filter-id="available.filter.tag.id" placeholder="filter.tagPlaceholder" multiple="true" default="filter.tagsDefault" ng-hide="!filter.expand.tag" max-items="{{available.maxSelectItems}}"></div>
+        <div class="select" filter-select="filter.tags" filter-id="available.filter.tag.id" placeholder="filter.tagPlaceholder" multiple="true" default="filter.tagsDefault" ng-hide="!filter.expand.tag" max-items="{{::available.maxSelectItems}}"></div>
     </div>
     <div class="actions">
         <button ng-click="available.run('all')">
@@ -14,7 +14,7 @@
             <span translate="RUNNER.AVAILABLE.FILTER.RUN_ALL"></span>
         </button>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
+        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{::available.maxSelectItems}}"></div>
     </div>
 </div>
 <ul id="story-list" class="main-content-list filter-2">
@@ -22,7 +22,7 @@
         <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">
                 <i class="fa fa-bars" data-toggle="collection"></i>
-                <span class="separate">{{ book.title }}</span>
+                <span class="separate">{{::book.title}}</span>
             </div>
             <div class="actions">
                 <button ng-click="available.run('book',book.id)">
@@ -30,7 +30,7 @@
                     <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                 </button>
                 <span class="separate" translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
+                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{::available.maxSelectItems}}"></div>
             </div>
         </div>
         <ul>
@@ -38,7 +38,7 @@
                 <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.selectedItem = 'story'+story.id" data-toggle="story">
                     <div class="title">
                         <i class="fa"></i>
-                        <span class="separate">{{ story.title }}</span>
+                        <span class="separate">{{::story.title}}</span>
                     </div>
                     <div class="actions">
                         <button ng-click="available.run('story',story.id)">
@@ -46,14 +46,14 @@
                             <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                         </button>
                         <span class="separate" translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-                        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
+                        <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{::available.maxSelectItems}}"></div>
                     </div>
                 </div>
                 <ul>
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
                         <div ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
                             <div class="title">
-                                <span class="separate">{{ scenario.title }}</span>
+                                <span class="separate">{{::scenario.title}}</span>
                             </div>
                             <div class="actions">
                                 <button ng-click="available.run('scenario',scenario.id)">
@@ -61,7 +61,7 @@
                                     <span translate="RUNNER.AVAILABLE.FILTER.RUN"></span>
                                 </button>
                                 <span class="separate" translate="RUNNER.AVAILABLE.FILTER.BEFORE_ENVIRONMENT"></span>
-                                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{available.maxSelectItems}}"></div>
+                                <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{::available.maxSelectItems}}"></div>
                             </div>
                         </div>
                     </li>

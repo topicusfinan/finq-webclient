@@ -29,6 +29,10 @@
 
             > div.comments span {
                 color: $highlight-color;
+
+                &.highlight {
+                    color: $highlight-color;
+                }
             }
         }
 
@@ -102,7 +106,8 @@
                 margin-top: $content-list-1-select-margin-top;
             }
 
-            > div > span {
+            > div > span,
+            > div > i {
                 margin: 0 $filter-button-padding / 4;
 
                 &.separate {
@@ -130,6 +135,7 @@
             }
 
             > div.title > span,
+            > div.comments > i,
             > div.actions > span {
                 font-size: $content-list-item-1-font-size;
                 line-height: $content-list-item-1-font-size;
@@ -144,6 +150,14 @@
                     line-height: $content-list-item-1-com-font-size;
                     padding: (($content-list-item-1-height - $content-list-item-1-com-font-size) / 2) 0;
                     color: $content-list-item-1-com-color;
+
+                    &.highlight {
+                        color: $base-accent-color;
+                    }
+                }
+
+                > i:hover .tip {
+                    opacity: 1;
                 }
             }
 

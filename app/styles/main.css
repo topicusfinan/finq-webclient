@@ -843,6 +843,8 @@ footer.feedback {
       color: #fff; }
       .main-content-list li.cl > div:hover > div.comments span {
         color: #fff; }
+        .main-content-list li.cl > div:hover > div.comments span.highlight {
+          color: #fff; }
     .main-content-list li.cl > div > div.title {
       float: left; }
       .main-content-list li.cl > div > div.title > i {
@@ -887,9 +889,11 @@ footer.feedback {
         margin-top: 0.3em; }
       .main-content-list > li.cl > div .select > button {
         margin-top: 0.2em; }
-      .main-content-list > li.cl > div > div > span {
+      .main-content-list > li.cl > div > div > span,
+      .main-content-list > li.cl > div > div > i {
         margin: 0 0.125em; }
-        .main-content-list > li.cl > div > div > span.separate {
+        .main-content-list > li.cl > div > div > span.separate,
+        .main-content-list > li.cl > div > div > i.separate {
           margin: 0 0.25em; }
       .main-content-list > li.cl > div > div.title > i,
       .main-content-list > li.cl > div > div.title > .radial-progress {
@@ -920,6 +924,7 @@ footer.feedback {
         .main-content-list > li.cl > div > div.title > .radial-progress .inset[data-highlight="failed"] {
           background: #c22b1c; }
       .main-content-list > li.cl > div > div.title > span,
+      .main-content-list > li.cl > div > div.comments > i,
       .main-content-list > li.cl > div > div.actions > span {
         font-size: 1.333em;
         line-height: 1.333em;
@@ -931,6 +936,10 @@ footer.feedback {
           line-height: 1em;
           padding: 1.08064em 0;
           color: #737373; }
+          .main-content-list > li.cl > div > div.comments > span.highlight {
+            color: #049cdb; }
+        .main-content-list > li.cl > div > div.comments > i:hover .tip {
+          opacity: 1; }
       .main-content-list > li.cl > div p {
         margin: 0; }
     .main-content-list > li.cl > ul li.cl {
@@ -1046,6 +1055,9 @@ footer.feedback {
     .top-filter.active .comments > span,
     .main-content-list li.cl > div.active .comments > span {
       color: #fff; }
+      .top-filter.active .comments > span.highlight,
+      .main-content-list li.cl > div.active .comments > span.highlight {
+        color: #fff; }
   .top-filter > div > button span,
   .top-filter > div .select > button span,
   .main-content-list li.cl > div > div > button span,
@@ -1137,6 +1149,45 @@ footer.feedback {
       border-radius: 0; }
       .select .select-dropdown button:hover {
         background: #e6e6e6; }
+
+.tip {
+  position: absolute;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  left: 0;
+  font-size: .7em;
+  background: #333;
+  color: #fff;
+  border-radius: 0.3em;
+  padding: 0 .5em;
+  opacity: 0; }
+  .tip.left {
+    position: absolute;
+    background: #333;
+    border: 0 solid #333; }
+    .tip.left:after, .tip.left:before {
+      left: 100%;
+      border: solid transparent;
+      content: ' ';
+      width: 0;
+      height: 0;
+      position: absolute;
+      pointer-events: none; }
+    .tip.left:after {
+      border-color: rgba(119, 100, 213, 0);
+      border-left-color: #333;
+      border-width: 0.3em;
+      top: 50%;
+      margin-top: -0.3em;
+      z-index: 3; }
+    .tip.left:before {
+      border-color: rgba(194, 225, 245, 0);
+      border-left-color: #333;
+      border-width: 0.3em;
+      top: 50%;
+      margin-top: -0.3em;
+      z-index: 2; }
+  .tip:hover {
+    display: none; }
 
 .hero-notice {
   width: 100%;
@@ -1292,30 +1343,6 @@ button {
   .top-filter.filter-2 .filters > span {
     width: 0;
     opacity: 0; } }
-@media screen and (min-width: 10em) {
-  .main-content-list li.cl > div > div.title.limited span {
-    max-width: 1em; } }
-@media screen and (min-width: 48em) {
-  .main-content-list li.cl > div > div.title.limite span {
-    max-width: 3em; } }
-@media screen and (min-width: 55em) {
-  .main-content-list li.cl > div > div.title.limited span {
-    max-width: 6em; } }
-@media screen and (min-width: 60em) {
-  .main-content-list li.cl > div > div.title.limited span {
-    max-width: 9em; } }
-@media screen and (min-width: 65em) {
-  .main-content-list li.cl > div > div.title.limited span {
-    max-width: 12em; } }
-@media screen and (min-width: 70em) {
-  .main-content-list li.cl > div > div.title.limited span {
-    max-width: 15em; } }
-@media screen and (min-width: 80em) {
-  .main-content-list li.cl > div > div.title.limited span {
-    max-width: 18em; } }
-@media screen and (min-width: 90em) {
-  .main-content-list li.cl > div > div.title.limited span {
-    max-width: 21em; } }
 div.layout > header .title {
   padding-right: 0.66667em; }
   div.layout > header .title:after {
@@ -1448,6 +1475,11 @@ footer.feedback {
     -moz-transition: all linear 0.1s 0.1s;
     transition: all linear 0.1s 0.1s; }
 
+.tip {
+  -webkit-transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s 0.2s;
+  -moz-transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s 0.2s;
+  transition: opacity cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s 0.2s; }
+
 input.ng-invalid {
   -webkit-transition: all linear 0.1s;
   -moz-transition: all linear 0.1s;
@@ -1472,11 +1504,6 @@ input.ng-invalid {
   -webkit-transition: background cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
   -moz-transition: background cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
   transition: background cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s; }
-.main-content-list li.cl > div > div.title.limited span {
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis; }
 .main-content-list > li.cl > ul li.cl > ul {
   height: auto;
   max-height: 0;

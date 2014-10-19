@@ -42,6 +42,10 @@
 
         .comments > span {
             color: $highlight-color;
+
+            &.highlight {
+                color: $highlight-color;
+            }
         }
     }
 

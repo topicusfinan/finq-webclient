@@ -42,8 +42,7 @@ angular
         'finqApp.organizer',
         'finqApp.writer',
 
-        'finqApp.translate',
-        'btford.markdown'
+        'finqApp.translate'
     ]).config(['$routeProvider','$stateProvider',function($routeProvider,$stateProvider) {
         $routeProvider.otherwise({
             redirectTo: '/runner/available'

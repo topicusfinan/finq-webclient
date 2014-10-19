@@ -1,0 +1,19 @@
+.tip {
+    position: absolute;
+    font-family: $base-font-family;
+    left: 0;
+    font-size: .7em;
+    background: $tooltip-bg-color;
+    color: $tooltip-color;
+    border-radius: $tooltip-border-radius;
+    padding: 0 .5em;
+    opacity: 0;
+
+    &.left {
+        @include css-triangle(.3em, 0, $tooltip-bg-color, right, $tooltip-bg-color, absolute);
+    }
+
+    &:hover {
+        display: none;
+    }
+}

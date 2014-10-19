@@ -7,15 +7,6 @@ $full-menu-max-size:              17em;
 $full-filter-size-bp-1-no-act:    new-breakpoint(max-width 54em);
 $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
 
-$run-title-size-bp-1:             new-breakpoint(min-width 10em);
-$run-title-size-bp-2:             new-breakpoint(min-width 48em);
-$run-title-size-bp-3:             new-breakpoint(min-width 55em);
-$run-title-size-bp-4:             new-breakpoint(min-width 60em);
-$run-title-size-bp-5:             new-breakpoint(min-width 65em);
-$run-title-size-bp-6:             new-breakpoint(min-width 70em);
-$run-title-size-bp-7:             new-breakpoint(min-width 80em);
-$run-title-size-bp-8:             new-breakpoint(min-width 90em);
-
 
 @include media($full-menu-min-size-bp) {
     div.layout {
@@ -126,53 +117,5 @@ $run-title-size-bp-8:             new-breakpoint(min-width 90em);
             }
 
         }
-    }
-}
-
-@include media($run-title-size-bp-1) {
-    .main-content-list li.cl > div > div.title.limited span {
-        max-width: 1em;
-    }
-}
-
-@include media($run-title-size-bp-2) {
-    .main-content-list li.cl > div > div.title.limite span {
-        max-width: 3em;
-    }
-}
-
-@include media($run-title-size-bp-3) {
-    .main-content-list li.cl > div > div.title.limited span {
-        max-width: 6em;
-    }
-}
-
-@include media($run-title-size-bp-4) {
-    .main-content-list li.cl > div > div.title.limited span {
-        max-width: 9em;
-    }
-}
-
-@include media($run-title-size-bp-5) {
-    .main-content-list li.cl > div > div.title.limited span {
-        max-width: 12em;
-    }
-}
-
-@include media($run-title-size-bp-6) {
-    .main-content-list li.cl > div > div.title.limited span {
-        max-width: 15em;
-    }
-}
-
-@include media($run-title-size-bp-7) {
-    .main-content-list li.cl > div > div.title.limited span {
-        max-width: 18em;
-    }
-}
-
-@include media($run-title-size-bp-8) {
-    .main-content-list li.cl > div > div.title.limited span {
-        max-width: 21em;
     }
 }
