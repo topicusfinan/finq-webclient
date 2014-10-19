@@ -49,30 +49,45 @@ angular.module('finqApp.service')
         };
 
         var redetermineRunProgress = function(targetRun, updatedRunData) {
-            var i,j;
+            var i, j, story, newScenarioStatus;
             targetRun.progress.scenariosCompleted = 0;
             for (i=0; i<updatedRunData.progress.stories.length; i++) {
+                story = findStoryInRun(targetRun.progress.stories, updatedRunData.progress.stories[i].id);
+                if (story === null) {
+                    throw new Error('Server and client story dataset are out of sync');
+                }
                 for (j=0; j<updatedRunData.progress.stories[i].scenarios.length; j++) {
-                    switch (updatedRunData.progress.stories[i].scenarios[j].status) {
+                    newScenarioStatus = updatedRunData.progress.stories[i].scenarios[j].status;
+                    story.scenarios[j].status = newScenarioStatus;
+                    switch (newScenarioStatus) {
                         case STATE.RUN.SCENARIO.SUCCESS:
                             targetRun.progress.scenariosCompleted++;
-                            targetRun.progress.stories[i].progress.scenariosCompleted++;
+                            story.progress.scenariosCompleted++;
                             break;
                         case STATE.RUN.SCENARIO.FAILED:
                             targetRun.progress.scenariosCompleted++;
-                            targetRun.progress.stories[i].progress.scenariosCompleted++;
+                            story.progress.scenariosCompleted++;
                             targetRun.progress.failed = true;
-                            targetRun.progress.stories[i].progress.failed = true;
+                            story.progress.failed = true;
                             break;
                     }
                 }
             }
         };
 
+        var findStoryInRun = function(targetRunStories, storyId) {
+            for (var i=0; i<targetRunStories.length; i++) {
+                if (targetRunStories[i].id === storyId) {
+                    return targetRunStories[i];
+                }
+            }
+            return null;
+        };
+
         var handleRunStarted = function(runData) {
             var largestStoryScenarioCount = 0;
             var runningSession = {
-                id: runData.reference,
+                id: runData.id,
                 startedOn: runData.startedOn,
                 environment: runData.environment,
                 startedBy: runData.startedBy,

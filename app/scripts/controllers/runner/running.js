@@ -29,11 +29,11 @@ angular.module('finqApp.controller')
         this.selectedItem = null;
         this.maxSelectItems = configProvider.client().pagination.maxSelectDropdownItems;
         this.filter = {
-            env: {id: 'env', keys: []}
+            env: {id: 'env', ids: []}
         };
 
         $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED,function(event,filterInfo) {
-            that.filter[filterInfo.id].keys = filterInfo.keys;
+            that.filter[filterInfo.id].ids = filterInfo.keys;
         });
 
         $scope.runs = runnerService.getRunningSessions;

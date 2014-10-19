@@ -16,6 +16,7 @@ describe('Unit: AvailableCtrl', function() {
         runnerFilterService,
         storyRunService,
         feedbackService,
+        moduleSpy,
         storybooks;
 
     beforeEach(function() {
@@ -23,7 +24,7 @@ describe('Unit: AvailableCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, storyRun, feedback, story, runnerFilter) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, storyRun, feedback, story, runnerFilter, _module_) {
         scope = $rootScope.$new();
         runnerFilterService = runnerFilter;
         MODULES = _MODULES_;
@@ -35,6 +36,7 @@ describe('Unit: AvailableCtrl', function() {
         storyRunService = storyRun;
         feedbackService = feedback;
         emitSpy = sinon.spy(scope, '$emit');
+        moduleSpy = sinon.spy(_module_, 'setCurrentSection');
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             pagination : {
@@ -57,6 +59,10 @@ describe('Unit: AvailableCtrl', function() {
 
     it('should initially not have any item selected', function () {
         expect(AvailableCtrl.selectedItem).to.be.null;
+    });
+
+    it('should register itself as the active module and section', function () {
+        expect(moduleSpy).to.have.been.calledWith(MODULES.RUNNER.sections.AVAILABLE);
     });
 
     it('should respond to an update tag filter request by setting the filter keys', function () {

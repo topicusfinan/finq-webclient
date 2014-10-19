@@ -53,7 +53,7 @@ angular.module('finqApp.service')
                     });
                 }
                 moduleService.handleEvent(EVENTS.INTERNAL.STORY_RUN_STARTED,{
-                    reference: runData.id,
+                    id: runData.id,
                     environment: runData.environment,
                     startedBy: runData.startedBy,
                     startedOn: new Date(),
