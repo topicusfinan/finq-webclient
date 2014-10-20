@@ -58,7 +58,7 @@ angular.module('finqApp.controller')
         var determineProgress = function(run) {
             var calculateProgress = function(progressInfo,totalScenarios) {
                 progressInfo.percentage = parseInt(progressInfo.scenariosCompleted/totalScenarios*25)*4;
-                progressInfo.highlight = progressInfo.failed ? 'failed' : 'none';
+                progressInfo.highlight = progressInfo.failed ? 'failed' : (progressInfo.percentage === 100 ? 'success' : 'none');
             };
 
             calculateProgress(run.progress,run.totalScenarios);

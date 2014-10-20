@@ -21,7 +21,8 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'environmentServiceMock',
     'authServiceMock',
     'storyServiceMock',
-    function($httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock) {
+    'runnerMockSimulator',
+    function($httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runnerMockSimulator) {
 
         $httpBackend.whenGET('/app').respond(appServiceMock.info);
         $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
@@ -30,8 +31,12 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
         $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
+            var runId = Math.floor((Math.random() * 10000) + 1);
+            runnerMockSimulator.registerRun(angular.extend(jsonData,{
+                id: runId
+            }));
             return [200,{
-                id: Math.floor((Math.random() * 10000) + 1),
+                id: runId,
                 startedBy: authServiceMock.user,
                 environment: jsonData.environment
             }];

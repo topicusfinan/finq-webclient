@@ -23,5 +23,8 @@
     },
     "run": {
         "updateInterval": 1000
+    },
+    "mock": {
+        "runSimulationInterval": 1000
     }
 }

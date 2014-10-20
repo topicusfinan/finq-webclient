@@ -88,7 +88,7 @@ angular.module('finqApp.controller')
                         runScenarios.push(stories[i].scenarios[j].id);
                     }
                     runStories.push({
-                        story: stories[i].id,
+                        id: stories[i].id,
                         scenarios: runScenarios
                     });
                 }
@@ -102,7 +102,7 @@ angular.module('finqApp.controller')
                     case 'scenario':
                         story = storyService.findStoryByScenarioId(id);
                         storyRunService.runStory({
-                            story: story.id,
+                            id: story.id,
                             scenarios: [id]
                         },that.filter.env.ids[0]);
                         break;
@@ -113,7 +113,7 @@ angular.module('finqApp.controller')
                             runScenarios.push(scenarios[i].id);
                         }
                         storyRunService.runStory({
-                            story: id,
+                            id: id,
                             scenarios: runScenarios
                         },that.filter.env.ids[0]);
                         break;

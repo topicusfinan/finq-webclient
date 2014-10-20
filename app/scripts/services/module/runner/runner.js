@@ -53,6 +53,7 @@ angular.module('finqApp.service')
             targetRun.progress.scenariosCompleted = 0;
             for (i=0; i<updatedRunData.progress.stories.length; i++) {
                 story = findStoryInRun(targetRun.progress.stories, updatedRunData.progress.stories[i].id);
+                story.progress.scenariosCompleted = 0;
                 if (story === null) {
                     throw new Error('Server and client story dataset are out of sync');
                 }
@@ -102,7 +103,7 @@ angular.module('finqApp.service')
                 title: ''
             };
             for (var i = 0; i<runData.stories.length; i++) {
-                runningSession.progress.stories.push(setupStoryForRun(runData.stories[i].story,runData.stories[i].scenarios));
+                runningSession.progress.stories.push(setupStoryForRun(runData.stories[i].id,runData.stories[i].scenarios));
                 runningSession.totalScenarios += runData.stories[i].scenarios.length;
                 if (runData.stories[i].scenarios.length > largestStoryScenarioCount) {
                     largestStoryScenarioCount = runData.stories[i].scenarios.length;

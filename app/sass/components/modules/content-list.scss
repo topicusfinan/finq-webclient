@@ -132,6 +132,10 @@
                 .inset[data-highlight="failed"] {
                     background: $run-failed-color;
                 }
+
+                .inset[data-highlight="success"] {
+                    background: $run-success-color;
+                }
             }
 
             > div.title > span,
@@ -228,6 +232,10 @@
 
                         .inset[data-highlight="failed"] {
                             background: $run-failed-color;
+                        }
+
+                        .inset[data-highlight="success"] {
+                            background: $run-success-color;
                         }
                     }
                 }
