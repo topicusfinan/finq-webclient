@@ -1,5 +1,4 @@
-<div class="top-filter ic filter-1 selectable" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
-    <i class="fa fa-bars" ng-click="running.expander.toggleAll()"></i>
+<div class="top-filter filter-1 selectable" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
     <div class="filters">
         <i class="fa fa-globe" ng-class="{'inactive':!running.filter.env.keys.length}"></i>
         <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
@@ -10,7 +9,7 @@
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs() track by run.id">
         <div>
             <div class="title limited">
-                <div class="radial-progress" progress="run.progress.percentage" highlight="run.progress.highlight"></div>
+                <div class="radial-progress" data-toggle="collection" progress="run.progress.percentage" highlight="run.progress.highlight"></div>
                 <span class="separate">{{::run.title}}</span>
             </div>
             <div class="comments">

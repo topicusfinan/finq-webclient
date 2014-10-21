@@ -8,6 +8,7 @@
     border-radius: $tooltip-border-radius;
     padding: 0 .5em;
     opacity: 0;
+    cursor: default;
 
     &.left {
         @include css-triangle(.3em, 0, $tooltip-bg-color, right, $tooltip-bg-color, absolute);

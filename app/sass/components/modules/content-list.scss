@@ -18,12 +18,12 @@
     margin-bottom: 6em;
 
     li.cl > div {
-        cursor: pointer;
         position: relative;
         color: $section-header-color;
         margin-top: $content-list-item-spacing;
 
         &.selectable:hover {
+            cursor: pointer;
             background: $hover-bg-color;
             color: $highlight-color;
 
@@ -87,19 +87,20 @@
             background: $content-list-item-1-bg-color;
             margin-top: 0;
 
-            &.active {
-                background: $base-accent-color;
-
-                > div.comments {
-                    background: $base-accent-color;
-                }
-            }
-
             &.selectable:hover {
                 background: $hover-bg-color;
 
                 > div.comments {
                     background: $hover-bg-color;
+                }
+            }
+
+            &.active,
+            &.active:hover {
+                background: $base-accent-color;
+
+                > div.comments {
+                    background: $base-accent-color;
                 }
             }
 
@@ -124,6 +125,7 @@
 
             > div.title > i,
             > div.title > .radial-progress {
+                cursor: pointer;
                 left: $section-list-icon-left * $content-list-item-1-icon-left;
                 top: $content-list-item-1-icon-top;
             }
@@ -167,8 +169,12 @@
                     }
                 }
 
-                > i:hover .tip {
-                    opacity: 1;
+                > i {
+                    cursor: pointer;
+
+                    &:hover .tip {
+                        opacity: 1;
+                    }
                 }
             }
 
@@ -187,13 +193,15 @@
                     max-height: $content-list-item-2-height;
                     background: $content-list-item-2-bg-color;
 
-                    &.active {
+                    &.selectable:hover {
+                        background: $hover-bg-color;
+                    }
+
+                    &.active,
+                    &.active:hover {
                         background: $base-accent-color;
                     }
 
-                    &:hover {
-                        background: $hover-bg-color;
-                    }
 
                     > div > button,
                     .select > button {

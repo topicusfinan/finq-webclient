@@ -21,7 +21,12 @@
         float: left;
     }
 
-    &.active {
+    &.selectable:hover {
+        background: $hover-bg-color;
+    }
+
+    &.active,
+    &.active:hover {
         background: $base-accent-color;
         color: $highlight-color;
 
@@ -47,10 +52,6 @@
                 color: $highlight-color;
             }
         }
-    }
-
-    &.selectable:hover {
-        background: $hover-bg-color;
     }
 
     > div > button span,
