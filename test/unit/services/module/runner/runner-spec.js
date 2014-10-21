@@ -68,7 +68,7 @@ describe('Unit: RunnerService', function() {
     it('should subscribe to updates for a run in case a run was started', function () {
         var subscribeSpy = sinon.spy(subscriptionService, 'subscribe');
         startStories([{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
         subscribeSpy.should.have.been.called.once;
@@ -76,7 +76,7 @@ describe('Unit: RunnerService', function() {
 
     it('should handle a progress update for a run that is subscribed to', function () {
         startStories([{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
         generateStoryUpdate(46421532,[
@@ -93,7 +93,7 @@ describe('Unit: RunnerService', function() {
 
     it('should handle a progress update for a run that contains a failed scenario', function () {
         startStories([{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
         generateStoryUpdate(46421532,[
@@ -111,7 +111,7 @@ describe('Unit: RunnerService', function() {
 
     it('should be able to handle an unforseen out of sync error on receiving an update for an unknown story', function (done) {
         startStories([{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
         try {
@@ -123,7 +123,7 @@ describe('Unit: RunnerService', function() {
 
     it('should be able to register a run of a subset of scenarios for a story', function () {
         startStories([{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343]
             }]);
         var runningStories = runnerService.getRunningSessions();
@@ -133,7 +133,7 @@ describe('Unit: RunnerService', function() {
 
     it('should use the title of the only story that is included in the run when there is only one', function () {
         startStories([{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
         var runningStories = runnerService.getRunningSessions();
@@ -142,10 +142,8 @@ describe('Unit: RunnerService', function() {
 
     it('should use the title of the most expensive story as a base for a multistory title', function () {
         startStories([
-            {story: 46421532,
-            scenarios: [23452345]},
-            {story: 56421532,
-            scenarios: [33452343,33452345]}
+            {id: 46421532, scenarios: [23452345]},
+            {id: 56421532, scenarios: [33452343,33452345]}
         ]);
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].title).to.equal(runningStories[0].progress.stories[1].title);

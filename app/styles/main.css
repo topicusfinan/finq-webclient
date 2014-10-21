@@ -826,7 +826,7 @@ footer.feedback {
     color: #262626;
     margin-top: 2px; }
     .main-content-list li.cl > div:hover {
-      background: #049cdb;
+      background: #49c7fc;
       color: white; }
       .main-content-list li.cl > div:hover > div.comments span {
         color: white; }
@@ -866,10 +866,14 @@ footer.feedback {
       max-height: 3.16128em;
       background: #d0d0d0;
       margin-top: 0; }
-      .main-content-list > li.cl > div.active, .main-content-list > li.cl > div:hover {
+      .main-content-list > li.cl > div.active {
         background: #049cdb; }
-        .main-content-list > li.cl > div.active > div.comments, .main-content-list > li.cl > div:hover > div.comments {
+        .main-content-list > li.cl > div.active > div.comments {
           background: #049cdb; }
+      .main-content-list > li.cl > div:hover {
+        background: #49c7fc; }
+        .main-content-list > li.cl > div:hover > div.comments {
+          background: #49c7fc; }
       .main-content-list > li.cl > div button,
       .main-content-list > li.cl > div .select > button {
         font-size: 1.233em;
@@ -937,8 +941,10 @@ footer.feedback {
         min-height: 2.77889em;
         max-height: 2.77889em;
         background: #eaeaea; }
-        .main-content-list > li.cl > ul li.cl > div.active, .main-content-list > li.cl > ul li.cl > div:hover {
+        .main-content-list > li.cl > ul li.cl > div.active {
           background: #049cdb; }
+        .main-content-list > li.cl > ul li.cl > div:hover {
+          background: #49c7fc; }
         .main-content-list > li.cl > ul li.cl > div > div > button,
         .main-content-list > li.cl > ul li.cl > div .select > button {
           font-size: 1.1em;

@@ -81,7 +81,7 @@ describe('Unit: RunningCtrl', function() {
             environment: environmentMockData[0].id,
             startedOn: new Date(),
             stories: [{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343,23452345]
             }]
         });
@@ -104,7 +104,7 @@ describe('Unit: RunningCtrl', function() {
             environment: environmentMockData[0].id,
             startedOn: new Date(),
             stories: [{
-                story: 46421532,
+                id: 46421532,
                 scenarios: [23452343,23452345]
             }]
         });

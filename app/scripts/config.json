@@ -25,6 +25,13 @@
         "updateInterval": 1000
     },
     "mock": {
-        "runSimulationInterval": 1000
+        "runSimulation": {
+            "interval": 1000,
+            "runSelectChance": 0.9,
+            "storySelectChance": 0.9,
+            "scenarioSelectChance": 0.95,
+            "scenarioSuccessChance": 0.75,
+            "scenarioFailChance": 0.05
+        }
     }
 }

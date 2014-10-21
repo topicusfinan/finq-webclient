@@ -7,7 +7,7 @@
 </div>
 <ul class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs() track by run.id">
-        <div ng-class="{'active':running.selectedItem === 'run'+run.id}" ng-click="running.selectedItem = 'run'+run.id">
+        <div ng-class="{'active':running.selectedItem === 'run'+run.id}">
             <div class="title limited">
                 <div class="radial-progress" progress="run.progress.percentage" highlight="run.progress.highlight"></div>
                 <span class="separate">{{::run.title}}</span>

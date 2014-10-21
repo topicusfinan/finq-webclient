@@ -104,9 +104,9 @@ describe('Unit: AvailableCtrl', function() {
         AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('scenario',scenarioId);
         runSpy.should.have.been.calledWith({
-            story: storybooks[0].stories[0].id,
+            id: storybooks[0].stories[0].id,
             scenarios: [storybooks[0].stories[0].scenarios[0].id]
-        });
+        }, 1);
     });
 
     it('should be able to run a story by id in case an environment was selected', function () {
@@ -119,9 +119,9 @@ describe('Unit: AvailableCtrl', function() {
         AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('story',storyId);
         expect(runSpy).to.have.been.calledWith({
-            story: storyId,
+            id: storyId,
             scenarios: scenarioIds
-        });
+        }, 1);
     });
 
     it('should be able to run a storybook by id in case an environment was selected', function () {
@@ -130,7 +130,7 @@ describe('Unit: AvailableCtrl', function() {
         var stories = [];
         for (var i=0; i<storybooks[0].stories.length; i++) {
             var story = {
-                story: storybooks[0].stories[i].id,
+                id: storybooks[0].stories[i].id,
                 scenarios: []
             };
             for (var j=0; j<storybooks[0].stories[i].scenarios.length; j++) {
@@ -140,7 +140,7 @@ describe('Unit: AvailableCtrl', function() {
         }
         AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('book',bookId);
-        expect(runSpy).to.have.been.calledWith(stories);
+        expect(runSpy).to.have.been.calledWith(stories, 1);
     });
 
     it('should be able to run all stories in case an environment was selected', function () {
@@ -149,7 +149,7 @@ describe('Unit: AvailableCtrl', function() {
         for (var i=0; i<storybooks.length; i++) {
             for (var j=0; j<storybooks[i].stories.length; j++) {
                 var story = {
-                    story: storybooks[i].stories[j].id,
+                    id: storybooks[i].stories[j].id,
                     scenarios: []
                 };
                 for (var k=0; k<storybooks[i].stories[j].scenarios.length; k++) {
@@ -160,7 +160,7 @@ describe('Unit: AvailableCtrl', function() {
         }
         AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('all');
-        expect(runSpy).to.have.been.calledWith(stories);
+        expect(runSpy).to.have.been.calledWith(stories, 1);
     });
 
     it('should be able to apply tag filters when executing a story', function () {
@@ -178,21 +178,21 @@ describe('Unit: AvailableCtrl', function() {
         runnerFilterService.applyFilter([],[1]);
         AvailableCtrl.run('story',storyId);
         expect(runSpy).to.have.been.calledWith({
-            story: storyId,
+            id: storyId,
             scenarios: scenarioIds
-        });
+        }, 1);
     });
 
     it('should be able to apply tag filters when running by books and all stories', function () {
         var runSpy = sinon.spy(storyRunService, 'runStories');
         var stories = [
-            {story: 46421532, scenarios: [23452345]},
-            {story: 66421532, scenarios: [63452343]},
+            {id: 46421532, scenarios: [23452345]},
+            {id: 66421532, scenarios: [63452343]},
         ];
         AvailableCtrl.filter.env.ids = [1];
         runnerFilterService.applyFilter([],[1,5]);
         AvailableCtrl.run('all');
-        expect(runSpy).to.have.been.calledWith(stories);
+        expect(runSpy).to.have.been.calledWith(stories, 1);
     });
 
 });

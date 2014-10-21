@@ -24,7 +24,7 @@
         margin-top: $content-list-item-spacing;
 
         &:hover {
-            background: $base-accent-color;
+            background: $hover-bg-color;
             color: $highlight-color;
 
             > div.comments span {
@@ -87,12 +87,19 @@
             background: $content-list-item-1-bg-color;
             margin-top: 0;
 
-            &.active,
-            &:hover {
+            &.active {
                 background: $base-accent-color;
 
                 > div.comments {
                     background: $base-accent-color;
+                }
+            }
+
+            &:hover {
+                background: $hover-bg-color;
+
+                > div.comments {
+                    background: $hover-bg-color;
                 }
             }
 
@@ -180,9 +187,12 @@
                     max-height: $content-list-item-2-height;
                     background: $content-list-item-2-bg-color;
 
-                    &.active,
-                    &:hover {
+                    &.active {
                         background: $base-accent-color;
+                    }
+
+                    &:hover {
+                        background: $hover-bg-color;
                     }
 
                     > div > button,
