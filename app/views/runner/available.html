@@ -1,4 +1,4 @@
-<div class="top-filter ic ng-hide filter-2" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
+<div class="top-filter ic ng-hide filter-2 selectable" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
     <i class="fa fa-bars" ng-click="available.expander.toggleAll()"></i>
     <div class="filters">
         <i class="fa fa-folder-open-o" ng-class="{'inactive':!available.filter.set.ids.length}" ng-click="filter.expand.set = !filter.expand.set"></i>
@@ -19,7 +19,7 @@
 </div>
 <ul id="story-list" class="main-content-list filter-2">
     <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | storybookPaginationFilter:available.currentPage:available.maxScenarios) track by book.id">
-        <div ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
+        <div class="selectable" ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">
                 <i class="fa fa-bars" data-toggle="collection"></i>
                 <span class="separate">{{::book.title}}</span>
@@ -35,7 +35,7 @@
         </div>
         <ul>
             <li class="ic cl" ng-repeat="story in book.stories track by story.id">
-                <div ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.selectedItem = 'story'+story.id" data-toggle="story">
+                <div class="selectable" ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.selectedItem = 'story'+story.id" data-toggle="story">
                     <div class="title">
                         <i class="fa"></i>
                         <span class="separate">{{::story.title}}</span>
@@ -51,7 +51,7 @@
                 </div>
                 <ul>
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
-                        <div ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
+                        <div class="selectable" ng-class="{'active':available.selectedItem === 'scenario'+scenario.id}" ng-click="available.selectedItem = 'scenario'+scenario.id">
                             <div class="title">
                                 <span class="separate">{{::scenario.title}}</span>
                             </div>

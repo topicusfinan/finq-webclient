@@ -8,6 +8,8 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
     var socketService,
         $timeout,
         EVENTS,
+        STATE,
+        storyMockData,
         simulator;
 
     beforeEach(function() {
@@ -15,10 +17,12 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_) {
+    beforeEach(inject(function (_$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_, story, storyServiceMock, _STATE_) {
         socketService = socket;
         EVENTS = _EVENTS_;
+        STATE = _STATE_;
         $timeout = _$timeout_;
+        storyMockData = storyServiceMock.books;
         simulator = runnerMockSimulator;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
@@ -28,32 +32,29 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
                     runSelectChance: 1,
                     storySelectChance: 1,
                     scenarioSelectChance: 1,
-                    scenarioSuccessChance: 1,
-                    scenarioFailChance: 0
+                    stepSuccessChance: 1,
+                    stepFailChance: 0
                 }
             },
             socket: {
-                endpoint: '',
-                reconnectionAttempts: 10,
-                reconnectionDelay: 1000,
-                reconnectionDelayMax: 5000,
-                timeout: 20000,
-                reconnectAlertCnt: 3
+                endpoint: ''
             }
         });
+        $httpBackend.expectGET('/books').respond(200, storyMockData);
         config.load();
+        story.list();
         $httpBackend.flush();
         socket.connect();
     }));
 
-    it('should publish an update with all scenarios as successful in case they have a 100% success chance', function (done) {
+    it('should publish an update with all steps as successful', function (done) {
         var runUpdateSpy = sinon.spy(socketService, 'emit');
         simulator.registerRun({
             id: 1,
             stories: [
                 {
-                    id: 2,
-                    scenarios: [3,4]
+                    id: 46421532,
+                    scenarios: [23452343,23452345]
                 }
             ]
         });
@@ -64,23 +65,81 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
                 id: 1,
                 progress: {
                     stories: [{
-                        id: 2,
-                        scenarios: [{status: 1}, {status: 1}]
+                        id: 46421532,
+                        scenarios: [
+                            {
+                                status: STATE.RUN.SCENARIO.RUNNING,
+                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
+                            },
+                            {
+                                status: STATE.RUN.SCENARIO.RUNNING,
+                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                            }
+                        ]
                     }]
                 }
             });
             done();
         },14);
+
+        setTimeout(function() {
+            $timeout.flush();
+            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+                id: 1,
+                progress: {
+                    stories: [{
+                        id: 46421532,
+                        scenarios: [
+                            {
+                                status: STATE.RUN.SCENARIO.RUNNING,
+                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
+                            },
+                            {
+                                status: STATE.RUN.SCENARIO.RUNNING,
+                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
+                            }
+                        ]
+                    }]
+                }
+            });
+            done();
+        },28);
+
+        setTimeout(function() {
+            $timeout.flush();
+            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+                id: 1,
+                progress: {
+                    stories: [{
+                        id: 46421532,
+                        scenarios: [
+                            {
+                                status: STATE.RUN.SCENARIO.SUCCESS,
+                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
+                            },
+                            {
+                                status: STATE.RUN.SCENARIO.RUNNING,
+                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
+                            }
+                        ]
+                    }]
+                }
+            });
+            done();
+        },42);
+
     });
 
 });
 
 
-describe('Unit: StoryRunnerMockSimulator scenario always fails on the first try', function() {
+describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', function() {
 
     var socketService,
         $timeout,
         EVENTS,
+        STATE,
+        storyMockData,
         simulator;
 
     beforeEach(function() {
@@ -88,10 +147,12 @@ describe('Unit: StoryRunnerMockSimulator scenario always fails on the first try'
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_) {
+    beforeEach(inject(function (_$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_, story, storyServiceMock, _STATE_) {
         socketService = socket;
         EVENTS = _EVENTS_;
+        STATE = _STATE_;
         $timeout = _$timeout_;
+        storyMockData = storyServiceMock.books;
         simulator = runnerMockSimulator;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
@@ -101,32 +162,29 @@ describe('Unit: StoryRunnerMockSimulator scenario always fails on the first try'
                     runSelectChance: 1,
                     storySelectChance: 1,
                     scenarioSelectChance: 1,
-                    scenarioSuccessChance: 0,
-                    scenarioFailChance: 1
+                    stepSuccessChance: 0,
+                    stepFailChance: 1
                 }
             },
             socket: {
-                endpoint: '',
-                reconnectionAttempts: 10,
-                reconnectionDelay: 1000,
-                reconnectionDelayMax: 5000,
-                timeout: 20000,
-                reconnectAlertCnt: 3
+                endpoint: ''
             }
         });
+        $httpBackend.expectGET('/books').respond(200, storyMockData);
         config.load();
+        story.list();
         $httpBackend.flush();
         socket.connect();
     }));
 
-    it('should publish an update with all scenarios as successful in case they have a 100% failure chance', function (done) {
+    it('should publish an update with all scenarios as failed', function (done) {
         var runUpdateSpy = sinon.spy(socketService, 'emit');
         simulator.registerRun({
             id: 1,
             stories: [
                 {
-                    id: 2,
-                    scenarios: [3,4]
+                    id: 46421532,
+                    scenarios: [23452343,23452345]
                 }
             ]
         });
@@ -137,13 +195,98 @@ describe('Unit: StoryRunnerMockSimulator scenario always fails on the first try'
                 id: 1,
                 progress: {
                     stories: [{
-                        id: 2,
-                        scenarios: [{status: 2}, {status: 2}]
+                        id: 46421532,
+                        scenarios: [
+                            {
+                                status: STATE.RUN.SCENARIO.FAILED,
+                                steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                            },
+                            {
+                                status: STATE.RUN.SCENARIO.FAILED,
+                                steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                            }
+                        ]
                     }]
                 }
             });
             done();
         },14);
+
+        setTimeout(function() {
+            try {
+                $timeout.flush();
+            } catch (error) {
+                runUpdateSpy.should.have.been.called.once;
+                done();
+            }
+        },28);
+
+    });
+
+});
+
+describe('Unit: StoryRunnerMockSimulator run should continue to run in case it was not finished', function() {
+
+    var socketService,
+        $timeout,
+        EVENTS,
+        STATE,
+        storyMockData,
+        simulator;
+
+    beforeEach(function() {
+        module('finqApp');
+        module('finqApp.service');
+        module('finqApp.mock');
+    });
+    beforeEach(inject(function (_$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_, story, storyServiceMock, _STATE_) {
+        socketService = socket;
+        EVENTS = _EVENTS_;
+        STATE = _STATE_;
+        $timeout = _$timeout_;
+        storyMockData = storyServiceMock.books;
+        simulator = runnerMockSimulator;
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            mock: {
+                runSimulation: {
+                    interval: 10,
+                    runSelectChance: 1,
+                    storySelectChance: 1,
+                    scenarioSelectChance: 1,
+                    stepSuccessChance: 0,
+                    stepFailChance: 0
+                }
+            },
+            socket: {
+                endpoint: ''
+            }
+        });
+        $httpBackend.expectGET('/books').respond(200, storyMockData);
+        config.load();
+        story.list();
+        $httpBackend.flush();
+        socket.connect();
+    }));
+
+    it('should not publish an event in case the run did not change', function (done) {
+        var runUpdateSpy = sinon.spy(socketService, 'emit');
+        simulator.registerRun({
+            id: 1,
+            stories: [
+                {
+                    id: 46421532,
+                    scenarios: [23452343,23452345]
+                }
+            ]
+        });
+
+        setTimeout(function() {
+            $timeout.flush();
+            runUpdateSpy.should.not.have.been.called;
+            done();
+        },14);
+
     });
 
 });

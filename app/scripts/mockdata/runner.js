@@ -10,7 +10,7 @@
  * result information.
  */
 angular.module('finqApp.service')
-    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout', function (socketService,STATE,EVENTS,configProvider,$timeout) {
+    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService) {
         var runs = [];
 
         this.registerRun = function(runData) {
@@ -18,7 +18,10 @@ angular.module('finqApp.service')
             angular.forEach(runData.stories, function(story) {
                 var scenarios = [];
                 for (var i=0; i<story.scenarios.length; i++) {
-                    scenarios.push({status: STATE.RUN.SCENARIO.RUNNING});
+                    scenarios.push({
+                        status: STATE.RUN.SCENARIO.RUNNING,
+                        steps: setupStepsForScenario(story.scenarios[i])
+                    });
                 }
                 stories.push({
                     id: story.id,
@@ -34,8 +37,20 @@ angular.module('finqApp.service')
             $timeout(simulateRunResponses, configProvider.client().mock.runSimulation.interval);
         };
 
+        var setupStepsForScenario = function(scenarioId) {
+            var scenario = storyService.findScenarioById(scenarioId);
+            var steps = [];
+            if (scenario.steps.length) {
+                steps.push({status: STATE.RUN.SCENARIO.RUNNING});
+                for (var i=1; i<scenario.steps.length; i++) {
+                    steps.push({status: STATE.RUN.SCENARIO.QUEUED});
+                }
+            }
+            return steps;
+        };
+
         var simulateRunResponses = function() {
-            var i,j,k, scenarioDone, updateAvailable;
+            var i,j,k, scenarioHasUpdate, updateAvailable;
             for (i=0; i<runs.length; i++) {
                 updateAvailable = false;
                 if (Math.random() > configProvider.client().mock.runSimulation.runSelectChance) {
@@ -43,11 +58,11 @@ angular.module('finqApp.service')
                 }
                 for (j=0; j<runs[i].progress.stories.length; j++) {
                     if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.storySelectChance,Math.max(runs[i].progress.stories.length,8))) {
-                        scenarioDone = false;
+                        scenarioHasUpdate = false;
                         for (k=0; k<runs[i].progress.stories[j].scenarios.length; k++) {
                             if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance,Math.max(runs[i].progress.stories[i].scenarios.length,8))) {
-                                scenarioDone = generateScenarioStatusUpdate(runs[i].progress.stories[j].scenarios[k]);
-                                if (scenarioDone) {
+                                scenarioHasUpdate = generateScenarioStatusUpdate(runs[i].progress.stories[j].scenarios[k]);
+                                if (scenarioHasUpdate) {
                                     updateAvailable = true;
                                 }
                             }
@@ -66,16 +81,35 @@ angular.module('finqApp.service')
 
         var generateScenarioStatusUpdate = function(scenario) {
             if (scenario.status === STATE.RUN.SCENARIO.RUNNING) {
+                var resultStatusCurrentStep = STATE.RUN.SCENARIO.RUNNING;
                 var random = Math.random();
-                if (random < configProvider.client().mock.runSimulation.scenarioFailChance) {
-                    scenario.status = STATE.RUN.SCENARIO.FAILED;
-                    return true;
-                } else if (random < configProvider.client().mock.runSimulation.scenarioFailChance + configProvider.client().mock.runSimulation.scenarioSuccessChance) {
-                    scenario.status = STATE.RUN.SCENARIO.SUCCESS;
-                    return true;
+                if (random < configProvider.client().mock.runSimulation.stepFailChance) {
+                    resultStatusCurrentStep = STATE.RUN.SCENARIO.FAILED;
+                } else if (random < configProvider.client().mock.runSimulation.stepFailChance + configProvider.client().mock.runSimulation.stepSuccessChance) {
+                    resultStatusCurrentStep = STATE.RUN.SCENARIO.SUCCESS;
                 }
+                if (resultStatusCurrentStep === STATE.RUN.SCENARIO.RUNNING) {
+                    return false;
+                }
+                if (transferToNextStep(scenario, resultStatusCurrentStep)) {
+                    scenario.status = resultStatusCurrentStep;
+                }
+                return true;
             }
             return false;
+        };
+
+        var transferToNextStep = function(scenario,currentStepResult) {
+            for (var i=0; i<scenario.steps.length; i++) {
+                if (scenario.steps[i].status === STATE.RUN.SCENARIO.RUNNING) {
+                    scenario.steps[i].status = currentStepResult;
+                    if (currentStepResult !== STATE.RUN.SCENARIO.FAILED && scenario.steps.length > i+1) {
+                        scenario.steps[i+1].status = STATE.RUN.SCENARIO.RUNNING;
+                        return false;
+                    }
+                }
+            }
+            return true;
         };
 
         var publishSimulatedResponse = function(updatedRunData) {

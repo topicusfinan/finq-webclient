@@ -825,12 +825,12 @@ footer.feedback {
     position: relative;
     color: #262626;
     margin-top: 2px; }
-    .main-content-list li.cl > div:hover {
+    .main-content-list li.cl > div.selectable:hover {
       background: #49c7fc;
       color: white; }
-      .main-content-list li.cl > div:hover > div.comments span {
+      .main-content-list li.cl > div.selectable:hover > div.comments span {
         color: white; }
-        .main-content-list li.cl > div:hover > div.comments span.highlight {
+        .main-content-list li.cl > div.selectable:hover > div.comments span.highlight {
           color: white; }
     .main-content-list li.cl > div > div.title {
       float: left; }
@@ -849,14 +849,14 @@ footer.feedback {
   .main-content-list li.cl > div > div.title > .radial-progress {
     position: absolute; }
   .main-content-list > li.cl > div.active > div.title > .radial-progress .circle .mask .fill,
-  .main-content-list > li.cl > div:hover > div.title > .radial-progress .circle .mask .fill,
+  .main-content-list > li.cl > div.selectable:hover > div.title > .radial-progress .circle .mask .fill,
   .main-content-list > li.cl > ul li.cl > div.active > div.title > .radial-progress .circle .mask .fill,
-  .main-content-list > li.cl > ul li.cl > div:hover > div.title > .radial-progress .circle .mask .fill {
+  .main-content-list > li.cl > ul li.cl > div.selectable:hover > div.title > .radial-progress .circle .mask .fill {
     background: white; }
   .main-content-list > li.cl > div.active > div.title > .radial-progress .inset,
-  .main-content-list > li.cl > div:hover > div.title > .radial-progress .inset,
+  .main-content-list > li.cl > div.selectable:hover > div.title > .radial-progress .inset,
   .main-content-list > li.cl > ul li.cl > div.active > div.title > .radial-progress .inset,
-  .main-content-list > li.cl > ul li.cl > div:hover > div.title > .radial-progress .inset {
+  .main-content-list > li.cl > ul li.cl > div.selectable:hover > div.title > .radial-progress .inset {
     background: #049cdb; }
   .main-content-list > li.cl {
     border-top: #f7f7f7 2px solid;
@@ -870,9 +870,9 @@ footer.feedback {
         background: #049cdb; }
         .main-content-list > li.cl > div.active > div.comments {
           background: #049cdb; }
-      .main-content-list > li.cl > div:hover {
+      .main-content-list > li.cl > div.selectable:hover {
         background: #49c7fc; }
-        .main-content-list > li.cl > div:hover > div.comments {
+        .main-content-list > li.cl > div.selectable:hover > div.comments {
           background: #49c7fc; }
       .main-content-list > li.cl > div button,
       .main-content-list > li.cl > div .select > button {
@@ -1000,8 +1000,10 @@ footer.feedback {
           background: #f7f7f7;
           padding-top: 1px;
           margin-top: 1px; }
-          .main-content-list > li.cl > ul li.cl > ul li.cl > div.active, .main-content-list > li.cl > ul li.cl > ul li.cl > div:hover {
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div.active {
             background: #049cdb; }
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div.selectable:hover {
+            background: #49c7fc; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div > div > button,
           .main-content-list > li.cl > ul li.cl > ul li.cl > div .select > button {
             margin-top: 0.2em; }
@@ -1055,6 +1057,9 @@ footer.feedback {
       .top-filter.active .comments > span.highlight,
       .main-content-list li.cl > div.active .comments > span.highlight {
         color: white; }
+  .top-filter.selectable:hover,
+  .main-content-list li.cl > div.selectable:hover {
+    background: #49c7fc; }
   .top-filter > div > button span,
   .top-filter > div .select > button span,
   .main-content-list li.cl > div > div > button span,

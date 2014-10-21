@@ -1,13 +1,14 @@
-<div class="top-filter filter-1" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
+<div class="top-filter ic filter-1 selectable" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
+    <i class="fa fa-bars" ng-click="running.expander.toggleAll()"></i>
     <div class="filters">
         <i class="fa fa-globe" ng-class="{'inactive':!running.filter.env.keys.length}"></i>
         <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
         <div class="select" filter-select="filter.environments" filter-id="running.filter.env.id" placeholder="filter.envPlaceholder" max-items="{{running.maxSelectItems}}"></div>
     </div>
 </div>
-<ul class="main-content-list filter-1">
+<ul id="run-list" class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs() track by run.id">
-        <div ng-class="{'active':running.selectedItem === 'run'+run.id}">
+        <div>
             <div class="title limited">
                 <div class="radial-progress" progress="run.progress.percentage" highlight="run.progress.highlight"></div>
                 <span class="separate">{{::run.title}}</span>
@@ -21,13 +22,23 @@
             </div>
         </div>
         <ul>
-            <li class="ic cl" ng-repeat="story in run.progress.stories track by story.id">
-                <div ng-class="{'active':running.selectedItem === 'story'+story.id}" ng-click="running.selectedItem = 'story'+story.id" data-toggle="story">
+            <li class="ic cl" ng-repeat="story in run.progress.stories track by (run.id+'-'+story.id)">
+                <div class="selectable" ng-class="{'active':running.selectedItem === 'story'+run.id+'-'+story.id}" ng-click="running.selectedItem = 'story'+run.id+'-'+story.id" data-toggle="story">
                     <div class="title">
                         <div class="radial-progress" progress="story.progress.percentage" highlight="story.progress.highlight"></div>
                         <span class="separate">{{::story.title}}</span>
                     </div>
                 </div>
+                <ul>
+                    <li class="ic cl" ng-repeat="scenario in story.scenarios track by (run.id+'-'+scenario.id)">
+                        <div>
+                            <div class="title">
+                                <div class="radial-progress" progress="scenario.progress.percentage" highlight="scenario.progress.highlight"></div>
+                                <span class="separate">{{::scenario.title}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </li>
         </ul>
     </li>

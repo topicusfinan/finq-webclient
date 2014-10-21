@@ -49,7 +49,7 @@ angular.module('finqApp.service')
         };
 
         var redetermineRunProgress = function(targetRun, updatedRunData) {
-            var i, j, story, newScenarioStatus;
+            var i, j, k, story, newScenarioStatus;
             targetRun.progress.scenariosCompleted = 0;
             for (i=0; i<updatedRunData.progress.stories.length; i++) {
                 story = findStoryInRun(targetRun.progress.stories, updatedRunData.progress.stories[i].id);
@@ -71,6 +71,9 @@ angular.module('finqApp.service')
                             targetRun.progress.failed = true;
                             story.progress.failed = true;
                             break;
+                    }
+                    for (k=0; k<updatedRunData.progress.stories[i].scenarios[j].steps.length; k++) {
+                        story.scenarios[j].steps[k].status = updatedRunData.progress.stories[i].scenarios[j].steps[k].status;
                     }
                 }
             }
@@ -120,21 +123,30 @@ angular.module('finqApp.service')
 
         var setupStoryForRun = function(storyId,scenarioIds) {
             var story = angular.copy(storyService.findStoryById(storyId));
+            var i,j;
             angular.extend(story,{
                 progress: {
                     failed: false,
                     scenariosCompleted: 0
                 }
             });
-            for (var i = 0; i<story.scenarios.length; i++) {
+            for (i = 0; i<story.scenarios.length; i++) {
                 if (scenarioIds.indexOf(story.scenarios[i].id) === -1) {
                     story.scenarios.splice(i--,1);
                 } else {
                     angular.extend(story.scenarios[i],{
-                        stepIndex: 0,
                         status: STATE.RUN.SCENARIO.RUNNING,
+                        progress: {
+                            failed: false,
+                            stepsCompleted: 0
+                        },
                         message: story.scenarios[i].steps[0].title
                     });
+                    for (j = 0; j<story.scenarios[i].steps.length; j++) {
+                        angular.extend(story.scenarios[i].steps[j],{
+                            status: STATE.RUN.SCENARIO.QUEUED
+                        });
+                    }
                 }
             }
             return story;

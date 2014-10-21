@@ -28,10 +28,10 @@
         "runSimulation": {
             "interval": 1000,
             "runSelectChance": 0.9,
-            "storySelectChance": 0.9,
+            "storySelectChance": 0.95,
             "scenarioSelectChance": 0.95,
-            "scenarioSuccessChance": 0.75,
-            "scenarioFailChance": 0.05
+            "stepSuccessChance": 0.9,
+            "stepFailChance": 0.05
         }
     }
 }

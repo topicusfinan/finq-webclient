@@ -13,7 +13,8 @@ angular.module('finqApp')
             'SCENARIO': {
                 'RUNNING': 0,
                 'SUCCESS': 1,
-                'FAILED': 2
+                'FAILED': 2,
+                'QUEUED': 3
             }
         }
     });
