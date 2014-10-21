@@ -919,13 +919,13 @@ footer.feedback {
           clip: rect(0, 1em, 1em, 0.5em); }
           .main-content-list > li.cl > div > div.title > .radial-progress .circle .mask .fill {
             clip: rect(0, 0.5em, 1em, 0);
-            background: #049cdb; }
+            background: #fff; }
         .main-content-list > li.cl > div > div.title > .radial-progress .inset {
-          width: 0.5em;
-          height: 0.5em;
+          width: 0.65em;
+          height: 0.65em;
           background: #d0d0d0;
-          margin-left: 0.25em;
-          margin-top: 0.25em; }
+          margin-left: 0.175em;
+          margin-top: 0.175em; }
         .main-content-list > li.cl > div > div.title > .radial-progress .inset[data-highlight="failed"] {
           background: #c22b1c; }
         .main-content-list > li.cl > div > div.title > .radial-progress .inset[data-highlight="success"] {
@@ -997,13 +997,13 @@ footer.feedback {
             clip: rect(0, 1em, 1em, 0.5em); }
             .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask .fill {
               clip: rect(0, 0.5em, 1em, 0);
-              background: #049cdb; }
+              background: #fff; }
           .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .inset {
-            width: 0.5em;
-            height: 0.5em;
+            width: 0.75em;
+            height: 0.75em;
             background: #eaeaea;
-            margin-left: 0.25em;
-            margin-top: 0.25em; }
+            margin-left: 0.125em;
+            margin-top: 0.125em; }
           .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .inset[data-highlight="failed"] {
             background: #c22b1c; }
           .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .inset[data-highlight="success"] {
@@ -1016,6 +1016,12 @@ footer.feedback {
           background: #f7f7f7;
           padding-top: 1px;
           margin-top: 1px; }
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div.success > div.title .radial-progress .circle .mask .fill {
+            background: #ced78e; }
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div.failed {
+            background: #ee9289; }
+            .main-content-list > li.cl > ul li.cl > ul li.cl > div.failed > div.title .radial-progress .circle .mask .fill {
+              background: #e14030; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div.active {
             background: #049cdb; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div.selectable:hover {
@@ -1025,6 +1031,25 @@ footer.feedback {
             margin-top: 0.2em; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div .select > button {
             margin-top: 0.1em; }
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress {
+            background: #e7e7e7;
+            width: 1em;
+            height: 1em; }
+            .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask,
+            .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress .circle .fill {
+              width: 1em;
+              height: 1em; }
+            .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask {
+              clip: rect(0, 1em, 1em, 0.5em); }
+              .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask .fill {
+                clip: rect(0, 0.5em, 1em, 0);
+                background: #c9c9c9; }
+            .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress .inset {
+              width: 0;
+              height: 0;
+              background: #333;
+              margin-left: 0.5em;
+              margin-top: 0.5em; }
         .main-content-list > li.cl > ul li.cl > ul li.cl:first-child > div {
           margin-top: 0; }
 

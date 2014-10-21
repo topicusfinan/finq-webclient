@@ -80,8 +80,14 @@ describe('Unit: RunnerService', function() {
                 scenarios: [23452343,23452345]
             }]);
         generateStoryUpdate(46421532,[
-            {status: STATE.RUN.SCENARIO.SUCCESS},
-            {status: STATE.RUN.SCENARIO.RUNNING}
+            {
+                status: STATE.RUN.SCENARIO.SUCCESS,
+                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
+            },
+            {
+                status: STATE.RUN.SCENARIO.RUNNING,
+                steps: [{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+            }
         ]);
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].progress.scenariosCompleted).to.equal(1);
@@ -97,8 +103,14 @@ describe('Unit: RunnerService', function() {
                 scenarios: [23452343,23452345]
             }]);
         generateStoryUpdate(46421532,[
-            {status: STATE.RUN.SCENARIO.FAILED},
-            {status: STATE.RUN.SCENARIO.SUCCESS}
+            {
+                status: STATE.RUN.SCENARIO.FAILED,
+                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
+            },
+            {
+                status: STATE.RUN.SCENARIO.SUCCESS,
+                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
+            }
         ]);
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].progress.scenariosCompleted).to.equal(2);

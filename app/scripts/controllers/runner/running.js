@@ -78,6 +78,9 @@ angular.module('finqApp.controller')
                         if (story.scenarios[i].steps[j].status === STATE.RUN.SCENARIO.SUCCESS || story.scenarios[i].steps[j].status === STATE.RUN.SCENARIO.FAILED) {
                             stepsCompleted++;
                         }
+                        if (story.scenarios[i].steps[j].status === STATE.RUN.SCENARIO.FAILED) {
+                            story.scenarios[i].progress.failed = true;
+                        }
                     }
                     calculateProgress(story.scenarios[i].progress,stepsCompleted,story.scenarios[i].steps.length);
                 }

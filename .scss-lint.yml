@@ -80,7 +80,7 @@ linters:
 
   SelectorDepth:
     enabled: true
-    max_depth: 10
+    max_depth: 12
 
   Shorthand:
     enabled: true

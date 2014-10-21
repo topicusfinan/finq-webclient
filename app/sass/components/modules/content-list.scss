@@ -135,7 +135,7 @@
             }
 
             > div.title > .radial-progress {
-                @include radial-progress(1em, .5em, darken($content-list-item-1-bg-color, 8%), $base-accent-color, $content-list-item-1-bg-color);
+                @include radial-progress(1em, .65em, darken($content-list-item-1-bg-color, 8%), #fff, $content-list-item-1-bg-color);
                 font-size: $content-list-item-1-progress-size;
 
                 .inset[data-highlight="failed"] {
@@ -245,7 +245,7 @@
                     }
 
                     > div.title > .radial-progress {
-                        @include radial-progress(1em, .5em, darken($content-list-item-2-bg-color, 8%), $base-accent-color, $content-list-item-2-bg-color);
+                        @include radial-progress(1em, .75em, darken($content-list-item-2-bg-color, 8%), #fff, $content-list-item-2-bg-color);
                         font-size: $content-list-item-2-progress-size;
 
                         .inset[data-highlight="failed"] {
@@ -268,6 +268,18 @@
                         padding-top: $content-list-item-3-spacing;
                         margin-top: $content-list-item-spacing / 2;
 
+                        &.success > div.title .radial-progress .circle .mask .fill {
+                            background: lighten($run-success-color, 10%);
+                        }
+
+                        &.failed {
+                            background: lighten($run-failed-color, 30%);
+
+                            > div.title .radial-progress .circle .mask .fill {
+                                background: lighten($run-failed-color, 10%);
+                            }
+                        }
+
                         &.active {
                             background: $base-accent-color;
                         }
@@ -283,6 +295,10 @@
 
                         .select > button {
                             margin-top: $content-list-3-select-margin-top;
+                        }
+
+                        > div.title > .radial-progress {
+                            @include radial-progress(1em, 0, lighten($light-gray, 4%), darken($light-gray, 8%), $dark-gray);
                         }
                     }
 

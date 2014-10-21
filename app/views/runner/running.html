@@ -2,7 +2,7 @@
     <div class="filters">
         <i class="fa fa-globe" ng-class="{'inactive':!running.filter.env.keys.length}"></i>
         <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
-        <div class="select" filter-select="filter.environments" filter-id="running.filter.env.id" placeholder="filter.envPlaceholder" max-items="{{running.maxSelectItems}}"></div>
+        <div class="select" filter-select="filter.environments" filter-id="running.filter.env.id" placeholder="filter.envPlaceholder" max-items="{{::running.maxSelectItems}}"></div>
     </div>
 </div>
 <ul id="run-list" class="main-content-list filter-1">
@@ -30,7 +30,7 @@
                 </div>
                 <ul>
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by (run.id+'-'+scenario.id)">
-                        <div>
+                        <div class="selectable {{scenario.progress.highlight}}">
                             <div class="title">
                                 <div class="radial-progress" progress="scenario.progress.percentage" highlight="scenario.progress.highlight"></div>
                                 <span class="separate">{{::scenario.title}}</span>
