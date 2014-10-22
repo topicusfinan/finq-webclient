@@ -63,15 +63,25 @@ angular.module('finqApp.controller')
         };
 
         var determineProgress = function(run) {
-            var calculateProgress = function(progressInfo,actionsCompleted,totalActions) {
-                progressInfo.percentage = parseInt(actionsCompleted/totalActions*25)*4;
-                progressInfo.highlight = progressInfo.failed ? 'failed' : (actionsCompleted === totalActions ? 'success' : 'none');
+            var calculateProgress = function(item,actionsCompleted,totalActions) {
+                item.progress.percentage = parseInt(actionsCompleted/totalActions*25)*4;
+                switch (item.status) {
+                    case STATE.RUN.SCENARIO.FAILED:
+                        item.progress.highlight = 'failed';
+                        break;
+                    case STATE.RUN.SCENARIO.SUCCESS:
+                        item.progress.highlight = 'success';
+                        break;
+                    default:
+                        item.progress.highlight = 'none';
+                        break;
+                }
             };
 
-            calculateProgress(run.progress,run.progress.scenariosCompleted,run.totalScenarios);
+            calculateProgress(run,run.progress.scenariosCompleted,run.totalScenarios);
             angular.forEach(run.progress.stories,function(story) {
                 var i, j, stepsCompleted;
-                calculateProgress(story.progress,story.progress.scenariosCompleted,story.scenarios.length);
+                calculateProgress(story,story.progress.scenariosCompleted,story.scenarios.length);
                 for (i=0; i<story.scenarios.length; i++) {
                     stepsCompleted = 0;
                     for (j=0; j<story.scenarios[i].steps.length; j++) {
@@ -82,7 +92,7 @@ angular.module('finqApp.controller')
                             story.scenarios[i].progress.failed = true;
                         }
                     }
-                    calculateProgress(story.scenarios[i].progress,stepsCompleted,story.scenarios[i].steps.length);
+                    calculateProgress(story.scenarios[i],stepsCompleted,story.scenarios[i].steps.length);
                 }
             });
         };

@@ -30,8 +30,8 @@
             "runSelectChance": 0.9,
             "storySelectChance": 0.95,
             "scenarioSelectChance": 0.95,
-            "stepSuccessChance": 0.9,
-            "stepFailChance": 0.05
+            "stepSuccessChance": 0.5,
+            "stepFailChance": 0.5
         }
     }
 }

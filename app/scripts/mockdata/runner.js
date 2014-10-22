@@ -25,14 +25,14 @@ angular.module('finqApp.service')
                 }
                 stories.push({
                     id: story.id,
+                    status: STATE.RUN.SCENARIO.RUNNING,
                     scenarios: scenarios
                 });
             });
             runs.push({
                 id: runData.id,
-                progress: {
-                    stories: stories
-                }
+                status: STATE.RUN.SCENARIO.RUNNING,
+                stories: stories
             });
             $timeout(simulateRunResponses, configProvider.client().mock.runSimulation.interval);
         };
@@ -56,14 +56,16 @@ angular.module('finqApp.service')
                 if (Math.random() > configProvider.client().mock.runSimulation.runSelectChance) {
                     continue;
                 }
-                for (j=0; j<runs[i].progress.stories.length; j++) {
-                    if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.storySelectChance,Math.max(runs[i].progress.stories.length,8))) {
+                for (j=0; j<runs[i].stories.length; j++) {
+                    if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.storySelectChance,Math.max(runs[i].stories.length,8))) {
                         scenarioHasUpdate = false;
-                        for (k=0; k<runs[i].progress.stories[j].scenarios.length; k++) {
-                            if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance,Math.max(runs[i].progress.stories[i].scenarios.length,8))) {
-                                scenarioHasUpdate = generateScenarioStatusUpdate(runs[i].progress.stories[j].scenarios[k]);
+                        for (k=0; k<runs[i].stories[j].scenarios.length; k++) {
+                            if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance,Math.max(runs[i].stories[i].scenarios.length,8))) {
+                                scenarioHasUpdate = generateScenarioStatusUpdate(runs[i].stories[j].scenarios[k]);
                                 if (scenarioHasUpdate) {
                                     updateAvailable = true;
+                                    updateCollectionStatus(runs[i].stories[j],runs[i].stories[j].scenarios);
+                                    updateCollectionStatus(runs[i],runs[i].stories);
                                 }
                             }
                         }
@@ -76,6 +78,23 @@ angular.module('finqApp.service')
             }
             if (validateCompletedRuns()) {
                 $timeout(simulateRunResponses, configProvider.client().mock.runSimulation.interval);
+            }
+        };
+
+        var updateCollectionStatus = function(collection, collectives) {
+            var collectivesCompleted = 0;
+            var hasFailedCollective = false;
+            for (var i=0; i<collectives.length; i++) {
+                if (collectives[i].status === STATE.RUN.SCENARIO.SUCCESS) {
+                    collectivesCompleted++;
+                } else if (collectives[i].status === STATE.RUN.SCENARIO.FAILED) {
+                    hasFailedCollective = true;
+                }
+            }
+            if (hasFailedCollective) {
+                collection.status = STATE.RUN.SCENARIO.FAILED;
+            } else if (collectivesCompleted === collectives.length) {
+                collection.status = STATE.RUN.SCENARIO.SUCCESS;
             }
         };
 
@@ -120,9 +139,9 @@ angular.module('finqApp.service')
             var i,j,k,validRun;
             for (i=0; i<runs.length; i++) {
                 validRun = false;
-                for (j=0; j<runs[i].progress.stories.length; j++) {
-                    for (k=0; k<runs[i].progress.stories[j].scenarios.length; k++) {
-                        if (runs[i].progress.stories[j].scenarios[k].status === STATE.RUN.SCENARIO.RUNNING) {
+                for (j=0; j<runs[i].stories.length; j++) {
+                    for (k=0; k<runs[i].stories[j].scenarios.length; k++) {
+                        if (runs[i].stories[j].scenarios[k].status === STATE.RUN.SCENARIO.RUNNING) {
                             validRun = true;
                             break;
                         }

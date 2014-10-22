@@ -50,15 +50,17 @@ angular.module('finqApp.service')
 
         var redetermineRunProgress = function(targetRun, updatedRunData) {
             var i, j, k, story, newScenarioStatus;
+            targetRun.status = updatedRunData.status;
             targetRun.progress.scenariosCompleted = 0;
-            for (i=0; i<updatedRunData.progress.stories.length; i++) {
-                story = findStoryInRun(targetRun.progress.stories, updatedRunData.progress.stories[i].id);
+            for (i=0; i<updatedRunData.stories.length; i++) {
+                story = findStoryInRun(targetRun.progress.stories, updatedRunData.stories[i].id);
+                story.status = updatedRunData.stories[i].status;
                 story.progress.scenariosCompleted = 0;
                 if (story === null) {
                     throw new Error('Server and client story dataset are out of sync');
                 }
-                for (j=0; j<updatedRunData.progress.stories[i].scenarios.length; j++) {
-                    newScenarioStatus = updatedRunData.progress.stories[i].scenarios[j].status;
+                for (j=0; j<updatedRunData.stories[i].scenarios.length; j++) {
+                    newScenarioStatus = updatedRunData.stories[i].scenarios[j].status;
                     story.scenarios[j].status = newScenarioStatus;
                     switch (newScenarioStatus) {
                         case STATE.RUN.SCENARIO.SUCCESS:
@@ -68,12 +70,10 @@ angular.module('finqApp.service')
                         case STATE.RUN.SCENARIO.FAILED:
                             targetRun.progress.scenariosCompleted++;
                             story.progress.scenariosCompleted++;
-                            targetRun.progress.failed = true;
-                            story.progress.failed = true;
                             break;
                     }
-                    for (k=0; k<updatedRunData.progress.stories[i].scenarios[j].steps.length; k++) {
-                        story.scenarios[j].steps[k].status = updatedRunData.progress.stories[i].scenarios[j].steps[k].status;
+                    for (k=0; k<updatedRunData.stories[i].scenarios[j].steps.length; k++) {
+                        story.scenarios[j].steps[k].status = updatedRunData.stories[i].scenarios[j].steps[k].status;
                     }
                 }
             }
@@ -97,9 +97,9 @@ angular.module('finqApp.service')
                 startedBy: runData.startedBy,
                 totalScenarios: 0,
                 largestStoryIndex: null,
+                status: STATE.RUN.SCENARIO.RUNNING,
                 progress: {
                     stories: [],
-                    failed: false,
                     scenariosCompleted: 0
                 },
                 msg: {},
@@ -125,8 +125,8 @@ angular.module('finqApp.service')
             var story = angular.copy(storyService.findStoryById(storyId));
             var i,j;
             angular.extend(story,{
+                status: STATE.RUN.SCENARIO.RUNNING,
                 progress: {
-                    failed: false,
                     scenariosCompleted: 0
                 }
             });
@@ -137,7 +137,6 @@ angular.module('finqApp.service')
                     angular.extend(story.scenarios[i],{
                         status: STATE.RUN.SCENARIO.RUNNING,
                         progress: {
-                            failed: false,
                             stepsCompleted: 0
                         },
                         message: story.scenarios[i].steps[0].title

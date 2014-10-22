@@ -63,21 +63,21 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
             $timeout.flush();
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
-                progress: {
-                    stories: [{
-                        id: 46421532,
-                        scenarios: [
-                            {
-                                status: STATE.RUN.SCENARIO.RUNNING,
-                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
-                            },
-                            {
-                                status: STATE.RUN.SCENARIO.RUNNING,
-                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                            }
-                        ]
-                    }]
-                }
+                status: STATE.RUN.SCENARIO.RUNNING,
+                stories: [{
+                    id: 46421532,
+                    status: STATE.RUN.SCENARIO.RUNNING,
+                    scenarios: [
+                        {
+                            status: STATE.RUN.SCENARIO.RUNNING,
+                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
+                        },
+                        {
+                            status: STATE.RUN.SCENARIO.RUNNING,
+                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                        }
+                    ]
+                }]
             });
             done();
         },14);
@@ -86,21 +86,21 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
             $timeout.flush();
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
-                progress: {
-                    stories: [{
-                        id: 46421532,
-                        scenarios: [
-                            {
-                                status: STATE.RUN.SCENARIO.RUNNING,
-                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
-                            },
-                            {
-                                status: STATE.RUN.SCENARIO.RUNNING,
-                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
-                            }
-                        ]
-                    }]
-                }
+                status: STATE.RUN.SCENARIO.RUNNING,
+                stories: [{
+                    id: 46421532,
+                    status: STATE.RUN.SCENARIO.RUNNING,
+                    scenarios: [
+                        {
+                            status: STATE.RUN.SCENARIO.RUNNING,
+                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
+                        },
+                        {
+                            status: STATE.RUN.SCENARIO.RUNNING,
+                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
+                        }
+                    ]
+                }]
             });
             done();
         },28);
@@ -109,21 +109,21 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
             $timeout.flush();
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
-                progress: {
-                    stories: [{
-                        id: 46421532,
-                        scenarios: [
-                            {
-                                status: STATE.RUN.SCENARIO.SUCCESS,
-                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
-                            },
-                            {
-                                status: STATE.RUN.SCENARIO.RUNNING,
-                                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
-                            }
-                        ]
-                    }]
-                }
+                status: STATE.RUN.SCENARIO.RUNNING,
+                stories: [{
+                    id: 46421532,
+                    status: STATE.RUN.SCENARIO.RUNNING,
+                    scenarios: [
+                        {
+                            status: STATE.RUN.SCENARIO.SUCCESS,
+                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
+                        },
+                        {
+                            status: STATE.RUN.SCENARIO.RUNNING,
+                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
+                        }
+                    ]
+                }]
             });
             done();
         },42);
@@ -193,21 +193,21 @@ describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', f
             $timeout.flush();
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
-                progress: {
-                    stories: [{
-                        id: 46421532,
-                        scenarios: [
-                            {
-                                status: STATE.RUN.SCENARIO.FAILED,
-                                steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                            },
-                            {
-                                status: STATE.RUN.SCENARIO.FAILED,
-                                steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                            }
-                        ]
-                    }]
-                }
+                status: STATE.RUN.SCENARIO.FAILED,
+                stories: [{
+                    id: 46421532,
+                    status: STATE.RUN.SCENARIO.FAILED,
+                    scenarios: [
+                        {
+                            status: STATE.RUN.SCENARIO.FAILED,
+                            steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                        },
+                        {
+                            status: STATE.RUN.SCENARIO.FAILED,
+                            steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                        }
+                    ]
+                }]
             });
             done();
         },14);

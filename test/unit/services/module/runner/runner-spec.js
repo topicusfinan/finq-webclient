@@ -47,21 +47,22 @@ describe('Unit: RunnerService', function() {
     var startStories = function(storyData) {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
+            status: STATE.RUN.SCENARIO.RUNNING,
             stories: storyData
         });
     };
 
-    var generateStoryUpdate = function(storyId,scenarioStatuses) {
+    var generateStoryUpdate = function(storyId,runStatus,storyStatus,scenarioStatuses) {
         runnerService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
             id: 1,
-            progress: {
-                stories: [
-                    {
-                        id: storyId,
-                        scenarios: scenarioStatuses
-                    }
-                ]
-            }
+            status: runStatus,
+            stories: [
+                {
+                    id: storyId,
+                    status: storyStatus,
+                    scenarios: scenarioStatuses
+                }
+            ]
         });
     };
 
@@ -79,7 +80,7 @@ describe('Unit: RunnerService', function() {
                 id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
-        generateStoryUpdate(46421532,[
+        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.RUNNING,STATE.RUN.SCENARIO.RUNNING,[
             {
                 status: STATE.RUN.SCENARIO.SUCCESS,
                 steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
@@ -94,7 +95,7 @@ describe('Unit: RunnerService', function() {
         expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(1);
         expect(runningStories[0].progress.stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
         expect(runningStories[0].progress.stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.RUNNING);
-        expect(runningStories[0].progress.failed).to.be.false;
+        expect(runningStories[0].status).to.equal(STATE.RUN.SCENARIO.RUNNING);
     });
 
     it('should handle a progress update for a run that contains a failed scenario', function () {
@@ -102,7 +103,7 @@ describe('Unit: RunnerService', function() {
                 id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
-        generateStoryUpdate(46421532,[
+        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,[
             {
                 status: STATE.RUN.SCENARIO.FAILED,
                 steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
@@ -117,8 +118,8 @@ describe('Unit: RunnerService', function() {
         expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(2);
         expect(runningStories[0].progress.stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
         expect(runningStories[0].progress.stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
-        expect(runningStories[0].progress.failed).to.be.true;
-        expect(runningStories[0].progress.stories[0].progress.failed).to.be.true;
+        expect(runningStories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
+        expect(runningStories[0].progress.stories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
     });
 
     it('should be able to handle an unforseen out of sync error on receiving an update for an unknown story', function (done) {
