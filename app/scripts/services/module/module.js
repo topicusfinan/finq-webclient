@@ -26,17 +26,19 @@ angular.module('finqApp.service')
             });
         };
 
-        this.updateSectionBadge = function(section,count) {
+        this.updateSectionBadge = function(section, identifiers, add) {
             $rootScope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
-                section: section,
-                count: count
+                id: section.id,
+                identifiers: identifiers,
+                add: add
             });
         };
 
-        this.updateModuleBadge = function(module,count) {
+        this.updateModuleBadge = function(module, identifiers, add) {
             $rootScope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
-                module: module,
-                count: count
+                id: module.id,
+                identifiers: identifiers,
+                add: add
             });
         };
 

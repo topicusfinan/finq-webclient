@@ -78,8 +78,8 @@ describe('Unit: StoryRun service', function() {
             {story: 2,scenarios: [2]}
         ], 1);
         backend.flush();
-        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,1);
-        moduleBadgeSpy.should.have.been.calledWith(MODULES.RUNNER,1);
+        sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,['run-1'],true);
+        moduleBadgeSpy.should.have.been.calledWith(MODULES.RUNNER,['run-1'],true);
     });
 
 });

@@ -7,6 +7,7 @@ $default-feedback-bg-color:             $gray;
 // body colors
 $body-bg-color:                         darken(#fff, 10%);
 $body-color:                            $dark-gray;
+$link-hover-color:                      darken($base-accent-color, 10%);
 
 // layout colors
 $header-bg-color:                       darken($dark-gray, 10%);
@@ -137,6 +138,9 @@ $content-list-3-bg-color:               $content-list-item-1-bg-color;
 
 $run-failed-color:                      $light-red;
 $run-success-color:                     $lime;
+$run-progress-scenario-todo-bg:         lighten($light-gray, 4%);
+$run-progress-scenario-done-bg:         darken($light-gray, 8%);
+
 
 $tooltip-bg-color:                      $dark-gray;
 $tooltip-color:                         $highlight-color;

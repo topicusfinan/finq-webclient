@@ -59,8 +59,8 @@ angular.module('finqApp.service')
                     startedOn: new Date(),
                     stories: runRequestData.stories
                 });
-                moduleService.updateModuleBadge(MODULES.RUNNER,1);
-                moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING,1);
+                moduleService.updateModuleBadge(MODULES.RUNNER, ['run-'+runData.id], true);
+                moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING, ['run-'+runData.id], true);
             }).error(function(error) {
                 feedbackService.error(FEEDBACK.ERROR.RUN.REQUEST_FAILED);
                 console.debug(error);

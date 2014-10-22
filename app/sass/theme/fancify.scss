@@ -180,10 +180,6 @@ footer.feedback {
     }
 }
 
-.tip {
-    @include transition(opacity $animate-std-cubic .2s .2s);
-}
-
 input.ng-invalid {
     @include transition(all linear .1s);
 }

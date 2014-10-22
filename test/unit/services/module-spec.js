@@ -46,19 +46,21 @@ describe('Unit: ModuleService', function() {
 
     it('should trigger a section notifications update event', function () {
         var broadcastSpy = sinon.spy($rootScope, '$broadcast');
-        moduleService.updateSectionBadge(MODULES.RUNNER.sections.AVAILABLE,1);
+        moduleService.updateSectionBadge(MODULES.RUNNER.sections.AVAILABLE,[1],true);
         broadcastSpy.should.have.been.calledWith(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
-            section: MODULES.RUNNER.sections.AVAILABLE,
-            count: 1
+            id: MODULES.RUNNER.sections.AVAILABLE.id,
+            identifiers: [1],
+            add: true
         });
     });
 
     it('should trigger a module notifications update event', function () {
         var broadcastSpy = sinon.spy($rootScope, '$broadcast');
-        moduleService.updateModuleBadge(MODULES.RUNNER,1);
+        moduleService.updateModuleBadge(MODULES.RUNNER,[1],true);
         broadcastSpy.should.have.been.calledWith(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
-            module: MODULES.RUNNER,
-            count: 1
+            id: MODULES.RUNNER.id,
+            identifiers: [1],
+            add: true
         });
     });
 

@@ -39,13 +39,14 @@ angular.module('finqApp.controller')
                 var sectionIsActive = activeSectionId === section.id;
                 var sectionIndex = that.sections.length;
                 if (sectionIsActive) {
+                    sectionBadge[section.id] = [];
                     updateSectionBadge(section.id,0);
                 }
                 that.sections.push({
                     id: section.id,
                     title: '',
                     url: moduleToUrl(section),
-                    badge: sectionBadge[section.id] !== undefined ? sectionBadge[section.id] : 0,
+                    badge: sectionBadge[section.id] !== undefined ? sectionBadge[section.id].length : 0,
                     active: sectionIsActive
                 });
                 // translations can be loaded after the menu is setup, so we ensure display values are up to date
@@ -106,6 +107,7 @@ angular.module('finqApp.controller')
                         section.active = false;
                     } else if (section.id === newActiveSection.id) {
                         section.active = true;
+                        sectionBadge[updateInfo.section.id] = [];
                         updateSectionBadge(section.id,0);
                     }
                 });
@@ -118,27 +120,39 @@ angular.module('finqApp.controller')
         });
 
         $scope.$on(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,function(event,updateInfo) {
-            if (activeSection.sectionId !== updateInfo.section.id) {
-                var currentCount = sectionBadge[updateInfo.section.id];
-                if (currentCount === undefined) {
-                    currentCount = 0;
-                }
-                updateSectionBadge(updateInfo.section.id, currentCount + updateInfo.count);
+            if (activeSection.sectionId !== updateInfo.id) {
+                updateNotificationList(sectionBadge, updateInfo);
+                updateSectionBadge(updateInfo.id, sectionBadge[updateInfo.id].length);
             }
         });
 
         $scope.$on(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,function(event,updateInfo) {
-            if (activeSection.moduleId !== updateInfo.module.id) {
-                var currentCount = moduleBadge[updateInfo.module.id];
-                if (currentCount === undefined) {
-                    currentCount = 0;
-                }
-                updateModuleBadge(updateInfo.module.id, currentCount + updateInfo.count);
+            if (activeSection.moduleId !== updateInfo.id) {
+                updateNotificationList(moduleBadge, updateInfo);
+                updateModuleBadge(updateInfo.id, moduleBadge[updateInfo.id].length);
             }
         });
 
+        var updateNotificationList = function(list, updateInfo) {
+            var i,j;
+            for (i=0; i<updateInfo.identifiers.length; i++) {
+                if (list[updateInfo.id] === undefined) {
+                    list[updateInfo.id] = [];
+                } else {
+                    for (j=0; j<list[updateInfo.id].length; j++) {
+                        if (list[updateInfo.id][j] === updateInfo.identifiers[i]) {
+                            list[updateInfo.id].splice(j--,1);
+                            break;
+                        }
+                    }
+                }
+                if (updateInfo.add) {
+                    list[updateInfo.id].push(updateInfo.identifiers[i]);
+                }
+            }
+        };
+
         var updateSectionBadge = function(sectionId,targetCount) {
-            sectionBadge[sectionId] = targetCount;
             angular.forEach(that.sections,function(section) {
                 if (section.id === sectionId) {
                     section.badge = targetCount;
@@ -147,7 +161,6 @@ angular.module('finqApp.controller')
         };
 
         var updateModuleBadge = function(moduleId,targetCount) {
-            moduleBadge[moduleId] = targetCount;
             angular.forEach(that.modules,function(module) {
                 if (module.id === moduleId) {
                     module.badge = targetCount;

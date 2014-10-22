@@ -27,11 +27,15 @@
             background: $hover-bg-color;
             color: $highlight-color;
 
-            > div.comments span {
-                color: $highlight-color;
+            > div.comments {
 
-                &.highlight {
+                span,
+                a {
                     color: $highlight-color;
+                }
+
+                a.hover {
+                    color: darken($highlight-color, 10%);
                 }
             }
         }
@@ -115,6 +119,7 @@
             }
 
             > div > span,
+            > div > a,
             > div > i {
                 margin: 0 $filter-button-padding / 4;
 
@@ -158,21 +163,31 @@
             > div.comments {
                 background: $content-list-item-1-bg-color;
 
-                > span {
+                > span,
+                > a {
                     font-size: $content-list-item-1-com-font-size;
                     line-height: $content-list-item-1-com-font-size;
                     padding: (($content-list-item-1-height - $content-list-item-1-com-font-size) / 2) 0;
                     color: $content-list-item-1-com-color;
+                }
 
-                    &.highlight {
-                        color: $base-accent-color;
+                > a {
+                    color: $base-accent-color;
+
+                    &:hover {
+                        color: $link-hover-color;
                     }
                 }
 
                 > i {
                     cursor: pointer;
 
+                    .tip {
+                        display: none;
+                    }
+
                     &:hover .tip {
+                        display: inline-block;
                         opacity: 1;
                     }
                 }
@@ -298,7 +313,7 @@
                         }
 
                         > div.title > .radial-progress {
-                            @include radial-progress(1em, 0, lighten($light-gray, 4%), darken($light-gray, 8%), $dark-gray);
+                            @include radial-progress(1em, 0, $run-progress-scenario-todo-bg, $run-progress-scenario-done-bg);
                         }
                     }
 

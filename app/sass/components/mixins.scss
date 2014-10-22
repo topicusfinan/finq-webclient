@@ -15,7 +15,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-@mixin radial-progress($circle-size, $inset-size, $circle-background, $circle-color, $inset-color) {
+@mixin radial-progress($circle-size, $inset-size, $circle-background, $circle-color, $inset-color: #fff) {
     background: $circle-background;
     width: $circle-size;
     height: $circle-size;
