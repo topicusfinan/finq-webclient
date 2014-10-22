@@ -35,7 +35,7 @@ describe('Unit: SubscriptionService', function() {
 
     it('should support subscribing to a story run by calling the socketservice', function () {
         var emitSpy = sinon.spy(socketService,'emit');
-        subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,{run: 1});
+        subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,null,{run: 1});
         emitSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_SUBSCRIBE,{run: 1});
     });
 

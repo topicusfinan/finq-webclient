@@ -117,10 +117,12 @@ describe('Unit: RunningCtrl', function() {
                     status: STATE.RUN.SCENARIO.FAILED,
                     scenarios: [
                         {
+                            id: 23452343,
                             status: STATE.RUN.SCENARIO.FAILED,
                             steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
                         },
                         {
+                            id: 23452345,
                             status: STATE.RUN.SCENARIO.RUNNING,
                             steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
                         }

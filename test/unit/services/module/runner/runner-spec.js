@@ -56,13 +56,11 @@ describe('Unit: RunnerService', function() {
         runnerService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
             id: 1,
             status: runStatus,
-            stories: [
-                {
-                    id: storyId,
-                    status: storyStatus,
-                    scenarios: scenarioStatuses
-                }
-            ]
+            stories: [{
+                id: storyId,
+                status: storyStatus,
+                scenarios: scenarioStatuses
+            }]
         });
     };
 
@@ -82,10 +80,12 @@ describe('Unit: RunnerService', function() {
             }]);
         generateStoryUpdate(46421532,STATE.RUN.SCENARIO.RUNNING,STATE.RUN.SCENARIO.RUNNING,[
             {
+                id: 23452343,
                 status: STATE.RUN.SCENARIO.SUCCESS,
                 steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
             },
             {
+                id: 23452345,
                 status: STATE.RUN.SCENARIO.RUNNING,
                 steps: [{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
             }
@@ -105,10 +105,12 @@ describe('Unit: RunnerService', function() {
             }]);
         generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,[
             {
+                id: 23452343,
                 status: STATE.RUN.SCENARIO.FAILED,
                 steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
             },
             {
+                id: 23452345,
                 status: STATE.RUN.SCENARIO.SUCCESS,
                 steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
             }

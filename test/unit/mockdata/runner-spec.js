@@ -64,20 +64,15 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.RUNNING,
-                stories: [{
+                story: {
                     id: 46421532,
                     status: STATE.RUN.SCENARIO.RUNNING,
-                    scenarios: [
-                        {
-                            status: STATE.RUN.SCENARIO.RUNNING,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
-                        },
-                        {
-                            status: STATE.RUN.SCENARIO.RUNNING,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                        }
-                    ]
-                }]
+                    scenario: {
+                        id: 23452343,
+                        status: STATE.RUN.SCENARIO.RUNNING,
+                        steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
+                    }
+                }
             });
             done();
         },14);
@@ -87,20 +82,15 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.RUNNING,
-                stories: [{
+                story: {
                     id: 46421532,
                     status: STATE.RUN.SCENARIO.RUNNING,
-                    scenarios: [
-                        {
-                            status: STATE.RUN.SCENARIO.RUNNING,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
-                        },
-                        {
-                            status: STATE.RUN.SCENARIO.RUNNING,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED}]
-                        }
-                    ]
-                }]
+                    scenario: {
+                        id: 23452343,
+                        status: STATE.RUN.SCENARIO.RUNNING,
+                        steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
+                    }
+                }
             });
             done();
         },28);
@@ -110,20 +100,15 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.RUNNING,
-                stories: [{
+                story: {
                     id: 46421532,
                     status: STATE.RUN.SCENARIO.RUNNING,
-                    scenarios: [
-                        {
-                            status: STATE.RUN.SCENARIO.SUCCESS,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
-                        },
-                        {
-                            status: STATE.RUN.SCENARIO.RUNNING,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING}]
-                        }
-                    ]
-                }]
+                    scenario: {
+                        id: 23452343,
+                        status: STATE.RUN.SCENARIO.SUCCESS,
+                        steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
+                    }
+                }
             });
             done();
         },42);
@@ -194,20 +179,15 @@ describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', f
             runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.FAILED,
-                stories: [{
+                story: {
                     id: 46421532,
                     status: STATE.RUN.SCENARIO.FAILED,
-                    scenarios: [
-                        {
-                            status: STATE.RUN.SCENARIO.FAILED,
-                            steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                        },
-                        {
-                            status: STATE.RUN.SCENARIO.FAILED,
-                            steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                        }
-                    ]
-                }]
+                    scenario: {
+                        id: 23452343,
+                        status: STATE.RUN.SCENARIO.FAILED,
+                        steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                    }
+                }
             });
             done();
         },14);

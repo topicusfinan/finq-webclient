@@ -19,6 +19,7 @@ angular.module('finqApp.service')
                 var scenarios = [];
                 for (var i=0; i<story.scenarios.length; i++) {
                     scenarios.push({
+                        id: story.scenarios[i],
                         status: STATE.RUN.SCENARIO.RUNNING,
                         steps: setupStepsForScenario(story.scenarios[i])
                     });
@@ -50,9 +51,8 @@ angular.module('finqApp.service')
         };
 
         var simulateRunResponses = function() {
-            var i,j,k, scenarioHasUpdate, updateAvailable;
+            var i,j,k, scenarioHasUpdate;
             for (i=0; i<runs.length; i++) {
-                updateAvailable = false;
                 if (Math.random() > configProvider.client().mock.runSimulation.runSelectChance) {
                     continue;
                 }
@@ -63,17 +63,13 @@ angular.module('finqApp.service')
                             if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance,Math.max(runs[i].stories[i].scenarios.length,8))) {
                                 scenarioHasUpdate = generateScenarioStatusUpdate(runs[i].stories[j].scenarios[k]);
                                 if (scenarioHasUpdate) {
-                                    updateAvailable = true;
                                     updateCollectionStatus(runs[i].stories[j],runs[i].stories[j].scenarios);
                                     updateCollectionStatus(runs[i],runs[i].stories);
+                                    publishSimulatedResponse(runs[i],runs[i].stories[j],runs[i].stories[j].scenarios[k]);
                                 }
                             }
                         }
                     }
-                }
-                if (updateAvailable) {
-                    publishSimulatedResponse(runs[i]);
-                    break;
                 }
             }
             if (validateCompletedRuns()) {
@@ -131,8 +127,21 @@ angular.module('finqApp.service')
             return true;
         };
 
-        var publishSimulatedResponse = function(updatedRunData) {
-            socketService.emit(EVENTS.SOCKET.RUN_STATUS_UPDATED,updatedRunData);
+        var publishSimulatedResponse = function(run,story,scenario) {
+            var runUpdate = {
+                id: run.id,
+                status: run.status,
+                story: {
+                    id: story.id,
+                    status: story.status,
+                    scenario: {
+                        id: scenario.id,
+                        status: scenario.status,
+                        steps: scenario.steps
+                    }
+                }
+            }
+            socketService.emit(EVENTS.SOCKET.RUN_STATUS_UPDATED,runUpdate);
         };
 
         var validateCompletedRuns = function() {

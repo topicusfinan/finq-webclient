@@ -20,7 +20,6 @@ angular.module('finqApp.service')
         'subscription',
         function ($translate,moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService) {
         var that = this,
-            updateListener = null,
             runningSessions = [];
 
         this.handle = function(event,eventData) {
@@ -49,19 +48,21 @@ angular.module('finqApp.service')
         };
 
         var redetermineRunProgress = function(targetRun, updatedRunData) {
-            var i, j, k, story, newScenarioStatus;
+            var i, j, k, story, newScenarioStatus, scenario;
             targetRun.status = updatedRunData.status;
-            targetRun.progress.scenariosCompleted = 0;
             for (i=0; i<updatedRunData.stories.length; i++) {
                 story = findStoryInRun(targetRun.progress.stories, updatedRunData.stories[i].id);
                 story.status = updatedRunData.stories[i].status;
-                story.progress.scenariosCompleted = 0;
                 if (story === null) {
                     throw new Error('Server and client story dataset are out of sync');
                 }
                 for (j=0; j<updatedRunData.stories[i].scenarios.length; j++) {
+                    scenario = findScenarioInStory(story, updatedRunData.stories[i].scenarios[j].id);
+                    if (scenario === null) {
+                        throw new Error('Server and client story dataset are out of sync');
+                    }
                     newScenarioStatus = updatedRunData.stories[i].scenarios[j].status;
-                    story.scenarios[j].status = newScenarioStatus;
+                    scenario.status = newScenarioStatus;
                     switch (newScenarioStatus) {
                         case STATE.RUN.SCENARIO.SUCCESS:
                             targetRun.progress.scenariosCompleted++;
@@ -73,7 +74,7 @@ angular.module('finqApp.service')
                             break;
                     }
                     for (k=0; k<updatedRunData.stories[i].scenarios[j].steps.length; k++) {
-                        story.scenarios[j].steps[k].status = updatedRunData.stories[i].scenarios[j].steps[k].status;
+                        scenario.steps[k].status = updatedRunData.stories[i].scenarios[j].steps[k].status;
                     }
                 }
             }
@@ -88,6 +89,15 @@ angular.module('finqApp.service')
             return null;
         };
 
+        var findScenarioInStory = function(story, scenarioId) {
+            for (var i=0; i<story.scenarios.length; i++) {
+                if (story.scenarios[i].id === scenarioId) {
+                    return story.scenarios[i];
+                }
+            }
+            return null;
+        };
+
         var handleRunStarted = function(runData) {
             var largestStoryScenarioCount = 0;
             var runningSession = {
@@ -96,7 +106,7 @@ angular.module('finqApp.service')
                 environment: runData.environment,
                 startedBy: runData.startedBy,
                 totalScenarios: 0,
-                largestStoryIndex: null,
+                largestStoryIndex: 0,
                 status: STATE.RUN.SCENARIO.RUNNING,
                 progress: {
                     stories: [],
@@ -115,10 +125,7 @@ angular.module('finqApp.service')
             }
             setupRunTitle(runningSession);
             runningSessions.push(runningSession);
-            subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,{run: runData.id});
-            if (!updateListener) {
-                updateListener = subscriptionService.register(EVENTS.SOCKET.RUN_STATUS_UPDATED, that.handle);
-            }
+            subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED, that.handle, {run: runData.id});
         };
 
         var setupStoryForRun = function(storyId,scenarioIds) {
