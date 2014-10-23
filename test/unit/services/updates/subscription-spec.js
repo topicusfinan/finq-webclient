@@ -33,24 +33,35 @@ describe('Unit: SubscriptionService', function() {
         $httpBackend.flush();
     }));
 
-    it('should support subscribing to a story run by calling the socketservice', function () {
+    it('should support subscribing to a story run by calling the socketservice', function (done) {
         var emitSpy = sinon.spy(socketService,'emit');
-        subscriptionService.subscribe(EVENTS.SOCKET.RUN_STATUS_UPDATED,null,{run: 1});
-        emitSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_SUBSCRIBE,{run: 1});
+        subscriptionService.subscribe(1);
+        setTimeout(function() {
+            emitSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN.SUBSCRIBE,{run: 1});
+            done();
+        },15);
     });
 
-    it('should support registration of socket event listeners', function () {
+    it('should support registration of socket event listeners', function (done) {
         var onSpy = sinon.spy(socketService,'on');
-        subscriptionService.register(EVENTS.SOCKET.RUN_STATUS_UPDATED,'test');
-        onSpy.should.have.been.called.once;
+        subscriptionService.register(EVENTS.SOCKET.RUN.UPDATED,'test');
+        socketService.connect();
+        setTimeout(function() {
+            onSpy.should.have.been.called.once;
+            done();
+        },15);
     });
 
-    it('should support unregistering an existing event listener', function () {
-        var reference = subscriptionService.register(EVENTS.SOCKET.RUN_STATUS_UPDATED,'test');
+    it('should support unregistering an existing event listener', function (done) {
+        var reference = subscriptionService.register(EVENTS.SOCKET.RUN.UPDATED,'test');
         var offSpy = sinon.spy(socketService,'off');
-        expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN_STATUS_UPDATED,reference)).to.be.true;
-        expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN_STATUS_UPDATED,reference)).to.be.false;
-        offSpy.should.have.been.called.once;
+        socketService.connect();
+        setTimeout(function() {
+            expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN.UPDATED,reference)).to.be.true;
+            expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN.UPDATED,reference)).to.be.false;
+            offSpy.should.have.been.called.once;
+            done();
+        },15);
     });
 
 });

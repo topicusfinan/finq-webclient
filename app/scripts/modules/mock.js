@@ -61,50 +61,54 @@ angular.module('finqApp').requires.push('finqApp.mock');
 
 /* jshint ignore:start */
 var io = {
-  connect: createMockSocketObject
-};
-
-function createMockSocketObject () {
-
-    return {
-        _listeners: {},
-        on: function (ev, fn) {
-            (this._listeners[ev] = this._listeners[ev] || []).push(fn);
-        },
-        once: function (ev, fn) {
-            (this._listeners[ev] = this._listeners[ev] || []).push(fn);
-            fn._once = true;
-        },
-        emit: function (ev, data) {
-            var that = this;
-            if (this._listeners[ev]) {
-                this._listeners[ev].forEach(function (listener) {
-                    if (listener._once) {
-                        that.removeListener(ev, listener);
-                    }
-                    listener(data);
-                });
-            }
-        },
-        removeListener: function (ev, fn) {
-            if (fn) {
-                var index = this._listeners[ev].indexOf(fn);
-                if (index > -1) {
-                    this._listeners[ev].splice(index, 1);
+    connect: function createMockSocketObject () {
+        return {
+            _listeners: {},
+            _connected: false,
+            on: function (ev, fn) {
+                var that = this;
+                if (!this._connected) {
+                    this._connected = true;
+                    setTimeout(function() {
+                        that.emit('connect');
+                    },10);
                 }
-            } else {
-                delete this._listeners[ev];
-            }
-        },
-        removeAllListeners: function (ev) {
-            if (ev) {
-                delete this._listeners[ev];
-            } else {
-                this._listeners = {};
-            }
-        },
-        disconnect: function () {}
-    };
-
-}
+                (this._listeners[ev] = this._listeners[ev] || []).push(fn);
+            },
+            once: function (ev, fn) {
+                (this._listeners[ev] = this._listeners[ev] || []).push(fn);
+                fn._once = true;
+            },
+            emit: function (ev, data) {
+                var that = this;
+                if (this._listeners[ev]) {
+                    this._listeners[ev].forEach(function (listener) {
+                        if (listener._once) {
+                            that.removeListener(ev, listener);
+                        }
+                        listener(data);
+                    });
+                }
+            },
+            removeListener: function (ev, fn) {
+                if (fn) {
+                    var index = this._listeners[ev].indexOf(fn);
+                    if (index > -1) {
+                        this._listeners[ev].splice(index, 1);
+                    }
+                } else {
+                    delete this._listeners[ev];
+                }
+            },
+            removeAllListeners: function (ev) {
+                if (ev) {
+                    delete this._listeners[ev];
+                } else {
+                    this._listeners = {};
+                }
+            },
+            disconnect: function () {}
+        };
+    }
+};
 /* jshint ignore:end */

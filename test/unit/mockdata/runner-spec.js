@@ -61,7 +61,7 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
 
         setTimeout(function() {
             $timeout.flush();
-            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN.UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.RUNNING,
                 story: {
@@ -79,7 +79,7 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
 
         setTimeout(function() {
             $timeout.flush();
-            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN.UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.RUNNING,
                 story: {
@@ -97,7 +97,7 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
 
         setTimeout(function() {
             $timeout.flush();
-            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN.UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.RUNNING,
                 story: {
@@ -176,7 +176,7 @@ describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', f
 
         setTimeout(function() {
             $timeout.flush();
-            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+            runUpdateSpy.should.have.been.calledWith(EVENTS.SOCKET.RUN.UPDATED, {
                 id: 1,
                 status: STATE.RUN.SCENARIO.FAILED,
                 story: {

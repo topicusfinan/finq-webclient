@@ -64,7 +64,7 @@ angular.module('finqApp.controller')
 
         var determineProgress = function(run) {
             var calculateProgress = function(item,actionsCompleted,totalActions) {
-                item.progress.percentage = parseInt(actionsCompleted/totalActions*25)*4;
+                item.progress.percentage = parseInt(actionsCompleted/totalActions*25, 10)*4;
                 switch (item.status) {
                     case STATE.RUN.SCENARIO.FAILED:
                         item.progress.highlight = 'failed';

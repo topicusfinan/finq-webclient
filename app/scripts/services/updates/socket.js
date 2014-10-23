@@ -11,11 +11,18 @@
  *
  */
 angular.module('finqApp.service')
-    .service('socket', ['$rootScope', 'config', 'feedback', 'FEEDBACK', function ($rootScope, configProvider, feedbackService, FEEDBACK) {
+    .service('socket', [
+        '$rootScope',
+        'config',
+        'feedback',
+        'FEEDBACK',
+        'EVENTS',
+        function ($rootScope, configProvider, feedbackService, FEEDBACK, EVENTS) {
         var socket,
             connected = false,
             connecting = false,
-            reconnect = false;
+            reconnect = false,
+            connectionListeners = [];
 
         this.isConnected = function() {
             return connecting || connected || reconnect;
@@ -26,23 +33,26 @@ angular.module('finqApp.service')
                 reconnectionAttempts: configProvider.client().socket.reconnectionAttempts,
                 reconnectionDelay: configProvider.client().socket.reconnectionDelay,
                 reconnectionDelayMax: configProvider.client().socket.reconnectionDelayMax,
-                timeout: configProvider.client().socket.timeout,
+                timeout: configProvider.client().socket.timeout
             });
             connecting = true;
-            socket.on('connect', function() {
+            socket.on(EVENTS.SOCKET.MAIN.CONNECTED, function() {
                 connected = true;
                 connecting = false;
+                angular.forEach(connectionListeners, function(listener) {
+                    listener();
+                });
             });
-            socket.on('disconnect', function() {
+            socket.on(EVENTS.SOCKET.MAIN.DISCONNECTED, function() {
                 connected = false;
             });
-            socket.on('error', function(error) {
+            socket.on(EVENTS.SOCKET.MAIN.ERROR, function(error) {
                 console.error('Server socket connection has caused an error',error);
                 if (connecting) {
                     feedbackService.error(FEEDBACK.ERROR.SOCKET.UNABLE_TO_CONNECT);
                 }
             });
-            socket.on('reconnecting', function(count) {
+            socket.on(EVENTS.SOCKET.MAIN.RECONNECTING, function(count) {
                 reconnect = true;
                 if (count === 1) {
                     console.debug('Connection to the server lost, attempting to reconnect');
@@ -53,12 +63,12 @@ angular.module('finqApp.service')
                     feedbackService.alert(FEEDBACK.ALERT.SOCKET.RECONNECTION_TROUBLE);
                 }
             });
-            socket.on('reconnect', function() {
+            socket.on(EVENTS.SOCKET.MAIN.RECONNECTED, function() {
                 connected = true;
                 reconnect = false;
                 feedbackService.notice(FEEDBACK.NOTICE.SOCKET.RECONNECTED);
             });
-            socket.on('reconnect_failed', function() {
+            socket.on(EVENTS.SOCKET.MAIN.RECONNECT_FAILED, function() {
                 reconnect = false;
                 feedbackService.error(FEEDBACK.ERROR.SOCKET.UNABLE_TO_RECONNECT);
             });
@@ -104,6 +114,10 @@ angular.module('finqApp.service')
                     }
                 });
             });
+        };
+
+        this.addConnectionListener = function(listener) {
+            connectionListeners.push(listener);
         };
 
   }]);

@@ -24,7 +24,18 @@ angular.module('finqApp')
             'STORY_RUN_STARTED': 'finqApp.internal.storyRunStarted'
         },
         'SOCKET': {
-            'RUN_STATUS_UPDATED': 'run:progress',
-            'RUN_SUBSCRIBE': 'run:subscribe'
+            'MAIN' : {
+                'CONNECTED': 'connect',
+                'RECONNECTED': 'reconnect',
+                'RECONNECTING': 'reconnecting',
+                'DISCONNECTED': 'disconnect',
+                'ERROR': 'error',
+                'RECONNECT_FAILED': 'reconnect_failed'
+            },
+            'RUN': {
+                'UPDATED': 'run:progress',
+                'SUBSCRIBE': 'run:subscribe',
+                'GIST': 'run:gist'
+            }
         }
     });

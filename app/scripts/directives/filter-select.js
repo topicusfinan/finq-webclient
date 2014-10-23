@@ -136,7 +136,7 @@ angular.module('finqApp.directive')
                     keyType = typeof $scope.options[0].key;
                 }
             }
-            key = keyType === 'number' && key !== null ? parseInt(key) : key;
+            key = keyType === 'number' && key !== null ? parseInt(key, 10) : key;
             var newKeys,
                 realKeys = [],
                 value = findValueByKey(key);

@@ -53,7 +53,7 @@ describe('Unit: RunnerService', function() {
     };
 
     var generateStoryUpdate = function(storyId,runStatus,storyStatus,scenarioStatus) {
-        runnerService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+        runnerService.handle(EVENTS.SOCKET.RUN.UPDATED, {
             id: 1,
             status: runStatus,
             story: {

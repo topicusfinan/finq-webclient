@@ -108,7 +108,7 @@ describe('Unit: RunningCtrl', function() {
                 scenarios: [23452343,23452345]
             }]
         });
-        runnerService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
+        runnerService.handle(EVENTS.SOCKET.RUN.UPDATED, {
             id: 1,
             status: STATE.RUN.SCENARIO.FAILED,
             story: {

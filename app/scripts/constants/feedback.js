@@ -27,6 +27,7 @@ angular.module('finqApp')
                 'REQUEST_FAILED': {'key':'RUN.REQUEST_FAILED'}
             },
             'SOCKET': {
+                'UNABLE_TO_CONNECT': {'key': 'SOCKET.UNABLE_TO_CONNECT'},
                 'UNABLE_TO_RECONNECT': {'key': 'SOCKET.UNABLE_TO_RECONNECT'}
             }
         },

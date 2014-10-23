@@ -140,8 +140,8 @@ angular.module('finqApp.service')
                         steps: scenario.steps
                     }
                 }
-            }
-            socketService.emit(EVENTS.SOCKET.RUN_STATUS_UPDATED,runUpdate);
+            };
+            socketService.emit(EVENTS.SOCKET.RUN.UPDATED,runUpdate);
         };
 
         var validateCompletedRuns = function() {
