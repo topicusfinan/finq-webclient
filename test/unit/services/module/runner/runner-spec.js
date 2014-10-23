@@ -52,15 +52,15 @@ describe('Unit: RunnerService', function() {
         });
     };
 
-    var generateStoryUpdate = function(storyId,runStatus,storyStatus,scenarioStatuses) {
+    var generateStoryUpdate = function(storyId,runStatus,storyStatus,scenarioStatus) {
         runnerService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
             id: 1,
             status: runStatus,
-            stories: [{
+            story: {
                 id: storyId,
                 status: storyStatus,
-                scenarios: scenarioStatuses
-            }]
+                scenario: scenarioStatus
+            }
         });
     };
 
@@ -78,18 +78,11 @@ describe('Unit: RunnerService', function() {
                 id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
-        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.RUNNING,STATE.RUN.SCENARIO.RUNNING,[
-            {
-                id: 23452343,
-                status: STATE.RUN.SCENARIO.SUCCESS,
-                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
-            },
-            {
-                id: 23452345,
-                status: STATE.RUN.SCENARIO.RUNNING,
-                steps: [{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-            }
-        ]);
+        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.RUNNING,STATE.RUN.SCENARIO.RUNNING, {
+            id: 23452343,
+            status: STATE.RUN.SCENARIO.SUCCESS,
+            steps: [{status: STATE.RUN.SCENARIO.SUCCESS}, {status: STATE.RUN.SCENARIO.SUCCESS}, {status: STATE.RUN.SCENARIO.SUCCESS}]
+        });
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].progress.scenariosCompleted).to.equal(1);
         expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(1);
@@ -103,18 +96,16 @@ describe('Unit: RunnerService', function() {
                 id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
-        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,[
-            {
-                id: 23452343,
-                status: STATE.RUN.SCENARIO.FAILED,
-                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
-            },
-            {
-                id: 23452345,
-                status: STATE.RUN.SCENARIO.SUCCESS,
-                steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
-            }
-        ]);
+        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,{
+            id: 23452343,
+            status: STATE.RUN.SCENARIO.FAILED,
+            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
+        });
+        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,{
+            id: 23452345,
+            status: STATE.RUN.SCENARIO.SUCCESS,
+            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
+        });
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].progress.scenariosCompleted).to.equal(2);
         expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(2);

@@ -38,45 +38,40 @@ angular.module('finqApp.service')
             return runningSessions;
         };
 
-        var handleRunUpdate = function(runData) {
+        var handleRunUpdate = function(runUpdate) {
             for (var i=0; i<runningSessions.length; i++) {
-                if (runningSessions[i].id === runData.id) {
-                    redetermineRunProgress(runningSessions[i],runData);
+                if (runningSessions[i].id === runUpdate.id) {
+                    updateRunProgress(runningSessions[i],runUpdate);
                     break;
                 }
             }
         };
 
-        var redetermineRunProgress = function(targetRun, updatedRunData) {
-            var i, j, k, story, newScenarioStatus, scenario;
+        var updateRunProgress = function(targetRun, updatedRunData) {
+            var i, story, scenario;
             targetRun.status = updatedRunData.status;
-            for (i=0; i<updatedRunData.stories.length; i++) {
-                story = findStoryInRun(targetRun.progress.stories, updatedRunData.stories[i].id);
-                story.status = updatedRunData.stories[i].status;
-                if (story === null) {
-                    throw new Error('Server and client story dataset are out of sync');
-                }
-                for (j=0; j<updatedRunData.stories[i].scenarios.length; j++) {
-                    scenario = findScenarioInStory(story, updatedRunData.stories[i].scenarios[j].id);
-                    if (scenario === null) {
-                        throw new Error('Server and client story dataset are out of sync');
-                    }
-                    newScenarioStatus = updatedRunData.stories[i].scenarios[j].status;
-                    scenario.status = newScenarioStatus;
-                    switch (newScenarioStatus) {
-                        case STATE.RUN.SCENARIO.SUCCESS:
-                            targetRun.progress.scenariosCompleted++;
-                            story.progress.scenariosCompleted++;
-                            break;
-                        case STATE.RUN.SCENARIO.FAILED:
-                            targetRun.progress.scenariosCompleted++;
-                            story.progress.scenariosCompleted++;
-                            break;
-                    }
-                    for (k=0; k<updatedRunData.stories[i].scenarios[j].steps.length; k++) {
-                        scenario.steps[k].status = updatedRunData.stories[i].scenarios[j].steps[k].status;
-                    }
-                }
+            story = findStoryInRun(targetRun.progress.stories, updatedRunData.story.id);
+            story.status = updatedRunData.story.status;
+            if (story === null) {
+                throw new Error('Server and client story data set are out of sync');
+            }
+            scenario = findScenarioInStory(story, updatedRunData.story.scenario.id);
+            if (scenario === null) {
+                throw new Error('Server and client story data set are out of sync');
+            }
+            scenario.status = updatedRunData.story.scenario.status;
+            switch (updatedRunData.story.scenario.status) {
+                case STATE.RUN.SCENARIO.SUCCESS:
+                    targetRun.progress.scenariosCompleted++;
+                    story.progress.scenariosCompleted++;
+                    break;
+                case STATE.RUN.SCENARIO.FAILED:
+                    targetRun.progress.scenariosCompleted++;
+                    story.progress.scenariosCompleted++;
+                    break;
+            }
+            for (i=0; i<updatedRunData.story.scenario.steps.length; i++) {
+                scenario.steps[i].status = updatedRunData.story.scenario.steps[i].status;
             }
         };
 

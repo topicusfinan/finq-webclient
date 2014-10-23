@@ -111,24 +111,15 @@ describe('Unit: RunningCtrl', function() {
         runnerService.handle(EVENTS.SOCKET.RUN_STATUS_UPDATED, {
             id: 1,
             status: STATE.RUN.SCENARIO.FAILED,
-            stories: [
-                {
-                    id: 46421532,
+            story: {
+                id: 46421532,
+                status: STATE.RUN.SCENARIO.FAILED,
+                scenario: {
+                    id: 23452343,
                     status: STATE.RUN.SCENARIO.FAILED,
-                    scenarios: [
-                        {
-                            id: 23452343,
-                            status: STATE.RUN.SCENARIO.FAILED,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                        },
-                        {
-                            id: 23452345,
-                            status: STATE.RUN.SCENARIO.RUNNING,
-                            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.RUNNING},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
-                        }
-                    ]
+                    steps: [{status: STATE.RUN.SCENARIO.SUCCESS}, {status: STATE.RUN.SCENARIO.FAILED}, {status: STATE.RUN.SCENARIO.QUEUED}]
                 }
-            ]
+            }
         });
         setTimeout(function() {
             $timeout.flush();

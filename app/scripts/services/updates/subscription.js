@@ -13,8 +13,7 @@ angular.module('finqApp.service')
     .service('subscription', [
         'socket',
         'EVENTS',
-        'updateCorrelation',
-        function (socketService,EVENTS,updateCorrelationService) {
+        function (socketService,EVENTS) {
         var that = this,
             handlers = {},
             handlerRef = 0;
@@ -28,11 +27,8 @@ angular.module('finqApp.service')
                     socketService.emit(EVENTS.SOCKET.RUN_SUBSCRIBE,{
                         run: eventData.run
                     });
-                    if (!handlers[event] || !handlers[event].length) {
-                        that.register(event, updateCorrelationService.handleRunUpdate);
-                    }
-                    if (handler !== null) {
-                        updateCorrelationService.register(handler);
+                    if (handler !== null && (!handlers[event] || !handlers[event].length)) {
+                        that.register(event, handler);
                     }
                     break;
             }
