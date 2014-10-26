@@ -79,7 +79,7 @@ describe('Unit: Websocket', function() {
         var reconnectListener = function() {
             done();
         };
-        websocketService.on('reconnecting',reconnectListener);
+        websocketService.on(EVENTS.SOCKET.MAIN.RECONNECTING,reconnectListener);
         setTimeout(function() {
             socket.onclose();
         },8);
@@ -93,7 +93,7 @@ describe('Unit: Websocket', function() {
         var reconnectListener = function() {
             done();
         };
-        websocketService.on('reconnect',reconnectListener);
+        websocketService.on(EVENTS.SOCKET.MAIN.RECONNECTED,reconnectListener);
         setTimeout(function() {
             socket.onclose();
         },8);
@@ -108,7 +108,7 @@ describe('Unit: Websocket', function() {
         var reconnectListener = function() {
             reconnecting = true;
         };
-        websocketService.on('reconnect',reconnectListener);
+        websocketService.on(EVENTS.SOCKET.MAIN.RECONNECTED,reconnectListener);
         setTimeout(function() {
             websocketService.disconnect();
             setTimeout(function() {
@@ -125,7 +125,7 @@ describe('Unit: Websocket', function() {
         var disconnectionListener = function() {
             done();
         };
-        websocketService.on('disconnect',disconnectionListener);
+        websocketService.on(EVENTS.SOCKET.MAIN.DISCONNECTED,disconnectionListener);
         setTimeout(function() {
             socket.onclose();
         },8);
@@ -139,13 +139,42 @@ describe('Unit: Websocket', function() {
         var reconnectListener = function() {
             reconnecting = true;
         };
-        websocketService.on('reconnect',reconnectListener);
+        websocketService.on(EVENTS.SOCKET.MAIN.RECONNECTED,reconnectListener);
         setTimeout(function() {
             socket.onclose();
             setTimeout(function() {
                 expect(reconnecting).to.be.false;
                 done();
             },8);
+        },8);
+    });
+
+    it('should transform a received message into an event with event data', function (done) {
+        var socket = websocketService.connect('',{
+            mocked: true
+        });
+        var testListener = function(event, data) {
+            expect(event).to.equal('test');
+            expect(data).to.equal('data');
+            done();
+        };
+        websocketService.on('test',testListener);
+        setTimeout(function() {
+            socket.onmessage('{"event": "test", "data": "data"}');
+        },8);
+    });
+
+    it('should dispatch an error event when a socket error occurs', function (done) {
+        var socket = websocketService.connect('',{
+            mocked: true
+        });
+        var errorListener = function(event, data) {
+            expect(data).to.equal('error');
+            done();
+        };
+        websocketService.on(EVENTS.SOCKET.MAIN.ERROR,errorListener);
+        setTimeout(function() {
+            socket.onerror('error');
         },8);
     });
 

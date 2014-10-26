@@ -7,6 +7,7 @@ describe('Unit: SocketService', function() {
 
     var socketService,
         FEEDBACK,
+        EVENTS,
         $rootScope,
         feedbackService;
 
@@ -14,10 +15,11 @@ describe('Unit: SocketService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (_$rootScope_, $httpBackend, socket, config, feedback, _FEEDBACK_) {
+    beforeEach(inject(function (_$rootScope_, $httpBackend, socket, config, feedback, _FEEDBACK_, _EVENTS_) {
         socketService = socket;
         feedbackService = feedback;
         FEEDBACK = _FEEDBACK_;
+        EVENTS = _EVENTS_;
         $rootScope = _$rootScope_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
@@ -54,35 +56,35 @@ describe('Unit: SocketService', function() {
     it('should respond to a socket error by notifying the user with an error message', function () {
         var feedbackSpy = sinon.spy(feedbackService,'error');
         socketService.connect();
-        socketService.emit('error');
+        socketService.emit(EVENTS.SOCKET.MAIN.ERROR);
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ERROR.SOCKET.UNABLE_TO_CONNECT);
     });
 
     it('should respond with a reconnecting notice when trying a reconnection attempt for the first time', function () {
         var feedbackSpy = sinon.spy(feedbackService,'notice');
         socketService.connect();
-        socketService.emit('reconnecting',1);
+        socketService.emit(EVENTS.SOCKET.MAIN.RECONNECTING,1);
         feedbackSpy.should.have.been.calledWith(FEEDBACK.NOTICE.SOCKET.RECONNECTING);
     });
 
     it('should respond with a reconnecting alert when trying a reconnection for a configured amount of times', function () {
         var feedbackSpy = sinon.spy(feedbackService,'alert');
         socketService.connect();
-        socketService.emit('reconnecting',3);
+        socketService.emit(EVENTS.SOCKET.MAIN.RECONNECTING,3);
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ALERT.SOCKET.RECONNECTION_TROUBLE);
     });
 
     it('should show a reconnected notice if reconnection succeeds', function () {
         var feedbackSpy = sinon.spy(feedbackService,'notice');
         socketService.connect();
-        socketService.emit('reconnect');
+        socketService.emit(EVENTS.SOCKET.MAIN.RECONNECTED);
         feedbackSpy.should.have.been.calledWith(FEEDBACK.NOTICE.SOCKET.RECONNECTED);
     });
 
     it('should show an error message if reconnecting to the socket has failed', function () {
         var feedbackSpy = sinon.spy(feedbackService,'error');
         socketService.connect();
-        socketService.emit('reconnect_failed');
+        socketService.emit(EVENTS.SOCKET.MAIN.RECONNECT_FAILED);
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ERROR.SOCKET.UNABLE_TO_RECONNECT);
     });
 

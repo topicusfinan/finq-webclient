@@ -85,7 +85,7 @@ angular.module('finqApp.service')
                 if (options.mocked) {
                     dispatchEvent(eventName, data);
                 } else {
-                    socket.send(JSON.stringify({
+                    socket.send(angular.toJson({
                         event: eventName,
                         data: data
                     }));
@@ -137,7 +137,7 @@ angular.module('finqApp.service')
         };
 
         var handleMessage = function(messageData) {
-            var message = angular.toJson(messageData);
+            var message = angular.fromJson(messageData);
             if (message.event) {
                 dispatchEvent(message.event, message.data);
             }
