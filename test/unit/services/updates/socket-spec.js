@@ -23,6 +23,10 @@ describe('Unit: SocketService', function() {
             address: '',
             socket: {
                 endpoint: '',
+                reconnectDelay: 0,
+                reconnectAttempts: 3,
+                reconnectDelayMax: 5000,
+                timeout: 20000,
                 reconnectAlertCnt: 3,
                 mocked: true
             }

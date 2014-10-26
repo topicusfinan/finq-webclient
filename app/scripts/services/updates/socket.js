@@ -54,7 +54,7 @@ angular.module('finqApp.service')
                     feedbackService.error(FEEDBACK.ERROR.SOCKET.UNABLE_TO_CONNECT);
                 }
             });
-            websocket.on(EVENTS.SOCKET.MAIN.RECONNECTING, function(count) {
+            websocket.on(EVENTS.SOCKET.MAIN.RECONNECTING, function(event, count) {
                 reconnect = true;
                 if (count === 1) {
                     console.debug('Connection to the server lost, attempting to reconnect');

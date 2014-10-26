@@ -50,6 +50,7 @@ angular.module('finqApp.service')
             socket.onerror = function(error) {
                 dispatchEvent(EVENTS.SOCKET.MAIN.ERROR, error);
             };
+            return socket;
         };
 
         this.disconnect = function() {
@@ -93,7 +94,9 @@ angular.module('finqApp.service')
         };
 
         var mockConnection = function() {
-            socket = {};
+            socket = {
+                close: function() {}
+            };
             setTimeout(function() {
                 socket.onopen();
             }, options.mockConnectionDelay);
@@ -106,7 +109,7 @@ angular.module('finqApp.service')
         var dispatchEvent = function(eventName, data) {
             if (listeners[eventName]) {
                 for (var i=0; i<listeners[eventName].length; i++) {
-                    listeners[eventName][i](data);
+                    listeners[eventName][i](eventName, data);
                     if (listeners[eventName][i]._once) {
                         listeners[eventName].splice(i--, 1);
                     }
@@ -124,9 +127,9 @@ angular.module('finqApp.service')
         };
 
         var handleDisconnect = function() {
+            dispatchEvent(EVENTS.SOCKET.MAIN.DISCONNECTED);
             if (forceDisconnect || !options.reconnectAttempts) {
                 forceDisconnect = false;
-                dispatchEvent(EVENTS.SOCKET.MAIN.DISCONNECTED);
                 return false;
             }
             disconnectedOn = new Date();

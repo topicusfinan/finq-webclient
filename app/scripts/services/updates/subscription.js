@@ -77,7 +77,7 @@ angular.module('finqApp.service')
             };
 
             var registerSocketEvent = function(event) {
-                socketService.on(event, function(data) {
+                socketService.on(event, function(event, data) {
                     angular.forEach(handlers[event], function(handler) {
                         handler(event, data);
                     });
