@@ -31,11 +31,7 @@ describe('Unit: RunnerService', function() {
             address: '',
             socket: {
                 endpoint: '',
-                reconnectionAttempts: 10,
-                reconnectionDelay: 1000,
-                reconnectionDelayMax: 5000,
-                timeout: 20000,
-                reconnectAlertCnt: 3
+                mocked: true
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
@@ -115,7 +111,32 @@ describe('Unit: RunnerService', function() {
         expect(runningStories[0].progress.stories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
     });
 
-    it('should be able to handle an unforseen out of sync error on receiving an update for an unknown story', function (done) {
+    it('should handle a gist summary for a run that is subscribed to', function () {
+        startStories([{
+            id: 46421532,
+            scenarios: [23452343,23452345]
+        }]);
+        runnerService.handle(EVENTS.SOCKET.RUN.GIST, {
+            id: 1,
+            status: STATE.RUN.SCENARIO.FAILED,
+            stories: [{
+                id: 46421532,
+                status: STATE.RUN.SCENARIO.FAILED,
+                scenarios: [
+                    {id: 23452343, status: STATE.RUN.SCENARIO.SUCCESS, steps: []},
+                    {id: 23452345, status: STATE.RUN.SCENARIO.FAILED, steps: []}
+                ]
+            }]
+        });
+        var runningStories = runnerService.getRunningSessions();
+        expect(runningStories[0].progress.scenariosCompleted).to.equal(2);
+        expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(2);
+        expect(runningStories[0].progress.stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
+        expect(runningStories[0].progress.stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.FAILED);
+        expect(runningStories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
+    });
+
+    it('should be able to handle an unforeseen out of sync error on receiving an update for an unknown story', function (done) {
         startStories([{
                 id: 46421532,
                 scenarios: [23452343,23452345]

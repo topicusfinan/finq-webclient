@@ -37,7 +37,8 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
                 }
             },
             socket: {
-                endpoint: ''
+                endpoint: '',
+                mocked: true
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
@@ -152,7 +153,8 @@ describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', f
                 }
             },
             socket: {
-                endpoint: ''
+                endpoint: '',
+                mocked: true
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
@@ -239,7 +241,8 @@ describe('Unit: StoryRunnerMockSimulator run should continue to run in case it w
                 }
             },
             socket: {
-                endpoint: ''
+                endpoint: '',
+                mocked: true
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);

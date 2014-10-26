@@ -23,11 +23,8 @@ describe('Unit: SocketService', function() {
             address: '',
             socket: {
                 endpoint: '',
-                reconnectionAttempts: 10,
-                reconnectionDelay: 1000,
-                reconnectionDelayMax: 5000,
-                timeout: 20000,
-                reconnectAlertCnt: 3
+                reconnectAlertCnt: 3,
+                mocked: true
             }
         });
         config.load();
@@ -85,7 +82,7 @@ describe('Unit: SocketService', function() {
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ERROR.SOCKET.UNABLE_TO_RECONNECT);
     });
 
-    it('should be possible to add a listener to a custom event', function () {
+    it('should be able to add a listener to a custom event', function () {
         var testFn = {test: function() {}};
         var testSpy = sinon.spy(testFn,'test');
         socketService.connect();
@@ -94,22 +91,12 @@ describe('Unit: SocketService', function() {
         testSpy.should.have.been.called.once;
     });
 
-    it('should be possible to remove a listener from a custom event', function () {
+    it('should be able to remove a listener from a custom event', function () {
         var testFn = {test: function() {}};
         var testSpy = sinon.spy(testFn,'test');
         socketService.connect();
         socketService.on('test',testFn.test);
         socketService.off('test');
-        socketService.emit('test');
-        testSpy.should.not.have.been.called.once;
-    });
-
-    it('should be possible to remove listeners for all events', function () {
-        var testFn = {test: function() {}};
-        var testSpy = sinon.spy(testFn,'test');
-        socketService.connect();
-        socketService.on('test',testFn.test);
-        socketService.off();
         socketService.emit('test');
         testSpy.should.not.have.been.called.once;
     });

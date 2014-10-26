@@ -1,24 +1,24 @@
 'use strict';
-/*global io:false */
 
 /**
  * @ngdoc function
  * @name finqApp.service:socket
  * @description
- * # Socket io service
+ * # Socket communication service
  *
- * Generate a socket.io websocket and make its base functions available through the scope.
- *
+ * Communicate with the backend through a websocket abstraction and handle connection and
+ * disconnection events. This abstraction puts the websocket in the digest cycle of angular.
  */
 angular.module('finqApp.service')
     .service('socket', [
         '$rootScope',
         'config',
+        'websocket',
         'feedback',
         'FEEDBACK',
         'EVENTS',
-        function ($rootScope, configProvider, feedbackService, FEEDBACK, EVENTS) {
-        var socket,
+        function ($rootScope, configProvider, websocket, feedbackService, FEEDBACK, EVENTS) {
+        var that = this,
             connected = false,
             connecting = false,
             reconnect = false,
@@ -29,30 +29,32 @@ angular.module('finqApp.service')
         };
 
         this.connect = function() {
-            socket = io.connect(configProvider.client().socket.endpoint,{
-                reconnectionAttempts: configProvider.client().socket.reconnectionAttempts,
-                reconnectionDelay: configProvider.client().socket.reconnectionDelay,
-                reconnectionDelayMax: configProvider.client().socket.reconnectionDelayMax,
-                timeout: configProvider.client().socket.timeout
+            websocket.connect(configProvider.client().socket.endpoint,{
+                reconnectAttempts: configProvider.client().socket.reconnectAttempts,
+                reconnectDelay: configProvider.client().socket.reconnectDelay,
+                reconnectDelayMax: configProvider.client().socket.reconnectDelayMax,
+                timeout: configProvider.client().socket.timeout,
+                mocked: configProvider.client().socket.mocked,
+                mockConnectionDelay: configProvider.client().socket.mockConnectionDelay
             });
             connecting = true;
-            socket.on(EVENTS.SOCKET.MAIN.CONNECTED, function() {
+            websocket.on(EVENTS.SOCKET.MAIN.CONNECTED, function() {
                 connected = true;
                 connecting = false;
                 angular.forEach(connectionListeners, function(listener) {
                     listener();
                 });
             });
-            socket.on(EVENTS.SOCKET.MAIN.DISCONNECTED, function() {
+            websocket.on(EVENTS.SOCKET.MAIN.DISCONNECTED, function() {
                 connected = false;
             });
-            socket.on(EVENTS.SOCKET.MAIN.ERROR, function(error) {
+            websocket.on(EVENTS.SOCKET.MAIN.ERROR, function(error) {
                 console.error('Server socket connection has caused an error',error);
                 if (connecting) {
                     feedbackService.error(FEEDBACK.ERROR.SOCKET.UNABLE_TO_CONNECT);
                 }
             });
-            socket.on(EVENTS.SOCKET.MAIN.RECONNECTING, function(count) {
+            websocket.on(EVENTS.SOCKET.MAIN.RECONNECTING, function(count) {
                 reconnect = true;
                 if (count === 1) {
                     console.debug('Connection to the server lost, attempting to reconnect');
@@ -63,57 +65,50 @@ angular.module('finqApp.service')
                     feedbackService.alert(FEEDBACK.ALERT.SOCKET.RECONNECTION_TROUBLE);
                 }
             });
-            socket.on(EVENTS.SOCKET.MAIN.RECONNECTED, function() {
+            websocket.on(EVENTS.SOCKET.MAIN.RECONNECTED, function() {
                 connected = true;
                 reconnect = false;
                 feedbackService.notice(FEEDBACK.NOTICE.SOCKET.RECONNECTED);
             });
-            socket.on(EVENTS.SOCKET.MAIN.RECONNECT_FAILED, function() {
+            websocket.on(EVENTS.SOCKET.MAIN.RECONNECT_FAILED, function() {
                 reconnect = false;
                 feedbackService.error(FEEDBACK.ERROR.SOCKET.UNABLE_TO_RECONNECT);
             });
         };
 
         this.on = function (eventName, callback) {
-            if (socket === undefined) {
+            if (!that.isConnected()) {
                 throw new Error('Cannot subscribe without first making a connection');
             }
-            socket.on(eventName, function () {
+            websocket.on(eventName, function () {
                 var args = arguments;
                 $rootScope.$apply(function () {
-                    callback.apply(socket, args);
+                    callback.apply(websocket, args);
                 });
             });
         };
 
         this.once = function (eventName, callback) {
-            if (socket === undefined) {
+            if (!that.isConnected()) {
                 throw new Error('Cannot subscribe without first making a connection');
             }
-            socket.once(eventName, function () {
+            websocket.once(eventName, function () {
                 var args = arguments;
                 $rootScope.$apply(function () {
-                    callback.apply(socket, args);
+                    callback.apply(websocket, args);
                 });
             });
         };
 
         this.off = function(eventName) {
-            socket.removeAllListeners(eventName);
+            websocket.off(eventName);
         };
 
-        this.emit = function (eventName, data, callback) {
-            if (socket === undefined) {
+        this.emit = function (eventName, data) {
+            if (!that.isConnected()) {
                 throw new Error('Cannot broadcast without first making a connection');
             }
-            socket.emit(eventName, data, function () {
-                var args = arguments;
-                $rootScope.$apply(function () {
-                    if (callback) {
-                        callback.apply(socket, args);
-                    }
-                });
-            });
+            websocket.emit(eventName, data);
         };
 
         this.addConnectionListener = function(listener) {

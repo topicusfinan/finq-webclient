@@ -141,6 +141,7 @@ angular.module('finqApp.service')
                     }
                 }
             };
+
             socketService.emit(EVENTS.SOCKET.RUN.UPDATED,runUpdate);
         };
 

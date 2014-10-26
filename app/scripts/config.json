@@ -3,11 +3,13 @@
     "authAddress": "",
     "socket": {
         "endpoint": "",
-        "reconnectionAttempts": 10,
-        "reconnectionDelay": 1000,
-        "reconnectionDelayMax": 5000,
+        "reconnectAttempts": 10,
+        "reconnectDelay": 1000,
+        "reconnectDelayMax": 5000,
         "timeout": 20000,
-        "reconnectAlertCnt": 3
+        "reconnectAlertCnt": 3,
+        "mocked": true,
+        "mockConnectionDelay": 10
     },
     "searchWait": 250,
     "maxSearchResults": 1000,

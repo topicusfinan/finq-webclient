@@ -22,11 +22,7 @@ describe('Unit: SubscriptionService', function() {
             address: '',
             socket: {
                 endpoint: '',
-                reconnectionAttempts: 10,
-                reconnectionDelay: 1000,
-                reconnectionDelayMax: 5000,
-                timeout: 20000,
-                reconnectAlertCnt: 3
+                mocked: true
             }
         });
         config.load();

@@ -36,7 +36,7 @@ describe('Unit: RunningCtrl', function() {
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             run: {updateInterval: 10},
-            socket: {endpoint: ''},
+            socket: {endpoint: '', mocked: true},
             pagination : {maxScenarios : 2}
         });
         $httpBackend.expectGET('/app').respond(200);
