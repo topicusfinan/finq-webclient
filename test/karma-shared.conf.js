@@ -26,7 +26,7 @@ module.exports = function() {
             type : 'lcov',
             dir : 'reports/coverage/'
         },
-        reporters: ['progress'],
+        reporters: ['progress', 'coverage'],
 
         preprocessors: {
             'app/scripts/**/*.js': ['coverage']
