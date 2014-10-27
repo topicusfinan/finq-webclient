@@ -114,7 +114,7 @@ angular.module('finqApp.controller')
         var loadComplete = function() {
             that.loadingText = loadedText;
             that.loaded = true;
-            setup.setupModules();
+            setup.finalize();
             if (that.authorized) {
                 $state.go('authorized');
             } else {

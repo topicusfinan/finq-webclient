@@ -15,50 +15,16 @@ angular.module('finqApp.service')
         'EVENTS',
         function (socketService,EVENTS) {
             var handlers = {},
-                runs = [],
-                queuedRegistrations = [],
-                queuedEmits = [],
                 handlerRef = 0;
 
-            socketService.addConnectionListener(function() {
-                angular.forEach(queuedRegistrations, function(event) {
-                    registerSocketEvent(event);
-                });
-                queuedRegistrations = [];
-
-                angular.forEach(queuedEmits, function(emitRequest) {
-                    socketService.emit(emitRequest.event, emitRequest.data);
-                });
-                queuedEmits = [];
-
-                socketService.on(EVENTS.SOCKET.MAIN.RECONNECTED, function() {
-                    angular.forEach(runs, function(runId) {
-                        socketService.emit(EVENTS.SOCKET.RUN.SUBSCRIBE,{run: runId});
-                    });
-                });
-            });
-
             this.subscribe = function(runId) {
-                if (!socketService.isConnected()) {
-                    socketService.connect();
-                    queuedEmits.push({
-                        event: EVENTS.SOCKET.RUN.SUBSCRIBE,
-                        data: {run: runId}
-                    });
-                } else {
-                    socketService.emit(EVENTS.SOCKET.RUN.SUBSCRIBE, {run: runId});
-                }
-                runs.push(runId);
+                socketService.emit(EVENTS.SOCKET.RUN.SUBSCRIBE, {run: runId}, true);
             };
 
             this.register = function(event, handler) {
                 if (!handlers[event]) {
                     handlers[event] = {};
-                    if (socketService.isConnected()) {
-                        registerSocketEvent(event);
-                    } else {
-                        queuedRegistrations.push(event);
-                    }
+                    registerSocketEvent(event);
                 }
                 handlers[event][handlerRef] = handler;
                 return handlerRef++;

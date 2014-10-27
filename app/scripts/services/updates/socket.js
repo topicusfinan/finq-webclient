@@ -22,7 +22,8 @@ angular.module('finqApp.service')
             connected = false,
             connecting = false,
             reconnect = false,
-            connectionListeners = [];
+            queuedEmits = [],
+            persistentEmits = [];
 
         this.isConnected = function() {
             return connecting || connected || reconnect;
@@ -41,9 +42,10 @@ angular.module('finqApp.service')
             websocket.on(EVENTS.SOCKET.MAIN.CONNECTED, function() {
                 connected = true;
                 connecting = false;
-                angular.forEach(connectionListeners, function(listener) {
-                    listener();
+                angular.forEach(queuedEmits, function(emitRequest) {
+                    that.emit(emitRequest.event, emitRequest.data);
                 });
+                queuedEmits = [];
             });
             websocket.on(EVENTS.SOCKET.MAIN.DISCONNECTED, function() {
                 connected = false;
@@ -69,6 +71,9 @@ angular.module('finqApp.service')
                 connected = true;
                 reconnect = false;
                 feedbackService.notice(FEEDBACK.NOTICE.SOCKET.RECONNECTED);
+                angular.forEach(persistentEmits, function(emitRequest) {
+                    that.emit(emitRequest.event, emitRequest.data);
+                });
             });
             websocket.on(EVENTS.SOCKET.MAIN.RECONNECT_FAILED, function() {
                 reconnect = false;
@@ -77,9 +82,6 @@ angular.module('finqApp.service')
         };
 
         this.on = function (eventName, callback) {
-            if (!that.isConnected()) {
-                throw new Error('Cannot subscribe without first making a connection');
-            }
             websocket.on(eventName, function () {
                 var args = arguments;
                 $rootScope.$apply(function () {
@@ -89,9 +91,6 @@ angular.module('finqApp.service')
         };
 
         this.once = function (eventName, callback) {
-            if (!that.isConnected()) {
-                throw new Error('Cannot subscribe without first making a connection');
-            }
             websocket.once(eventName, function () {
                 var args = arguments;
                 $rootScope.$apply(function () {
@@ -104,15 +103,21 @@ angular.module('finqApp.service')
             websocket.off(eventName);
         };
 
-        this.emit = function (eventName, data) {
+        this.emit = function (eventName, data, resubmitOnReconnect) {
             if (!that.isConnected()) {
-                throw new Error('Cannot broadcast without first making a connection');
+                queuedEmits.push({
+                    event: eventName,
+                    data: data
+                });
+            } else {
+                if (resubmitOnReconnect) {
+                    persistentEmits.push({
+                        event: eventName,
+                        data: data
+                    });
+                }
+                websocket.emit(eventName, data);
             }
-            websocket.emit(eventName, data);
-        };
-
-        this.addConnectionListener = function(listener) {
-            connectionListeners.push(listener);
         };
 
   }]);
