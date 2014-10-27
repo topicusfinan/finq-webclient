@@ -8,24 +8,28 @@ describe('Unit: RunnerService', function() {
     var runnerService,
         moduleService,
         storyMockData,
+        runMockData,
         subscriptionService,
         backend,
         EVENTS,
         STATE,
+        $rootScope,
         MODULES;
 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _STATE_, _MODULES_, story, storyServiceMock, subscription, config) {
+    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _STATE_, _MODULES_, story, storyServiceMock, subscription, config, runningServiceMock, _$rootScope_) {
         runnerService = runner;
         moduleService = module;
         storyMockData = storyServiceMock.books;
+        runMockData = runningServiceMock.runs;
         backend = $httpBackend;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
         MODULES = _MODULES_;
+        $rootScope = _$rootScope_;
         subscriptionService = subscription;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
@@ -72,7 +76,7 @@ describe('Unit: RunnerService', function() {
     it('should handle a progress update for a run that is subscribed to', function () {
         startStories([{
                 id: 46421532,
-                scenarios: [23452343,23452345]
+                scenarios: [{id:23452343},{id:23452345}]
             }]);
         generateStoryUpdate(46421532,STATE.RUN.SCENARIO.RUNNING,STATE.RUN.SCENARIO.RUNNING, {
             id: 23452343,
@@ -90,7 +94,7 @@ describe('Unit: RunnerService', function() {
     it('should handle a progress update for a run that contains a failed scenario', function () {
         startStories([{
                 id: 46421532,
-                scenarios: [23452343,23452345]
+                scenarios: [{id:23452343},{id:23452345}]
             }]);
         generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,{
             id: 23452343,
@@ -114,7 +118,7 @@ describe('Unit: RunnerService', function() {
     it('should handle a gist summary for a run that is subscribed to', function () {
         startStories([{
             id: 46421532,
-            scenarios: [23452343,23452345]
+            scenarios: [{id:23452343},{id:23452345}]
         }]);
         runnerService.handle(EVENTS.SOCKET.RUN.GIST, {
             id: 1,
@@ -139,7 +143,7 @@ describe('Unit: RunnerService', function() {
     it('should be able to handle an unforeseen out of sync error on receiving an update for an unknown story', function (done) {
         startStories([{
                 id: 46421532,
-                scenarios: [23452343,23452345]
+                scenarios: [{id:23452343},{id:23452345}]
             }]);
         try {
             generateStoryUpdate(123,[]);
@@ -151,7 +155,7 @@ describe('Unit: RunnerService', function() {
     it('should be able to register a run of a subset of scenarios for a story', function () {
         startStories([{
                 id: 46421532,
-                scenarios: [23452343]
+                scenarios: [{id:23452343}]
             }]);
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].progress.stories[0].scenarios.length).to.equal(1);
@@ -161,7 +165,7 @@ describe('Unit: RunnerService', function() {
     it('should use the title of the only story that is included in the run when there is only one', function () {
         startStories([{
                 id: 46421532,
-                scenarios: [23452343,23452345]
+                scenarios: [{id:23452343},{id:23452345}]
             }]);
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].title).to.equal(runningStories[0].progress.stories[0].title);
@@ -169,11 +173,23 @@ describe('Unit: RunnerService', function() {
 
     it('should use the title of the most expensive story as a base for a multistory title', function () {
         startStories([
-            {id: 46421532, scenarios: [23452345]},
-            {id: 56421532, scenarios: [33452343,33452345]}
+            {id: 46421532, scenarios: [{id:23452345}]},
+            {id: 56421532, scenarios: [{id:33452343},{id:33452345}]}
         ]);
         var runningStories = runnerService.getRunningSessions();
         expect(runningStories[0].title).to.equal(runningStories[0].progress.stories[1].title);
+    });
+
+    it('should load any current runs from the backend the first time the running sessions are listed', function (done) {
+        backend.expectGET('/runs').respond(200, runMockData);
+        runnerService.getRunningSessions();
+        backend.flush();
+        $rootScope.$digest();
+        setTimeout(function() {
+            var runningStories = runnerService.getRunningSessions();
+            expect(runningStories[0].id).to.equal(runMockData[0].id);
+            done();
+        },5);
     });
 
 });

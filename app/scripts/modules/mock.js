@@ -29,6 +29,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/tags').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
+        $httpBackend.whenGET('/runs').respond([]);
         $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             var runId = Math.floor((Math.random() * 10000) + 1);

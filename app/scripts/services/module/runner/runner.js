@@ -18,8 +18,10 @@ angular.module('finqApp.service')
         'STATE',
         'story',
         'subscription',
-        function ($translate,moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService) {
-            var runningSessions = [];
+        'storyRunning',
+        function ($translate,moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService,storyRunningService) {
+            var runningSessions = [],
+                loaded = false;
 
             this.handle = function(event,eventData) {
                 switch (event) {
@@ -40,7 +42,20 @@ angular.module('finqApp.service')
             subscriptionService.register(EVENTS.SOCKET.RUN.GIST, this.handle);
 
             this.getRunningSessions = function() {
+                if (!loaded) {
+                    storyRunningService.list().then(initializeRunningStories);
+                    loaded = true;
+                }
                 return runningSessions;
+            };
+
+            var initializeRunningStories = function(storyRuns) {
+                angular.forEach(storyRuns, function(run) {
+                    if (findRun(run.id) === null) {
+                        handleRunStarted(run);
+                        handleRunGist(run);
+                    }
+                });
             };
 
             var handleRunStarted = function(runData) {
@@ -128,6 +143,7 @@ angular.module('finqApp.service')
                         return runningSessions[i];
                     }
                 }
+                return null;
             };
 
             var findStoryInRun = function(targetRunStories, storyId) {
@@ -148,9 +164,9 @@ angular.module('finqApp.service')
                 return null;
             };
 
-            var setupStoryForRun = function(storyId,scenarioIds) {
+            var setupStoryForRun = function(storyId,scenarios) {
                 var story = angular.copy(storyService.findStoryById(storyId));
-                var i,j;
+                var i, j, keep;
                 angular.extend(story,{
                     status: STATE.RUN.SCENARIO.RUNNING,
                     progress: {
@@ -158,9 +174,14 @@ angular.module('finqApp.service')
                     }
                 });
                 for (i = 0; i<story.scenarios.length; i++) {
-                    if (scenarioIds.indexOf(story.scenarios[i].id) === -1) {
-                        story.scenarios.splice(i--,1);
-                    } else {
+                    keep = false;
+                    for (j = 0; j<scenarios.length; j++) {
+                        if (scenarios[j].id === story.scenarios[i].id) {
+                            keep = true;
+                            break;
+                        }
+                    }
+                    if (keep) {
                         angular.extend(story.scenarios[i],{
                             status: STATE.RUN.SCENARIO.RUNNING,
                             progress: {
@@ -173,6 +194,8 @@ angular.module('finqApp.service')
                                 status: STATE.RUN.SCENARIO.QUEUED
                             });
                         }
+                    } else {
+                        story.scenarios.splice(i--,1);
                     }
                 }
                 return story;

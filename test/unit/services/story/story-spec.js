@@ -29,7 +29,7 @@ describe('Unit: StoryService', function() {
     it('should properly load the storybook list', function () {
         expect(storybooks).to.not.be.undefined;
         expect(storybooks).to.not.be.empty;
-        expect(storybooks[0]).to.deep.equal(storyMockData[0]);
+        expect(storybooks).to.deep.equal(storyMockData);
     });
 
     it('should make it possible to list stories by referencing a book id', function () {

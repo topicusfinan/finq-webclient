@@ -82,7 +82,7 @@ describe('Unit: RunningCtrl', function() {
             startedOn: new Date(),
             stories: [{
                 id: 46421532,
-                scenarios: [23452343,23452345]
+                scenarios: [{id:23452343},{id:23452345}]
             }]
         });
         setTimeout(function() {
@@ -105,7 +105,7 @@ describe('Unit: RunningCtrl', function() {
             startedOn: new Date(),
             stories: [{
                 id: 46421532,
-                scenarios: [23452343,23452345]
+                scenarios: [{id:23452343},{id:23452345}]
             }]
         });
         runnerService.handle(EVENTS.SOCKET.RUN.UPDATED, {
