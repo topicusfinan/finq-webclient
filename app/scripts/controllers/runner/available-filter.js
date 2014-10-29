@@ -22,8 +22,8 @@ angular.module('finqApp.controller')
             set: true,
             tag: currentActiveFilter.tags.length > 0
         };
-        this.tagPlaceholder = 'FILTERS.TAGS.DEFAULT_VALUE';
-        this.setPlaceholder = 'FILTERS.SETS.DEFAULT_VALUE';
+        this.tagPlaceholder = 'FILTERS.TAGS.ANY';
+        this.setPlaceholder = 'FILTERS.SETS.ANY';
 
         var loadFilter = function() {
             var stepsLoaded = 0,

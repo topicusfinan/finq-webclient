@@ -12,7 +12,7 @@ angular.module('finqApp.controller')
     .controller('RunningFilterCtrl', ['environment', function (environmentService) {
         var that = this;
 
-        that.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
+        that.envPlaceholder = 'FILTERS.ENVIRONMENTS.ANY';
 
         environmentService.list().then(function (environments) {
             that.environments = [];

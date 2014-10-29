@@ -125,13 +125,14 @@
     },
     "FILTERS" : {
         "SETS" : {
-            "DEFAULT_VALUE" : "all sets"
+            "ANY" : "all sets"
         },
         "TAGS" : {
-            "DEFAULT_VALUE" : "any tag"
+            "ANY" : "any tag"
         },
         "ENVIRONMENTS" : {
-            "DEFAULT_VALUE" : "environment"
+            "NONE" : "environment",
+            "ANY" : "all environments"
         }
     }
 }

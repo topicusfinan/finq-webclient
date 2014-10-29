@@ -36,7 +36,7 @@ angular.module('finqApp.controller')
             env: {id: 'env', ids: []}
         };
         this.storyListRef = 'stories';
-        this.envPlaceholder = 'FILTERS.ENVIRONMENTS.DEFAULT_VALUE';
+        this.envPlaceholder = 'FILTERS.ENVIRONMENTS.NONE';
         this.selectedItem = null;
         this.maxScenarios = configProvider.client().pagination.maxScenarios;
         this.maxSelectItems = configProvider.client().pagination.maxSelectDropdownItems;
