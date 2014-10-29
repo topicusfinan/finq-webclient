@@ -6,7 +6,7 @@
     </div>
 </div>
 <ul id="run-list" class="main-content-list filter-1">
-    <li class="ic cl list-animate" ng-repeat="run in filteredRuns = runs() track by run.id">
+    <li class="ic cl list-animate" ng-repeat="run in filteredRuns = (runs() | runEnvironmentFilter:running.filter.env.ids) track by run.id">
         <div>
             <div class="title limited">
                 <div class="radial-progress" data-toggle="collection" progress="run.progress.percentage" highlight="run.progress.highlight"></div>

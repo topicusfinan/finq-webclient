@@ -13,6 +13,7 @@ angular.module('finqApp.mock')
         runs: [
             {
                 id: 46432790,
+                environment: 1,
                 status: 0,
                 stories: [
                     {
