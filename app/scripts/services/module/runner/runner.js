@@ -19,7 +19,8 @@ angular.module('finqApp.service')
         'story',
         'subscription',
         'storyRunning',
-        function ($translate,moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService,storyRunningService) {
+        'utils',
+        function ($translate,moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService,storyRunningService,utils) {
             var runningSessions = [],
                 loaded = false;
 
@@ -203,9 +204,11 @@ angular.module('finqApp.service')
 
             var setupRunTitle = function(runningSession) {
                 runningSession.title = runningSession.progress.stories[runningSession.largestStoryIndex].title;
-                if (runningSession.progress.stories.length > 1) {
-                    $translate('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND',{
-                        storyCount: runningSession.progress.stories.length-1
+                var storyCount = runningSession.progress.stories.length;
+                if (storyCount > 1) {
+                    var pluralized = utils.pluralize('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND', 1, storyCount-1);
+                    $translate(pluralized.template,{
+                        storyCount: pluralized.value
                     }).then(function (translatedValue) {
                         runningSession.title += translatedValue;
                     });

@@ -97,7 +97,10 @@
                 },
                 "STARTED_BY": "by **{{name}}**",
                 "RUNNING_ON": "on **{{environment}}**",
-                "MULTIPLE_STORIES_APPEND": " (and {{storyCount}} other stories)",
+                "MULTIPLE_STORIES_APPEND": {
+                    "SINGULAR": " (and {{storyCount}} other story)",
+                    "PLURAL": " (and {{storyCount}} other stories)"
+                },
                 "SINGLE_STORY_APPEND": " (1 story)"
             }
         },

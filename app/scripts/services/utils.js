@@ -23,4 +23,36 @@ angular.module('finqApp.service')
             return timeElapsed;
         };
 
+        this.pluralize = function(templateKey, values, interpret) {
+            var targetTemplate,
+                calculatedValue;
+            if (typeof values === 'object') {
+                for (var i=values.length-1; i>=0; i--) {
+                    calculatedValue = Math.floor(interpret / values[i].actionValue);
+                    if (calculatedValue > 1) {
+                        targetTemplate = values[i].target+'.'+'PLURAL';
+                        break;
+                    }
+                    if (calculatedValue === 1) {
+                        targetTemplate = values[i].target+'.'+'SINGULAR';
+                        break;
+                    }
+                    if (i === 0) {
+                        targetTemplate = values[i].target+'.'+'PLURAL';
+                    }
+                }
+            } else {
+                if (interpret === 0 || interpret / values > 1) {
+                    targetTemplate = 'PLURAL';
+                } else {
+                    targetTemplate = 'SINGULAR';
+                }
+                calculatedValue = interpret;
+            }
+            return {
+                template: templateKey+'.'+targetTemplate,
+                value: calculatedValue
+            };
+        };
+
     });
