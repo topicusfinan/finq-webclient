@@ -74,7 +74,8 @@ describe('Unit: Websocket', function() {
     it('should be able to reconnect automatically on a connection loss', function (done) {
         var socket = websocketService.connect('',{
             mocked: true,
-            reconnectAttempts: 1
+            reconnectAttempts: 1,
+            timeout: 20
         });
         var reconnectListener = function() {
             done();

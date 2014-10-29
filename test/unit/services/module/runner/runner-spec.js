@@ -20,11 +20,11 @@ describe('Unit: RunnerService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _STATE_, _MODULES_, story, storyServiceMock, subscription, config, runningServiceMock, _$rootScope_) {
+    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _STATE_, _MODULES_, story, storyServiceMock, subscription, config, runServiceMock, _$rootScope_) {
         runnerService = runner;
         moduleService = module;
         storyMockData = storyServiceMock.books;
-        runMockData = runningServiceMock.runs;
+        runMockData = runServiceMock.runs;
         backend = $httpBackend;
         EVENTS = _EVENTS_;
         STATE = _STATE_;

@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service.story:storyRunning
+ * @name finqApp.service:run
  * @description
- * # Story service
+ * # Run service
  *
  * Makes it possible to execute list operations on runs that are currently executing.
  */
 angular.module('finqApp.service')
-    .service('storyRunning', ['backend','$q',function (backend,$q) {
+    .service('run', ['backend','$q',function (backend,$q) {
         var runs = null;
 
         var load = function() {
@@ -18,7 +18,7 @@ angular.module('finqApp.service')
                 runs = runData;
                 deferred.resolve(runData);
             }).error(function() {
-                deferred.reject('Loading running stories failed');
+                deferred.reject('Loading runs failed');
             });
             return deferred.promise;
         };

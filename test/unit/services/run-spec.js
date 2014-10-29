@@ -3,9 +3,9 @@
  */
 'use strict';
 
-describe('Unit: StoryRunningService', function() {
+describe('Unit: RunService', function() {
 
-    var storyRunningService,
+    var runService,
         runMockData,
         $rootScope,
         runs;
@@ -15,12 +15,12 @@ describe('Unit: StoryRunningService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, storyRunning, runningServiceMock) {
-        storyRunningService = storyRunning;
+    beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock) {
+        runService = run;
         $rootScope = _$rootScope_;
-        runMockData = runningServiceMock.runs;
+        runMockData = runServiceMock.runs;
         $httpBackend.expectGET('/runs').respond(200, runMockData);
-        storyRunningService.list().then(function(runData) {
+        runService.list().then(function(runData) {
             runs = runData;
         });
         $httpBackend.flush();
@@ -33,7 +33,7 @@ describe('Unit: StoryRunningService', function() {
     });
 
     it('should retrieve a loaded run list in case the listing function is called again', function (done) {
-        storyRunningService.list().then(function(list) {
+        runService.list().then(function(list) {
             expect(list).to.deep.equal(runMockData);
             done();
         });
@@ -42,19 +42,19 @@ describe('Unit: StoryRunningService', function() {
 
 });
 
-describe('Unit: StoryRunningService with an unstable backend', function() {
+describe('Unit: RunService with an unstable backend', function() {
 
-    var storyRunningService,
+    var runService,
         feedback;
 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, storyRunning) {
-        storyRunningService = storyRunning;
+    beforeEach(inject(function ($httpBackend, run) {
+        runService = run;
         $httpBackend.expectGET('/runs').respond(503);
-        storyRunningService.list().then(null,function(error) {
+        runService.list().then(null,function(error) {
             feedback = error;
         });
         $httpBackend.flush();

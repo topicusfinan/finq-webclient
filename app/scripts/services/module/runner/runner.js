@@ -18,9 +18,9 @@ angular.module('finqApp.service')
         'STATE',
         'story',
         'subscription',
-        'storyRunning',
+        'run',
         'utils',
-        function ($translate,moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService,storyRunningService,utils) {
+        function ($translate,moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService,runService,utils) {
             var runningSessions = [],
                 loaded = false;
 
@@ -44,7 +44,7 @@ angular.module('finqApp.service')
 
             this.getRunningSessions = function() {
                 if (!loaded) {
-                    storyRunningService.list().then(initializeRunningStories);
+                    runService.list().then(initializeRunningStories);
                     loaded = true;
                 }
                 return runningSessions;

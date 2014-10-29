@@ -9,7 +9,7 @@
  * Mock the running story service backend with the functions included in this mockservice.
  */
 angular.module('finqApp.mock')
-    .value('runningServiceMock', {
+    .value('runServiceMock', {
         runs: [
             {
                 id: 46432790,

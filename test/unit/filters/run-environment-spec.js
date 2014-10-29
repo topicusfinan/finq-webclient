@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Unit: Story Set Filter execution', function() {
+describe('Unit: Run Environment Filter execution', function() {
 
     var runEnvironmentFilter,
         runs;
@@ -16,8 +16,8 @@ describe('Unit: Story Set Filter execution', function() {
             runEnvironmentFilter = $injector.get('$filter')('runEnvironmentFilter');
         });
     });
-    beforeEach(inject(function (runningServiceMock) {
-        runs = runningServiceMock.runs;
+    beforeEach(inject(function (runServiceMock) {
+        runs = runServiceMock.runs;
     }));
 
     it('should keep all runs in case of a clear filter', function () {
