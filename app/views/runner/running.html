@@ -30,10 +30,14 @@
                 </div>
                 <ul>
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by (run.id+'-'+scenario.id)">
-                        <div class="selectable {{scenario.progress.highlight}}">
+                        <div class="selectable detailed {{scenario.progress.highlight}}" ng-class="{'active':running.selectedItem === 'scenario'+run.id+'-'+scenario.id}" ng-click="running.selectedItem = 'scenario'+run.id+'-'+scenario.id">
                             <div class="title">
                                 <div class="radial-progress" progress="scenario.progress.percentage" highlight="scenario.progress.highlight"></div>
                                 <span class="separate">{{::scenario.title}}</span>
+                            </div>
+                            <div class="details">
+                                <span class="legend">{{scenario.messagePrefix}}</span>
+                                <span>{{scenario.message}}</span>
                             </div>
                         </div>
                     </li>

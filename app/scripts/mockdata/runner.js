@@ -118,10 +118,13 @@ angular.module('finqApp.service')
             for (var i=0; i<scenario.steps.length; i++) {
                 if (scenario.steps[i].status === STATE.RUN.SCENARIO.RUNNING) {
                     scenario.steps[i].status = currentStepResult;
-                    if (currentStepResult !== STATE.RUN.SCENARIO.FAILED && scenario.steps.length > i+1) {
+                    if (currentStepResult === STATE.RUN.SCENARIO.FAILED) {
+                        scenario.steps[i].message = 'Fate determined that it was to be so';
+                    } else if (scenario.steps.length > i+1) {
                         scenario.steps[i+1].status = STATE.RUN.SCENARIO.RUNNING;
                         return false;
                     }
+                    break;
                 }
             }
             return true;

@@ -101,7 +101,12 @@
                     "SINGULAR": " (and {{storyCount}} other story)",
                     "PLURAL": " (and {{storyCount}} other stories)"
                 },
-                "SINGLE_STORY_APPEND": " (1 story)"
+                "SINGLE_STORY_APPEND": " (1 story)",
+                "MESSAGE": {
+                    "RUNNING_PREPEND": "Step {{currentStep}} of {{totalSteps}}:",
+                    "FAILED_PREPEND": "Step {{currentStep}} of {{totalSteps}} failed:",
+                    "SUCCESS_PREPEND": "All {{totalSteps}} steps were executed successfully"
+                }
             }
         },
         "DEBUGGING" : {

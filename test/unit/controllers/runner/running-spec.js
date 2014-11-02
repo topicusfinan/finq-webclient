@@ -117,7 +117,10 @@ describe('Unit: RunningCtrl', function() {
                 scenario: {
                     id: 23452343,
                     status: STATE.RUN.SCENARIO.FAILED,
-                    steps: [{status: STATE.RUN.SCENARIO.SUCCESS}, {status: STATE.RUN.SCENARIO.FAILED}, {status: STATE.RUN.SCENARIO.QUEUED}]
+                    steps: [
+                        {status: STATE.RUN.SCENARIO.SUCCESS},
+                        {status: STATE.RUN.SCENARIO.FAILED, message: 'A failure message'},
+                        {status: STATE.RUN.SCENARIO.QUEUED}]
                 }
             }
         });
@@ -126,6 +129,7 @@ describe('Unit: RunningCtrl', function() {
             expect(scope.runs()[0].progress.percentage).to.equal(48);
             expect(scope.runs()[0].progress.highlight).to.equal('failed');
             expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(48);
+            expect(scope.runs()[0].progress.stories[0].scenarios[0].message).to.equal('A failure message');
             expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('failed');
             done();
         },14);

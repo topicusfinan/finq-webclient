@@ -187,7 +187,10 @@ describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', f
                     scenario: {
                         id: 23452343,
                         status: STATE.RUN.SCENARIO.FAILED,
-                        steps: [{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED},{status: STATE.RUN.SCENARIO.QUEUED}]
+                        steps: [
+                            {status: STATE.RUN.SCENARIO.FAILED, message: 'Fate determined that it was to be so'},
+                            {status: STATE.RUN.SCENARIO.QUEUED},
+                            {status: STATE.RUN.SCENARIO.QUEUED}]
                     }
                 }
             });

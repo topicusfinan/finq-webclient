@@ -78,21 +78,46 @@ angular.module('finqApp.controller')
                 }
             };
 
+            var updateScenarioDetails = function(scenario) {
+                var template, stepsCompleted = 0;
+                for (var i=0; i<scenario.steps.length; i++) {
+                    if (scenario.steps[i].status === STATE.RUN.SCENARIO.SUCCESS || scenario.steps[i].status === STATE.RUN.SCENARIO.FAILED) {
+                        stepsCompleted++;
+                    }
+                    if (scenario.steps[i].status === STATE.RUN.SCENARIO.FAILED) {
+                        scenario.progress.failed = true;
+                        scenario.message = scenario.steps[i].message;
+                    } else if (scenario.steps[i].status === STATE.RUN.SCENARIO.RUNNING) {
+                        scenario.message = scenario.steps[i].title;
+                    } else if (i === scenario.steps.length-1 && scenario.steps[i].status === STATE.RUN.SCENARIO.SUCCESS) {
+                        scenario.message = '';
+                    }
+                }
+                switch (scenario.status) {
+                    case STATE.RUN.SCENARIO.FAILED:
+                        template = 'FAILED_PREPEND';
+                        break;
+                    case STATE.RUN.SCENARIO.SUCCESS:
+                        template = 'SUCCESS_PREPEND';
+                        break;
+                    default:
+                        template = 'RUNNING_PREPEND';
+                        break;
+                }
+                $translate('RUNNER.RUNNING.RUN.MESSAGE.'+template,{
+                    currentStep: stepsCompleted + (STATE.RUN.SCENARIO.RUNNING ? 1 : 0),
+                    totalSteps: scenario.steps.length
+                }).then(function(translatedValue) {
+                    scenario.messagePrefix = translatedValue;
+                });
+                calculateProgress(scenario,stepsCompleted,scenario.steps.length);
+            };
+
             calculateProgress(run,run.progress.scenariosCompleted,run.totalScenarios);
             angular.forEach(run.progress.stories,function(story) {
-                var i, j, stepsCompleted;
                 calculateProgress(story,story.progress.scenariosCompleted,story.scenarios.length);
-                for (i=0; i<story.scenarios.length; i++) {
-                    stepsCompleted = 0;
-                    for (j=0; j<story.scenarios[i].steps.length; j++) {
-                        if (story.scenarios[i].steps[j].status === STATE.RUN.SCENARIO.SUCCESS || story.scenarios[i].steps[j].status === STATE.RUN.SCENARIO.FAILED) {
-                            stepsCompleted++;
-                        }
-                        if (story.scenarios[i].steps[j].status === STATE.RUN.SCENARIO.FAILED) {
-                            story.scenarios[i].progress.failed = true;
-                        }
-                    }
-                    calculateProgress(story.scenarios[i],stepsCompleted,story.scenarios[i].steps.length);
+                for (var i=0; i<story.scenarios.length; i++) {
+                    updateScenarioDetails(story.scenarios[i]);
                 }
             });
         };

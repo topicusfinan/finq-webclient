@@ -112,6 +112,10 @@ angular.module('finqApp.service')
 
             var handleRunUpdate = function(runUpdate) {
                 var run = findRun(runUpdate.id);
+                if (run === null) {
+                    // TODO publish unsubscribe event
+                    return;
+                }
                 run.status = runUpdate.status;
                 var story = findStoryInRun(run.progress.stories, runUpdate.story.id);
                 story.status = runUpdate.story.status;
@@ -135,6 +139,7 @@ angular.module('finqApp.service')
                 }
                 for (var i=0; i<runUpdate.story.scenario.steps.length; i++) {
                     scenario.steps[i].status = runUpdate.story.scenario.steps[i].status;
+                    scenario.steps[i].message = runUpdate.story.scenario.steps[i].message;
                 }
             };
 
@@ -187,8 +192,7 @@ angular.module('finqApp.service')
                             status: STATE.RUN.SCENARIO.RUNNING,
                             progress: {
                                 stepsCompleted: 0
-                            },
-                            message: story.scenarios[i].steps[0].title
+                            }
                         });
                         for (j = 0; j<story.scenarios[i].steps.length; j++) {
                             angular.extend(story.scenarios[i].steps[j],{

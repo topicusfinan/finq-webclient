@@ -69,7 +69,9 @@
     > li.cl > div.active,
     > li.cl > div.selectable:hover,
     > li.cl > ul li.cl > div.active,
-    > li.cl > ul li.cl > div.selectable:hover {
+    > li.cl > ul li.cl > div.selectable:hover,
+    > li.cl > ul li.cl > ul li.cl > div.active,
+    > li.cl > ul li.cl > ul li.cl > div.selectable:hover {
         > div.title > .radial-progress {
             .circle .mask .fill {
                 background: $highlight-color;
@@ -217,7 +219,6 @@
                         background: $base-accent-color;
                     }
 
-
                     > div > button,
                     .select > button {
                         font-size: $content-list-item-2-font-size - .1;
@@ -314,6 +315,26 @@
 
                         > div.title > .radial-progress {
                             @include radial-progress(1em, 0, $run-progress-scenario-todo-bg, $run-progress-scenario-done-bg);
+                        }
+
+                        > div.details {
+                            display: none;
+                            float: left;
+                            clear: both;
+                            font-size: .9em;
+
+                            .legend {
+                                opacity: .7;
+                            }
+                        }
+
+                        &.detailed.active {
+                            min-height: $content-list-item-2-det-height;
+                            max-height: $content-list-item-2-det-height;
+
+                            > div.details {
+                                display: block;
+                            }
                         }
                     }
 
