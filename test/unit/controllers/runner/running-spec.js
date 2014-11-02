@@ -98,7 +98,7 @@ describe('Unit: RunningCtrl', function() {
         },14);
     });
 
-    it('should update the progress information of its runs in case the progress of runs was updated', function (done) {
+    it('should update the progress information of its runs in case the progress of runs was updated and a run failed', function (done) {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
             environment: environmentMockData[0].id,
@@ -131,8 +131,86 @@ describe('Unit: RunningCtrl', function() {
             expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(48);
             expect(scope.runs()[0].progress.stories[0].scenarios[0].message).to.equal('A failure message');
             expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('failed');
+            expect(scope.runs()[0].progress.stories[0].scenarios[0].progress.percentage).to.equal(64);
             done();
         },14);
     });
+
+    it('should update the progress information of its runs in case the progress of runs was updated and a run completed successfully', function (done) {
+        runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
+            id: 1,
+            environment: environmentMockData[0].id,
+            startedOn: new Date(),
+            stories: [{
+                id: 46421532,
+                scenarios: [{id:23452343},{id:23452345}]
+            }]
+        });
+        runnerService.handle(EVENTS.SOCKET.RUN.UPDATED, {
+            id: 1,
+            status: STATE.RUN.SCENARIO.SUCCESS,
+            story: {
+                id: 46421532,
+                status: STATE.RUN.SCENARIO.SUCCESS,
+                scenario: {
+                    id: 23452343,
+                    status: STATE.RUN.SCENARIO.SUCCESS,
+                    steps: [
+                        {status: STATE.RUN.SCENARIO.SUCCESS},
+                        {status: STATE.RUN.SCENARIO.SUCCESS},
+                        {status: STATE.RUN.SCENARIO.SUCCESS}]
+                }
+            }
+        });
+        setTimeout(function() {
+            $timeout.flush();
+            expect(scope.runs()[0].progress.percentage).to.equal(48);
+            expect(scope.runs()[0].progress.highlight).to.equal('success');
+            expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(48);
+            expect(scope.runs()[0].progress.stories[0].scenarios[0].message).to.equal('');
+            expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('success');
+            expect(scope.runs()[0].progress.stories[0].scenarios[0].progress.percentage).to.equal(100);
+            done();
+        },14);
+    });
+
+    it('should update the progress information of its runs in case the progress of runs was updated and a run is not complete', function (done) {
+        runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
+            id: 1,
+            environment: environmentMockData[0].id,
+            startedOn: new Date(),
+            stories: [{
+                id: 46421532,
+                scenarios: [{id:23452343},{id:23452345}]
+            }]
+        });
+        runnerService.handle(EVENTS.SOCKET.RUN.UPDATED, {
+            id: 1,
+            status: STATE.RUN.SCENARIO.RUNNING,
+            story: {
+                id: 46421532,
+                status: STATE.RUN.SCENARIO.RUNNING,
+                scenario: {
+                    id: 23452343,
+                    status: STATE.RUN.SCENARIO.RUNNING,
+                    steps: [
+                        {status: STATE.RUN.SCENARIO.SUCCESS},
+                        {status: STATE.RUN.SCENARIO.RUNNING},
+                        {status: STATE.RUN.SCENARIO.QUEUED}]
+                }
+            }
+        });
+        setTimeout(function() {
+            $timeout.flush();
+            expect(scope.runs()[0].progress.percentage).to.equal(0);
+            expect(scope.runs()[0].progress.highlight).to.equal('none');
+            expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(0);
+            expect(scope.runs()[0].progress.stories[0].scenarios[0].message).to.equal(scope.runs()[0].progress.stories[0].scenarios[0].steps[1].title);
+            expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('none');
+            expect(scope.runs()[0].progress.stories[0].scenarios[0].progress.percentage).to.equal(32);
+            done();
+        },14);
+    });
+
 
 });
