@@ -10,32 +10,41 @@
  * result information.
  */
 angular.module('finqApp.runner.service')
-    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService) {
-        var runs = [];
+    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story','$q', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService,$q) {
+        var runs = [],
+            active = false;
 
         this.registerRun = function(runData) {
-            var stories = [];
-            angular.forEach(runData.stories, function(story) {
-                var scenarios = [];
-                for (var i=0; i<story.scenarios.length; i++) {
-                    scenarios.push({
-                        id: story.scenarios[i],
+            var deferred = $q.defer();
+            storyService.list().then(function() {
+                var stories = [];
+                angular.forEach(runData.stories, function (story) {
+                    var scenarios = [];
+                    for (var i = 0; i < story.scenarios.length; i++) {
+                        scenarios.push({
+                            id: story.scenarios[i],
+                            status: STATE.RUN.SCENARIO.RUNNING,
+                            steps: setupStepsForScenario(story.scenarios[i])
+                        });
+                    }
+                    stories.push({
+                        id: story.id,
                         status: STATE.RUN.SCENARIO.RUNNING,
-                        steps: setupStepsForScenario(story.scenarios[i])
+                        scenarios: scenarios
                     });
-                }
-                stories.push({
-                    id: story.id,
-                    status: STATE.RUN.SCENARIO.RUNNING,
-                    scenarios: scenarios
                 });
+                runs.push({
+                    id: runData.id,
+                    status: STATE.RUN.SCENARIO.RUNNING,
+                    stories: stories
+                });
+                if (!active) {
+                    $timeout(simulateRunResponses, configProvider.client().mock.runSimulation.interval);
+                    active = true;
+                }
+                deferred.resolve();
             });
-            runs.push({
-                id: runData.id,
-                status: STATE.RUN.SCENARIO.RUNNING,
-                stories: stories
-            });
-            $timeout(simulateRunResponses, configProvider.client().mock.runSimulation.interval);
+            return deferred.promise;
         };
 
         var setupStepsForScenario = function(scenarioId) {

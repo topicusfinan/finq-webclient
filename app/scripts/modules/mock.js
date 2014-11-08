@@ -22,8 +22,9 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'environmentServiceMock',
     'authServiceMock',
     'storyServiceMock',
+    'runServiceMock',
     'runnerMockSimulator',
-    function(STATE,$httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runnerMockSimulator) {
+    function(STATE,$httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,runnerMockSimulator) {
 
         $httpBackend.whenGET('/app').respond(appServiceMock.info);
         $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
@@ -31,7 +32,27 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
         $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED).respond([]);
-        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond([]);
+        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(function() {
+            var runningList = angular.copy(runServiceMock);
+            runningList.data[0].startedOn = (new Date()).getTime();
+            var simulatorData = {
+                id: runningList.data[0].id,
+                environment: runningList.data[0].environment,
+                stories: []
+            };
+            angular.forEach(runningList.data[0].stories, function(story) {
+                var scenarios = [];
+                angular.forEach(story.scenarios, function(scenario) {
+                    scenarios.push(scenario.id);
+                });
+                simulatorData.stories.push({
+                    id: story.id,
+                    scenarios: scenarios
+                });
+            });
+            runnerMockSimulator.registerRun(simulatorData);
+            return [200,runningList];
+        });
         $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             var runId = Math.floor((Math.random() * 10000) + 1);

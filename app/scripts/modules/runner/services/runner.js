@@ -44,7 +44,9 @@ angular.module('finqApp.runner.service')
 
             this.getRunningSessions = function() {
                 if (!loaded) {
-                    runService.listRunningStories().then(initializeRunningStories);
+                    storyService.list().then(function() {
+                        runService.listRunningStories().then(initializeRunningStories);
+                    });
                     loaded = true;
                 }
                 return runningSessions;

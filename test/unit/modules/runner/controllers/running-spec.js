@@ -40,11 +40,10 @@ describe('Unit: RunningCtrl', function() {
             pagination : {maxScenarios : 2}
         });
         $httpBackend.expectGET('/app').respond(200);
-        $httpBackend.expectGET('/books').respond(200, storyMockData);
         $httpBackend.expectGET('/environments').respond(200, environmentMockData);
+        $httpBackend.expectGET('/books').respond(200, storyMockData);
         $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(200, []);
         config.load().then(function() {
-            story.list();
             environment.list();
             RunningCtrl = $controller('RunningCtrl', {$scope: scope});
         });

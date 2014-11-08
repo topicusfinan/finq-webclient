@@ -20,8 +20,8 @@ angular.module('finqApp.service')
             backend.get('/run',{
                 status: statusses
             }).success(function(runData) {
-                runs[targetList] = runData;
-                deferred.resolve(runData);
+                runs[targetList] = runData.data;
+                deferred.resolve(runData.data);
             }).error(function() {
                 deferred.reject('Loading runs failed');
             });

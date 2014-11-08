@@ -17,7 +17,7 @@ describe('Unit: Run Environment Filter execution', function() {
         });
     });
     beforeEach(inject(function (runServiceMock) {
-        runs = runServiceMock.runs;
+        runs = runServiceMock.data;
     }));
 
     it('should keep all runs in case of a clear filter', function () {

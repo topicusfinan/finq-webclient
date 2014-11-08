@@ -10,10 +10,18 @@
  */
 angular.module('finqApp.mock')
     .value('runServiceMock', {
-        runs: [
+        totalCount: 1,
+        page: 1,
+        pageSize: 50,
+        data: [
             {
                 id: 46432790,
                 environment: 1,
+                startedBy: {
+                    name: 'John Doe',
+                    first: 'John',
+                    last: 'Doe'
+                },
                 status: 0,
                 stories: [
                     {

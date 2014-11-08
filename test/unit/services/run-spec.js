@@ -18,7 +18,7 @@ describe('Unit: RunService running stories', function() {
     beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock, STATE) {
         runService = run;
         $rootScope = _$rootScope_;
-        runMockData = runServiceMock.runs;
+        runMockData = runServiceMock;
         $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(200, runMockData);
         runService.listRunningStories().then(function(runData) {
             runs = runData;
@@ -29,12 +29,12 @@ describe('Unit: RunService running stories', function() {
     it('should properly load the running stories list', function () {
         expect(runs).to.not.be.undefined;
         expect(runs).to.not.be.empty;
-        expect(runs).to.deep.equal(runMockData);
+        expect(runs).to.deep.equal(runMockData.data);
     });
 
     it('should retrieve a loaded run list in case the listing function is called again', function (done) {
         runService.listRunningStories().then(function(list) {
-            expect(list).to.deep.equal(runMockData);
+            expect(list).to.deep.equal(runMockData.data);
             done();
         });
         $rootScope.$digest();
@@ -57,7 +57,7 @@ describe('Unit: RunService run reports', function() {
     beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock, STATE) {
         runService = run;
         $rootScope = _$rootScope_;
-        runMockData = runServiceMock.runs;
+        runMockData = runServiceMock;
         $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED).respond(200, runMockData);
         runService.listReports().then(function(runData) {
             runs = runData;
@@ -68,12 +68,12 @@ describe('Unit: RunService run reports', function() {
     it('should properly load the run reports list', function () {
         expect(runs).to.not.be.undefined;
         expect(runs).to.not.be.empty;
-        expect(runs).to.deep.equal(runMockData);
+        expect(runs).to.deep.equal(runMockData.data);
     });
 
     it('should retrieve a loaded report list in case the listing function is called again', function (done) {
         runService.listReports().then(function(list) {
-            expect(list).to.deep.equal(runMockData);
+            expect(list).to.deep.equal(runMockData.data);
             done();
         });
         $rootScope.$digest();

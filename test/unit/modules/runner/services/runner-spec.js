@@ -24,7 +24,7 @@ describe('Unit: RunnerService', function() {
         runnerService = runner;
         moduleService = module;
         storyMockData = storyServiceMock.books;
-        runMockData = runServiceMock.runs;
+        runMockData = runServiceMock;
         backend = $httpBackend;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
@@ -187,7 +187,7 @@ describe('Unit: RunnerService', function() {
         $rootScope.$digest();
         setTimeout(function() {
             var runningStories = runnerService.getRunningSessions();
-            expect(runningStories[0].id).to.equal(runMockData[0].id);
+            expect(runningStories[0].id).to.equal(runMockData.data[0].id);
             done();
         },5);
     });
