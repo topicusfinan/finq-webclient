@@ -51,11 +51,11 @@
         <script src="scripts/constants/modules.js"></script>
         <script src="scripts/constants/state.js"></script>
 
-        <script src="scripts/modules/runner.js"></script>
+        <script src="scripts/modules/translate.js"></script>
+        <script src="scripts/modules/runner/runner.js"></script>
         <script src="scripts/modules/organizer.js"></script>
         <script src="scripts/modules/reporter.js"></script>
         <script src="scripts/modules/writer.js"></script>
-        <script src="scripts/modules/translate.js"></script>
 
         <script src="scripts/controllers/app.js"></script>
         <script src="scripts/controllers/preloader.js"></script>
@@ -64,19 +64,17 @@
         <script src="scripts/controllers/layout/header.js"></script>
         <script src="scripts/controllers/layout/menu.js"></script>
         <script src="scripts/controllers/layout/feedback.js"></script>
-        <script src="scripts/controllers/runner/available.js"></script>
-        <script src="scripts/controllers/runner/running.js"></script>
-        <script src="scripts/controllers/runner/available-filter.js"></script>
-        <script src="scripts/controllers/runner/running-filter.js"></script>
+        <script src="scripts/modules/runner/controllers/available.js"></script>
+        <script src="scripts/modules/runner/controllers/running.js"></script>
+        <script src="scripts/modules/runner/controllers/available-filter.js"></script>
+        <script src="scripts/modules/runner/controllers/running-filter.js"></script>
 
         <script src="scripts/services/config.js"></script>
         <script src="scripts/services/setup.js"></script>
         <script src="scripts/services/backend.js"></script>
         <script src="scripts/services/page.js"></script>
         <script src="scripts/services/utils.js"></script>
-        <script src="scripts/services/module/module.js"></script>
-        <script src="scripts/services/module/runner/runner.js"></script>
-        <script src="scripts/services/module/runner/runner-filter.js"></script>
+        <script src="scripts/services/module.js"></script>
         <script src="scripts/services/translate.js"></script>
         <script src="scripts/services/authenticate.js"></script>
         <script src="scripts/services/feedback.js"></script>
@@ -90,6 +88,8 @@
         <script src="scripts/services/story/story.js"></script>
         <script src="scripts/services/story/story-run.js"></script>
         <script src="scripts/services/story/storybook-search.js"></script>
+        <script src="scripts/modules/runner/services/runner.js"></script>
+        <script src="scripts/modules/runner/services/runner-filter.js"></script>
 
         <script src="scripts/filters/storybook-set.js"></script>
         <script src="scripts/filters/story-set.js"></script>
@@ -118,7 +118,7 @@
         <script src="scripts/mockdata/auth.js"></script>
         <script src="scripts/mockdata/set.js"></script>
         <script src="scripts/mockdata/tag.js"></script>
-        <script src="scripts/mockdata/runner.js"></script>
+        <script src="scripts/modules/runner/simulator/runner.js"></script>
         <script src="scripts/mockdata/environment.js"></script>
         <script src="scripts/mockdata/story.js"></script>
         <!-- endbuild -->
