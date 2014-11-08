@@ -8,7 +8,7 @@
  *
  * This filter controller is used in the running stories section to filter the list of running stories.
  */
-angular.module('finqApp.controller')
+angular.module('finqApp.runner.controller')
     .controller('RunningFilterCtrl', ['environment', function (environmentService) {
         var that = this;
 

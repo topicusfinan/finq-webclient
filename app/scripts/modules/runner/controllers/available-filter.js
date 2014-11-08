@@ -9,7 +9,7 @@
  * This filter allows the filtering of stories, storybooks and scenarios based on a list of properties
  * within the available story section.
  */
-angular.module('finqApp.controller')
+angular.module('finqApp.runner.controller')
     .controller('AvailableFilterCtrl', [
         'set',
         'tag',

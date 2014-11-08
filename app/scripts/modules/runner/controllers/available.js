@@ -11,7 +11,7 @@
  * be run, and provides the user with the ability to execute a particular test. Such a test can
  * either be run in the background or in debug mode.
  */
-angular.module('finqApp.controller')
+angular.module('finqApp.runner.controller')
     .controller('AvailableCtrl', [
         '$scope',
         '$timeout',

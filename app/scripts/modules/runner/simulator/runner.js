@@ -9,7 +9,7 @@
  * This service mocks the behavior of the backend when a story run is started by providing randomized
  * result information.
  */
-angular.module('finqApp.service')
+angular.module('finqApp.runner.service')
     .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService) {
         var runs = [];
 

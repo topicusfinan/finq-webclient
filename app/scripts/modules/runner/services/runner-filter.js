@@ -9,7 +9,7 @@
  * A service dedicated to the runner module, allowing this module to respond to related
  * events, and provide information on the runner module to other services and controllers.
  */
-angular.module('finqApp.service')
+angular.module('finqApp.runner.service')
     .service('runnerFilter', [
         '$filter',
         'story',

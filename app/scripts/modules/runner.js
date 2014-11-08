@@ -9,7 +9,12 @@
  * The runner module contains all controllers, services, directives and filters that are only
  * applicable to the runner section of the Finq application.
  */
-angular.module('finqApp.runner', ['ngRoute']).config(['$routeProvider',function($routeProvider) {
+angular.module('finqApp.runner', [
+        'ngRoute',
+
+        'finqApp.runner.service',
+        'finqApp.runner.controller'
+    ]).config(['$routeProvider',function($routeProvider) {
     $routeProvider.when('/runner/available', {
         templateUrl: '/views/modules/runner/available.html',
         controller: 'AvailableCtrl',
@@ -20,3 +25,6 @@ angular.module('finqApp.runner', ['ngRoute']).config(['$routeProvider',function(
         controllerAs: 'running'
     });
 }]);
+
+angular.module('finqApp.runner.service',[]);
+angular.module('finqApp.runner.controller',[]);
