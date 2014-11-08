@@ -9,13 +9,18 @@
  * Makes it possible to execute list operations on runs that are currently executing.
  */
 angular.module('finqApp.service')
-    .service('run', ['backend','$q',function (backend,$q) {
-        var runs = null;
+    .service('run', ['backend','$q','STATE',function (backend,$q,STATE) {
+        var runs = {
+            running: null,
+            reports: null
+        };
 
-        var load = function() {
+        var load = function(targetList,statusses) {
             var deferred = $q.defer();
-            backend.get('/runs').success(function(runData) {
-                runs = runData;
+            backend.get('/run',{
+                status: statusses
+            }).success(function(runData) {
+                runs[targetList] = runData;
                 deferred.resolve(runData);
             }).error(function() {
                 deferred.reject('Loading runs failed');
@@ -23,11 +28,19 @@ angular.module('finqApp.service')
             return deferred.promise;
         };
 
-        this.list = function(forceReload) {
-            if (forceReload || runs === null) {
-                return load();
+        this.listRunningStories = function(forceReload) {
+            if (forceReload || runs.running === null) {
+                return load('running',STATE.RUN.SCENARIO.RUNNING);
             } else {
-                return $q.when(runs);
+                return $q.when(runs.running);
+            }
+        };
+
+        this.listReports = function(forceReload) {
+            if (forceReload || runs.reports === null) {
+                return load('reports',[STATE.RUN.SCENARIO.SUCCESS,STATE.RUN.SCENARIO.FAILED]);
+            } else {
+                return $q.when(runs.reports);
             }
         };
 

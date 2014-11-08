@@ -14,6 +14,7 @@
 angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
     }]).run([
+    'STATE',
     '$httpBackend',
     'appServiceMock',
     'setServiceMock',
@@ -22,14 +23,15 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'authServiceMock',
     'storyServiceMock',
     'runnerMockSimulator',
-    function($httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runnerMockSimulator) {
+    function(STATE,$httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runnerMockSimulator) {
 
         $httpBackend.whenGET('/app').respond(appServiceMock.info);
         $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
         $httpBackend.whenGET('/tags').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
-        $httpBackend.whenGET('/runs').respond([]);
+        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED).respond([]);
+        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond([]);
         $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             var runId = Math.floor((Math.random() * 10000) + 1);

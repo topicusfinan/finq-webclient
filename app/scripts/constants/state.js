@@ -11,10 +11,10 @@ angular.module('finqApp')
     .constant('STATE',{
         'RUN': {
             'SCENARIO': {
-                'RUNNING': 0,
-                'SUCCESS': 1,
-                'FAILED': 2,
-                'QUEUED': 3
+                'RUNNING': 'RUNNING',
+                'SUCCESS': 'SUCCESS',
+                'FAILED': 'FAILED',
+                'QUEUED': 'QUEUED'
             }
         }
     });

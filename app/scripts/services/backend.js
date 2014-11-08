@@ -17,6 +17,33 @@ angular.module('finqApp.service')
     .provider('backend', [function () {
         var serverAddress = '';
 
+        var transformGetParameters = function(url,queryData) {
+            var first = true;
+
+            var transformArray = function(key,values) {
+                var paramList = '';
+                var first = true;
+                for (var i=0; i<values.length; i++) {
+                    paramList += (first ? '' : '&') + key + '=' + values[i];
+                    first = false;
+                }
+                return paramList;
+            };
+
+            for (var key in queryData) {
+                if (queryData.hasOwnProperty(key)) {
+                    url += first ? '?' : '&';
+                    if (typeof queryData[key] === 'object') {
+                        url += transformArray(key,queryData[key]);
+                    } else {
+                        url += key + '=' + queryData[key];
+                    }
+                    first = false;
+                }
+            }
+            return url;
+        };
+
         return {
             $get: function ($http) {
                 return {
@@ -24,8 +51,11 @@ angular.module('finqApp.service')
                         serverAddress = address;
                     },
 
-                    get : function(url,data) {
-                        return $http.get(serverAddress+url,data);
+                    get : function(url,queryData) {
+                        if (queryData && typeof queryData === 'object') {
+                            url = transformGetParameters(url,queryData);
+                        }
+                        return $http.get(serverAddress+url);
                     },
 
                     post : function(url,data) {
