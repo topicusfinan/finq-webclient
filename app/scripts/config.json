@@ -13,18 +13,42 @@
     },
     "searchWait": 250,
     "maxSearchResults": 1000,
-    "pagination": {
-        "maxScenarios": 80,
-        "maxSelectDropdownItems": 4
-    },
     "feedback": {
         "replaceTime": 150,
         "cleanTimeout": 5000,
         "queueTimeout": 2000,
         "minTimeout": 1000
     },
+    "selectDropdown": {
+        "pagination": {
+            "itemsPerPage": 4
+        }
+    },
     "run": {
-        "updateInterval": 1000
+        "updateInterval": 1000,
+        "pagination": {
+            "server": {
+                "runsPerRequest": 50,
+                "multiplePages": false
+            }
+        }
+    },
+    "report": {
+        "pagination": {
+            "server": {
+                "reportsPerRequest": 50,
+                "maxTotalReports": 500,
+                "multiplePages": true
+            }
+        }
+    },
+    "available": {
+        "pagination": {
+            "client": {
+                "scenariosPerPage": 80,
+                "selectDropdownItemsPerPage": 4
+            }
+        }
     },
     "mock": {
         "runSimulation": {

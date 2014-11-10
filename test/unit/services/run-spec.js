@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Unit: RunService running stories', function() {
+describe('Unit: RunService', function() {
 
     var runService,
         runMockData,
@@ -15,13 +15,20 @@ describe('Unit: RunService running stories', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock, STATE) {
+    beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock, STATE, config) {
         runService = run;
         $rootScope = _$rootScope_;
         runMockData = runServiceMock;
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(200, runMockData);
-        runService.listRunningStories().then(function(runData) {
-            runs = runData;
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            run: {pagination: {server: {runsPerRequest: 50}}}
+        });
+        $httpBackend.expectGET('/app').respond(200);
+        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
+        config.load().then(function() {
+            runService.list().then(function(runData) {
+                runs = runData;
+            });
         });
         $httpBackend.flush();
     }));
@@ -33,46 +40,7 @@ describe('Unit: RunService running stories', function() {
     });
 
     it('should retrieve a loaded run list in case the listing function is called again', function (done) {
-        runService.listRunningStories().then(function(list) {
-            expect(list).to.deep.equal(runMockData.data);
-            done();
-        });
-        $rootScope.$digest();
-    });
-
-});
-
-describe('Unit: RunService run reports', function() {
-
-    var runService,
-        runMockData,
-        $rootScope,
-        runs;
-
-    beforeEach(function() {
-        module('finqApp');
-        module('finqApp.service');
-        module('finqApp.mock');
-    });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock, STATE) {
-        runService = run;
-        $rootScope = _$rootScope_;
-        runMockData = runServiceMock;
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED).respond(200, runMockData);
-        runService.listReports().then(function(runData) {
-            runs = runData;
-        });
-        $httpBackend.flush();
-    }));
-
-    it('should properly load the run reports list', function () {
-        expect(runs).to.not.be.undefined;
-        expect(runs).to.not.be.empty;
-        expect(runs).to.deep.equal(runMockData.data);
-    });
-
-    it('should retrieve a loaded report list in case the listing function is called again', function (done) {
-        runService.listReports().then(function(list) {
+        runService.list().then(function(list) {
             expect(list).to.deep.equal(runMockData.data);
             done();
         });
@@ -90,11 +58,18 @@ describe('Unit: RunService with an unstable backend', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, run, STATE) {
+    beforeEach(inject(function ($httpBackend, run, STATE, config) {
         runService = run;
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(503);
-        runService.listRunningStories().then(null,function(error) {
-            feedback = error;
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address: '',
+            run: {pagination: {server: {runsPerRequest: 50}}}
+        });
+        $httpBackend.expectGET('/app').respond(200);
+        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(503);
+        config.load().then(function() {
+            runService.list().then(null,function(error) {
+                feedback = error;
+            });
         });
         $httpBackend.flush();
     }));

@@ -35,14 +35,17 @@ describe('Unit: RunningCtrl', function() {
         moduleSpy = sinon.spy(_module_, 'setCurrentSection');
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
-            run: {updateInterval: 10},
+            run: {
+                updateInterval: 10,
+                pagination: {server: {runsPerRequest: 2}}
+            },
             socket: {endpoint: '', mocked: true},
-            pagination : {maxScenarios : 2}
+            selectDropdown: {pagination: {itemsPerPage: 4}}
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/environments').respond(200, environmentMockData);
         $httpBackend.expectGET('/books').respond(200, storyMockData);
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(200, []);
+        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=2&page=0').respond(200, []);
         config.load().then(function() {
             environment.list();
             RunningCtrl = $controller('RunningCtrl', {$scope: scope});
@@ -58,7 +61,7 @@ describe('Unit: RunningCtrl', function() {
     });
 
     it('should initially set the maximum selectable items for a dropdown to the standard confgured value', function () {
-        expect(RunningCtrl.maxSelectItems).to.equal(configProvider.client().pagination.maxSelectDropdownItems);
+        expect(RunningCtrl.maxSelectItems).to.equal(configProvider.client().selectDropdown.pagination.itemsPerPage);
     });
 
     it('should register itself as the active module and section', function () {
@@ -90,10 +93,10 @@ describe('Unit: RunningCtrl', function() {
             expect(scope.runs().length).to.equal(1);
             expect(scope.runs()[0].msg.environment).to.equal(environmentMockData[0].name);
             expect(scope.runs()[0].msg.runtime).to.equal('00:00');
-            expect(scope.runs()[0].progress.percentage).to.equal(0);
-            expect(scope.runs()[0].progress.highlight).to.equal('none');
-            expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(0);
-            expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('none');
+            expect(scope.runs()[0].percentage).to.equal(0);
+            expect(scope.runs()[0].highlight).to.equal('none');
+            expect(scope.runs()[0].stories[0].percentage).to.equal(0);
+            expect(scope.runs()[0].stories[0].highlight).to.equal('none');
             done();
         },14);
     });
@@ -126,12 +129,12 @@ describe('Unit: RunningCtrl', function() {
         });
         setTimeout(function() {
             $timeout.flush();
-            expect(scope.runs()[0].progress.percentage).to.equal(48);
-            expect(scope.runs()[0].progress.highlight).to.equal('failed');
-            expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(48);
-            expect(scope.runs()[0].progress.stories[0].scenarios[0].message).to.equal('A failure message');
-            expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('failed');
-            expect(scope.runs()[0].progress.stories[0].scenarios[0].progress.percentage).to.equal(64);
+            expect(scope.runs()[0].percentage).to.equal(48);
+            expect(scope.runs()[0].highlight).to.equal('failed');
+            expect(scope.runs()[0].stories[0].percentage).to.equal(48);
+            expect(scope.runs()[0].stories[0].scenarios[0].message).to.equal('A failure message');
+            expect(scope.runs()[0].stories[0].highlight).to.equal('failed');
+            expect(scope.runs()[0].stories[0].scenarios[0].percentage).to.equal(64);
             done();
         },14);
     });
@@ -164,12 +167,12 @@ describe('Unit: RunningCtrl', function() {
         });
         setTimeout(function() {
             $timeout.flush();
-            expect(scope.runs()[0].progress.percentage).to.equal(48);
-            expect(scope.runs()[0].progress.highlight).to.equal('success');
-            expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(48);
-            expect(scope.runs()[0].progress.stories[0].scenarios[0].message).to.equal('');
-            expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('success');
-            expect(scope.runs()[0].progress.stories[0].scenarios[0].progress.percentage).to.equal(100);
+            expect(scope.runs()[0].percentage).to.equal(48);
+            expect(scope.runs()[0].highlight).to.equal('success');
+            expect(scope.runs()[0].stories[0].percentage).to.equal(48);
+            expect(scope.runs()[0].stories[0].scenarios[0].message).to.equal('');
+            expect(scope.runs()[0].stories[0].highlight).to.equal('success');
+            expect(scope.runs()[0].stories[0].scenarios[0].percentage).to.equal(100);
             done();
         },14);
     });
@@ -202,12 +205,12 @@ describe('Unit: RunningCtrl', function() {
         });
         setTimeout(function() {
             $timeout.flush();
-            expect(scope.runs()[0].progress.percentage).to.equal(0);
-            expect(scope.runs()[0].progress.highlight).to.equal('none');
-            expect(scope.runs()[0].progress.stories[0].progress.percentage).to.equal(0);
-            expect(scope.runs()[0].progress.stories[0].scenarios[0].message).to.equal(scope.runs()[0].progress.stories[0].scenarios[0].steps[1].title);
-            expect(scope.runs()[0].progress.stories[0].progress.highlight).to.equal('none');
-            expect(scope.runs()[0].progress.stories[0].scenarios[0].progress.percentage).to.equal(32);
+            expect(scope.runs()[0].percentage).to.equal(0);
+            expect(scope.runs()[0].highlight).to.equal('none');
+            expect(scope.runs()[0].stories[0].percentage).to.equal(0);
+            expect(scope.runs()[0].stories[0].scenarios[0].message).to.equal(scope.runs()[0].stories[0].scenarios[0].steps[1].title);
+            expect(scope.runs()[0].stories[0].highlight).to.equal('none');
+            expect(scope.runs()[0].stories[0].scenarios[0].percentage).to.equal(32);
             done();
         },14);
     });

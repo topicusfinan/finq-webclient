@@ -15,6 +15,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
     }]).run([
     'STATE',
+    'config',
     '$httpBackend',
     'appServiceMock',
     'setServiceMock',
@@ -24,15 +25,15 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'storyServiceMock',
     'runServiceMock',
     'runnerMockSimulator',
-    function(STATE,$httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,runnerMockSimulator) {
+    function(STATE,configProvider,$httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,runnerMockSimulator) {
 
         $httpBackend.whenGET('/app').respond(appServiceMock.info);
         $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
         $httpBackend.whenGET('/tags').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
-        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED).respond([]);
-        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(function() {
+        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=50&page=0').respond([]);
+        $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(function() {
             var runningList = angular.copy(runServiceMock);
             runningList.data[0].startedOn = (new Date()).getTime();
             var simulatorData = {

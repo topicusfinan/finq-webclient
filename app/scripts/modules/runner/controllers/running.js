@@ -29,7 +29,7 @@ angular.module('finqApp.runner.controller')
             updateTimer;
 
         this.selectedItem = null;
-        this.maxSelectItems = configProvider.client().pagination.maxSelectDropdownItems;
+        this.maxSelectItems = configProvider.client().selectDropdown.pagination.itemsPerPage;
         this.filter = {
             env: {id: 'env', ids: []}
         };
@@ -51,7 +51,7 @@ angular.module('finqApp.runner.controller')
                 var currentTime = new Date();
                 angular.forEach(runs, function(run) {
                     determineProgress(run);
-                    if (run.progress.scenariosCompleted < run.totalScenarios) {
+                    if (run.scenariosCompleted < run.totalScenarios) {
                         run.msg.runtime = utils.getTimeElapsed(currentTime,run.startedOn);
                     }
                     if (run.msg.environment === undefined) {
@@ -64,16 +64,16 @@ angular.module('finqApp.runner.controller')
 
         var determineProgress = function(run) {
             var calculateProgress = function(item,actionsCompleted,totalActions) {
-                item.progress.percentage = parseInt(actionsCompleted/totalActions*25, 10)*4;
+                item.percentage = parseInt(actionsCompleted/totalActions*25, 10)*4;
                 switch (item.status) {
                     case STATE.RUN.SCENARIO.FAILED:
-                        item.progress.highlight = 'failed';
+                        item.highlight = 'failed';
                         break;
                     case STATE.RUN.SCENARIO.SUCCESS:
-                        item.progress.highlight = 'success';
+                        item.highlight = 'success';
                         break;
                     default:
-                        item.progress.highlight = 'none';
+                        item.highlight = 'none';
                         break;
                 }
             };
@@ -85,7 +85,7 @@ angular.module('finqApp.runner.controller')
                         stepsCompleted++;
                     }
                     if (scenario.steps[i].status === STATE.RUN.SCENARIO.FAILED) {
-                        scenario.progress.failed = true;
+                        scenario.failed = true;
                         scenario.message = scenario.steps[i].message;
                     } else if (scenario.steps[i].status === STATE.RUN.SCENARIO.RUNNING) {
                         scenario.message = scenario.steps[i].title;
@@ -113,9 +113,9 @@ angular.module('finqApp.runner.controller')
                 calculateProgress(scenario,stepsCompleted,scenario.steps.length);
             };
 
-            calculateProgress(run,run.progress.scenariosCompleted,run.totalScenarios);
-            angular.forEach(run.progress.stories,function(story) {
-                calculateProgress(story,story.progress.scenariosCompleted,story.scenarios.length);
+            calculateProgress(run,run.scenariosCompleted,run.totalScenarios);
+            angular.forEach(run.stories,function(story) {
+                calculateProgress(story,story.scenariosCompleted,story.scenarios.length);
                 for (var i=0; i<story.scenarios.length; i++) {
                     updateScenarioDetails(story.scenarios[i]);
                 }

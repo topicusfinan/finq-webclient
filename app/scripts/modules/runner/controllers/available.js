@@ -38,8 +38,8 @@ angular.module('finqApp.runner.controller')
         this.storyListRef = 'stories';
         this.envPlaceholder = 'FILTERS.ENVIRONMENTS.NONE';
         this.selectedItem = null;
-        this.maxScenarios = configProvider.client().pagination.maxScenarios;
-        this.maxSelectItems = configProvider.client().pagination.maxSelectDropdownItems;
+        this.maxScenarios = configProvider.client().available.pagination.client.scenariosPerPage;
+        this.maxSelectItems = configProvider.client().selectDropdown.pagination.itemsPerPage;
         this.currentPage = 0;
 
         $scope.storybooks = runnerFilterService.getFilteredStorybooks;

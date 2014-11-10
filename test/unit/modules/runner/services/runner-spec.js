@@ -36,7 +36,8 @@ describe('Unit: RunnerService', function() {
             socket: {
                 endpoint: '',
                 mocked: true
-            }
+            },
+            run: {pagination: {server: {runsPerRequest: 50}}}
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
         config.load();
@@ -84,10 +85,10 @@ describe('Unit: RunnerService', function() {
             steps: [{status: STATE.RUN.SCENARIO.SUCCESS}, {status: STATE.RUN.SCENARIO.SUCCESS}, {status: STATE.RUN.SCENARIO.SUCCESS}]
         });
         var runningStories = runnerService.getRunningSessions();
-        expect(runningStories[0].progress.scenariosCompleted).to.equal(1);
-        expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(1);
-        expect(runningStories[0].progress.stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
-        expect(runningStories[0].progress.stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.RUNNING);
+        expect(runningStories[0].scenariosCompleted).to.equal(1);
+        expect(runningStories[0].stories[0].scenariosCompleted).to.equal(1);
+        expect(runningStories[0].stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
+        expect(runningStories[0].stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.RUNNING);
         expect(runningStories[0].status).to.equal(STATE.RUN.SCENARIO.RUNNING);
     });
 
@@ -107,12 +108,12 @@ describe('Unit: RunnerService', function() {
             steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.SUCCESS}]
         });
         var runningStories = runnerService.getRunningSessions();
-        expect(runningStories[0].progress.scenariosCompleted).to.equal(2);
-        expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(2);
-        expect(runningStories[0].progress.stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
-        expect(runningStories[0].progress.stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
+        expect(runningStories[0].scenariosCompleted).to.equal(2);
+        expect(runningStories[0].stories[0].scenariosCompleted).to.equal(2);
+        expect(runningStories[0].stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
+        expect(runningStories[0].stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
         expect(runningStories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
-        expect(runningStories[0].progress.stories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
+        expect(runningStories[0].stories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
     });
 
     it('should handle a gist summary for a run that is subscribed to', function () {
@@ -133,10 +134,10 @@ describe('Unit: RunnerService', function() {
             }]
         });
         var runningStories = runnerService.getRunningSessions();
-        expect(runningStories[0].progress.scenariosCompleted).to.equal(2);
-        expect(runningStories[0].progress.stories[0].progress.scenariosCompleted).to.equal(2);
-        expect(runningStories[0].progress.stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
-        expect(runningStories[0].progress.stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.FAILED);
+        expect(runningStories[0].scenariosCompleted).to.equal(2);
+        expect(runningStories[0].stories[0].scenariosCompleted).to.equal(2);
+        expect(runningStories[0].stories[0].scenarios[0].status).to.equal(STATE.RUN.SCENARIO.SUCCESS);
+        expect(runningStories[0].stories[0].scenarios[1].status).to.equal(STATE.RUN.SCENARIO.FAILED);
         expect(runningStories[0].status).to.equal(STATE.RUN.SCENARIO.FAILED);
     });
 
@@ -158,8 +159,8 @@ describe('Unit: RunnerService', function() {
                 scenarios: [{id:23452343}]
             }]);
         var runningStories = runnerService.getRunningSessions();
-        expect(runningStories[0].progress.stories[0].scenarios.length).to.equal(1);
-        expect(runningStories[0].progress.stories[0].scenarios[0].id).to.equal(23452343);
+        expect(runningStories[0].stories[0].scenarios.length).to.equal(1);
+        expect(runningStories[0].stories[0].scenarios[0].id).to.equal(23452343);
     });
 
     it('should use the title of the only story that is included in the run when there is only one', function () {
@@ -168,7 +169,7 @@ describe('Unit: RunnerService', function() {
                 scenarios: [{id:23452343},{id:23452345}]
             }]);
         var runningStories = runnerService.getRunningSessions();
-        expect(runningStories[0].title).to.equal(runningStories[0].progress.stories[0].title);
+        expect(runningStories[0].title).to.equal(runningStories[0].stories[0].title);
     });
 
     it('should use the title of the most expensive story as a base for a multistory title', function () {
@@ -177,11 +178,11 @@ describe('Unit: RunnerService', function() {
             {id: 56421532, scenarios: [{id:33452343},{id:33452345}]}
         ]);
         var runningStories = runnerService.getRunningSessions();
-        expect(runningStories[0].title).to.equal(runningStories[0].progress.stories[1].title);
+        expect(runningStories[0].title).to.equal(runningStories[0].stories[1].title);
     });
 
     it('should load any current runs from the backend the first time the running sessions are listed', function (done) {
-        backend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING).respond(200, runMockData);
+        backend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
         runnerService.getRunningSessions();
         backend.flush();
         $rootScope.$digest();

@@ -9,18 +9,18 @@
  * Makes it possible to execute list operations on runs that are currently executing.
  */
 angular.module('finqApp.service')
-    .service('run', ['backend','$q','STATE',function (backend,$q,STATE) {
-        var runs = {
-            running: null,
-            reports: null
-        };
+    .service('run', ['backend','$q','$translate','STATE','config','utils',function (backend,$q,$translate,STATE,configProvider,utils) {
+        var runs = null;
 
-        var load = function(targetList,statusses) {
+        var load = function() {
             var deferred = $q.defer();
+            var maxRuns = configProvider.client().run.pagination.server.runsPerRequest;
             backend.get('/run',{
-                status: statusses
+                status: STATE.RUN.SCENARIO.RUNNING,
+                size: maxRuns,
+                page: 0
             }).success(function(runData) {
-                runs[targetList] = runData.data;
+                runs = runData.data;
                 deferred.resolve(runData.data);
             }).error(function() {
                 deferred.reject('Loading runs failed');
@@ -28,20 +28,47 @@ angular.module('finqApp.service')
             return deferred.promise;
         };
 
-        this.listRunningStories = function(forceReload) {
-            if (forceReload || runs.running === null) {
-                return load('running',STATE.RUN.SCENARIO.RUNNING);
+        this.list = function(forceReload) {
+            if (forceReload || runs === null) {
+                return load();
             } else {
-                return $q.when(runs.running);
+                return $q.when(runs);
             }
         };
 
-        this.listReports = function(forceReload) {
-            if (forceReload || runs.reports === null) {
-                return load('reports',[STATE.RUN.SCENARIO.SUCCESS,STATE.RUN.SCENARIO.FAILED]);
-            } else {
-                return $q.when(runs.reports);
+        this.setupRunTitle = function(run) {
+            var storyCount,
+                title,
+                pluralized,
+                largestStoryScenarioCount = 0,
+                largestStoryIndex = 0,
+                deferred = $q.defer();
+
+            for (var i = 0; i<run.stories.length; i++) {
+                if (run.stories[i].scenarios.length > largestStoryScenarioCount) {
+                    largestStoryScenarioCount = run.stories[i].scenarios.length;
+                    largestStoryIndex = i;
+                }
             }
+
+            title = run.stories[largestStoryIndex].title;
+            storyCount = run.stories.length;
+            if (storyCount > 1) {
+                pluralized = utils.pluralize('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND', 1, storyCount-1);
+                $translate(pluralized.template,{
+                    storyCount: pluralized.value
+                }).then(function (translatedValue) {
+                    title += translatedValue;
+                    deferred.resolve(title);
+                });
+            } else {
+                $translate('RUNNER.RUNNING.RUN.SINGLE_STORY_APPEND').then(function (translatedValue) {
+                    title += translatedValue;
+                    deferred.resolve(title);
+                });
+            }
+            run.title = title;
+            return deferred.promise;
         };
 
     }]);

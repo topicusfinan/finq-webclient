@@ -39,9 +39,8 @@ describe('Unit: AvailableCtrl', function() {
         moduleSpy = sinon.spy(_module_, 'setCurrentSection');
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
-            pagination : {
-                maxScenarios : 2
-            }
+            selectDropdown: {pagination: {itemsPerPage: 4}},
+            available: {pagination: {client: {scenariosPerPage: 2}}}
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/environments').respond(200, environments);

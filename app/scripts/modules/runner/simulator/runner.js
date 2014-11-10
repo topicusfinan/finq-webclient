@@ -83,6 +83,8 @@ angular.module('finqApp.runner.service')
             }
             if (validateCompletedRuns()) {
                 $timeout(simulateRunResponses, configProvider.client().mock.runSimulation.interval);
+            } else {
+                active = false;
             }
         };
 
