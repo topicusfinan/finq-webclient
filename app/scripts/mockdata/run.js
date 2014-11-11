@@ -10,8 +10,8 @@
  */
 angular.module('finqApp.mock')
     .value('runServiceMock', {
-        totalCount: 1,
-        page: 1,
+        totalCount: 2,
+        page: 0,
         pageSize: 50,
         data: [
             {
@@ -22,44 +22,56 @@ angular.module('finqApp.mock')
                     first: 'John',
                     last: 'Doe'
                 },
-                status: 0,
+                status: 'RUNNING',
                 stories: [
                     {
                         id: 46421532,
-                        status: 0,
+                        status: 'RUNNING',
                         scenarios: [
                             {
                                 id: 23452343,
-                                status: 0,
+                                status: 'RUNNING',
                                 steps: [
-                                    {
-                                        status: 1
-                                    },
-                                    {
-                                        status: 1
-                                    },
-                                    {
-                                        status: 0
-                                    }
+                                    {status: 'RUNNING'},
+                                    {status: 'RUNNING'},
+                                    {status: 'RUNNING'}
                                 ]
                             },
                             {
                                 id: 23452345,
-                                status: 2,
+                                status: 'RUNNING',
                                 steps: [
-                                    {
-                                        status: 1
-                                    },
-                                    {
-                                        status: 2,
-                                        message: 'Failed because it could'
-                                    },
-                                    {
-                                        status: 3
-                                    },
-                                    {
-                                        status: 3
-                                    }
+                                    {status: 'RUNNING'},
+                                    {status: 'RUNNING'},
+                                    {status: 'RUNNING'},
+                                    {status: 'RUNNING'}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 46432791,
+                environment: 2,
+                startedBy: {
+                    name: 'Jane Doe',
+                    first: 'Jane',
+                    last: 'Doe'
+                },
+                status: 'RUNNING',
+                stories: [
+                    {
+                        id: 46421532,
+                        status: 'RUNNING',
+                        scenarios: [
+                            {
+                                id: 23452343,
+                                status: 'RUNNING',
+                                steps: [
+                                    {status: 'RUNNING'},
+                                    {status: 'RUNNING'},
+                                    {status: 'RUNNING'}
                                 ]
                             }
                         ]

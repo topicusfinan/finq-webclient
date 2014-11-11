@@ -6,7 +6,8 @@
 describe('Unit: ReportService', function() {
 
     var reportService,
-        runMockData,
+        firstResponse,
+        secondResponse,
         $rootScope,
         reports;
 
@@ -18,13 +19,19 @@ describe('Unit: ReportService', function() {
     beforeEach(inject(function ($httpBackend, _$rootScope_, report, runServiceMock, STATE, config) {
         reportService = report;
         $rootScope = _$rootScope_;
-        runMockData = runServiceMock;
+        runServiceMock.pageSize = 1;
+        firstResponse = angular.copy(runServiceMock);
+        secondResponse = angular.copy(runServiceMock);
+        firstResponse.data.splice(1,1);
+        secondResponse.data.splice(0,1);
+        secondResponse.page = 1;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
-            report: {pagination: {server: {reportsPerRequest: 50, maxTotalReports: 500}}}
+            report: {pagination: {server: {reportsPerRequest: 1, maxTotalReports: 2}}}
         });
         $httpBackend.expectGET('/app').respond(200);
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=50&page=0').respond(200, runMockData);
+        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=0').respond(200, firstResponse);
+        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=1').respond(200, secondResponse);
         config.load().then(function() {
             reportService.list().then(function(reportData) {
                 reports = reportData;
@@ -38,12 +45,20 @@ describe('Unit: ReportService', function() {
         expect(reports).to.not.be.empty;
         expect(reports).to.deep.equal([
             {
-                id: runMockData.data[0].id,
-                status: runMockData.data[0].status,
-                startedBy: runMockData.data[0].startedBy,
-                startedOn: runMockData.data[0].startedOn,
-                completedOn: runMockData.data[0].completedOn,
-                environment: runMockData.data[0].environment
+                id: firstResponse.data[0].id,
+                status: firstResponse.data[0].status,
+                startedBy: firstResponse.data[0].startedBy,
+                startedOn: firstResponse.data[0].startedOn,
+                completedOn: firstResponse.data[0].completedOn,
+                environment: firstResponse.data[0].environment
+            },
+            {
+                id: secondResponse.data[0].id,
+                status: secondResponse.data[0].status,
+                startedBy: secondResponse.data[0].startedBy,
+                startedOn: secondResponse.data[0].startedOn,
+                completedOn: secondResponse.data[0].completedOn,
+                environment: secondResponse.data[0].environment
             }
         ]);
     });
@@ -52,12 +67,20 @@ describe('Unit: ReportService', function() {
         reportService.list().then(function(list) {
             expect(list).to.deep.equal([
                 {
-                    id: runMockData.data[0].id,
-                    status: runMockData.data[0].status,
-                    startedBy: runMockData.data[0].startedBy,
-                    startedOn: runMockData.data[0].startedOn,
-                    completedOn: runMockData.data[0].completedOn,
-                    environment: runMockData.data[0].environment
+                    id: firstResponse.data[0].id,
+                    status: firstResponse.data[0].status,
+                    startedBy: firstResponse.data[0].startedBy,
+                    startedOn: firstResponse.data[0].startedOn,
+                    completedOn: firstResponse.data[0].completedOn,
+                    environment: firstResponse.data[0].environment
+                },
+                {
+                    id: secondResponse.data[0].id,
+                    status: secondResponse.data[0].status,
+                    startedBy: secondResponse.data[0].startedBy,
+                    startedOn: secondResponse.data[0].startedOn,
+                    completedOn: secondResponse.data[0].completedOn,
+                    environment: secondResponse.data[0].environment
                 }
             ]);
             done();

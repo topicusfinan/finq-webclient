@@ -34,24 +34,26 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
         $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=50&page=0').respond([]);
         $httpBackend.whenGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(function() {
-            var runningList = angular.copy(runServiceMock);
-            runningList.data[0].startedOn = (new Date()).getTime();
-            var simulatorData = {
-                id: runningList.data[0].id,
-                environment: runningList.data[0].environment,
-                stories: []
-            };
-            angular.forEach(runningList.data[0].stories, function(story) {
-                var scenarios = [];
-                angular.forEach(story.scenarios, function(scenario) {
-                    scenarios.push(scenario.id);
-                });
-                simulatorData.stories.push({
-                    id: story.id,
-                    scenarios: scenarios
-                });
-            });
-            runnerMockSimulator.registerRun(simulatorData);
+            var i, j, k, runningList = angular.copy(runServiceMock);
+            for (i=0; i<runningList.data.length; i++) {
+                runningList.data[i].startedOn = (new Date()).getTime();
+                var simulatorData = {
+                    id: runningList.data[i].id,
+                    environment: runningList.data[i].environment,
+                    stories: []
+                };
+                for (j=0; j<runningList.data[i].stories.length; j++) {
+                    var scenarios = [];
+                    for (k=0; k<runningList.data[i].stories[j].scenarios.length; k++) {
+                        scenarios.push(runningList.data[i].stories[j].scenarios[k].id);
+                    }
+                    simulatorData.stories.push({
+                        id: runningList.data[i].stories[j].id,
+                        scenarios: scenarios
+                    });
+                }
+                runnerMockSimulator.registerRun(simulatorData);
+            }
             return [200,runningList];
         });
         $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {

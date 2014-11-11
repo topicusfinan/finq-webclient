@@ -69,7 +69,7 @@ angular.module('finqApp.runner.service')
                     if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.storySelectChance,Math.max(runs[i].stories.length,8))) {
                         scenarioHasUpdate = false;
                         for (k=0; k<runs[i].stories[j].scenarios.length; k++) {
-                            if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance,Math.max(runs[i].stories[i].scenarios.length,8))) {
+                            if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance,Math.max(runs[i].stories[j].scenarios.length,8))) {
                                 scenarioHasUpdate = generateScenarioStatusUpdate(runs[i].stories[j].scenarios[k]);
                                 if (scenarioHasUpdate) {
                                     updateCollectionStatus(runs[i].stories[j],runs[i].stories[j].scenarios);
