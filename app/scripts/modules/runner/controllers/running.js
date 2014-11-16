@@ -3,7 +3,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.controller:RunningCtrl
+ * @name finqApp.runner.controller:RunningCtrl
  * @description
  * # Running scenarios Controller
  *

@@ -8,42 +8,42 @@
             "PREV" : "Previous page"
         }
     },
-    "FEEDBACK": {
-        "ERROR": {
-            "RUN": {
-                "NO_ENVIRONMENT_SELECTED": "Please select an environment to run your test",
-                "REQUEST_FAILED": "Your request could not be completed due to an error"
+    "FEEDBACK" : {
+        "ERROR" : {
+            "RUN" : {
+                "NO_ENVIRONMENT_SELECTED" : "Please select an environment to run your test",
+                "REQUEST_FAILED" : "Your request could not be completed due to an error"
             },
-            "SOCKET": {
-                "UNABLE_TO_RECONNECT": "Unable to reconnect to the server",
-                "UNABLE_TO_CONNECT": "Unable to connect to the server run updates"
+            "SOCKET" : {
+                "UNABLE_TO_RECONNECT" : "Unable to reconnect to the server",
+                "UNABLE_TO_CONNECT" : "Unable to connect to the server run updates"
             }
         },
-        "SUCCESS": {
-            "RUN": {
-                "MULTIPLE_REQUEST": "Started execution of {{count}} stories on {{environment}}",
-                "SINGLE_REQUEST": "Started execution of your scenario on {{environment}}"
+        "SUCCESS" : {
+            "RUN" : {
+                "MULTIPLE_REQUEST" : "Started execution of {{count}} stories on {{environment}}",
+                "SINGLE_REQUEST" : "Started execution of your scenario on {{environment}}"
             }
         },
-        "ALERT": {
-            "RUN": {
-                "NO_STORIES_SELECTED": "No scenarios match your current filter"
+        "ALERT" : {
+            "RUN" : {
+                "NO_STORIES_SELECTED" : "No scenarios match your current filter"
             },
-            "SOCKET": {
-                "RECONNECTION_TROUBLE": "Oh no, we're having some trouble reconnecting to the server"
+            "SOCKET" : {
+                "RECONNECTION_TROUBLE" : "Oh no, we're having some trouble reconnecting to the server"
             }
         },
-        "NOTICE": {
-            "RUN": {
-                "REQUEST_IS_TAKING_LONG": "The backend is very slow about responding.."
+        "NOTICE" : {
+            "RUN" : {
+                "REQUEST_IS_TAKING_LONG" : "The backend is very slow about responding.."
             },
-            "SOCKET": {
-                "RECONNECTING": "Lost the connection with the server, trying to reconnect",
-                "RECONNECTED": "Successfully reconnected to the server"
+            "SOCKET" : {
+                "RECONNECTING" : "Lost the connection with the server, trying to reconnect",
+                "RECONNECTED" : "Successfully reconnected to the server"
             }
         }
     },
-    "LOADER": {
+    "LOADER" : {
         "LOADED" : "All done!"
     },
     "LOGIN" : {
@@ -55,7 +55,11 @@
     "REPORTER" : {
         "TITLE" : "Report",
         "HISTORY" : {
-            "TITLE" : "Run history"
+            "TITLE" : "Run history",
+            "FILTER" : {
+                "BEFORE_STATUS" : "Show"
+            },
+            "NO_REPORTS" : "There are no reports available that match your filter"
         },
         "REPORTS" : {
             "TITLE" : "Scenario reports"
@@ -66,46 +70,46 @@
         "AVAILABLE" : {
             "TITLE" : "Available scenarios",
             "FILTER" : {
-                "BEFORE_SET": "Stories in",
-                "BEFORE_TAG": "tagged with",
-                "RUN_ALL": "Run all",
-                "BEFORE_ENVIRONMENT": "on",
-                "RUN": "Run"
+                "BEFORE_SET" : "Stories in",
+                "BEFORE_TAG" : "tagged with",
+                "RUN_ALL" : "Run all",
+                "BEFORE_ENVIRONMENT" : "on",
+                "RUN" : "Run"
             },
             "NO_STORIES" : "There are no stories available that match your filter"
         },
         "RUNNING" : {
             "TITLE" : "Running",
             "FILTER" : {
-                "BEFORE_ENVIRONMENT": "Stories started on"
+                "BEFORE_ENVIRONMENT" : "Stories started on"
             },
             "NO_RUNS" : "There are no stories running that match your filter",
             "RUN" : {
-                "START_TIME": {
-                    "SECONDS": {
-                        "SINGULAR": "run *#{{id}}* started **{{delta}} second** ago",
-                        "PLURAL": "run *#{{id}}* started **{{delta}} seconds** ago"
+                "START_TIME" : {
+                    "SECONDS" : {
+                        "SINGULAR" : "run *#{{id}}* started **{{delta}} second** ago",
+                        "PLURAL" : "run *#{{id}}* started **{{delta}} seconds** ago"
                     },
-                    "MINUTES": {
-                        "SINGULAR": "run *#{{id}}* started **{{delta}} minute** ago",
-                        "PLURAL": "run *#{{id}}* started **{{delta}} minutes** ago"
+                    "MINUTES" : {
+                        "SINGULAR" : "run *#{{id}}* started **{{delta}} minute** ago",
+                        "PLURAL" : "run *#{{id}}* started **{{delta}} minutes** ago"
                     },
-                    "HOURS": {
-                        "SINGULAR": "run *#{{id}}* started **{{delta}} hour** ago",
-                        "PLURAL": "run *#{{id}}* started **{{delta}} hours** ago"
+                    "HOURS" : {
+                        "SINGULAR" : "run *#{{id}}* started **{{delta}} hour** ago",
+                        "PLURAL" : "run *#{{id}}* started **{{delta}} hours** ago"
                     }
                 },
-                "STARTED_BY": "by **{{name}}**",
-                "RUNNING_ON": "on **{{environment}}**",
-                "MULTIPLE_STORIES_APPEND": {
-                    "SINGULAR": " (and {{storyCount}} other story)",
-                    "PLURAL": " (and {{storyCount}} other stories)"
+                "STARTED_BY" : "by **{{name}}**",
+                "RUNNING_ON" : "on **{{environment}}**",
+                "MULTIPLE_STORIES_APPEND" : {
+                    "SINGULAR" : " (and {{storyCount}} other story)",
+                    "PLURAL" : " (and {{storyCount}} other stories)"
                 },
-                "SINGLE_STORY_APPEND": " (1 story)",
-                "MESSAGE": {
-                    "RUNNING_PREPEND": "Step {{currentStep}} of {{totalSteps}}:",
-                    "FAILED_PREPEND": "Step {{currentStep}} of {{totalSteps}} failed:",
-                    "SUCCESS_PREPEND": "All {{totalSteps}} steps were executed successfully"
+                "SINGLE_STORY_APPEND" : " (1 story)",
+                "MESSAGE" : {
+                    "RUNNING_PREPEND" : "Step {{currentStep}} of {{totalSteps}}:",
+                    "FAILED_PREPEND" : "Step {{currentStep}} of {{totalSteps}} failed:",
+                    "SUCCESS_PREPEND" : "All {{totalSteps}} steps were executed successfully"
                 }
             }
         },

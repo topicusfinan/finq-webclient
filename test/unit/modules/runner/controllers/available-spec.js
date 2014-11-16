@@ -83,7 +83,7 @@ describe('Unit: AvailableCtrl', function() {
     });
 
     it('should initially not have any more pages than the current page for pagination', function () {
-        expect(AvailableCtrl.hasMorePages()).to.not.be.true;
+        expect(AvailableCtrl.hasMorePages).to.not.be.true;
     });
 
     it('should load a list of environments to populate the environment filter', function () {

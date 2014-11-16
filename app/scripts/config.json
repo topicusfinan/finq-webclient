@@ -39,14 +39,16 @@
                 "reportsPerRequest": 50,
                 "maxTotalReports": 500,
                 "multiplePages": true
+            },
+            "client": {
+                "reportsPerPage": 80
             }
         }
     },
     "available": {
         "pagination": {
             "client": {
-                "scenariosPerPage": 80,
-                "selectDropdownItemsPerPage": 4
+                "scenariosPerPage": 80
             }
         }
     },

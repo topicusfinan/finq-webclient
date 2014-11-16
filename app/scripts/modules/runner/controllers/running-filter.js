@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.controller:RunningFilterCtrl
+ * @name finqApp.runner.controller:RunningFilterCtrl
  * @description
  * # Running filter Controller
  *

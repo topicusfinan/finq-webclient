@@ -1,0 +1,13 @@
+<div class="top-filter ng-hide filter-2 selectable" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="HistoryFilterCtrl as filter">
+    <div class="filters">
+        <i class="fa fa-check-square-o" ng-class="{'inactive':!history.filter.status.ids.length}" ng-click="filter.expand.status = !filter.expand.status"></i>
+        <span translate="REPORTER.HISTORY.FILTER.BEFORE_STATUS" ng-hide="!history.filter.status.ids.length && !filter.expand.status"></span>
+        <div class="select" filter-select="filter.statuses" filter-id="history.filter.status.id" placeholder="filter.statusPlaceholder" default="filter.statusesDefault" ng-hide="!filter.expand.status" max-items="{{::history.maxSelectItems}}"></div>
+    </div>
+</div>
+<ul id="story-list" class="main-content-list filter-2">
+    <li class="ic cl list-animate" ng-repeat="report in filteredReports = (reports() | reportPaginationFilter:history.currentPage:history.maxReports) track by report.id">
+    </li>
+</ul>
+<h1 class="hero-notice" translate="REPORTER.HISTORY.NO_REPORTS" ng-show="filteredReports.length === 0 && initialized"></h1>
+<div pagination class="pagination appear-delayed" has-next="history.hasMorePages()" current-page="history.currentPage" list-ref="history.reportListRef" />

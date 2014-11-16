@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.controller:AvailableFilterCtrl
+ * @name finqApp.runner.controller:AvailableFilterCtrl
  * @description
  * # Available filter Controller
  *
