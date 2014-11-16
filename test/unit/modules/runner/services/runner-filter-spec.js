@@ -7,15 +7,15 @@ describe('Unit: RunnerFilterService', function() {
 
     var runnerFilterService,
         storyMockData,
-        storybookSearchService,
+        valueService,
         backend;
 
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, runnerFilter, storyServiceMock, storybookSearch, config) {
-        storybookSearchService = storybookSearch;
+    beforeEach(inject(function ($httpBackend, runnerFilter, storyServiceMock, value, config) {
+        valueService = value;
         runnerFilterService = runnerFilter;
         storyMockData = storyServiceMock.books;
         backend = $httpBackend;
@@ -54,7 +54,7 @@ describe('Unit: RunnerFilterService', function() {
 
     it('should be able to filter on a search query', function (done) {
         backend.expectGET('/books').respond(200, storyMockData);
-        storybookSearchService.query = 'additional';
+        valueService.searchQuery = 'additional';
         runnerFilterService.applyFilter().then(function(filteredBooks) {
             expect(filteredBooks.length).to.equal(1);
             expect(filteredBooks[0].stories.length).to.equal(1);

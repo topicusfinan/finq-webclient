@@ -2,20 +2,21 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service.module:runner
+ * @name finqApp.runner.service:runnerFilter
  * @description
- * # Runner module service
+ * # Runner filter service
  *
- * A service dedicated to the runner module, allowing this module to respond to related
- * events, and provide information on the runner module to other services and controllers.
+ * A service that handles the filtering of running stories and keeps them in a filtered state to avoid
+ * unnecessary refiltering by the controller.
  */
 angular.module('finqApp.runner.service')
     .service('runnerFilter', [
         '$filter',
+        'value',
         'story',
         'storybookSearch',
         '$q',
-        function ($filter,storyService,storybookSearchService,$q) {
+        function ($filter,valueService,storyService,storybookSearchService,$q) {
         var that = this,
             storybookSearchFilter = $filter('storybookSearchFilter'),
             storybookSetFilter = $filter('storybookSetFilter'),
@@ -62,12 +63,11 @@ angular.module('finqApp.runner.service')
                 });
                 return deferred.promise;
             } else {
-                var query = storybookSearchService.query;
-                filteredBooks = storybookSearchFilter(angular.copy(unfilteredBooks),query);
+                filteredBooks = storybookSearchFilter(angular.copy(unfilteredBooks),valueService.searchQuery);
                 filteredBooks = storybookSetFilter(filteredBooks,sets);
                 filteredBooks = storybookTagFilter(filteredBooks,tags);
                 angular.forEach(filteredBooks, function(book) {
-                    var stories = storySearchFilter(book.stories,query,book.id);
+                    var stories = storySearchFilter(book.stories,valueService.searchQuery,book.id);
                     stories = storySetFilter(stories,sets);
                     stories = storyTagFilter(stories,tags);
                     angular.forEach(stories, function(story) {

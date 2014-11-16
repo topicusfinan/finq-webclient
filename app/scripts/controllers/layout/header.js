@@ -15,11 +15,11 @@ angular.module('finqApp.controller')
         '$scope',
         '$timeout',
         'config',
+        'value',
         'storybookSearch',
         'EVENTS',
-        function ($rootScope,$scope,$timeout,configProvider,storybookSearchService,EVENTS) {
+        function ($rootScope,$scope,$timeout,configProvider,valueService,storybookSearchService,EVENTS) {
         var that = this,
-            prevQuery = '',
             searchTimeout = null;
         this.title = configProvider.server().subject;
         this.timeout = configProvider.client().searchWait;
@@ -30,9 +30,9 @@ angular.module('finqApp.controller')
                 clearTimeout(searchTimeout);
             }
             searchTimeout = setTimeout(function() {
-                if (that.query !== prevQuery) {
+                if (that.query !== valueService.searchQuery) {
                     $rootScope.$broadcast(EVENTS.SCOPE.SEARCH_UPDATED,that.query);
-                    prevQuery = that.query;
+                    valueService.searchQuery = that.query;
                     $scope.$apply();
                 }
             },that.timeout);

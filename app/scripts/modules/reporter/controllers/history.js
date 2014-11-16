@@ -10,13 +10,13 @@
  * completed run has a report, so this includes successful and failed runs. Once a run completes it
  * is immediately "moved" to the reports section.
  */
-angular.module('finqApp.runner.controller')
+angular.module('finqApp.reporter.controller')
     .controller('HistoryCtrl', [
         '$scope',
         'config',
         'value',
-        'reportFilter',
-        function ($scope,configProvider,valueService,reportFilterService) {
+        'reporterFilter',
+        function ($scope,configProvider,valueService,reporterFilterService) {
 
             this.filter = {
                 status: {id: 'status', ids: []}
@@ -28,7 +28,7 @@ angular.module('finqApp.runner.controller')
             this.currentPage = 0;
             this.hasMorePages = valueService.hasMorePages;
 
-            $scope.storybooks = reportFilterService.getFilteredReports;
-            $scope.initialized = reportFilterService.initialized;
+            $scope.reports = reporterFilterService.getFilteredReports;
+            $scope.initialized = reporterFilterService.initialized;
 
         }]);

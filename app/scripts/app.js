@@ -45,7 +45,7 @@ angular
         'finqApp.translate'
     ]).config(['$routeProvider','$stateProvider',function($routeProvider,$stateProvider) {
         $routeProvider.otherwise({
-            redirectTo: '/runner/available'
+            redirectTo: '/runner'
         });
         $stateProvider.state('intro', {
             templateUrl: 'views/intro/intro.html'

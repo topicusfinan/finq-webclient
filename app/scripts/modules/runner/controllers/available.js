@@ -52,8 +52,7 @@ angular.module('finqApp.runner.controller')
                 runnerFilterService.applyFilter(that.filter.set.ids, that.filter.tag.ids);
             });
 
-            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED, function (event, query) {
-                storybookSearchService.query = query;
+            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED, function () {
                 runnerFilterService.applyFilter();
             });
 

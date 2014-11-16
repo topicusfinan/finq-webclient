@@ -23,7 +23,10 @@ angular.module('finqApp.runner', [
         templateUrl: '/views/modules/runner/running.html',
         controller: 'RunningCtrl',
         controllerAs: 'running'
+    }).when('/runner', {
+        redirectTo: '/runner/available'
     });
+
 }]);
 
 angular.module('finqApp.runner.service',[]);

@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.service.module:runner
+ * @name finqApp.runner.service:runner
  * @description
  * # Runner module service
  *

@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name finqApp.mock:runnerMockSimulator
+ * @name finqApp.runner.service:runnerMockSimulator
  * @description
- * # Runner service mock
+ * # Runner service mock simulator
  *
  * This service mocks the behavior of the backend when a story run is started by providing randomized
  * result information.
