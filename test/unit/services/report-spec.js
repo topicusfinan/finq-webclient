@@ -16,12 +16,12 @@ describe('Unit: ReportService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, report, runServiceMock, STATE, config) {
+    beforeEach(inject(function ($httpBackend, _$rootScope_, report, reportServiceMock, STATE, config) {
         reportService = report;
         $rootScope = _$rootScope_;
-        runServiceMock.pageSize = 1;
-        firstResponse = angular.copy(runServiceMock);
-        secondResponse = angular.copy(runServiceMock);
+        reportServiceMock.pageSize = 1;
+        firstResponse = angular.copy(reportServiceMock);
+        secondResponse = angular.copy(reportServiceMock);
         firstResponse.data.splice(1,1);
         secondResponse.data.splice(0,1);
         secondResponse.page = 1;
