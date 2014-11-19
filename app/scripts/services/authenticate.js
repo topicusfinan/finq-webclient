@@ -11,9 +11,9 @@
  */
 angular.module('finqApp.service')
     .service('authenticate', ['$http','$q', function ($http,$q) {
-        var currentUser = null;
-        var token = null;
-        var address = '';
+        var that = this,
+            currentUser,
+            address = '';
 
         this.setAddress = function(authServerAddress) {
             address = authServerAddress;
@@ -24,9 +24,7 @@ angular.module('finqApp.service')
             var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
-            $http.get(address+'/auth/user',{
-                token: token
-            }).success(function(userData) {
+            $http.get(address+'/user').success(function(userData) {
                 currentUser = userData;
                 deferred.resolve(userData);
             }).error(function(errorCode) {
@@ -42,12 +40,14 @@ angular.module('finqApp.service')
             var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
-            $http.post(address+'/auth/login',{
+            $http.post(address+'/user/login',{
                 'email': email,
                 'password': password
-            }).success(function(userData) {
-                currentUser = userData;
-                deferred.resolve(userData);
+            }).success(function(authToken) {
+                $http.defaults.headers.common['X-api-key'] = authToken;
+                that.load().then(function(userData) {
+                    deferred.resolve(userData);
+                });
             }).error(function(errorCode) {
                 deferred.reject(errorCode);
             }).finally(function() {

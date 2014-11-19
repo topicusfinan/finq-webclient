@@ -69,11 +69,18 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
                 environment: jsonData.environment
             }];
         });
-        $httpBackend.whenGET('/auth/user').respond(401);
-        $httpBackend.whenPOST('/auth/login').respond(function(method, url, data) {
+        var firstLoginAttempt = true;
+        $httpBackend.whenGET('/user').respond(function() {
+            if (firstLoginAttempt) {
+                firstLoginAttempt = false;
+                return [401,'user not authorized'];
+            }
+            return [200,authServiceMock.user];
+        });
+        $httpBackend.whenPOST('/user/login').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             if (jsonData.email === 'admin@example.org' && jsonData.password === 'admin') {
-                return [200,authServiceMock.user];
+                return [200,'fake-authentication-token'];
             }
             return [401,authServiceMock.error];
         });
