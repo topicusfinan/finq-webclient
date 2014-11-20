@@ -17,7 +17,6 @@
     "components-font-awesome": "~4.1.0",
     "bourbon": "~4.0.2",
     "neat": "~1.6.0",
-    "bitters": "~0.10.0",
     "angular-typeahead": "~0.2.1"
   },
   "devDependencies": {
