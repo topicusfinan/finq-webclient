@@ -24,7 +24,7 @@ angular.module('finqApp.service')
             var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
-            $http.get(address+'/user').success(function(userData) {
+            $http.get(address+'/users/current').success(function(userData) {
                 currentUser = userData;
                 deferred.resolve(userData);
             }).error(function(errorCode) {
@@ -40,7 +40,7 @@ angular.module('finqApp.service')
             var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
             },5000);
-            $http.post(address+'/user/login',{
+            $http.post(address+'/users/login',{
                 'email': email,
                 'password': password
             }).success(function(authToken) {

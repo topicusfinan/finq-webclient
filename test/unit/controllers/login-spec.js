@@ -36,8 +36,8 @@ describe('Unit: LoginCtrl', function() {
     });
 
     it('should be able to handle a successful login attempt', function () {
-        backend.expectPOST('/user/login').respond(200, 'fake-token');
-        backend.expectGET('/user').respond(200, authenticateMock.user);
+        backend.expectPOST('/users/login').respond(200, 'fake-token');
+        backend.expectGET('/users/current').respond(200, authenticateMock.user);
         backend.expectGET('views/layout.html').respond(404);
         LoginCtrl.authenticate();
         backend.flush();

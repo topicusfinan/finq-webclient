@@ -70,14 +70,14 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
             }];
         });
         var firstLoginAttempt = true;
-        $httpBackend.whenGET('/user').respond(function() {
+        $httpBackend.whenGET('/users/current').respond(function() {
             if (firstLoginAttempt) {
                 firstLoginAttempt = false;
                 return [401,'user not authorized'];
             }
             return [200,authServiceMock.user];
         });
-        $httpBackend.whenPOST('/user/login').respond(function(method, url, data) {
+        $httpBackend.whenPOST('/users/login').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             if (jsonData.email === 'admin@example.org' && jsonData.password === 'admin') {
                 return [200,'fake-authentication-token'];
