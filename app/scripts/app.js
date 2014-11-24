@@ -37,7 +37,6 @@ angular
         'finqApp.filter',
         'finqApp.controller',
 
-        'finqApp.reporter',
         'finqApp.runner',
         'finqApp.organizer',
         'finqApp.writer',

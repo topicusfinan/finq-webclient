@@ -16,11 +16,10 @@ describe('Unit: MenuCtrl initialization', function() {
     }));
 
     it('should initially have all main modules loaded', function () {
-        expect(MenuCtrl.modules.length).to.equal(4);
-        expect(MenuCtrl.modules[0].id).to.equal('REPORTER');
-        expect(MenuCtrl.modules[1].id).to.equal('RUNNER');
-        expect(MenuCtrl.modules[2].id).to.equal('ORGANIZER');
-        expect(MenuCtrl.modules[3].id).to.equal('WRITER');
+        expect(MenuCtrl.modules.length).to.equal(3);
+        expect(MenuCtrl.modules[0].id).to.equal('RUNNER');
+        expect(MenuCtrl.modules[1].id).to.equal('ORGANIZER');
+        expect(MenuCtrl.modules[2].id).to.equal('WRITER');
     });
 
     it('should initially have an empty sections list', function () {
@@ -232,8 +231,8 @@ describe('Unit: MenuCtrl responding to notification updates', function() {
             $scope: scope
         });
         scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
-            module: {id : MODULES.REPORTER.id},
-            section: {id : MODULES.REPORTER.sections.REPORTS.id}
+            module: {id : MODULES.ORGANIZER.id},
+            section: {id : MODULES.ORGANIZER.sections.SETS.id}
         });
     }));
 
@@ -309,7 +308,7 @@ describe('Unit: MenuCtrl responding to notification updates', function() {
 
     it('should not respond to a section notification update event and not update the badge of an active section', function() {
         scope.$broadcast(EVENTS.SCOPE.SECTION_NOTIFICATIONS_UPDATED,{
-            id: MODULES.REPORTER.sections.REPORTS.id,
+            id: MODULES.ORGANIZER.sections.SETS.id,
             identifiers: [1],
             add: true
         });
@@ -320,7 +319,7 @@ describe('Unit: MenuCtrl responding to notification updates', function() {
 
     it('should not respond to a section notification update event and not update the badge of an active module', function() {
         scope.$broadcast(EVENTS.SCOPE.MODULE_NOTIFICATIONS_UPDATED,{
-            id: MODULES.REPORTER.id,
+            id: MODULES.ORGANIZER.id,
             identifiers: [1],
             add: true
         });

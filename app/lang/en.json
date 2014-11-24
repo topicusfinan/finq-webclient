@@ -52,19 +52,6 @@
             "AUTHENTICATION_FAILED" : "Login failed: Your email/password combination is incorrect"
         }
     },
-    "REPORTER" : {
-        "TITLE" : "Report",
-        "HISTORY" : {
-            "TITLE" : "Run history",
-            "FILTER" : {
-                "BEFORE_STATUS" : "Show"
-            },
-            "NO_REPORTS" : "There are no reports available that match your filter"
-        },
-        "REPORTS" : {
-            "TITLE" : "Scenario reports"
-        }
-    },
     "RUNNER" : {
         "TITLE" : "Run",
         "AVAILABLE" : {
@@ -115,6 +102,13 @@
         },
         "DEBUGGING" : {
             "TITLE" : "Debugging"
+        },
+        "HISTORY" : {
+            "TITLE" : "Reports",
+            "FILTER" : {
+                "BEFORE_STATUS" : "Show"
+            },
+            "NO_REPORTS" : "There are no reports available that match your filter"
         }
     },
     "ORGANIZER" : {

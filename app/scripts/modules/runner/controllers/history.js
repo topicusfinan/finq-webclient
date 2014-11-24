@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.reporter.controller:HistoryCtrl
+ * @name finqApp.runner.controller:HistoryCtrl
  * @description
  * # Run history report controller
  *
@@ -10,7 +10,7 @@
  * completed run has a report, so this includes successful and failed runs. Once a run completes it
  * is immediately "moved" to the reports section.
  */
-angular.module('finqApp.reporter.controller')
+angular.module('finqApp.runner.controller')
     .controller('HistoryCtrl', [
         '$scope',
         'config',

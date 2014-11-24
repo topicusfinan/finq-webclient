@@ -10,17 +10,6 @@
 
 angular.module('finqApp')
     .constant('MODULES',{
-        'REPORTER' : {
-            id: 'REPORTER',
-            sections: {
-                'HISTORY': {
-                    id: 'REPORTER.HISTORY'
-                },
-                'REPORTS': {
-                    id: 'REPORTER.REPORTS'
-                }
-            }
-        },
         'RUNNER' : {
             id: 'RUNNER',
             sections: {
@@ -32,6 +21,9 @@ angular.module('finqApp')
                 },
                 'DEBUGGING': {
                     id: 'RUNNER.DEBUGGING'
+                },
+                'HISTORY': {
+                    id: 'RUNNER.HISTORY'
                 }
             }
         },
