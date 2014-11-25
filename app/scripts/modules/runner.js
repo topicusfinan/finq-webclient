@@ -13,7 +13,8 @@ angular.module('finqApp.runner', [
         'ngRoute',
 
         'finqApp.runner.service',
-        'finqApp.runner.controller'
+        'finqApp.runner.controller',
+        'finqApp.runner.filter'
     ]).config(['$routeProvider',function($routeProvider) {
     $routeProvider.when('/runner/available', {
         templateUrl: '/views/modules/runner/available.html',
@@ -23,10 +24,10 @@ angular.module('finqApp.runner', [
         templateUrl: '/views/modules/runner/running.html',
         controller: 'RunningCtrl',
         controllerAs: 'running'
-    }).when('/runner/history', {
-        templateUrl: '/views/modules/runner/history.html',
-        controller: 'HistoryCtrl',
-        controllerAs: 'history'
+    }).when('/runner/report', {
+        templateUrl: '/views/modules/runner/report.html',
+        controller: 'ReportCtrl',
+        controllerAs: 'report'
     }).when('/runner', {
         redirectTo: '/runner/available'
     });
@@ -35,3 +36,4 @@ angular.module('finqApp.runner', [
 
 angular.module('finqApp.runner.service',[]);
 angular.module('finqApp.runner.controller',[]);
+angular.module('finqApp.runner.filter',[]);

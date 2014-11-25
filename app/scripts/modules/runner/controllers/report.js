@@ -2,21 +2,23 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.runner.controller:HistoryCtrl
+ * @name finqApp.runner.controller:ReportCtrl
  * @description
- * # Run history report controller
+ * # Run report controller
  *
- * The history controller allows the user to view reports of runs that were executed in the past. Any
+ * The report controller allows the user to view reports of runs that were executed in the past. Any
  * completed run has a report, so this includes successful and failed runs. Once a run completes it
  * is immediately "moved" to the reports section.
  */
 angular.module('finqApp.runner.controller')
-    .controller('HistoryCtrl', [
+    .controller('ReportCtrl', [
         '$scope',
         'config',
         'value',
         'reporterFilter',
-        function ($scope,configProvider,valueService,reporterFilterService) {
+        'module',
+        'MODULES',
+        function ($scope,configProvider,valueService,reporterFilterService,moduleService,MODULES) {
 
             this.filter = {
                 status: {id: 'status', ids: []}
@@ -30,5 +32,7 @@ angular.module('finqApp.runner.controller')
 
             $scope.reports = reporterFilterService.getFilteredReports;
             $scope.initialized = reporterFilterService.initialized;
+
+            moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORT);
 
         }]);

@@ -36,8 +36,6 @@ angular.module('finqApp.runner.controller')
                 }
             };
 
-
-
             setService.list().then(function (sets) {
                 that.sets = [];
                 angular.forEach(sets, function(set) {

@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storybookPagination
+ * @name finqApp.runner.filter:storybookPagination
  * @description
  * # Paginate storybook listings
  *
@@ -11,7 +11,7 @@
  * results before a certain record to avoid putting too many elements
  * on screen at once.
  */
-angular.module('finqApp.filter')
+angular.module('finqApp.runner.filter')
     .filter('storybookPaginationFilter', ['value', function(valueService) {
         return function(books, iteration, maxScenarios) {
             var filteredBooks = [],

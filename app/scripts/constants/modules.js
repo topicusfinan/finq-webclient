@@ -22,8 +22,8 @@ angular.module('finqApp')
                 'DEBUGGING': {
                     id: 'RUNNER.DEBUGGING'
                 },
-                'HISTORY': {
-                    id: 'RUNNER.HISTORY'
+                'REPORT': {
+                    id: 'RUNNER.REPORT'
                 }
             }
         },

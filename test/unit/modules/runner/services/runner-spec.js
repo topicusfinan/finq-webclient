@@ -15,7 +15,7 @@ describe('Unit: RunnerService', function() {
         STATE,
         $rootScope,
         MODULES;
-
+    
     beforeEach(function() {
         module('finqApp');
         module('finqApp.service');

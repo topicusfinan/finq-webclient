@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storySetFilter
+ * @name finqApp.runner.filter:storySetFilter
  * @description
  * # Story set filter
  *
  * Allows the filtering of stories by supplying a list of sets. Only the stories in that are linked to the supplied
  * sets will be in the result.
  */
-angular.module('finqApp.filter')
+angular.module('finqApp.runner.filter')
     .filter('storySetFilter', function() {
         return function(stories, setsToInclude) {
             var filteredStories = [];

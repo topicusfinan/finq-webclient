@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storyBookTagFilter
+ * @name finqApp.runner.filter:storyBookTagFilter
  * @description
  * # Storybook tag filter
  *
  * Allows the filtering of story books by supplying a list of tags. Only books with stories that are linked
  * to the supplied tags will remain.
  */
-angular.module('finqApp.filter')
+angular.module('finqApp.runner.filter')
     .filter('storybookTagFilter', function() {
         return function(books, tagsToInclude) {
             var filteredBooks = [],

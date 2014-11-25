@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storyBookSetFilter
+ * @name finqApp.runner.filter:storyBookSetFilter
  * @description
  * # Storybook set filter
  *
  * Allows the filtering of story books by supplying a list of sets. Only books with stories that are linked
  * to the supplied sets will remain.
  */
-angular.module('finqApp.filter')
+angular.module('finqApp.runner.filter')
     .filter('storybookSetFilter', function() {
         return function(books, setsToInclude) {
             var filteredBooks = [];

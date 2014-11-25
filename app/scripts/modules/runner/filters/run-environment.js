@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:runEnvironmentFilter
+ * @name finqApp.runner.filter:runEnvironmentFilter
  * @description
  * # Run environment filter
  *
  * Allows the filtering of runs by supplying a specific environment.
  */
-angular.module('finqApp.filter')
+angular.module('finqApp.runner.filter')
     .filter('runEnvironmentFilter', function() {
         return function(runs, environmentsToInclude) {
             var filteredRuns = [];

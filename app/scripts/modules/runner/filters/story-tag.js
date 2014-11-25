@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storyTagFilter
+ * @name finqApp.runner.filter:storyTagFilter
  * @description
  * # Story tag filter
  *
  * Allows the filtering of stories by supplying a list of tags. Only the stories in that are linked to the supplied
  * tags will be in the result.
  */
-angular.module('finqApp.filter')
+angular.module('finqApp.runner.filter')
     .filter('storyTagFilter', function() {
         return function(stories, tagsToInclude) {
             var filteredStories = [],

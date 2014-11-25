@@ -103,7 +103,7 @@
         "DEBUGGING" : {
             "TITLE" : "Debugging"
         },
-        "HISTORY" : {
+        "REPORT" : {
             "TITLE" : "Reports",
             "FILTER" : {
                 "BEFORE_STATUS" : "Show"
@@ -139,6 +139,15 @@
         "ENVIRONMENTS" : {
             "NONE" : "environment",
             "ANY" : "all environments"
+        },
+        "STATUSES" : {
+            "ANY" : "all results"
+        }
+    },
+    "STATE" : {
+        "RUN" : {
+            "SUCCESS" : "Successful",
+            "FAILED" : "Failed"
         }
     }
 }

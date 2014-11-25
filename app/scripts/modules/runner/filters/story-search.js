@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name finqApp.filter:storySearchFilter
+ * @name finqApp.runner.filter:storySearchFilter
  * @description
  * # Story search filter
  *
@@ -13,7 +13,7 @@
  * This filter assumes that the storySearchService has has been initialized with the booklist
  * to use.
  */
-angular.module('finqApp.filter')
+angular.module('finqApp.runner.filter')
     .filter('storySearchFilter', ['storybookSearch', function(storybookSearchService) {
         return function(stories, query, bookId) {
             var filteredStories = [];
