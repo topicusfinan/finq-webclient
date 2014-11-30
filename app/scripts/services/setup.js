@@ -16,7 +16,8 @@ angular.module('finqApp.service')
         'module',
         'runner',
         'socket',
-        function ($state,MODULES,moduleService,runnerService,socketService) {
+        'story',
+        function ($state,MODULES,moduleService,runnerService,socketService,storyService) {
 
             this.initialize = function() {
                 $state.go('intro.loading');
@@ -25,6 +26,7 @@ angular.module('finqApp.service')
             this.finalize = function() {
                 moduleService.linkModule(MODULES.RUNNER,runnerService);
                 socketService.connect();
+                storyService.list();
             };
 
         }]);

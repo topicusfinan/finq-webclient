@@ -66,16 +66,15 @@ angular.module('finqApp.mock')
                 status: 'SUCCESS',
                 stories: [
                     {
-                        id: 46421532,
+                        id: 56421532,
                         status: 'SUCCESS',
                         scenarios: [
                             {
-                                id: 23452343,
+                                id: 33452343,
                                 status: 'SUCCESS',
                                 steps: [
                                     {status: 'SUCCESS'},
-                                    {status: 'SUCCESS'},
-                                    {status: 'SUCCESS'}
+                                    {status: 'SKIPPED'}
                                 ]
                             }
                         ]

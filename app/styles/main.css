@@ -684,14 +684,6 @@ div.layout {
         div.layout > aside .modules li.active {
           background: #000;
           color: #049cdb; }
-        div.layout > aside .modules li i.reporter:before {
-          content: '\f0f6'; }
-        div.layout > aside .modules li i.runner:before {
-          content: '\f04b'; }
-        div.layout > aside .modules li i.organizer:before {
-          content: '\f114'; }
-        div.layout > aside .modules li i.writer:before {
-          content: '\f040'; }
         div.layout > aside .modules li .badge {
           position: absolute;
           top: .2em;
@@ -776,6 +768,21 @@ footer.feedback {
       opacity: 1;
       cursor: pointer; }
 
+i.success:before {
+  content: '\f00c'; }
+
+i.failed:before {
+  content: '\f00d'; }
+
+i.runner:before {
+  content: '\f04b'; }
+
+i.organizer:before {
+  content: '\f114'; }
+
+i.writer:before {
+  content: '\f040'; }
+
 .top-filter {
   cursor: pointer;
   min-height: 4em;
@@ -845,6 +852,10 @@ footer.feedback {
       float: left; }
       .main-content-list li.cl > div > div.title > i {
         color: #404040; }
+        .main-content-list li.cl > div > div.title > i.success {
+          color: #87b848; }
+        .main-content-list li.cl > div > div.title > i.failed {
+          color: #c22b1c; }
       .main-content-list li.cl > div > div.title > span,
       .main-content-list li.cl > div > div.title > div {
         display: block;

@@ -16,6 +16,7 @@
 @import 'components/preloader';
 @import 'components/layout';
 @import 'components/feedback';
+@import 'components/icons';
 @import 'components/modules/top-filter';
 @import 'components/modules/content-list';
 @import 'components/modules/content-filter-list-headers';
@@ -23,6 +24,7 @@
 @import 'components/modules/tooltip';
 @import 'components/modules/hero-notice';
 @import 'components/modules/pagination';
+
 // finally enhance the components with some theme magic
 @import 'theme/styles';
 @import 'theme/responsive';

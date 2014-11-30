@@ -45,6 +45,14 @@
 
             > i {
                 color: $section-list-icon-color;
+
+                &.success {
+                    color: $success-color;
+                }
+
+                &.failed {
+                    color: $error-color;
+                }
             }
 
             > span,

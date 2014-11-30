@@ -16,6 +16,7 @@ angular.module('finqApp.runner.service')
         '$q',
         function ($filter,reportService,$q) {
             var that = this,
+                initialized = false,
                 reportStatusFilter = $filter('reportStatusFilter'),
                 unfilteredReports = [],
                 initializing = false,
@@ -24,7 +25,9 @@ angular.module('finqApp.runner.service')
                     statuses: []
                 };
 
-            this.initialized = false;
+            this.isInitialized = function() {
+                return initialized;
+            };
             this.initialize = function() {
                 var deferred = $q.defer();
                 reportService.list().then(function(reports) {
@@ -32,7 +35,7 @@ angular.module('finqApp.runner.service')
                     that.applyFilter();
                     deferred.resolve();
                     initializing = false;
-                    that.initialized = true;
+                    initialized = true;
                 });
                 initializing = true;
                 return deferred.promise;
@@ -44,7 +47,7 @@ angular.module('finqApp.runner.service')
                 } else {
                     lastFilter.statuses = statuses;
                 }
-                if (!that.initialized && !initializing) {
+                if (!initialized && !initializing) {
                     var deferred = $q.defer();
                     that.initialize().then(function() {
                         deferred.resolve(filteredReports);
@@ -52,12 +55,13 @@ angular.module('finqApp.runner.service')
                     return deferred.promise;
                 } else {
                     filteredReports = reportStatusFilter(angular.copy(unfilteredReports),statuses);
+                    updateStates(filteredReports);
                     return $q.when(filteredReports);
                 }
             };
 
             this.getFilteredReports = function() {
-                if (!that.initialized && !initializing) {
+                if (!initialized && !initializing) {
                     that.initialize();
                     return [];
                 }
@@ -66,6 +70,12 @@ angular.module('finqApp.runner.service')
 
             this.getLastFilter = function() {
                 return lastFilter;
+            };
+
+            var updateStates = function(reports) {
+                angular.forEach(reports, function(report) {
+                    report.status = report.status.toLowerCase();
+                });
             };
 
         }]);

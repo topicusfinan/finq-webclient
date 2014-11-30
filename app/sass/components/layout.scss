@@ -120,22 +120,6 @@ div.layout {
                     color: $base-accent-color;
                 }
 
-                i.reporter:before {
-                    content: '\f0f6';
-                }
-
-                i.runner:before {
-                    content: '\f04b';
-                }
-
-                i.organizer:before {
-                    content: '\f114';
-                }
-
-                i.writer:before {
-                    content: '\f040';
-                }
-
                 .badge {
                     position: absolute;
                     top: .2em;

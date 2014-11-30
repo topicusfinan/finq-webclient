@@ -45,7 +45,7 @@ angular.module('finqApp.runner.controller')
             this.hasMorePages = valueService.hasMorePages;
 
             $scope.storybooks = runnerFilterService.getFilteredStorybooks;
-            $scope.initialized = runnerFilterService.initialized;
+            $scope.initialized = runnerFilterService.isInitialized;
 
             $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED, function (event, filterInfo) {
                 that.filter[filterInfo.id].ids = filterInfo.keys;

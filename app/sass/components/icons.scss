@@ -1,0 +1,19 @@
+i.success:before {
+    content: '\f00c';
+}
+
+i.failed:before {
+    content: '\f00d';
+}
+
+i.runner:before {
+    content: '\f04b';
+}
+
+i.organizer:before {
+    content: '\f114';
+}
+
+i.writer:before {
+    content: '\f040';
+}

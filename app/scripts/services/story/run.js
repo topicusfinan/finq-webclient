@@ -9,7 +9,7 @@
  * Makes it possible to execute list operations on runs that are currently executing.
  */
 angular.module('finqApp.service')
-    .service('run', ['backend','$q','$translate','STATE','config','utils',function (backend,$q,$translate,STATE,configProvider,utils) {
+    .service('run', ['backend','$q','$translate','STATE','config','utils','story',function (backend,$q,$translate,STATE,configProvider,utils,storyService) {
         var runs = null;
 
         var load = function() {
@@ -38,6 +38,7 @@ angular.module('finqApp.service')
 
         this.setupRunTitle = function(run) {
             var storyCount,
+                story,
                 title,
                 pluralized,
                 largestStoryScenarioCount = 0,
@@ -45,6 +46,13 @@ angular.module('finqApp.service')
                 deferred = $q.defer();
 
             for (var i = 0; i<run.stories.length; i++) {
+                if (!run.stories[i].title) {
+                    story = storyService.findStoryById(run.stories[i].id);
+                    if (story === null) {
+                        throw new Error('Storyservice has not loaded any stories yet');
+                    }
+                    run.stories[i].title = story.title;
+                }
                 if (run.stories[i].scenarios.length > largestStoryScenarioCount) {
                     largestStoryScenarioCount = run.stories[i].scenarios.length;
                     largestStoryIndex = i;

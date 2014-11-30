@@ -17,8 +17,11 @@ angular.module('finqApp.runner.controller')
         'value',
         'reporterFilter',
         'module',
+        '$timeout',
         'MODULES',
-        function ($scope,configProvider,valueService,reporterFilterService,moduleService,MODULES) {
+        'EVENTS',
+        function ($scope,configProvider,valueService,reporterFilterService,moduleService,$timeout,MODULES,EVENTS) {
+            var that = this;
 
             this.filter = {
                 status: {id: 'status', ids: []}
@@ -31,8 +34,18 @@ angular.module('finqApp.runner.controller')
             this.hasMorePages = valueService.hasMorePages;
 
             $scope.reports = reporterFilterService.getFilteredReports;
-            $scope.initialized = reporterFilterService.initialized;
+            $scope.initialized = reporterFilterService.isInitialized;
+
+            $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED, function (event, filterInfo) {
+                that.filter[filterInfo.id].ids = filterInfo.keys;
+                reporterFilterService.applyFilter(that.filter.status.ids);
+            });
 
             moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORT);
+
+            $timeout(function() {
+                // we reapply the filter after an initial delay to ensure that titles for reports are properly defined
+                reporterFilterService.applyFilter();
+            },100);
 
         }]);

@@ -16,7 +16,7 @@ describe('Unit: ReportService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, report, reportServiceMock, STATE, config) {
+    beforeEach(inject(function ($httpBackend, _$rootScope_, report, story, reportServiceMock, storyServiceMock, STATE, config) {
         reportService = report;
         $rootScope = _$rootScope_;
         reportServiceMock.pageSize = 1;
@@ -30,12 +30,13 @@ describe('Unit: ReportService', function() {
             report: {pagination: {server: {reportsPerRequest: 1, maxTotalReports: 2}}}
         });
         $httpBackend.expectGET('/app').respond(200);
+        $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
         $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=0').respond(200, firstResponse);
         $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=1').respond(200, secondResponse);
         config.load().then(function() {
-            reportService.list().then(function(reportData) {
+            story.list().then(reportService.list().then(function(reportData) {
                 reports = reportData;
-            });
+            }));
         });
         $httpBackend.flush();
     }));
