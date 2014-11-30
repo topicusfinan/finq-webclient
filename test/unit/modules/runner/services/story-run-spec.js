@@ -8,6 +8,7 @@ describe('Unit: StoryRun service', function() {
     var storyRunService,
         moduleService,
         feedbackService,
+        environmentMock,
         FEEDBACK,
         MODULES,
         backend;
@@ -16,21 +17,24 @@ describe('Unit: StoryRun service', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, storyRun, feedback, _FEEDBACK_, module, _MODULES_) {
+    beforeEach(inject(function ($httpBackend, storyRun, feedback, _FEEDBACK_, module, _MODULES_, environment, environmentServiceMock) {
         backend = $httpBackend;
         storyRunService = storyRun;
         feedbackService = feedback;
         moduleService = module;
         FEEDBACK = _FEEDBACK_;
         MODULES = _MODULES_;
+        environmentMock = environmentServiceMock.environments;
+        backend.expectGET('/environments').respond(200, environmentMock);
+        environment.list();
     }));
 
     it('should render a succcess message after the successful running of a single story', function () {
         backend.expectPOST('/run/stories').respond(200, {id: 1});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
-        storyRunService.runStory({story: 1,scenarios: [1]}, 1);
+        storyRunService.runStory({story: 1,scenarios: [1]}, environmentMock[0].id);
         backend.flush();
-        feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST, {environment: null});
+        feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST, {environment: environmentMock[0].name});
     });
 
     it('should render a success message after the succesful running of multiple stories', function () {
@@ -39,9 +43,9 @@ describe('Unit: StoryRun service', function() {
         storyRunService.runStories([
             {story: 1,scenarios: [1]},
             {story: 2,scenarios: [2]}
-        ], 1);
+        ], environmentMock[0].id);
         backend.flush();
-        feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{count: 2, environment: null});
+        feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{count: 2, environment: environmentMock[0].name});
     });
 
     it('should respond to a failed attempt to run a story by showing the user feedback', function () {

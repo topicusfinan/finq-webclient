@@ -52,10 +52,7 @@ angular.module('finqApp.runner.controller')
                 angular.forEach(runs, function(run) {
                     determineProgress(run);
                     if (run.scenariosCompleted < run.totalScenarios) {
-                        run.msg.runtime = utils.getTimeElapsed(currentTime,run.startedOn);
-                    }
-                    if (run.msg.environment === undefined) {
-                        run.msg.environment = run.msg.environment = environmentService.getNameById(run.environment);
+                        run.runtime = utils.getTimeElapsed(currentTime,run.startedOn);
                     }
                 });
             }

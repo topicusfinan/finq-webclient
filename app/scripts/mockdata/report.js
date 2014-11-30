@@ -16,7 +16,10 @@ angular.module('finqApp.mock')
         data: [
             {
                 id: 46432790,
-                environment: 1,
+                environment: {
+                    id: 1,
+                    name: 'Chuck Norris'
+                },
                 startedOn: 1416138936000,
                 completedOn: 1416138942000,
                 startedBy: {
@@ -55,7 +58,10 @@ angular.module('finqApp.mock')
             },
             {
                 id: 46432791,
-                environment: 2,
+                environment: {
+                    id: 2,
+                    name: 'Steven Seagal'
+                },
                 startedOn: 1416138836000,
                 completedOn: 1416138842000,
                 startedBy: {

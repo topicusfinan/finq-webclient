@@ -33,13 +33,13 @@ describe('Unit: EnvironmentService', function() {
     });
 
     it('should be able to retrieve an environment name by its id reference', function () {
-        var name = environmentService.getNameById(environments[0].id);
-        expect(name).to.equal(environments[0].name);
+        var environment = environmentService.getById(environments[0].id);
+        expect(environment).to.deep.equal(environments[0]);
     });
 
     it('should return null when retrieving an environment value by its key reference when the environment could not be found', function () {
-        var name = environmentService.getNameById('xyz');
-        expect(name).to.be.null;
+        var environment = environmentService.getById('xyz');
+        expect(environment).to.be.null;
     });
 
     it('should retrieve a loaded enviroment list in case the listing function is called again', function (done) {

@@ -45,11 +45,11 @@ angular.module('finqApp.service')
                     if (runRequestData.stories.length > 1) {
                         feedbackService.success(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{
                             count: runRequestData.stories.length,
-                            environment: environmentService.getNameById(runRequestData.environment)
+                            environment: environmentService.getById(runRequestData.environment).name
                         });
                     } else {
                         feedbackService.success(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST,{
-                            environment: environmentService.getNameById(runRequestData.environment)
+                            environment: environmentService.getById(runRequestData.environment).name
                         });
                     }
                     moduleService.handleEvent(EVENTS.INTERNAL.STORY_RUN_STARTED,{

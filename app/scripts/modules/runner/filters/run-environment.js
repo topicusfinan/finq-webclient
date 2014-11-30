@@ -16,7 +16,7 @@ angular.module('finqApp.runner.filter')
                 return runs;
             }
             angular.forEach(runs, function(run) {
-                if (environmentsToInclude.indexOf(run.environment) > -1) {
+                if (environmentsToInclude.indexOf(run.environment.id) > -1) {
                     filteredRuns.push(run);
                 }
             });

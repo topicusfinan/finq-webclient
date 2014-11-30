@@ -81,7 +81,7 @@ describe('Unit: RunningCtrl', function() {
     it('should update its runs in case the runservice has changed its runs', function (done) {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
-            environment: environmentMockData[0].id,
+            environment: environmentMockData[0],
             startedOn: new Date(),
             stories: [{
                 id: 46421532,
@@ -91,8 +91,8 @@ describe('Unit: RunningCtrl', function() {
         setTimeout(function() {
             $timeout.flush();
             expect(scope.runs().length).to.equal(1);
-            expect(scope.runs()[0].msg.environment).to.equal(environmentMockData[0].name);
-            expect(scope.runs()[0].msg.runtime).to.equal('00:00');
+            expect(scope.runs()[0].environment).to.deep.equal(environmentMockData[0]);
+            expect(scope.runs()[0].runtime).to.equal('00:00');
             expect(scope.runs()[0].percentage).to.equal(0);
             expect(scope.runs()[0].highlight).to.equal('none');
             expect(scope.runs()[0].stories[0].percentage).to.equal(0);
@@ -104,7 +104,7 @@ describe('Unit: RunningCtrl', function() {
     it('should update the progress information of its runs in case the progress of runs was updated and a run failed', function (done) {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
-            environment: environmentMockData[0].id,
+            environment: environmentMockData[0],
             startedOn: new Date(),
             stories: [{
                 id: 46421532,
@@ -142,7 +142,7 @@ describe('Unit: RunningCtrl', function() {
     it('should update the progress information of its runs in case the progress of runs was updated and a run completed successfully', function (done) {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
-            environment: environmentMockData[0].id,
+            environment: environmentMockData[0],
             startedOn: new Date(),
             stories: [{
                 id: 46421532,
@@ -180,7 +180,7 @@ describe('Unit: RunningCtrl', function() {
     it('should update the progress information of its runs in case the progress of runs was updated and a run is not complete', function (done) {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,
-            environment: environmentMockData[0].id,
+            environment: environmentMockData[0],
             startedOn: new Date(),
             stories: [{
                 id: 46421532,
