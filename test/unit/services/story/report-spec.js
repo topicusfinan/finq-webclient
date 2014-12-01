@@ -51,6 +51,7 @@ describe('Unit: ReportService', function() {
                 startedBy: firstResponse.data[0].startedBy,
                 startedOn: firstResponse.data[0].startedOn,
                 completedOn: firstResponse.data[0].completedOn,
+                runtime: '00:06',
                 environment: firstResponse.data[0].environment
             },
             {
@@ -59,6 +60,7 @@ describe('Unit: ReportService', function() {
                 startedBy: secondResponse.data[0].startedBy,
                 startedOn: secondResponse.data[0].startedOn,
                 completedOn: secondResponse.data[0].completedOn,
+                runtime: '00:11',
                 environment: secondResponse.data[0].environment
             }
         ]);
@@ -73,6 +75,7 @@ describe('Unit: ReportService', function() {
                     startedBy: firstResponse.data[0].startedBy,
                     startedOn: firstResponse.data[0].startedOn,
                     completedOn: firstResponse.data[0].completedOn,
+                    runtime: '00:06',
                     environment: firstResponse.data[0].environment
                 },
                 {
@@ -81,6 +84,7 @@ describe('Unit: ReportService', function() {
                     startedBy: secondResponse.data[0].startedBy,
                     startedOn: secondResponse.data[0].startedOn,
                     completedOn: secondResponse.data[0].completedOn,
+                    runtime: '00:11',
                     environment: secondResponse.data[0].environment
                 }
             ]);
