@@ -9,7 +9,7 @@
  * Makes it possible to execute list operations on reports of runs that have been completed.
  */
 angular.module('finqApp.service')
-    .service('report', ['backend','$q','STATE','config','run',function (backend,$q,STATE,configProvider,runService) {
+    .service('report', ['backend','$q','STATE','config','run','utils',function (backend,$q,STATE,configProvider,runService,utils) {
         var reports = null;
 
         var load = function(increment,maxReportsThisRequest) {
@@ -51,6 +51,7 @@ angular.module('finqApp.service')
                 startedBy: run.startedBy,
                 startedOn: run.startedOn,
                 completedOn: run.completedOn,
+                runtime: utils.getTimeElapsed(run.completedOn,run.startedOn),
                 environment: run.environment
             };
             runService.setupRunTitle(run).then(function(translatedTitle) {

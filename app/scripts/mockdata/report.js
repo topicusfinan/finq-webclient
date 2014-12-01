@@ -62,7 +62,7 @@ angular.module('finqApp.mock')
                     id: 2,
                     name: 'Steven Seagal'
                 },
-                startedOn: 1416138836000,
+                startedOn: 1416138831000,
                 completedOn: 1416138842000,
                 startedBy: {
                     name: 'Jane Doe',

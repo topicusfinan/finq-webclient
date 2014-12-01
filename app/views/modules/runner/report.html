@@ -12,6 +12,13 @@
                 <i class="fa" ng-class="runReport.status" data-toggle="collection"></i>
                 <span class="separate">{{::runReport.title}}</span>
             </div>
+            <div class="comments">
+                <span>#{{::runReport.id}}</span>
+                <span>-</span>
+                <span>{{::runReport.runtime}}</span>
+                <i class="fa fa-globe separate"><span class="tip left">{{::runReport.environment.name}}</span></i>
+                <i class="fa fa-user"><span class="tip left">{{::runReport.startedBy.name}}</span></i>
+            </div>
         </div>
     </li>
 </ul>
