@@ -9,7 +9,7 @@
  * Makes it possible to execute list operations on reports of runs that have been completed.
  */
 angular.module('finqApp.service')
-    .service('report', ['backend','$q','STATE','config','run','utils',function (backend,$q,STATE,configProvider,runService,utils) {
+    .service('report', ['backend','$q','$translate','STATE','config','run','utils',function (backend,$q,$translate,STATE,configProvider,runService,utils) {
         var reports = null;
 
         var load = function(increment,maxReportsThisRequest) {
@@ -57,7 +57,34 @@ angular.module('finqApp.service')
             runService.setupRunTitle(run).then(function(translatedTitle) {
                 report.title = translatedTitle;
             });
+            determineReportMessage(run).then(function(translatedMessage) {
+                report.message = translatedMessage;
+            });
             reports.push(report);
+        };
+
+        var determineReportMessage = function(run) {
+            var successStories = 0,
+                storyCount = run.stories.length,
+                pluralized;
+
+            if (run.status === STATE.RUN.SCENARIO.SUCCESS) {
+                pluralized = utils.pluralize('RUNNER.REPORT.MESSAGE.SUCCESS', 1, storyCount);
+                return $translate(pluralized.template,{
+                    storyCount: pluralized.value
+                });
+            } else {
+                for (var i=0; i<run.stories.length; i++) {
+                    if (run.stories[i].status === STATE.RUN.SCENARIO.SUCCESS) {
+                        successStories++;
+                    }
+                }
+                pluralized = utils.pluralize('RUNNER.REPORT.MESSAGE.FAILED', 1, storyCount);
+                return $translate(pluralized.template,{
+                    successStories: pluralized.value,
+                    totalStories: storyCount
+                });
+            }
         };
 
         this.list = function(forceReload) {

@@ -47,7 +47,7 @@ angular.module('finqApp.mock')
                                 status: 'FAILED',
                                 steps: [
                                     {status: 'SUCCESS'},
-                                    {status: 'FAILED'},
+                                    {status: 'FAILED', message: 'A random assertion failed to validate'},
                                     {status: 'SKIPPED'},
                                     {status: 'SKIPPED'}
                                 ]

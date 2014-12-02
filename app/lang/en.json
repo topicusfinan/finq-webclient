@@ -108,7 +108,17 @@
             "FILTER" : {
                 "BEFORE_STATUS" : "Show"
             },
-            "NO_REPORTS" : "There are no reports available that match your filter"
+            "NO_REPORTS" : "There are no reports available that match your filter",
+            "MESSAGE" : {
+                "SUCCESS" : {
+                    "SINGULAR" : "The story was executed successfully",
+                    "PLURAL" : "All {{totalStories}} stories were executed successfully"
+                } ,
+                "FAILED" :  {
+                    "SINGULAR" : "The story failed to execute",
+                    "PLURAL" : "{{successStories}} out of {{totalStories}} stories were executed successfully"
+                }
+            }
         }
     },
     "ORGANIZER" : {

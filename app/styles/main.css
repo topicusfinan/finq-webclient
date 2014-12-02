@@ -21,8 +21,8 @@ input[type='submit'] {
 
 body {
   -webkit-font-smoothing: antialiased;
-  background-color: #fff;
-  color: #333;
+  background-color: white;
+  color: #333333;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-size: 1em;
   line-height: 1.5; }
@@ -72,7 +72,7 @@ a {
     outline: none; }
 
 hr {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
   border-left: 0;
   border-right: 0;
   border-top: 0;
@@ -84,7 +84,7 @@ picture {
   max-width: 100%; }
 
 blockquote {
-  border-left: 2px solid #ddd;
+  border-left: 2px solid #dddddd;
   color: #595959;
   margin: 1.5em 0;
   padding-left: 0.75em; }
@@ -97,7 +97,7 @@ cite {
 
 fieldset {
   background: #f7f7f7;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   margin: 0 0 0.75em;
   padding: 1.5em; }
 
@@ -127,7 +127,7 @@ select[multiple=multiple] {
   transition: border-color;
   background-color: #fff;
   border-radius: 3px;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-size: 1em;
@@ -182,7 +182,7 @@ th {
   text-align: left; }
 
 td {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dddddd;
   padding: 0.75em 0; }
 
 tr,
@@ -223,7 +223,7 @@ input[type='submit'] {
 
 .progress-bar {
   background-color: #f2f2f2;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   box-shadow: inset 0 0 3px 0 rgba(115, 115, 115, 0.15);
   border-radius: 3px;
   height: 30px;
@@ -251,26 +251,31 @@ input[type='submit'] {
 @-webkit-keyframes progress {
   0% {
     background-position: 0 0; }
+
   100% {
     background-position: 40px 0; } }
 @-moz-keyframes progress {
   0% {
     background-position: 0 0; }
+
   100% {
     background-position: 40px 0; } }
 @-ms-keyframes progress {
   0% {
     background-position: 0 0; }
+
   100% {
     background-position: 40px 0; } }
 @-o-keyframes progress {
   0% {
     background-position: 0 0; }
+
   100% {
     background-position: 40px 0; } }
 @keyframes progress {
   0% {
     background-position: 0 0; }
+
   100% {
     background-position: 40px 0; } }
 .radial-progress {
@@ -591,7 +596,7 @@ input[type='submit'] {
 body {
   margin: 0;
   background-color: #e6e6e6;
-  color: #333; }
+  color: #333333; }
   body h1,
   body h2,
   body h3,
@@ -611,7 +616,7 @@ div.layout {
     z-index: 10000; }
     div.layout > header .title,
     div.layout > header .search {
-      color: #ddd;
+      color: #dddddd;
       font-size: 2em;
       position: relative;
       float: left; }
@@ -642,11 +647,11 @@ div.layout {
         background: none;
         border: 0;
         box-shadow: none;
-        color: #ddd;
+        color: #dddddd;
         border-radius: 0; }
         div.layout > header .search input:-webkit-autofill {
           -webkit-box-shadow: 0 0 0 50px #1a1a1a inset;
-          -webkit-text-fill-color: #ddd; }
+          -webkit-text-fill-color: #dddddd; }
   div.layout > aside,
   div.layout > .main {
     top: 4em; }
@@ -680,9 +685,9 @@ div.layout {
         div.layout > aside .modules li:hover {
           cursor: pointer;
           background: #666666;
-          color: #fff; }
+          color: white; }
         div.layout > aside .modules li.active {
-          background: #000;
+          background: black;
           color: #049cdb; }
         div.layout > aside .modules li .badge {
           position: absolute;
@@ -690,7 +695,7 @@ div.layout {
           right: .3em;
           padding: 0 .5em;
           background: #a52b1f;
-          color: #fff;
+          color: white;
           border-radius: 0.3em;
           font-size: .4em; }
     div.layout > aside .sections li {
@@ -708,7 +713,7 @@ div.layout {
         display: table;
         clear: both; }
       div.layout > aside .sections li:hover, div.layout > aside .sections li.active {
-        color: #fff;
+        color: white;
         background-color: #666666; }
       div.layout > aside .sections li:hover {
         cursor: pointer;
@@ -721,7 +726,7 @@ div.layout {
         right: .3em;
         padding: 0 .5em;
         background: #a52b1f;
-        color: #fff;
+        color: white;
         border-radius: 0.3em;
         font-size: .9em; }
     div.layout > aside h1 {
@@ -752,11 +757,11 @@ footer.feedback {
     background-color: #87b848;
     color: #e6e6e6; }
   footer.feedback.alert {
-    background-color: #f90;
+    background-color: #ff9900;
     color: #e6e6e6; }
   footer.feedback.notice {
     background-color: #ffc40d;
-    color: #333; }
+    color: #333333; }
   footer.feedback i {
     opacity: .75;
     font-size: 1.8em;
@@ -838,14 +843,15 @@ i.writer:before {
   .main-content-list li.cl > div {
     position: relative;
     color: #262626;
-    margin-top: 2px; }
+    margin-top: 2px;
+    padding-left: 3.51563em; }
     .main-content-list li.cl > div.selectable:hover {
       cursor: pointer;
       background: #49c7fc;
-      color: #fff; }
+      color: white; }
       .main-content-list li.cl > div.selectable:hover > div.comments span,
       .main-content-list li.cl > div.selectable:hover > div.comments a {
-        color: #fff; }
+        color: white; }
       .main-content-list li.cl > div.selectable:hover > div.comments a.hover {
         color: #e6e6e6; }
     .main-content-list li.cl > div > div.title {
@@ -862,19 +868,31 @@ i.writer:before {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis; }
-  .main-content-list li.ic > div {
-    padding-left: 3.51563em; }
-  .main-content-list li.cl > div > i,
-  .main-content-list li.cl > div > div.title > i,
-  .main-content-list li.cl > div > div.title > .radial-progress {
-    position: absolute; }
+    .main-content-list li.cl > div > i,
+    .main-content-list li.cl > div > div.title > i,
+    .main-content-list li.cl > div > div.title > .radial-progress {
+      position: absolute; }
+    .main-content-list li.cl > div > div.details {
+      display: none;
+      float: left;
+      clear: both;
+      font-size: .9em; }
+      .main-content-list li.cl > div > div.details .legend {
+        opacity: .7; }
+    .main-content-list li.cl > div.detailed.active {
+      min-height: 4.63241em;
+      max-height: 4.63241em; }
+      .main-content-list li.cl > div.detailed.active > div.details {
+        display: block; }
+  .main-content-list > li.cl > div > div.details {
+    margin: 0 0.25em; }
   .main-content-list > li.cl > div.active > div.title > .radial-progress .circle .mask .fill,
   .main-content-list > li.cl > div.selectable:hover > div.title > .radial-progress .circle .mask .fill,
   .main-content-list > li.cl > ul li.cl > div.active > div.title > .radial-progress .circle .mask .fill,
   .main-content-list > li.cl > ul li.cl > div.selectable:hover > div.title > .radial-progress .circle .mask .fill,
   .main-content-list > li.cl > ul li.cl > ul li.cl > div.active > div.title > .radial-progress .circle .mask .fill,
   .main-content-list > li.cl > ul li.cl > ul li.cl > div.selectable:hover > div.title > .radial-progress .circle .mask .fill {
-    background: #fff; }
+    background: white; }
   .main-content-list > li.cl > div.active > div.title > .radial-progress .inset,
   .main-content-list > li.cl > div.selectable:hover > div.title > .radial-progress .inset,
   .main-content-list > li.cl > ul li.cl > div.active > div.title > .radial-progress .inset,
@@ -932,7 +950,7 @@ i.writer:before {
           clip: rect(0, 1em, 1em, 0.5em); }
           .main-content-list > li.cl > div > div.title > .radial-progress .circle .mask .fill {
             clip: rect(0, 0.5em, 1em, 0);
-            background: #fff; }
+            background: white; }
         .main-content-list > li.cl > div > div.title > .radial-progress .inset {
           width: 0.65em;
           height: 0.65em;
@@ -1016,7 +1034,7 @@ i.writer:before {
             clip: rect(0, 1em, 1em, 0.5em); }
             .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .circle .mask .fill {
               clip: rect(0, 0.5em, 1em, 0);
-              background: #fff; }
+              background: white; }
           .main-content-list > li.cl > ul li.cl > div > div.title > .radial-progress .inset {
             width: 0.75em;
             height: 0.75em;
@@ -1066,21 +1084,9 @@ i.writer:before {
             .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress .inset {
               width: 0;
               height: 0;
-              background: #fff;
+              background: white;
               margin-left: 0.5em;
               margin-top: 0.5em; }
-          .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.details {
-            display: none;
-            float: left;
-            clear: both;
-            font-size: .9em; }
-            .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.details .legend {
-              opacity: .7; }
-          .main-content-list > li.cl > ul li.cl > ul li.cl > div.detailed.active {
-            min-height: 4.63241em;
-            max-height: 4.63241em; }
-            .main-content-list > li.cl > ul li.cl > ul li.cl > div.detailed.active > div.details {
-              display: block; }
         .main-content-list > li.cl > ul li.cl > ul li.cl:first-child > div {
           margin-top: 0; }
 
@@ -1116,16 +1122,16 @@ i.writer:before {
   .main-content-list li.cl > div.active,
   .main-content-list li.cl > div.active:hover {
     background: #049cdb;
-    color: #fff; }
+    color: white; }
     .top-filter.active .select > button, .top-filter.active:hover .select > button,
     .main-content-list li.cl > div.active .select > button,
     .main-content-list li.cl > div.active:hover .select > button {
       background: none;
-      border: #fff 2px solid; }
+      border: white 2px solid; }
       .top-filter.active .select > button span, .top-filter.active:hover .select > button span,
       .main-content-list li.cl > div.active .select > button span,
       .main-content-list li.cl > div.active:hover .select > button span {
-        color: #fff; }
+        color: white; }
     .top-filter.active .actions, .top-filter.active:hover .actions,
     .main-content-list li.cl > div.active .actions,
     .main-content-list li.cl > div.active:hover .actions {
@@ -1135,11 +1141,11 @@ i.writer:before {
     .top-filter.active .comments > span, .top-filter.active:hover .comments > span,
     .main-content-list li.cl > div.active .comments > span,
     .main-content-list li.cl > div.active:hover .comments > span {
-      color: #fff; }
+      color: white; }
       .top-filter.active .comments > span.highlight, .top-filter.active:hover .comments > span.highlight,
       .main-content-list li.cl > div.active .comments > span.highlight,
       .main-content-list li.cl > div.active:hover .comments > span.highlight {
-        color: #fff; }
+        color: white; }
   .top-filter > div > button span,
   .top-filter > div .select > button span,
   .main-content-list li.cl > div > div > button span,
@@ -1147,13 +1153,13 @@ i.writer:before {
     line-height: 1.5em; }
   .top-filter > div > button,
   .main-content-list li.cl > div > div > button {
-    background: #333;
+    background: #333333;
     border: none;
     padding: 0.25em 1em; }
   .top-filter > div .select > button,
   .main-content-list li.cl > div > div .select > button {
-    background: #ddd;
-    border: #ddd 2px solid;
+    background: #dddddd;
+    border: #dddddd 2px solid;
     padding: 0.25em 0.5em; }
     .top-filter > div .select > button span,
     .main-content-list li.cl > div > div .select > button span {
@@ -1166,7 +1172,7 @@ i.writer:before {
   position: relative; }
   .select > button {
     text-align: left;
-    border: #ddd 2px solid;
+    border: #dddddd 2px solid;
     position: relative; }
     .select > button.active span {
       min-width: 10em; }
@@ -1192,7 +1198,7 @@ i.writer:before {
     font-size: 1.1em;
     left: 0;
     top: 2.67273em;
-    background: #fff;
+    background: white;
     width: 100%;
     padding: 0.4em 0;
     border: #c4c4c4 0.1em solid;
@@ -1221,7 +1227,7 @@ i.writer:before {
           position: absolute;
           right: 1em; }
       .select .select-dropdown li.placeholder {
-        border-bottom: #ddd 1px dashed; }
+        border-bottom: #dddddd 1px dashed; }
     .select .select-dropdown button {
       background: none;
       color: #666666;
@@ -1237,16 +1243,16 @@ i.writer:before {
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   left: 0;
   font-size: .7em;
-  background: #333;
-  color: #fff;
+  background: #333333;
+  color: white;
   border-radius: 0.3em;
   padding: 0 .5em;
   opacity: 0;
   cursor: default; }
   .tip.left {
     position: absolute;
-    background: #333;
-    border: 0 solid #333; }
+    background: #333333;
+    border: 0 solid #333333; }
     .tip.left:after, .tip.left:before {
       left: 100%;
       border: solid transparent;
@@ -1257,14 +1263,14 @@ i.writer:before {
       pointer-events: none; }
     .tip.left:after {
       border-color: rgba(119, 100, 213, 0);
-      border-left-color: #333;
+      border-left-color: #333333;
       border-width: 0.3em;
       top: 50%;
       margin-top: -0.3em;
       z-index: 3; }
     .tip.left:before {
       border-color: rgba(194, 225, 245, 0);
-      border-left-color: #333;
+      border-left-color: #333333;
       border-width: 0.3em;
       top: 50%;
       margin-top: -0.3em;
@@ -1289,7 +1295,7 @@ i.writer:before {
 input[type="submit"].primary,
 button.primary {
   background-color: #049cdb;
-  color: #fff; }
+  color: white; }
   input[type="submit"].primary:hover,
   button.primary:hover {
     background-color: #0378a9;
@@ -1321,7 +1327,7 @@ input.ng-invalid {
   padding: .5em;
   background-color: #ffc40d;
   border-radius: 3px;
-  color: #333; }
+  color: #333333; }
 
 .select button {
   border-radius: .45em; }
@@ -1330,7 +1336,7 @@ input.ng-invalid {
 .select .select-dropdown {
   border-radius: .3em;
   position: absolute;
-  background: #fff;
+  background: white;
   border: 0.1em solid #c4c4c4; }
   .select .select-dropdown:after, .select .select-dropdown:before {
     bottom: 100%;
@@ -1342,7 +1348,7 @@ input.ng-invalid {
     pointer-events: none; }
   .select .select-dropdown:after {
     border-color: rgba(119, 100, 213, 0);
-    border-bottom-color: #fff;
+    border-bottom-color: white;
     border-width: 0.5em;
     left: 50%;
     margin-left: -0.5em;
@@ -1361,12 +1367,12 @@ input.ng-invalid {
 
 button {
   background-color: #049cdb;
-  color: #fff; }
+  color: white; }
   button:hover {
     background-color: #0378a9;
     color: #e6e6e6; }
   button.secondary {
-    background-color: #333; }
+    background-color: #333333; }
     button.secondary:hover {
       background-color: #1a1a1a; }
 
@@ -1593,43 +1599,53 @@ input.ng-invalid {
 
 @keyframes badge {
   0%,
-    20%,
-    40%,
-    60%,
-    80%,
-    100% {
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+
   0% {
     transform: scale3d(0.3, 0.3, 0.3); }
+
   20% {
     transform: scale3d(1.2, 1.2, 1.2); }
+
   40% {
     transform: scale3d(0.9, 0.9, 0.9); }
+
   60% {
     transform: scale3d(1.1, 1.1, 1.1); }
+
   80% {
     transform: scale3d(0.95, 0.95, 0.95); }
+
   100% {
     transform: scale3d(1, 1, 1); } }
 @keyframes feedback {
   0%,
-    40%,
-    80%,
-    100% {
+  40%,
+  80%,
+  100% {
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+
   0% {
     transform: scaleY(0.3);
     bottom: -3.5em; }
+
   20% {
     transform: scaleY(1.2);
     bottom: -0.35em; }
+
   40% {
     transform: scaleY(1); }
+
   60% {
     transform: scaleY(1.1); }
+
   80% {
     transform: scaleY(0.98); }
+
   100% {
     transform: scaleY(1); } }
-
-/*# sourceMappingURL=main.css.map */

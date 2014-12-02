@@ -97,7 +97,7 @@ describe('Unit: Websocket', function() {
         websocketService.on(EVENTS.SOCKET.MAIN.RECONNECTED,reconnectListener);
         setTimeout(function() {
             socket.onclose();
-        },8);
+        },10);
     });
 
     it('should not attempt to reconnect in case of a forcefully closed connection', function (done) {
