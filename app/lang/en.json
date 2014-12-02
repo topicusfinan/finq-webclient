@@ -109,6 +109,7 @@
                 "BEFORE_STATUS" : "Show"
             },
             "NO_REPORTS" : "There are no reports available that match your filter",
+            "DETAILS" : "Details",
             "MESSAGE" : {
                 "SUCCESS" : {
                     "SINGULAR" : "The story was executed successfully",

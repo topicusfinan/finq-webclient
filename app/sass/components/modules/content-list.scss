@@ -86,6 +86,14 @@
             > div.details {
                 display: block;
             }
+
+            > div.comments {
+                display: none;
+            }
+
+            > div.actions {
+                top: $content-list-det-actions-top;
+            }
         }
     }
 
