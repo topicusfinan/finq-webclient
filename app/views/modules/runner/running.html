@@ -16,8 +16,8 @@
                 <span>#{{::run.id}}</span>
                 <span>-</span>
                 <span>{{run.runtime}}</span>
-                <i class="fa fa-globe separate"><span class="tip left">{{::run.environment.name}}</span></i>
-                <i class="fa fa-user"><span class="tip left">{{::run.startedBy.name}}</span></i>
+                <strong class="hint--left separate" data-hint="{{::run.environment.name}}"><i class="fa fa-globe"></i></strong>
+                <strong class="hint--left" data-hint="{{::run.startedBy.name}}"><i class="fa fa-user"></i></strong>
             </div>
         </div>
         <ul>
