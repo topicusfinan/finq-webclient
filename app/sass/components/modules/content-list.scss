@@ -191,6 +191,7 @@
 
             > div.title > span,
             > div.comments > i,
+            > div.comments > strong,
             > div.actions > span {
                 font-size: $content-list-item-1-font-size;
                 line-height: $content-list-item-1-font-size;
@@ -218,15 +219,10 @@
 
                 > i {
                     cursor: pointer;
+                }
 
-                    .tip {
-                        display: none;
-                    }
-
-                    &:hover .tip {
-                        display: inline-block;
-                        opacity: 1;
-                    }
+                > strong.separate {
+                    margin-left: $filter-button-padding / 4;
                 }
             }
 

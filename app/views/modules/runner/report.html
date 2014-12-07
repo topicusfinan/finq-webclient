@@ -16,8 +16,8 @@
                 <span>#{{::runReport.id}}</span>
                 <span>-</span>
                 <span>{{::runReport.runtime}}</span>
-                <i class="fa fa-globe separate"><span class="tip left">{{::runReport.environment.name}}</span></i>
-                <i class="fa fa-user"><span class="tip left">{{::runReport.startedBy.name}}</span></i>
+                <strong class="hint--left separate" data-hint="{{::runReport.environment.name}}"><i class="fa fa-globe"></i></strong>
+                <strong class="hint--left" data-hint="{{::runReport.startedBy.name}}"><i class="fa fa-user"></i></strong>
             </div>
             <div class="details">
                 <span class="legend">{{::runReport.message}}</span>

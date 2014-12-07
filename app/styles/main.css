@@ -962,6 +962,7 @@ i.writer:before {
           background: #beca68; }
       .main-content-list > li.cl > div > div.title > span,
       .main-content-list > li.cl > div > div.comments > i,
+      .main-content-list > li.cl > div > div.comments > strong,
       .main-content-list > li.cl > div > div.actions > span {
         font-size: 1.333em;
         line-height: 1.333em;
@@ -980,11 +981,8 @@ i.writer:before {
             color: #0378a9; }
         .main-content-list > li.cl > div > div.comments > i {
           cursor: pointer; }
-          .main-content-list > li.cl > div > div.comments > i .tip {
-            display: none; }
-          .main-content-list > li.cl > div > div.comments > i:hover .tip {
-            display: inline-block;
-            opacity: 1; }
+        .main-content-list > li.cl > div > div.comments > strong.separate {
+          margin-left: 0.125em; }
       .main-content-list > li.cl > div p {
         margin: 0; }
     .main-content-list > li.cl > ul li.cl {
