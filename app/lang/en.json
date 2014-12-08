@@ -103,7 +103,7 @@
         "DEBUGGING" : {
             "TITLE" : "Debugging"
         },
-        "REPORT" : {
+        "REPORTS" : {
             "TITLE" : "Reports",
             "FILTER" : {
                 "BEFORE_STATUS" : "Show"

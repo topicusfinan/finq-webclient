@@ -24,7 +24,11 @@ angular.module('finqApp.runner', [
         templateUrl: '/views/modules/runner/running.html',
         controller: 'RunningCtrl',
         controllerAs: 'running'
-    }).when('/runner/report', {
+    }).when('/runner/reports', {
+        templateUrl: '/views/modules/runner/reports.html',
+        controller: 'ReportsCtrl',
+        controllerAs: 'reports'
+    }).when('/runner/reports/:id', {
         templateUrl: '/views/modules/runner/report.html',
         controller: 'ReportCtrl',
         controllerAs: 'report'

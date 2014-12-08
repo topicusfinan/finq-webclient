@@ -2,38 +2,39 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.runner.controller:ReportCtrl
+ * @name finqApp.runner.controller:ReportsCtrl
  * @description
- * # Run report controller
+ * # Run reports controller
  *
  * The report controller allows the user to view reports of runs that were executed in the past. Any
  * completed run has a report, so this includes successful and failed runs. Once a run completes it
  * is immediately "moved" to the reports section.
  */
 angular.module('finqApp.runner.controller')
-    .controller('ReportCtrl', [
+    .controller('ReportsCtrl', [
         '$scope',
         'config',
         'value',
         'reporterFilter',
         'module',
         '$timeout',
+        '$location',
         'MODULES',
         'EVENTS',
-        function ($scope,configProvider,valueService,reporterFilterService,moduleService,$timeout,MODULES,EVENTS) {
+        function ($scope,configProvider,valueService,reporterFilterService,moduleService,$timeout,$location,MODULES,EVENTS) {
             var that = this;
 
             this.filter = {
                 status: {id: 'status', ids: []}
             };
             this.selectedItem = null;
-            this.reportListRef = 'reports';
+            this.reportListRef = 'reportList';
             this.maxReports = configProvider.client().report.pagination.client.reportsPerPage;
             this.maxSelectItems = configProvider.client().selectDropdown.pagination.itemsPerPage;
             this.currentPage = 0;
             this.hasMorePages = valueService.hasMorePages;
 
-            $scope.reports = reporterFilterService.getFilteredReports;
+            $scope.reportList = reporterFilterService.getFilteredReports;
             $scope.initialized = reporterFilterService.isInitialized;
 
             $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED, function (event, filterInfo) {
@@ -41,11 +42,15 @@ angular.module('finqApp.runner.controller')
                 reporterFilterService.applyFilter(that.filter.status.ids);
             });
 
-            moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORT);
+            moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORTS);
 
             $timeout(function() {
                 // we reapply the filter after an initial delay to ensure that titles for reports are properly defined
                 reporterFilterService.applyFilter();
             },100);
+
+            this.get = function(reportId) {
+                $location.path('/'+MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.','/')+'/'+reportId);
+            };
 
         }]);
