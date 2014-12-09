@@ -45,7 +45,7 @@ describe('Unit: RunningCtrl', function() {
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/environments').respond(200, environmentMockData);
         $httpBackend.expectGET('/books').respond(200, storyMockData);
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=2&page=0').respond(200, []);
+        $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=2&page=0').respond(200, []);
         config.load().then(function() {
             environment.list();
             RunningCtrl = $controller('RunningCtrl', {$scope: scope});

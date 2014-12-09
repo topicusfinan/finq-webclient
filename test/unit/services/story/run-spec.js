@@ -24,7 +24,7 @@ describe('Unit: RunService', function() {
             run: {pagination: {server: {runsPerRequest: 50}}}
         });
         $httpBackend.expectGET('/app').respond(200);
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
+        $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
         config.load().then(function() {
             runService.list().then(function(runData) {
                 runs = runData;
@@ -65,7 +65,7 @@ describe('Unit: RunService with an unstable backend', function() {
             run: {pagination: {server: {runsPerRequest: 50}}}
         });
         $httpBackend.expectGET('/app').respond(200);
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(503);
+        $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(503);
         config.load().then(function() {
             runService.list().then(null,function(error) {
                 feedback = error;

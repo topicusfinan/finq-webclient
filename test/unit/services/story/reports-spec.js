@@ -31,8 +31,8 @@ describe('Unit: ReportService', function() {
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=0').respond(200, firstResponse);
-        $httpBackend.expectGET('/run?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=1').respond(200, secondResponse);
+        $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=0').respond(200, firstResponse);
+        $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=1&page=1').respond(200, secondResponse);
         config.load().then(function() {
             story.list().then(reportService.list().then(function(reportData) {
                 reports = reportData;

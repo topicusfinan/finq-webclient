@@ -16,7 +16,7 @@ angular.module('finqApp.service')
             var deferred = $q.defer();
             var reportsPerRequest = configProvider.client().report.pagination.server.reportsPerRequest;
             var maxReports  = configProvider.client().report.pagination.server.maxTotalReports;
-            backend.get('/run',{
+            backend.get('/runs',{
                 status: [
                     STATE.RUN.SCENARIO.SUCCESS,
                     STATE.RUN.SCENARIO.FAILED

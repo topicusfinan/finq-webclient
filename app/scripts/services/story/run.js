@@ -15,7 +15,7 @@ angular.module('finqApp.service')
         var load = function() {
             var deferred = $q.defer();
             var maxRuns = configProvider.client().run.pagination.server.runsPerRequest;
-            backend.get('/run',{
+            backend.get('/runs',{
                 status: STATE.RUN.SCENARIO.RUNNING,
                 size: maxRuns,
                 page: 0

@@ -182,7 +182,7 @@ describe('Unit: RunnerService', function() {
     });
 
     it('should load any current runs from the backend the first time the running sessions are listed', function (done) {
-        backend.expectGET('/run?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
+        backend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
         runnerService.getRunningSessions();
         backend.flush();
         $rootScope.$digest();
