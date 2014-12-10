@@ -31,8 +31,8 @@ angular.module('finqApp.controller')
             }
             searchTimeout = setTimeout(function() {
                 if (that.query !== valueService.searchQuery) {
-                    $rootScope.$broadcast(EVENTS.SCOPE.SEARCH_UPDATED,that.query);
                     valueService.searchQuery = that.query;
+                    $rootScope.$broadcast(EVENTS.SCOPE.SEARCH_UPDATED,that.query);
                     $scope.$apply();
                 }
             },that.timeout);
