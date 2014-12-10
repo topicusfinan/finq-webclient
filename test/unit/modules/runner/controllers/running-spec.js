@@ -60,7 +60,7 @@ describe('Unit: RunningCtrl', function() {
         expect(RunningCtrl.selectedItem).to.be.null;
     });
 
-    it('should initially set the maximum selectable items for a dropdown to the standard confgured value', function () {
+    it('should initially set the maximum selectable items for a dropdown to the standard configured value', function () {
         expect(RunningCtrl.maxSelectItems).to.equal(configProvider.client().selectDropdown.pagination.itemsPerPage);
     });
 
@@ -68,7 +68,7 @@ describe('Unit: RunningCtrl', function() {
         expect(moduleSpy).to.have.been.calledWith(MODULES.RUNNER.sections.RUNNING);
     });
 
-    it('should respond to an update environement request by setting the environment keys', function () {
+    it('should respond to an update environment request by setting the environment keys', function () {
         var envEventData = {id: 'env', keys: [1], keysFull: [1]};
         scope.$emit(EVENTS.SCOPE.FILTER_SELECT_UPDATED,envEventData);
         expect(RunningCtrl.filter.env.ids).to.deep.equal(envEventData.keys);
