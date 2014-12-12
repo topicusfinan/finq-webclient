@@ -26,6 +26,9 @@ angular.module('finqApp')
                 'NO_ENVIRONMENT_SELECTED': {'key':'RUN.NO_ENVIRONMENT_SELECTED'},
                 'REQUEST_FAILED': {'key':'RUN.REQUEST_FAILED'}
             },
+            'REPORT': {
+                'UNABLE_TO_LOAD': {'key':'REPORT.UNABLE_TO_LOAD'}
+            },
             'SOCKET': {
                 'UNABLE_TO_CONNECT': {'key': 'SOCKET.UNABLE_TO_CONNECT'},
                 'UNABLE_TO_RECONNECT': {'key': 'SOCKET.UNABLE_TO_RECONNECT'}

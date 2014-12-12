@@ -15,13 +15,16 @@ angular.module('finqApp.runner.controller')
         '$scope',
         'config',
         'value',
+        'report',
         'reporterFilter',
         'module',
         '$timeout',
         '$location',
         'MODULES',
         'EVENTS',
-        function ($scope,configProvider,valueService,reporterFilterService,moduleService,$timeout,$location,MODULES,EVENTS) {
+        'FEEDBACK',
+        'feedback',
+        function ($scope,configProvider,valueService,reportService,reporterFilterService,moduleService,$timeout,$location,MODULES,EVENTS,FEEDBACK,feedbackService) {
             var that = this;
 
             this.filter = {
@@ -50,7 +53,11 @@ angular.module('finqApp.runner.controller')
             },100);
 
             this.get = function(reportId) {
-                $location.path('/'+MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.','/')+'/'+reportId);
+                reportService.getReport(reportId).then(function() {
+                    $location.path('/'+MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.','/')+'/'+reportId);
+                }, function() {
+                    feedbackService.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
+                });
             };
 
         }]);

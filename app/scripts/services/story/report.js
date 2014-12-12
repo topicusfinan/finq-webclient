@@ -10,7 +10,8 @@
  */
 angular.module('finqApp.service')
     .service('report', ['backend','$q','$translate','STATE','config','run','utils',function (backend,$q,$translate,STATE,configProvider,runService,utils) {
-        var reports = null;
+        var reports = null,
+            report = null;
 
         var load = function(increment,maxReportsThisRequest) {
             var deferred = $q.defer();
@@ -26,8 +27,8 @@ angular.module('finqApp.service')
             }).success(function(runData) {
                 transformRunsIntoReports(runData.data);
                 if (reports.length < maxReports && runData.totalCount > (increment+1)*reportsPerRequest) {
-                    load(increment+1).then(function() {
-                        deferred.resolve(reports,Math.min(maxReports-reports.length,reportsPerRequest));
+                    load(increment+1,Math.min(maxReports-reports.length,reportsPerRequest)).then(function() {
+                        deferred.resolve(reports);
                     });
                 } else {
                     deferred.resolve(reports);
@@ -94,6 +95,20 @@ angular.module('finqApp.service')
             } else {
                 return $q.when(reports);
             }
+        };
+
+        this.getReport = function(reportId) {
+            if (report !== null && report.id === reportId) {
+                return $q.when(report);
+            }
+            var deferred = $q.defer();
+            backend.get('/runs/'+reportId).success(function(reportData) {
+                report = reportData;
+                deferred.resolve(report);
+            }).error(function() {
+                deferred.reject('Failed to load the report with id: '+reportId);
+            });
+            return deferred.promise;
         };
 
     }]);

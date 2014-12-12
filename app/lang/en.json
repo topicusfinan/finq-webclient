@@ -14,6 +14,9 @@
                 "NO_ENVIRONMENT_SELECTED" : "Please select an environment to run your test",
                 "REQUEST_FAILED" : "Your request could not be completed due to an error"
             },
+            "REPORT" : {
+                "UNABLE_TO_LOAD" : "The report you selected could not be loaded"
+            },
             "SOCKET" : {
                 "UNABLE_TO_RECONNECT" : "Unable to reconnect to the server",
                 "UNABLE_TO_CONNECT" : "Unable to connect to the server run updates"
