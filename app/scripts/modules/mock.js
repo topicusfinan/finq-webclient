@@ -33,6 +33,15 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenGET('/tags').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
+        $httpBackend.whenGET(/^\/runs\/[0-9]+/).respond(function(method, url) {
+            var runId = parseInt(url.split('/')[2],10);
+            for (var i=0; i<reportServiceMock.data.length; i++) {
+                if (reportServiceMock.data[i].id === runId) {
+                    return [200,reportServiceMock.data[i]];
+                }
+            }
+            return [404, 'Report not found'];
+        });
         $httpBackend.whenGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=50&page=0').respond(reportServiceMock);
         $httpBackend.whenGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(function() {
             var i, j, k, runningList = angular.copy(runServiceMock);

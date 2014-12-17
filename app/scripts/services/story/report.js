@@ -104,6 +104,9 @@ angular.module('finqApp.service')
             var deferred = $q.defer();
             backend.get('/runs/'+reportId).success(function(reportData) {
                 report = reportData;
+                runService.setupRunTitle(reportData).then(function(translatedTitle) {
+                    report.title = translatedTitle;
+                });
                 deferred.resolve(report);
             }).error(function() {
                 deferred.reject('Failed to load the report with id: '+reportId);

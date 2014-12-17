@@ -25,7 +25,7 @@ angular.module('finqApp.runner.controller')
             this.loaded = false;
 
             reportService.getReport($routeParams.reportId).then(function(report) {
-                $scope.report = report;
+                $scope.run = report;
                 that.loaded = true;
             }, function() {
                 feedbackService.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
