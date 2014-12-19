@@ -3,7 +3,7 @@
     &.expand > li.cl > ul li.cl,
     > li.cl > ul.expand li.cl,
     > li.cl > ul li.cl.expand {
-        > div > div.title > i:after {
+        > div > div.title > i.expand:after {
             content: '\f0d7';
         }
 
@@ -277,10 +277,18 @@
                         font-size: $content-list-item-2-icon-size;
                         top: $content-list-item-2-icon-top;
 
-                        &:after {
+                        &.expand:after {
 
                             @extend %icon;
                             content: '\f0da';
+                        }
+
+                        &.success {
+                            content: '\f00c';
+                        }
+
+                        &.failed {
+                            content: '\f00d';
                         }
                     }
 
@@ -315,8 +323,12 @@
                         padding-top: $content-list-item-3-spacing;
                         margin-top: $content-list-item-spacing / 2;
 
-                        &.success > div.title .radial-progress .circle .mask .fill {
-                            background: lighten($run-success-color, 10%);
+                        &.success {
+                            background: lighten($run-success-color, 30%);
+
+                            > div.title .radial-progress .circle .mask .fill {
+                                background: lighten($run-success-color, 10%);
+                            }
                         }
 
                         &.failed {
@@ -344,8 +356,15 @@
                             margin-top: $content-list-3-select-margin-top;
                         }
 
-                        > div.title > .radial-progress {
-                            @include radial-progress(1em, 0, $run-progress-scenario-todo-bg, $run-progress-scenario-done-bg);
+                        > div.title > {
+
+                            .fa-fw {
+                                left: $section-list-icon-left;
+                            }
+
+                            .radial-progress {
+                                @include radial-progress(1em, 0, $run-progress-scenario-todo-bg, $run-progress-scenario-done-bg);
+                            }
                         }
                     }
 

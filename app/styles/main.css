@@ -523,7 +523,7 @@ input[type='submit'] {
     -ms-transform: rotate(360deg);
     transform: rotate(360deg); }
 
-.main-content-list > li.cl > ul li.cl > div > div.title > i:after, .select .select-dropdown li.active:after {
+.main-content-list > li.cl > ul li.cl > div > div.title > i.expand:after, .select .select-dropdown li.active:after {
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
@@ -825,9 +825,9 @@ i.writer:before {
 
 .main-content-list {
   margin-bottom: 6em; }
-  .main-content-list.expand > li.cl > ul li.cl > div > div.title > i:after,
-  .main-content-list > li.cl > ul.expand li.cl > div > div.title > i:after,
-  .main-content-list > li.cl > ul li.cl.expand > div > div.title > i:after {
+  .main-content-list.expand > li.cl > ul li.cl > div > div.title > i.expand:after,
+  .main-content-list > li.cl > ul.expand li.cl > div > div.title > i.expand:after,
+  .main-content-list > li.cl > ul li.cl.expand > div > div.title > i.expand:after {
     content: '\f0d7'; }
   .main-content-list.expand > li.cl > ul li.cl > ul,
   .main-content-list > li.cl > ul.expand li.cl > ul,
@@ -1011,8 +1011,12 @@ i.writer:before {
         .main-content-list > li.cl > ul li.cl > div > div.title > i {
           font-size: 1.778em;
           top: 0.25em; }
-          .main-content-list > li.cl > ul li.cl > div > div.title > i:after {
+          .main-content-list > li.cl > ul li.cl > div > div.title > i.expand:after {
             content: '\f0da'; }
+          .main-content-list > li.cl > ul li.cl > div > div.title > i.success {
+            content: '\f00c'; }
+          .main-content-list > li.cl > ul li.cl > div > div.title > i.failed {
+            content: '\f00d'; }
         .main-content-list > li.cl > ul li.cl > div > div.title > span,
         .main-content-list > li.cl > ul li.cl > div > div.actions > span {
           font-size: 1.2em;
@@ -1050,8 +1054,10 @@ i.writer:before {
           background: #f7f7f7;
           padding-top: 1px;
           margin-top: 1px; }
-          .main-content-list > li.cl > ul li.cl > ul li.cl > div.success > div.title .radial-progress .circle .mask .fill {
-            background: #ced78e; }
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div.success {
+            background: #eff2d9; }
+            .main-content-list > li.cl > ul li.cl > ul li.cl > div.success > div.title .radial-progress .circle .mask .fill {
+              background: #ced78e; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div.failed {
             background: #ee9289; }
             .main-content-list > li.cl > ul li.cl > ul li.cl > div.failed > div.title .radial-progress .circle .mask .fill {
@@ -1065,6 +1071,8 @@ i.writer:before {
             margin-top: 0.2em; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div .select > button {
             margin-top: 0.1em; }
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .fa-fw {
+            left: 0.53333em; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div > div.title > .radial-progress {
             background: #e7e7e7;
             width: 1em;

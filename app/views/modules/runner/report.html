@@ -1,6 +1,41 @@
-<div class="top-filter filter-1 ic selectable" ng-show="report.loaded" ng-class="{'active':report.selectedItem === null}" ng-click="running.selectedItem = null">
-    <i class="fa fa-chevron-left"></i>
+<div class="top-filter filter-1 ic selectable" ng-show="report.loaded" ng-class="{'active':report.selectedItem === null}" ng-click="report.selectedItem = null">
+    <i class="fa fa-chevron-left" ng-click="report.list()"></i>
     <div class="filters">
         <span>{{ run.title }}</span>
     </div>
 </div>
+<ul id="run-report" class="main-content-list filter-1">
+    <li class="ic cl list-animate" ng-repeat="story in run.stories track by story.id">
+        <div>
+            <div class="title limited">
+                <div class="radial-progress" data-toggle="collection" progress="story.percentage" highlight="story.highlight"></div>
+                <span class="separate">{{::story.title}}</span>
+            </div>
+        </div>
+        <ul>
+            <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
+                <div class="selectable {{scenario.highlight}}" ng-class="{'active':report.selectedItem === 'scenario-'+scenario.id}" ng-click="report.selectedItem = 'scenario-'+scenario.id" data-toggle="story">
+                    <div class="title">
+                        <div class="radial-progress" progress="scenario.percentage" highlight="scenario.highlight"></div>
+                        <span class="separate">{{::scenario.title}}</span>
+                    </div>
+                </div>
+                <ul>
+                    <li class="ic cl" ng-repeat="step in scenario.steps track by $index">
+                        <div class="selectable {{step.highlight}}" ng-class="{'active':report.selectedItem === 'step-'+run.id+'-'+scenario.id+'-'+$index, 'detailed':step.message != null}" ng-click="report.selectedItem = 'step-'+run.id+'-'+scenario.id+'-'+$index">
+                            <div class="title">
+                                <i class="fa fa-fw {{step.highlight}}"></i>
+                                <span>{{::step.title}}</span>
+                            </div>
+                            <div ng-if="step.message != null" class="details">
+                                <span class="legend">{{step.messagePrefix}}</span>
+                                <span>{{step.message}}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h1 class="hero-notice" translate="RUNNER.REPORTS.REPORT.RUN_NOT_COMPLETED" ng-show="!report.runCompleted"></h1>

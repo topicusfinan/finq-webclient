@@ -1,0 +1,47 @@
+/**
+ * Created by c.kramer on 9/2/2014.
+ */
+'use strict';
+
+describe('Unit: RunUtils service', function() {
+
+    var runUtilsService,
+        STATE;
+
+    beforeEach(function() {
+        module('finqApp');
+        module('finqApp.service');
+    });
+    beforeEach(inject(function (runUtils,_STATE_) {
+        runUtilsService = runUtils;
+        STATE = _STATE_;
+    }));
+
+    it('should be able to determine a failed status and percentage depending on progress input', function () {
+        var item = {
+            status: STATE.RUN.SCENARIO.FAILED
+        };
+        runUtilsService.calculateProgress(item,5,10);
+        expect(item.percentage).to.equal(48);
+        expect(item.highlight).to.equal('failed');
+    });
+
+    it('should be able to determine a success status and percentage depending on progress input', function () {
+        var item = {
+            status: STATE.RUN.SCENARIO.SUCCESS
+        };
+        runUtilsService.calculateProgress(item,10,10);
+        expect(item.percentage).to.equal(100);
+        expect(item.highlight).to.equal('success');
+    });
+
+    it('should be able to determine a default status and percentage depending on progress input', function () {
+        var item = {
+            status: STATE.RUN.SCENARIO.RUNNING
+        };
+        runUtilsService.calculateProgress(item,2,10);
+        expect(item.percentage).to.equal(20);
+        expect(item.highlight).to.equal('none');
+    });
+
+});

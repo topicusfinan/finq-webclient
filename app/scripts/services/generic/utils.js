@@ -6,7 +6,7 @@
  * @description
  * # Application utilities
  *
- * A service that provices general utilities for the application.
+ * A service that provides general utilities for the application.
  */
 angular.module('finqApp.service')
     .service('utils', function () {

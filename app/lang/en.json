@@ -122,6 +122,9 @@
                     "SINGULAR" : "The story failed to execute",
                     "PLURAL" : "{{successStories}} out of {{totalStories}} stories were executed successfully"
                 }
+            },
+            "REPORT" : {
+                "RUN_NOT_COMPLETED" : "The run has not yet finished execution"
             }
         }
     },
