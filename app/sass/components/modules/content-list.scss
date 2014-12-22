@@ -79,7 +79,8 @@
             }
         }
 
-        &.detailed.active {
+        &.detailed.active,
+        &.detailed.always {
             min-height: $content-list-item-2-det-height;
             max-height: $content-list-item-2-det-height;
 
@@ -282,14 +283,6 @@
                             @extend %icon;
                             content: '\f0da';
                         }
-
-                        &.success {
-                            content: '\f00c';
-                        }
-
-                        &.failed {
-                            content: '\f00d';
-                        }
                     }
 
                     > div.title > span,
@@ -336,6 +329,13 @@
 
                             > div.title .radial-progress .circle .mask .fill {
                                 background: lighten($run-failed-color, 10%);
+                            }
+                        }
+
+                        &.skipped:not(.active) {
+                            > div.title,
+                            > div.i {
+                                opacity: .4;
                             }
                         }
 

@@ -22,7 +22,7 @@
                 </div>
                 <ul>
                     <li class="ic cl" ng-repeat="step in scenario.steps track by $index">
-                        <div class="selectable {{step.highlight}}" ng-class="{'active':report.selectedItem === 'step-'+run.id+'-'+scenario.id+'-'+$index, 'detailed':step.message != null}" ng-click="report.selectedItem = 'step-'+run.id+'-'+scenario.id+'-'+$index">
+                        <div class="selectable {{step.highlight}}" ng-class="{'active':report.selectedItem === 'step-'+run.id+'-'+scenario.id+'-'+$index, 'detailed always':step.message != null}" ng-click="report.selectedItem = 'step-'+run.id+'-'+scenario.id+'-'+$index">
                             <div class="title">
                                 <i class="fa fa-fw {{step.highlight}}"></i>
                                 <span>{{::step.title}}</span>

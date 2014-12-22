@@ -6,6 +6,14 @@ i.failed:before {
     content: '\f00d';
 }
 
+i.skipped:before {
+    content: '\f127';
+}
+
+i.blocked:before {
+    content: '\f05e';
+}
+
 i.runner:before {
     content: '\f04b';
 }

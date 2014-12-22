@@ -16,16 +16,12 @@ angular.module('finqApp.runner.service')
             var updateScenarioDetails = function(scenario) {
                 var template, stepsCompleted = 0;
                 for (var i=0; i<scenario.steps.length; i++) {
-                    scenario.steps[i].highlight = 'none';
-                    if (scenario.steps[i].status === STATE.RUN.SCENARIO.SUCCESS) {
-                        scenario.steps[i].highlight = 'success';
-                    }
+                    scenario.steps[i].highlight = statusToHighlight(scenario.steps[i].status);
                     if (scenario.steps[i].status === STATE.RUN.SCENARIO.SUCCESS || scenario.steps[i].status === STATE.RUN.SCENARIO.FAILED) {
                         stepsCompleted++;
                     }
                     if (scenario.steps[i].status === STATE.RUN.SCENARIO.FAILED) {
                         scenario.failed = true;
-                        scenario.steps[i].highlight = 'failed';
                         scenario.message = scenario.steps[i].message;
                     } else if (scenario.steps[i].status === STATE.RUN.SCENARIO.RUNNING) {
                         scenario.message = scenario.steps[i].title;
@@ -63,16 +59,23 @@ angular.module('finqApp.runner.service')
 
         this.calculateProgress = function(item,actionsCompleted,totalActions) {
             item.percentage = parseInt(actionsCompleted/totalActions*25, 10)*4;
-            switch (item.status) {
+            item.highlight = statusToHighlight(item.status);
+        };
+
+        var statusToHighlight = function(status) {
+            switch (status) {
                 case STATE.RUN.SCENARIO.FAILED:
-                    item.highlight = 'failed';
-                    break;
+                    return 'failed';
                 case STATE.RUN.SCENARIO.SUCCESS:
-                    item.highlight = 'success';
-                    break;
+                    return 'success';
+                case STATE.RUN.SCENARIO.SKIPPED:
+                    return 'skipped';
+                case STATE.RUN.SCENARIO.QUEUED:
+                    return 'queued';
+                case STATE.RUN.SCENARIO.BLOCKED:
+                    return 'blocked';
                 default:
-                    item.highlight = 'none';
-                    break;
+                    return 'none';
             }
         };
 

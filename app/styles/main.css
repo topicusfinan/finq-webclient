@@ -774,6 +774,12 @@ i.success:before {
 i.failed:before {
   content: '\f00d'; }
 
+i.skipped:before {
+  content: '\f127'; }
+
+i.blocked:before {
+  content: '\f05e'; }
+
 i.runner:before {
   content: '\f04b'; }
 
@@ -874,14 +880,14 @@ i.writer:before {
       font-size: .9em; }
       .main-content-list li.cl > div > div.details .legend {
         opacity: .7; }
-    .main-content-list li.cl > div.detailed.active {
+    .main-content-list li.cl > div.detailed.active, .main-content-list li.cl > div.detailed.always {
       min-height: 4.63241em;
       max-height: 4.63241em; }
-      .main-content-list li.cl > div.detailed.active > div.details {
+      .main-content-list li.cl > div.detailed.active > div.details, .main-content-list li.cl > div.detailed.always > div.details {
         display: block; }
-      .main-content-list li.cl > div.detailed.active > div.comments {
+      .main-content-list li.cl > div.detailed.active > div.comments, .main-content-list li.cl > div.detailed.always > div.comments {
         display: none; }
-      .main-content-list li.cl > div.detailed.active > div.actions {
+      .main-content-list li.cl > div.detailed.active > div.actions, .main-content-list li.cl > div.detailed.always > div.actions {
         top: 0.7em; }
   .main-content-list > li.cl > div > div.details {
     margin: 0 0.25em; }
@@ -1013,10 +1019,6 @@ i.writer:before {
           top: 0.25em; }
           .main-content-list > li.cl > ul li.cl > div > div.title > i.expand:after {
             content: '\f0da'; }
-          .main-content-list > li.cl > ul li.cl > div > div.title > i.success {
-            content: '\f00c'; }
-          .main-content-list > li.cl > ul li.cl > div > div.title > i.failed {
-            content: '\f00d'; }
         .main-content-list > li.cl > ul li.cl > div > div.title > span,
         .main-content-list > li.cl > ul li.cl > div > div.actions > span {
           font-size: 1.2em;
@@ -1062,6 +1064,9 @@ i.writer:before {
             background: #ee9289; }
             .main-content-list > li.cl > ul li.cl > ul li.cl > div.failed > div.title .radial-progress .circle .mask .fill {
               background: #e14030; }
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div.skipped:not(.active) > div.title,
+          .main-content-list > li.cl > ul li.cl > ul li.cl > div.skipped:not(.active) > div.i {
+            opacity: .4; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div.active {
             background: #049cdb; }
           .main-content-list > li.cl > ul li.cl > ul li.cl > div.selectable:hover {

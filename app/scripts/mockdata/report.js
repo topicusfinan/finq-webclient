@@ -50,8 +50,8 @@ angular.module('finqApp.mock')
                                 steps: [
                                     {status: 'SUCCESS', title: 'when the customer with id $customerId orders a new book with $bookId resulting in a basket with id $basketId'},
                                     {status: 'FAILED', title: 'and the customer with id $customerId orders a new book with id $otherBookId', message: 'A random assertion failed to validate'},
-                                    {status: 'SKIPPED', title: 'then the [[products]] should be added to the basket with id $basketId'},
-                                    {status: 'SKIPPED', title: 'and the total value of basket with id $basketId should be EUR 50'}
+                                    {status: 'BLOCKED', title: 'then the [[products]] should be added to the basket with id $basketId'},
+                                    {status: 'BLOCKED', title: 'and the total value of basket with id $basketId should be EUR 50'}
                                 ]
                             }
                         ]

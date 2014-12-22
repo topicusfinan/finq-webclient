@@ -15,7 +15,8 @@ angular.module('finqApp')
                 'SUCCESS': 'SUCCESS',
                 'FAILED': 'FAILED',
                 'QUEUED': 'QUEUED',
-                'SKIPPED': 'SKIPPED'
+                'SKIPPED': 'SKIPPED',
+                'BLOCKED': 'BLOCKED'
             }
         }
     });

@@ -12,7 +12,6 @@ describe('Unit: ReportsCtrl', function() {
         MODULES,
         EVENTS,
         STATE,
-        $timeout,
         scope;
 
     beforeEach(function() {
@@ -20,12 +19,11 @@ describe('Unit: ReportsCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, _module_, _STATE_, _MODULES_, _EVENTS_, _$timeout_, reportServiceMock, report, story, storyServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report, story, storyServiceMock) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
-        $timeout = _$timeout_;
         configProvider = config;
         reportMockData = reportServiceMock;
         moduleSpy = sinon.spy(_module_, 'setCurrentSection');
