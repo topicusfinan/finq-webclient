@@ -29,7 +29,11 @@ module.exports = function() {
         reporters: ['progress', 'coverage'],
 
         preprocessors: {
-            'app/scripts/**/*.js': ['coverage']
+            'app/scripts/controllers/**/*.js': ['coverage'],
+            'app/scripts/directives/**/*.js': ['coverage'],
+            'app/scripts/filters/**/*.js': ['coverage'],
+            'app/scripts/modules/*/**/*.js': ['coverage'],
+            'app/scripts/services/**/*.js': ['coverage']
         },
 
         files: [

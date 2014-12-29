@@ -58,6 +58,7 @@ describe('Unit: ReportCtrl', function() {
     var reportMockData,
         moduleSpy,
         getReportSpy,
+        progressSpy,
         MODULES,
         EVENTS,
         STATE,
@@ -73,7 +74,7 @@ describe('Unit: ReportCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$controller_, $rootScope, $location, _$httpBackend_, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report) {
+    beforeEach(inject(function (_$controller_, $rootScope, $location, _$httpBackend_, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report, story, storyServiceMock, runUtils) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
@@ -84,15 +85,20 @@ describe('Unit: ReportCtrl', function() {
         location = $location;
         moduleSpy = sinon.spy(_module_, 'setCurrentSection');
         getReportSpy = sinon.spy(reportService, 'getReport');
+        progressSpy = sinon.spy(runUtils, 'determineDetailedProgress');
         $httpBackend = _$httpBackend_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: ''
         });
         $httpBackend.expectGET('/app').respond(200);
+        $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
+        $httpBackend.expectGET('/runs/'+reportMockData.data[0].id).respond(200, reportMockData.data[0]);
         config.load().then(function() {
-            ReportController = $controller('ReportCtrl', {
-                $scope: scope,
-                $routeParams: {reportId: reportMockData.data[0].id}
+            story.list().then(function() {
+                ReportController = $controller('ReportCtrl', {
+                    $scope: scope,
+                    $routeParams: {reportId: reportMockData.data[0].id}
+                });
             });
         });
         $httpBackend.flush();
@@ -113,6 +119,14 @@ describe('Unit: ReportCtrl', function() {
         var locSpy = sinon.spy(location,'path');
         ReportController.list();
         locSpy.should.have.been.calledWith('/runner/reports');
+    });
+
+    it('should load the targeted report and add it to the scope in order to render it', function () {
+        expect(scope.run.id).to.equal(reportMockData.data[0].id);
+    });
+
+    it('should setup the progress of the report to be able to render the detailed results', function () {
+        expect(progressSpy).to.have.been.calledWith(scope.run);
     });
 
 });

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Unit: AvailableCtrlFilter', function() {
+describe('Unit: AvailableFilterCtrl', function() {
 
     var AvailableFilterCtrl,
         scope,

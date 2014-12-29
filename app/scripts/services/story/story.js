@@ -42,11 +42,13 @@ angular.module('finqApp.service')
         };
 
         this.findStoryById = function(storyId) {
-            var i, j;
-            for (i=0; i<storybooks.length; i++) {
-                for (j=0; j<storybooks[i].stories.length; j++) {
-                    if (storybooks[i].stories[j].id === storyId) {
-                        return storybooks[i].stories[j];
+            if (storybooks !== null) {
+                var i, j;
+                for (i = 0; i < storybooks.length; i++) {
+                    for (j = 0; j < storybooks[i].stories.length; j++) {
+                        if (storybooks[i].stories[j].id === storyId) {
+                            return storybooks[i].stories[j];
+                        }
                     }
                 }
             }
@@ -54,12 +56,14 @@ angular.module('finqApp.service')
         };
 
         this.findScenarioById = function(scenarioId) {
-            var i, j, k;
-            for (i=0; i<storybooks.length; i++) {
-                for (j=0; j<storybooks[i].stories.length; j++) {
-                    for (k=0; k<storybooks[i].stories[j].scenarios.length; k++) {
-                        if (storybooks[i].stories[j].scenarios[k].id === scenarioId) {
-                            return storybooks[i].stories[j].scenarios[k];
+            if (storybooks !== null) {
+                var i, j, k;
+                for (i = 0; i < storybooks.length; i++) {
+                    for (j = 0; j < storybooks[i].stories.length; j++) {
+                        for (k = 0; k < storybooks[i].stories[j].scenarios.length; k++) {
+                            if (storybooks[i].stories[j].scenarios[k].id === scenarioId) {
+                                return storybooks[i].stories[j].scenarios[k];
+                            }
                         }
                     }
                 }
@@ -68,12 +72,14 @@ angular.module('finqApp.service')
         };
 
         this.findStoryByScenarioId = function(scenarioId) {
-            var i, j, k;
-            for (i=0; i<storybooks.length; i++) {
-                for (j=0; j<storybooks[i].stories.length; j++) {
-                    for (k=0; k<storybooks[i].stories[j].scenarios.length; k++) {
-                        if (storybooks[i].stories[j].scenarios[k].id === scenarioId) {
-                            return storybooks[i].stories[j];
+            if (storybooks !== null) {
+                var i, j, k;
+                for (i = 0; i < storybooks.length; i++) {
+                    for (j = 0; j < storybooks[i].stories.length; j++) {
+                        for (k = 0; k < storybooks[i].stories[j].scenarios.length; k++) {
+                            if (storybooks[i].stories[j].scenarios[k].id === scenarioId) {
+                                return storybooks[i].stories[j];
+                            }
                         }
                     }
                 }
