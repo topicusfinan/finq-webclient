@@ -10,7 +10,7 @@
  * result information.
  */
 angular.module('finqApp.runner.service')
-    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story','$q', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService,$q) {
+    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story','$q','run', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService,$q,runService) {
         var runs = [],
             active = false;
 
@@ -160,23 +160,9 @@ angular.module('finqApp.runner.service')
         };
 
         var validateCompletedRuns = function() {
-            var i,j,k,validRun;
-            for (i=0; i<runs.length; i++) {
-                validRun = false;
-                for (j=0; j<runs[i].stories.length; j++) {
-                    for (k=0; k<runs[i].stories[j].scenarios.length; k++) {
-                        if (runs[i].stories[j].scenarios[k].status === STATE.RUN.SCENARIO.RUNNING) {
-                            validRun = true;
-                            break;
-                        }
-                    }
-                    if (validRun) {
-                        break;
-                    }
-                }
-                if (!validRun) {
+            for (var i=0; i<runs.length; i++) {
+                if (runService.runIsCompleted(runs[i])) {
                     runs.splice(i--,1);
-                    // TODO: A run complete event should be published here
                 }
             }
             return runs.length;

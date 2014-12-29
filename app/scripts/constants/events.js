@@ -35,6 +35,7 @@ angular.module('finqApp')
             'RUN': {
                 'UPDATED': 'run:progress',
                 'SUBSCRIBE': 'run:subscribe',
+                'UNSUBSCRIBE': 'run:unsubscribe',
                 'GIST': 'run:gist'
             }
         }

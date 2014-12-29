@@ -21,6 +21,10 @@ angular.module('finqApp.service')
                 socketService.emit(EVENTS.SOCKET.RUN.SUBSCRIBE, {run: runId}, true);
             };
 
+            this.unSubscribe = function(runId) {
+                socketService.emit(EVENTS.SOCKET.RUN.UNSUBSCRIBE, {run: runId}, true);
+            };
+
             this.register = function(event, handler) {
                 if (!handlers[event]) {
                     handlers[event] = {};

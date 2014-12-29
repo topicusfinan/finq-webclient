@@ -47,6 +47,11 @@ describe('Unit: RunService', function() {
         $rootScope.$digest();
     });
 
+    it('should be able to validate if a run is completed', function () {
+        var completed = runService.runIsCompleted(runs[0]);
+        expect(completed).to.be.false;
+    });
+
 });
 
 describe('Unit: RunService with an unstable backend', function() {

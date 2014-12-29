@@ -9,6 +9,8 @@ describe('Unit: ReportsCtrl', function() {
         configProvider,
         reportMockData,
         moduleSpy,
+        location,
+        reportService,
         MODULES,
         EVENTS,
         STATE,
@@ -19,11 +21,13 @@ describe('Unit: ReportsCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report, story, storyServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $location, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report, story, storyServiceMock) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
+        location = $location;
+        reportService = report;
         configProvider = config;
         reportMockData = reportServiceMock;
         moduleSpy = sinon.spy(_module_, 'setCurrentSection');
@@ -60,7 +64,7 @@ describe('Unit: ReportsCtrl', function() {
     });
 
     it('should register itself as the active module and section', function () {
-        expect(moduleSpy).to.have.been.calledWith(MODULES.RUNNER.sections.REPORTS);
+        moduleSpy.should.have.been.calledWith(MODULES.RUNNER.sections.REPORTS);
     });
 
     it('should respond to an update status request by setting the status keys', function () {
@@ -71,6 +75,12 @@ describe('Unit: ReportsCtrl', function() {
 
     it('should initially have an empty list of reports', function () {
         expect(scope.reportList().length).to.equal(0);
+    });
+
+    it('should be able to handle a request for navigation to view a single report\'s details', function () {
+        var reportSpy = sinon.spy(reportService,'getReport');
+        ReportsCtrl.get(reportMockData.data[0].id);
+        reportSpy.should.have.been.calledWith(reportMockData.data[0].id);
     });
 
 });

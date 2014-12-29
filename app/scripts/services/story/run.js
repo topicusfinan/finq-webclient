@@ -79,4 +79,16 @@ angular.module('finqApp.service')
             return deferred.promise;
         };
 
+        this.runIsCompleted = function(run) {
+            var i, j;
+            for (i=0; i<run.stories.length; i++) {
+                for (j=0; j<run.stories[i].scenarios.length; j++) {
+                    if (run.stories[i].scenarios[j].status === STATE.RUN.SCENARIO.RUNNING) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        };
+
     }]);
