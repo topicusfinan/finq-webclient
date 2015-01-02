@@ -15,10 +15,13 @@ angular.module('finqApp.runner.service')
         'MODULES',
         'EVENTS',
         'STATE',
+        'FEEDBACK',
         'story',
+        'feedback',
         'subscription',
         'run',
-        function (moduleService,MODULES,EVENTS,STATE,storyService,subscriptionService,runService) {
+        'utils',
+        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,runService,utils) {
             var runningSessions = [],
                 loaded = false;
 
@@ -67,6 +70,7 @@ angular.module('finqApp.runner.service')
                         startedBy: runData.startedBy,
                         totalScenarios: 0,
                         scenariosCompleted: 0,
+                        scenariosFailed: 0,
                         status: STATE.RUN.SCENARIO.RUNNING,
                         stories: [],
                         msg: {},
@@ -113,25 +117,22 @@ angular.module('finqApp.runner.service')
                     return;
                 }
                 run.status = runUpdate.status;
-                var story = findStoryInRun(run.stories, runUpdate.story.id);
+                var story = runService.findStoryInRun(run, runUpdate.story.id);
                 story.status = runUpdate.story.status;
                 if (story === null) {
                     throw new Error('Server and client story data set are out of sync');
                 }
-                var scenario = findScenarioInStory(story, runUpdate.story.scenario.id);
+                var scenario = runService.findScenarioInStory(story, runUpdate.story.scenario.id);
                 if (scenario === null) {
                     throw new Error('Server and client story data set are out of sync');
                 }
                 scenario.status = runUpdate.story.scenario.status;
-                switch (scenario.status) {
-                    case STATE.RUN.SCENARIO.SUCCESS:
-                        run.scenariosCompleted++;
-                        story.scenariosCompleted++;
-                        break;
-                    case STATE.RUN.SCENARIO.FAILED:
-                        run.scenariosCompleted++;
-                        story.scenariosCompleted++;
-                        break;
+                if (scenario.status === STATE.RUN.SCENARIO.SUCCESS || scenario.status === STATE.RUN.SCENARIO.FAILED) {
+                    run.scenariosCompleted++;
+                    story.scenariosCompleted++;
+                    if (scenario.status === STATE.RUN.SCENARIO.FAILED) {
+                        run.scenariosFailed++;
+                    }
                 }
                 for (var i=0; i<runUpdate.story.scenario.steps.length; i++) {
                     scenario.steps[i].status = runUpdate.story.scenario.steps[i].status;
@@ -144,31 +145,25 @@ angular.module('finqApp.runner.service')
 
             var handleCompletedRun = function(run) {
                 subscriptionService.unSubscribe(run.id);
-                // TODO handle a completed run
+                runService.removeRun(run.id);
+                if (run.status === STATE.RUN.SCENARIO.FAILED) {
+                    var pluralized = utils.pluralize('', 1, run.scenariosFailed);
+                    feedbackService.error(FEEDBACK.ERROR.RUN.COMPLETED[pluralized.template],{
+                        failedCount: pluralized.value,
+                        title: run.title
+                    });
+                } else {
+                    feedbackService.success(FEEDBACK.SUCCESS.RUN.COMPLETED,{
+                        title: run.title
+                    });
+                }
+                // TODO remove the run from the running session list with a delay for smooth completion
             };
 
             var findRun = function(runId) {
                 for (var i=0; i<runningSessions.length; i++) {
                     if (runningSessions[i].id === runId) {
                         return runningSessions[i];
-                    }
-                }
-                return null;
-            };
-
-            var findStoryInRun = function(targetRunStories, storyId) {
-                for (var i=0; i<targetRunStories.length; i++) {
-                    if (targetRunStories[i].id === storyId) {
-                        return targetRunStories[i];
-                    }
-                }
-                return null;
-            };
-
-            var findScenarioInStory = function(story, scenarioId) {
-                for (var i=0; i<story.scenarios.length; i++) {
-                    if (story.scenarios[i].id === scenarioId) {
-                        return story.scenarios[i];
                     }
                 }
                 return null;

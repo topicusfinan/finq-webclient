@@ -24,7 +24,11 @@ angular.module('finqApp')
         'ERROR': {
             'RUN': {
                 'NO_ENVIRONMENT_SELECTED': {'key':'RUN.NO_ENVIRONMENT_SELECTED'},
-                'REQUEST_FAILED': {'key':'RUN.REQUEST_FAILED'}
+                'REQUEST_FAILED': {'key':'RUN.REQUEST_FAILED'},
+                'COMPLETED': {
+                    'SINGULAR': {'key': 'RUN.COMPLETED.SINGULAR'},
+                    'PLURAL': {'key': 'RUN.COMPLETED.SINGULAR'}
+                }
             },
             'REPORT': {
                 'UNABLE_TO_LOAD': {'key':'REPORT.UNABLE_TO_LOAD'}
@@ -57,7 +61,8 @@ angular.module('finqApp')
                     'key':'RUN.MULTIPLE_REQUEST',
                     'incrementable': true
                 },
-                'SINGLE_REQUEST': {'key':'RUN.SINGLE_REQUEST'}
+                'SINGLE_REQUEST': {'key':'RUN.SINGLE_REQUEST'},
+                'COMPLETED': {'key':'RUN.COMPLETED'}
             },
             'SOCKET': {
                 'RECONNECTED': {'key': 'SOCKET.RECONNECTED'}

@@ -91,4 +91,32 @@ angular.module('finqApp.service')
             return true;
         };
 
+        this.removeRun = function(runId) {
+            if (runs) {
+                for (var i = 0; i < runs.length; i++) {
+                    if (runs[i].id === runId) {
+                        runs.splice(i, 1);
+                    }
+                }
+            }
+        };
+
+        this.findStoryInRun = function(run, storyId) {
+            for (var i=0; i<run.stories.length; i++) {
+                if (run.stories[i].id === storyId) {
+                    return run.stories[i];
+                }
+            }
+            return null;
+        };
+
+        this.findScenarioInStory = function(story, scenarioId) {
+            for (var i=0; i<story.scenarios.length; i++) {
+                if (story.scenarios[i].id === scenarioId) {
+                    return story.scenarios[i];
+                }
+            }
+            return null;
+        };
+
     }]);

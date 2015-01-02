@@ -52,6 +52,16 @@ describe('Unit: RunService', function() {
         expect(completed).to.be.false;
     });
 
+    it('should be able to find a particular story in a run', function () {
+        var story = runService.findStoryInRun(runs[0],runs[0].stories[0].id);
+        expect(story).to.not.be.null;
+    });
+
+    it('should be able to find a particular scenario in a story', function () {
+        var scenario = runService.findScenarioInStory(runs[0].stories[0],runs[0].stories[0].scenarios[0].id);
+        expect(scenario).to.not.be.null;
+    });
+
 });
 
 describe('Unit: RunService with an unstable backend', function() {

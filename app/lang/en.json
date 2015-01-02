@@ -12,7 +12,11 @@
         "ERROR" : {
             "RUN" : {
                 "NO_ENVIRONMENT_SELECTED" : "Please select an environment to run your test",
-                "REQUEST_FAILED" : "Your request could not be completed due to an error"
+                "REQUEST_FAILED" : "Your request could not be completed due to an error",
+                "COMPLETED" : {
+                    "SINGULAR": "Run \"{{title}}\" completed with a failed scenario",
+                    "PLURAL": "Run \"{{title}}\" completed with {{failedCount}} failed scenarios"
+                }
             },
             "REPORT" : {
                 "UNABLE_TO_LOAD" : "The report you selected could not be loaded"
@@ -25,7 +29,8 @@
         "SUCCESS" : {
             "RUN" : {
                 "MULTIPLE_REQUEST" : "Started execution of {{count}} stories on {{environment}}",
-                "SINGLE_REQUEST" : "Started execution of your scenario on {{environment}}"
+                "SINGLE_REQUEST" : "Started execution of your scenario on {{environment}}",
+                "COMPLETED" : "Run \"{{title}}\" completed successfully"
             }
         },
         "ALERT" : {

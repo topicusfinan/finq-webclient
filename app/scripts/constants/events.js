@@ -30,13 +30,14 @@ angular.module('finqApp')
                 'RECONNECTING': 'reconnecting',
                 'DISCONNECTED': 'disconnect',
                 'ERROR': 'error',
-                'RECONNECT_FAILED': 'reconnect_failed'
+                'RECONNECT_FAILED': 'reconnectFailed'
             },
             'RUN': {
                 'UPDATED': 'run:progress',
                 'SUBSCRIBE': 'run:subscribe',
                 'UNSUBSCRIBE': 'run:unsubscribe',
-                'GIST': 'run:gist'
+                'GIST': 'run:gist',
+                'NEW_REPORT': 'run:newReport'
             }
         }
     });
