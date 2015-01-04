@@ -62,8 +62,8 @@ angular.module('finqApp.service')
             title = run.stories[largestStoryIndex].title;
             storyCount = run.stories.length;
             if (storyCount > 1) {
-                pluralized = utils.pluralize('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND', 1, storyCount-1);
-                $translate(pluralized.template,{
+                pluralized = utils.pluralize(storyCount-1);
+                $translate('RUNNER.RUNNING.RUN.MULTIPLE_STORIES_APPEND.'+pluralized.template,{
                     storyCount: pluralized.value
                 }).then(function (translatedValue) {
                     title += translatedValue;

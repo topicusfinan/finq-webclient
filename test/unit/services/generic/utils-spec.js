@@ -56,54 +56,54 @@ describe('Unit: UtilsService pluralization', function() {
     }));
 
     it('should be able to pluralize based on a simple interpretation value', function () {
-        var pluralized = utilsService.pluralize('TEST', 1, 2);
-        expect(pluralized.template).to.equal('TEST.PLURAL');
-        pluralized = utilsService.pluralize('TEST', 2, 2);
-        expect(pluralized.template).to.equal('TEST.SINGULAR');
+        var pluralized = utilsService.pluralize(2);
+        expect(pluralized.template).to.equal('PLURAL');
+        pluralized = utilsService.pluralize(2, 2);
+        expect(pluralized.template).to.equal('SINGULAR');
     });
 
     it('should be able to pluralize a zero value based on a simple interpretation value', function () {
-        var pluralized = utilsService.pluralize('TEST', 1, 0);
-        expect(pluralized.template).to.equal('TEST.PLURAL');
+        var pluralized = utilsService.pluralize(0);
+        expect(pluralized.template).to.equal('PLURAL');
     });
 
     it('should be able to pluralize a lowest level value of a complex template set', function () {
-        var pluralized = utilsService.pluralize('TEST', [
+        var pluralized = utilsService.pluralize(35, [
             {actionValue: 1, target: 'SECONDS'},
             {actionValue: 60, target: 'MINUTES'},
             {actionValue: 3600, target: 'HOURS'}
-        ], 35);
-        expect(pluralized.template).to.equal('TEST.SECONDS.PLURAL');
+        ]);
+        expect(pluralized.template).to.equal('SECONDS.PLURAL');
         expect(pluralized.value).to.equal(35);
     });
 
     it('should be able to pluralize a zero value value of a complex template set', function () {
-        var pluralized = utilsService.pluralize('TEST', [
+        var pluralized = utilsService.pluralize(0, [
             {actionValue: 1, target: 'SECONDS'},
             {actionValue: 60, target: 'MINUTES'},
             {actionValue: 3600, target: 'HOURS'}
-        ], 0);
-        expect(pluralized.template).to.equal('TEST.SECONDS.PLURAL');
+        ]);
+        expect(pluralized.template).to.equal('SECONDS.PLURAL');
         expect(pluralized.value).to.equal(0);
     });
 
     it('should be able to pluralize a center value of a complex template set', function () {
-        var pluralized = utilsService.pluralize('TEST', [
+        var pluralized = utilsService.pluralize(135, [
             {actionValue: 1, target: 'SECONDS'},
             {actionValue: 60, target: 'MINUTES'},
             {actionValue: 3600, target: 'HOURS'}
-        ], 135);
-        expect(pluralized.template).to.equal('TEST.MINUTES.PLURAL');
+        ]);
+        expect(pluralized.template).to.equal('MINUTES.PLURAL');
         expect(pluralized.value).to.equal(2);
     });
 
     it('should be able to singularize a top level value of a complex template set', function () {
-        var pluralized = utilsService.pluralize('TEST', [
+        var pluralized = utilsService.pluralize(3700, [
             {actionValue: 1, target: 'SECONDS'},
             {actionValue: 60, target: 'MINUTES'},
             {actionValue: 3600, target: 'HOURS'}
-        ], 3700);
-        expect(pluralized.template).to.equal('TEST.HOURS.SINGULAR');
+        ]);
+        expect(pluralized.template).to.equal('HOURS.SINGULAR');
         expect(pluralized.value).to.equal(1);
     });
 

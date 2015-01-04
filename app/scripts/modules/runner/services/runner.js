@@ -147,7 +147,7 @@ angular.module('finqApp.runner.service')
                 subscriptionService.unSubscribe(run.id);
                 runService.removeRun(run.id);
                 if (run.status === STATE.RUN.SCENARIO.FAILED) {
-                    var pluralized = utils.pluralize('', 1, run.scenariosFailed);
+                    var pluralized = utils.pluralize(run.scenariosFailed);
                     feedbackService.error(FEEDBACK.ERROR.RUN.COMPLETED[pluralized.template],{
                         failedCount: pluralized.value,
                         title: run.title

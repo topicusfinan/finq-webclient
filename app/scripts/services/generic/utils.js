@@ -23,10 +23,13 @@ angular.module('finqApp.service')
             return timeElapsed;
         };
 
-        this.pluralize = function(templateKey, values, interpret) {
+        this.pluralize = function(interpret, values) {
             var targetTemplate,
                 calculatedValue,
                 separator;
+            if (!values) {
+                values = 1;
+            }
             if (typeof values === 'object') {
                 for (var i=values.length-1; i>=0; i--) {
                     separator = values[i].target.length > 0 ? '.': '';
@@ -44,7 +47,6 @@ angular.module('finqApp.service')
                     }
                 }
             } else {
-                separator = templateKey.length > 0 ? '.': '';
                 if (interpret === 0 || interpret / values > 1) {
                     targetTemplate = 'PLURAL';
                 } else {
@@ -53,7 +55,7 @@ angular.module('finqApp.service')
                 calculatedValue = interpret;
             }
             return {
-                template: templateKey+separator+targetTemplate,
+                template: targetTemplate,
                 value: calculatedValue
             };
         };

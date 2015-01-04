@@ -70,8 +70,8 @@ angular.module('finqApp.service')
                 pluralized;
 
             if (run.status === STATE.RUN.SCENARIO.SUCCESS) {
-                pluralized = utils.pluralize('RUNNER.REPORTS.MESSAGE.SUCCESS', 1, storyCount);
-                return $translate(pluralized.template,{
+                pluralized = utils.pluralize(storyCount);
+                return $translate('RUNNER.REPORTS.MESSAGE.SUCCESS'+pluralized.template,{
                     storyCount: pluralized.value
                 });
             } else {
@@ -80,8 +80,8 @@ angular.module('finqApp.service')
                         successStories++;
                     }
                 }
-                pluralized = utils.pluralize('RUNNER.REPORTS.MESSAGE.FAILED', 1, storyCount);
-                return $translate(pluralized.template,{
+                pluralized = utils.pluralize(storyCount);
+                return $translate('RUNNER.REPORTS.MESSAGE.FAILED.'+pluralized.template,{
                     successStories: pluralized.value,
                     totalStories: storyCount
                 });
