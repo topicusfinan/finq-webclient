@@ -53,6 +53,16 @@ angular.module('finqApp.runner.service')
                 return runningSessions;
             };
 
+            this.clearCompletedSessions = function() {
+                if (loaded) {
+                    for (var i=0; i<runningSessions.length; i++) {
+                        if (runService.runIsCompleted(runningSessions[i])) {
+                            runningSessions.splice(i--,1);
+                        }
+                    }
+                }
+            };
+
             var initializeRunningStories = function(storyRuns) {
                 angular.forEach(storyRuns, function(run) {
                     if (findRun(run.id) === null) {
@@ -85,7 +95,7 @@ angular.module('finqApp.runner.service')
                 runService.setupRunTitle(runningSession).then(function(translatedTitle) {
                     runningSession.title = translatedTitle;
                 });
-                runningSessions.push(runningSession);
+                runningSessions.unshift(runningSession);
                 subscriptionService.subscribe(runData.id);
             };
 
@@ -157,7 +167,6 @@ angular.module('finqApp.runner.service')
                         title: run.title
                     });
                 }
-                // TODO remove the run from the running session list with a delay for smooth completion
             };
 
             var findRun = function(runId) {

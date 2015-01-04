@@ -62,6 +62,23 @@ describe('Unit: RunService', function() {
         expect(scenario).to.not.be.null;
     });
 
+    it('should be possible to not be able to find a scenario in a story', function () {
+        var scenario = runService.findScenarioInStory(runs[0].stories[0],'test');
+        expect(scenario).to.be.null;
+    });
+
+    it('should be able to remove a run from the current list of runs', function (done) {
+        var runCountBefore = runs.length;
+        var firstRunIdBefore = runs[0].id;
+        runService.removeRun(runs[0].id);
+        runService.list().then(function(reducedRuns) {
+            expect(reducedRuns.length).to.equal(runCountBefore-1);
+            expect(reducedRuns[0].id).to.not.equal(firstRunIdBefore);
+            done();
+        });
+        $rootScope.$digest();
+    });
+
 });
 
 describe('Unit: RunService with an unstable backend', function() {

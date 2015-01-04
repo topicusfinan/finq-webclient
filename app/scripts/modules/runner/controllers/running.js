@@ -22,47 +22,51 @@ angular.module('finqApp.runner.controller')
         'runner',
         'utils',
         'runUtils',
-        function ($scope,$timeout,moduleService,EVENTS,MODULES,configProvider,runnerService,utils,runUtils) {
-        var that = this,
-            updateTimer;
+        function ($scope, $timeout, moduleService, EVENTS, MODULES, configProvider, runnerService, utils, runUtils) {
+            var that = this,
+                updateTimer;
 
-        this.selectedItem = null;
-        this.maxSelectItems = configProvider.client().selectDropdown.pagination.itemsPerPage;
-        this.filter = {
-            env: {id: 'env', ids: []}
-        };
+            this.selectedItem = null;
+            this.maxSelectItems = configProvider.client().selectDropdown.pagination.itemsPerPage;
+            this.filter = {
+                env: {id: 'env', ids: []}
+            };
 
-        $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED,function(event,filterInfo) {
-            that.filter[filterInfo.id].ids = filterInfo.keys;
-        });
+            $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED, function (event, filterInfo) {
+                that.filter[filterInfo.id].ids = filterInfo.keys;
+            });
 
-        $scope.runs = runnerService.getRunningSessions;
+            $scope.runs = runnerService.getRunningSessions;
 
-        moduleService.setCurrentSection(MODULES.RUNNER.sections.RUNNING);
+            moduleService.setCurrentSection(MODULES.RUNNER.sections.RUNNING);
 
-        this.expander = new StoryExpandCollapse('#run-list');
-        this.expander.setup();
+            this.expander = new StoryExpandCollapse('#run-list');
+            this.expander.setup();
 
-        var updateRunProgress = function() {
-            var runs = runnerService.getRunningSessions();
-            if (runs.length) {
-                var currentTime = new Date();
-                angular.forEach(runs, function(run) {
-                    runUtils.calculateProgress(run,run.scenariosCompleted,run.totalScenarios);
-                    runUtils.determineDetailedProgress(run);
-                    if (run.scenariosCompleted < run.totalScenarios) {
-                        run.runtime = utils.getTimeElapsed(currentTime,run.startedOn);
-                    }
-                });
-            }
-            updateTimer = $timeout(updateRunProgress, configProvider.client().run.updateInterval);
-        };
+            this.purge = function() {
+                runnerService.clearCompletedSessions();
+            };
 
-        updateRunProgress();
+            var updateRunProgress = function () {
+                var runs = runnerService.getRunningSessions();
+                if (runs.length) {
+                    var currentTime = new Date();
+                    angular.forEach(runs, function (run) {
+                        runUtils.calculateProgress(run, run.scenariosCompleted, run.totalScenarios);
+                        runUtils.determineDetailedProgress(run);
+                        if (run.scenariosCompleted < run.totalScenarios) {
+                            run.runtime = utils.getTimeElapsed(currentTime, run.startedOn);
+                        }
+                    });
+                }
+                updateTimer = $timeout(updateRunProgress, configProvider.client().run.updateInterval);
+            };
 
-        var unlinkDestroy = $scope.$on('$destroy',function() {
-            $timeout.cancel(updateTimer);
-            unlinkDestroy();
-        });
+            updateRunProgress();
 
-    }]);
+            var unlinkDestroy = $scope.$on('$destroy', function () {
+                $timeout.cancel(updateTimer);
+                unlinkDestroy();
+            });
+
+        }]);

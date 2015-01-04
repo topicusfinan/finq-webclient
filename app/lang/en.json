@@ -76,7 +76,9 @@
         "RUNNING" : {
             "TITLE" : "Running",
             "FILTER" : {
-                "BEFORE_ENVIRONMENT" : "Stories started on"
+                "BEFORE_ENVIRONMENT" : "Stories started on",
+                "PURGE" : "Purge",
+                "PURGE_EXPLAIN" : "Clear completed runs"
             },
             "NO_RUNS" : "There are no stories running that match your filter",
             "RUN" : {

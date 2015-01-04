@@ -188,9 +188,33 @@ describe('Unit: RunnerService', function() {
         $rootScope.$digest();
         setTimeout(function() {
             var runningStories = runnerService.getRunningSessions();
-            expect(runningStories[0].id).to.equal(runMockData.data[0].id);
+            expect(runningStories[0].id).to.equal(runMockData.data[runMockData.data.length-1].id);
             done();
         },5);
+    });
+
+    it('should be possible to clear running story sessions that we completed', function () {
+        startStories([{
+            id: 46421532,
+            scenarios: [{id:23452343},{id:23452345}]
+        }]);
+        runnerService.handle(EVENTS.SOCKET.RUN.GIST, {
+            id: 1,
+            status: STATE.RUN.SCENARIO.FAILED,
+            stories: [{
+                id: 46421532,
+                status: STATE.RUN.SCENARIO.FAILED,
+                scenarios: [
+                    {id: 23452343, status: STATE.RUN.SCENARIO.SUCCESS, steps: []},
+                    {id: 23452345, status: STATE.RUN.SCENARIO.FAILED, steps: []}
+                ]
+            }]
+        });
+        var runningStories = runnerService.getRunningSessions();
+        expect(runningStories.length).to.equal(1);
+        runnerService.clearCompletedSessions();
+        var clearedRunningStories = runnerService.getRunningSessions();
+        expect(clearedRunningStories.length).to.equal(0);
     });
 
 });

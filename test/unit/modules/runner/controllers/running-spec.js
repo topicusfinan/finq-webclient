@@ -78,6 +78,12 @@ describe('Unit: RunningCtrl', function() {
         expect(scope.runs().length).to.equal(0);
     });
 
+    it('should be able to explicitly purge completed stories on request', function () {
+        var clearSessionsSpy = sinon.spy(runnerService, 'clearCompletedSessions');
+        RunningCtrl.purge();
+        clearSessionsSpy.should.have.been.called.once;
+    });
+
     it('should update its runs in case the runservice has changed its runs', function (done) {
         runnerService.handle(EVENTS.INTERNAL.STORY_RUN_STARTED, {
             id: 1,

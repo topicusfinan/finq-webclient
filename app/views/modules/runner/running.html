@@ -4,6 +4,12 @@
         <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
         <div class="select" filter-select="filter.environments" filter-id="running.filter.env.id" placeholder="filter.envPlaceholder" max-items="{{::running.maxSelectItems}}"></div>
     </div>
+    <div class="actions">
+        <button class="hint--left" data-hint="{{::'RUNNER.RUNNING.FILTER.PURGE_EXPLAIN' | translate}}" ng-click="running.purge()">
+            <i class="fa fa-recycle"></i>
+            <span translate="RUNNER.RUNNING.FILTER.PURGE"></span>
+        </button>
+    </div>
 </div>
 <ul id="run-list" class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = (runs() | runEnvironmentFilter:running.filter.env.ids) track by run.id">
