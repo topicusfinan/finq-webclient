@@ -37,7 +37,7 @@ angular.module('finqApp')
                 'SUBSCRIBE': 'run:subscribe',
                 'UNSUBSCRIBE': 'run:unsubscribe',
                 'GIST': 'run:gist',
-                'NEW_REPORT': 'run:newReport'
+                'COMPLETED': 'run:completed'
             }
         }
     });

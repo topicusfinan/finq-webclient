@@ -160,10 +160,14 @@ angular.module('finqApp.runner.service')
         };
 
         var validateCompletedRuns = function() {
-            for (var i=0; i<runs.length; i++) {
+            var completedRuns = [], i;
+            for (i=0; i<runs.length; i++) {
                 if (runService.runIsCompleted(runs[i])) {
-                    runs.splice(i--,1);
+                    completedRuns = completedRuns.concat(runs.splice(i--,1));
                 }
+            }
+            for (i=0; i<completedRuns.length; i++) {
+                socketService.emit(EVENTS.SOCKET.RUN.COMPLETED, completedRuns[i]);
             }
             return runs.length;
         };
