@@ -10,7 +10,7 @@
  *
  */
 angular.module('finqApp.service')
-    .service('storyRun', [
+    .service('runExecution', [
         'backend',
         '$timeout',
         'feedback',
@@ -18,8 +18,7 @@ angular.module('finqApp.service')
         'EVENTS',
         'MODULES',
         'module',
-        'environment',
-        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,MODULES,moduleService,environmentService) {
+        function (backend,$timeout,feedbackService,FEEDBACK,EVENTS,MODULES,moduleService) {
             var that = this;
 
             this.runStory = function(storyData,environmentKey) {
@@ -45,18 +44,18 @@ angular.module('finqApp.service')
                     if (runRequestData.stories.length > 1) {
                         feedbackService.success(FEEDBACK.SUCCESS.RUN.MULTIPLE_REQUEST,{
                             count: runRequestData.stories.length,
-                            environment: environmentService.getById(runRequestData.environment).name
+                            environment: runData.environment.name
                         });
                     } else {
                         feedbackService.success(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST,{
-                            environment: environmentService.getById(runRequestData.environment).name
+                            environment: runData.environment.name
                         });
                     }
                     moduleService.handleEvent(EVENTS.INTERNAL.STORY_RUN_STARTED,{
                         id: runData.id,
                         environment: runData.environment,
                         startedBy: runData.startedBy,
-                        startedOn: new Date(),
+                        startedOn: runData.startedOn,
                         stories: transformRunRequest(runRequestData.stories)
                     });
                     moduleService.updateModuleBadge(MODULES.RUNNER, ['run-'+runData.id], true);

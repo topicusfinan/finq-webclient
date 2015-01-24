@@ -3,9 +3,9 @@
  */
 'use strict';
 
-describe('Unit: StoryRun service', function() {
+describe('Unit: RunExecution service', function() {
 
-    var storyRunService,
+    var runExecutionService,
         moduleService,
         feedbackService,
         environmentMock,
@@ -17,9 +17,9 @@ describe('Unit: StoryRun service', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, storyRun, feedback, _FEEDBACK_, module, _MODULES_, environment, environmentServiceMock) {
+    beforeEach(inject(function ($httpBackend, runExecution, feedback, _FEEDBACK_, module, _MODULES_, environment, environmentServiceMock) {
         backend = $httpBackend;
-        storyRunService = storyRun;
+        runExecutionService = runExecution;
         feedbackService = feedback;
         moduleService = module;
         FEEDBACK = _FEEDBACK_;
@@ -30,17 +30,17 @@ describe('Unit: StoryRun service', function() {
     }));
 
     it('should render a succcess message after the successful running of a single story', function () {
-        backend.expectPOST('/run/stories').respond(200, {id: 1});
+        backend.expectPOST('/run/stories').respond(200, {id: 1, environment: environmentMock[0]});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
-        storyRunService.runStory({story: 1,scenarios: [1]}, environmentMock[0].id);
+        runExecutionService.runStory({story: 1,scenarios: [1]}, environmentMock[0].id);
         backend.flush();
         feedbackSpy.should.have.been.calledWith(FEEDBACK.SUCCESS.RUN.SINGLE_REQUEST, {environment: environmentMock[0].name});
     });
 
     it('should render a success message after the succesful running of multiple stories', function () {
-        backend.expectPOST('/run/stories').respond(200, {id: 1});
+        backend.expectPOST('/run/stories').respond(200, {id: 1, environment: environmentMock[0]});
         var feedbackSpy = sinon.spy(feedbackService, 'success');
-        storyRunService.runStories([
+        runExecutionService.runStories([
             {story: 1,scenarios: [1]},
             {story: 2,scenarios: [2]}
         ], environmentMock[0].id);
@@ -51,7 +51,7 @@ describe('Unit: StoryRun service', function() {
     it('should respond to a failed attempt to run a story by showing the user feedback', function () {
         backend.expectPOST('/run/stories').respond(503, 'fail to run as expected');
         var feedbackSpy = sinon.spy(feedbackService, 'error');
-        storyRunService.runStory({story: 1,scenarios: [1]}, 1);
+        runExecutionService.runStory({story: 1,scenarios: [1]}, 1);
         backend.flush();
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ERROR.RUN.REQUEST_FAILED);
     });
@@ -59,28 +59,28 @@ describe('Unit: StoryRun service', function() {
     it('should respond to a failed attempt to run multiple stories by showing the user feedback', function () {
         backend.expectPOST('/run/stories').respond(503, 'fail to run as expected');
         var feedbackErrorSpy = sinon.spy(feedbackService, 'error');
-        storyRunService.runStories([
+        runExecutionService.runStories([
             {story: 1,scenarios: [1]},
             {story: 2,scenarios: [2]}
-        ], 1);
+        ], environmentMock[0].id);
         backend.flush();
         feedbackErrorSpy.should.have.been.calledWith(FEEDBACK.ERROR.RUN.REQUEST_FAILED);
     });
 
     it('should not attempt to run an empty story set, but instead show an alert', function () {
         var feedbackSpy = sinon.spy(feedbackService, 'alert');
-        storyRunService.runStories([]);
+        runExecutionService.runStories([]);
         feedbackSpy.should.have.been.calledWith(FEEDBACK.ALERT.RUN.NO_STORIES_SELECTED);
     });
 
-    it('should update the module and section badges after a successfull story run start', function () {
+    it('should update the module and section badges after a successful story run start', function () {
         var sectionBadgeSpy = sinon.spy(moduleService, 'updateSectionBadge');
         var moduleBadgeSpy = sinon.spy(moduleService, 'updateModuleBadge');
-        backend.expectPOST('/run/stories').respond(200, {id: 1});
-        storyRunService.runStories([
+        backend.expectPOST('/run/stories').respond(200, {id: 1, environment: environmentMock[0]});
+        runExecutionService.runStories([
             {story: 1,scenarios: [1]},
             {story: 2,scenarios: [2]}
-        ], 1);
+        ], environmentMock[0].id);
         backend.flush();
         sectionBadgeSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING,['run-1'],true);
         moduleBadgeSpy.should.have.been.calledWith(MODULES.RUNNER,['run-1'],true);

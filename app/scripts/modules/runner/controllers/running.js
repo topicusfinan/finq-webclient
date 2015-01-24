@@ -50,7 +50,7 @@ angular.module('finqApp.runner.controller')
             var updateRunProgress = function () {
                 var runs = runnerService.getRunningSessions();
                 if (runs.length) {
-                    var currentTime = new Date();
+                    var currentTime = (new Date()).getTime();
                     angular.forEach(runs, function (run) {
                         runUtils.calculateProgress(run, run.scenariosCompleted, run.totalScenarios);
                         runUtils.determineDetailedProgress(run);

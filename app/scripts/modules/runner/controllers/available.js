@@ -26,9 +26,9 @@ angular.module('finqApp.runner.controller')
         'runnerFilter',
         'story',
         'storybookSearch',
-        'storyRun',
+        'runExecution',
         'environment',
-        function ($scope, $timeout, $filter, EVENTS, FEEDBACK, MODULES, configProvider, valueService, feedbackService, moduleService, runnerFilterService, storyService, storybookSearchService, storyRunService, environmentService) {
+        function ($scope, $timeout, $filter, EVENTS, FEEDBACK, MODULES, configProvider, valueService, feedbackService, moduleService, runnerFilterService, storyService, storybookSearchService, runExecutionService, environmentService) {
             var that = this;
 
             this.filter = {
@@ -89,7 +89,7 @@ angular.module('finqApp.runner.controller')
                             scenarios: runScenarios
                         });
                     }
-                    storyRunService.runStories(runStories, that.filter.env.ids[0]);
+                    runExecutionService.runStories(runStories, that.filter.env.ids[0]);
                 };
 
                 if (!that.filter.env.ids.length) {
@@ -98,7 +98,7 @@ angular.module('finqApp.runner.controller')
                     switch (type) {
                         case 'scenario':
                             story = storyService.findStoryByScenarioId(id);
-                            storyRunService.runStory({
+                            runExecutionService.runStory({
                                 id: story.id,
                                 scenarios: [id]
                             }, that.filter.env.ids[0]);
@@ -109,7 +109,7 @@ angular.module('finqApp.runner.controller')
                             for (i = 0; i < scenarios.length; i++) {
                                 runScenarios.push(scenarios[i].id);
                             }
-                            storyRunService.runStory({
+                            runExecutionService.runStory({
                                 id: id,
                                 scenarios: runScenarios
                             }, that.filter.env.ids[0]);

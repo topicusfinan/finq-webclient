@@ -14,7 +14,7 @@ describe('Unit: AvailableCtrl', function() {
         scope,
         environments,
         runnerFilterService,
-        storyRunService,
+        runExecutionService,
         feedbackService,
         moduleSpy,
         storybooks;
@@ -24,7 +24,7 @@ describe('Unit: AvailableCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, storyRun, feedback, story, runnerFilter, _module_) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, runExecution, feedback, story, runnerFilter, _module_) {
         scope = $rootScope.$new();
         runnerFilterService = runnerFilter;
         MODULES = _MODULES_;
@@ -33,7 +33,7 @@ describe('Unit: AvailableCtrl', function() {
         storybooks = storyServiceMock.books;
         environments = environmentServiceMock.environments;
         httpBackend = $httpBackend;
-        storyRunService = storyRun;
+        runExecutionService = runExecution;
         feedbackService = feedback;
         emitSpy = sinon.spy(scope, '$emit');
         moduleSpy = sinon.spy(_module_, 'setCurrentSection');
@@ -99,7 +99,7 @@ describe('Unit: AvailableCtrl', function() {
 
     it('should be able to run a scenario by id in case an environment was selected', function () {
         var scenarioId = storybooks[0].stories[0].scenarios[0].id;
-        var runSpy = sinon.spy(storyRunService, 'runStory');
+        var runSpy = sinon.spy(runExecutionService, 'runStory');
         AvailableCtrl.filter.env.ids = [1];
         AvailableCtrl.run('scenario',scenarioId);
         runSpy.should.have.been.calledWith({
@@ -110,7 +110,7 @@ describe('Unit: AvailableCtrl', function() {
 
     it('should be able to run a story by id in case an environment was selected', function () {
         var storyId = storybooks[0].stories[0].id;
-        var runSpy = sinon.spy(storyRunService, 'runStory');
+        var runSpy = sinon.spy(runExecutionService, 'runStory');
         var scenarioIds = [];
         for (var i=0; i<storybooks[0].stories[0].scenarios.length; i++) {
             scenarioIds.push(storybooks[0].stories[0].scenarios[i].id);
@@ -125,7 +125,7 @@ describe('Unit: AvailableCtrl', function() {
 
     it('should be able to run a storybook by id in case an environment was selected', function () {
         var bookId = storybooks[0].id;
-        var runSpy = sinon.spy(storyRunService, 'runStories');
+        var runSpy = sinon.spy(runExecutionService, 'runStories');
         var stories = [];
         for (var i=0; i<storybooks[0].stories.length; i++) {
             var story = {
@@ -143,7 +143,7 @@ describe('Unit: AvailableCtrl', function() {
     });
 
     it('should be able to run all stories in case an environment was selected', function () {
-        var runSpy = sinon.spy(storyRunService, 'runStories');
+        var runSpy = sinon.spy(runExecutionService, 'runStories');
         var stories = [];
         for (var i=0; i<storybooks.length; i++) {
             for (var j=0; j<storybooks[i].stories.length; j++) {
@@ -164,7 +164,7 @@ describe('Unit: AvailableCtrl', function() {
 
     it('should be able to apply tag filters when executing a story', function () {
         var storyId = storybooks[0].stories[0].id;
-        var runSpy = sinon.spy(storyRunService, 'runStory');
+        var runSpy = sinon.spy(runExecutionService, 'runStory');
         var scenarioIds = [];
         for (var i=0; i<storybooks[0].stories[0].scenarios.length; i++) {
             for (var j=0; j<storybooks[0].stories[0].scenarios[i].tags.length; j++) {
@@ -183,7 +183,7 @@ describe('Unit: AvailableCtrl', function() {
     });
 
     it('should be able to apply tag filters when running by books and all stories', function () {
-        var runSpy = sinon.spy(storyRunService, 'runStories');
+        var runSpy = sinon.spy(runExecutionService, 'runStories');
         var stories = [
             {id: 46421532, scenarios: [23452345]},
             {id: 66421532, scenarios: [63452343]},

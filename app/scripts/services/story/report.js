@@ -19,25 +19,57 @@ angular.module('finqApp.service')
         'run',
         'utils',
         'subscription',
-        function (backend, $q, $translate, STATE, EVENTS, configProvider, runService, utils, subscriptionService) {
+        function (backend, $q, $translate, STATE, EVENTS, configProvider, runService, utils) {
             var reports = null,
                 report = null;
 
-            this.handle = function(event, eventData) {
-                switch (event) {
-                    case EVENTS.SOCKET.RUN.COMPLETED:
-                        handleCompletedRun(eventData);
-                        break;
-                    default: break;
+            this.list = function (forceReload) {
+                if (forceReload || reports === null) {
+                    reports = [];
+                    return load(0);
+                } else {
+                    return $q.when(reports);
                 }
             };
 
-            subscriptionService.register(EVENTS.SOCKET.RUN.COMPLETED, this.handle);
-
-            var handleCompletedRun = function(runData) {
-                if (reports) {
-                    reports.unshift(createReportFromRun(runData));
+            this.getReport = function (reportId) {
+                if (report !== null && report.id === reportId) {
+                    return $q.when(report);
                 }
+                var deferred = $q.defer();
+                backend.get('/runs/' + reportId).success(function (reportData) {
+                    report = reportData;
+                    runService.setupRunTitle(reportData).then(function (translatedTitle) {
+                        report.title = translatedTitle;
+                    });
+                    deferred.resolve(report);
+                }).error(function () {
+                    deferred.reject('Failed to load the report with id: ' + reportId);
+                });
+                return deferred.promise;
+            };
+
+            this.addNewReport = function (completedRun) {
+                reports.unshift(createReportFromRun(completedRun));
+            };
+
+            var createReportFromRun = function (run) {
+                var report = {
+                    id: run.id,
+                    status: run.status,
+                    startedBy: run.startedBy,
+                    startedOn: run.startedOn,
+                    completedOn: run.completedOn,
+                    runtime: utils.getTimeElapsed(run.completedOn, run.startedOn),
+                    environment: run.environment
+                };
+                runService.setupRunTitle(run).then(function (translatedTitle) {
+                    report.title = translatedTitle;
+                });
+                determineReportMessage(run).then(function (translatedMessage) {
+                    report.message = translatedMessage;
+                });
+                return report;
             };
 
             var load = function (increment, maxReportsThisRequest) {
@@ -72,25 +104,6 @@ angular.module('finqApp.service')
                 }
             };
 
-            var createReportFromRun = function (run) {
-                var report = {
-                    id: run.id,
-                    status: run.status,
-                    startedBy: run.startedBy,
-                    startedOn: run.startedOn,
-                    completedOn: run.completedOn,
-                    runtime: utils.getTimeElapsed(run.completedOn, run.startedOn),
-                    environment: run.environment
-                };
-                runService.setupRunTitle(run).then(function (translatedTitle) {
-                    report.title = translatedTitle;
-                });
-                determineReportMessage(run).then(function (translatedMessage) {
-                    report.message = translatedMessage;
-                });
-                return report;
-            };
-
             var determineReportMessage = function (run) {
                 var successStories = 0,
                     storyCount = run.stories.length,
@@ -113,32 +126,6 @@ angular.module('finqApp.service')
                         totalStories: storyCount
                     });
                 }
-            };
-
-            this.list = function (forceReload) {
-                if (forceReload || reports === null) {
-                    reports = [];
-                    return load(0);
-                } else {
-                    return $q.when(reports);
-                }
-            };
-
-            this.getReport = function (reportId) {
-                if (report !== null && report.id === reportId) {
-                    return $q.when(report);
-                }
-                var deferred = $q.defer();
-                backend.get('/runs/' + reportId).success(function (reportData) {
-                    report = reportData;
-                    runService.setupRunTitle(reportData).then(function (translatedTitle) {
-                        report.title = translatedTitle;
-                    });
-                    deferred.resolve(report);
-                }).error(function () {
-                    deferred.reject('Failed to load the report with id: ' + reportId);
-                });
-                return deferred.promise;
             };
 
         }]);

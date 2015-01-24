@@ -20,10 +20,17 @@ angular.module('finqApp.runner.service')
         'feedback',
         'subscription',
         'run',
+        'report',
         'utils',
-        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,runService,utils) {
+        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,runService,reportService,utils) {
             var runningSessions = [],
                 loaded = false;
+
+            this.initialize = function() {
+                subscriptionService.register(EVENTS.SOCKET.RUN.UPDATED, this.handle);
+                subscriptionService.register(EVENTS.SOCKET.RUN.GIST, this.handle);
+                subscriptionService.register(EVENTS.SOCKET.RUN.COMPLETED, this.handle);
+            };
 
             this.handle = function(event,eventData) {
                 switch (event) {
@@ -36,12 +43,12 @@ angular.module('finqApp.runner.service')
                     case EVENTS.SOCKET.RUN.UPDATED:
                         handleRunUpdate(eventData);
                         break;
+                    case EVENTS.SOCKET.RUN.COMPLETED:
+                        handleNewReport(eventData);
+                        break;
                     default: break;
                 }
             };
-
-            subscriptionService.register(EVENTS.SOCKET.RUN.UPDATED, this.handle);
-            subscriptionService.register(EVENTS.SOCKET.RUN.GIST, this.handle);
 
             this.getRunningSessions = function() {
                 if (!loaded) {
@@ -208,6 +215,10 @@ angular.module('finqApp.runner.service')
                     }
                 }
                 return story;
+            };
+
+            var handleNewReport = function(runData) {
+                reportService.addNewReport(runData);
             };
 
         }]);

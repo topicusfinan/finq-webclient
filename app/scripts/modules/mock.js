@@ -17,6 +17,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'STATE',
     'config',
     '$httpBackend',
+    'environment',
     'appServiceMock',
     'setServiceMock',
     'tagServiceMock',
@@ -26,7 +27,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'runServiceMock',
     'reportServiceMock',
     'runnerMockSimulator',
-    function(STATE,configProvider,$httpBackend,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,reportServiceMock,runnerMockSimulator) {
+    function(STATE,configProvider,$httpBackend,environmentService,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,reportServiceMock,runnerMockSimulator) {
 
         $httpBackend.whenGET('/app').respond(appServiceMock.info);
         $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
@@ -49,6 +50,8 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
                 runningList.data[i].startedOn = (new Date()).getTime();
                 var simulatorData = {
                     id: runningList.data[i].id,
+                    startedOn: runningList.data[i].startedOn,
+                    startedBy: runningList.data[i].startedBy,
                     environment: runningList.data[i].environment,
                     stories: []
                 };
@@ -70,12 +73,15 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
             var jsonData = angular.fromJson(data);
             var runId = Math.floor((Math.random() * 10000) + 1);
             runnerMockSimulator.registerRun(angular.extend(jsonData,{
-                id: runId
+                id: runId,
+                startedBy: authServiceMock.user,
+                environment: environmentService.getById(jsonData.environment)
             }));
             return [200,{
                 id: runId,
                 startedBy: authServiceMock.user,
-                environment: jsonData.environment
+                environment: environmentService.getById(jsonData.environment),
+                startedOn: (new Date()).getTime()
             }];
         });
         var firstLoginAttempt = true;

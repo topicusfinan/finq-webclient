@@ -36,6 +36,9 @@ angular.module('finqApp.runner.service')
                 runs.push({
                     id: runData.id,
                     status: STATE.RUN.SCENARIO.RUNNING,
+                    startedBy: runData.startedBy,
+                    environment: runData.environment,
+                    startedOn: runData.startedOn,
                     stories: stories
                 });
                 if (!active) {
@@ -167,6 +170,9 @@ angular.module('finqApp.runner.service')
                 }
             }
             for (i=0; i<completedRuns.length; i++) {
+                completedRuns[i] = angular.extend(completedRuns[i],{
+                    completedOn: (new Date()).getTime()
+                });
                 socketService.emit(EVENTS.SOCKET.RUN.COMPLETED, completedRuns[i]);
             }
             return runs.length;
