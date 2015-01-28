@@ -50,6 +50,9 @@ angular.module('finqApp.service')
             };
 
             this.addNewReport = function (completedRun) {
+                if (reports === null){
+                    reports = [];
+                }
                 reports.unshift(createReportFromRun(completedRun));
             };
 
