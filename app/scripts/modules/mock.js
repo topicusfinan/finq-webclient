@@ -80,7 +80,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
             return [200,{
                 id: runId,
                 startedBy: authServiceMock.user,
-                environment: environmentService.getById(jsonData.environment),
+                environment: jsonData.environment,
                 startedOn: (new Date()).getTime()
             }];
         });
