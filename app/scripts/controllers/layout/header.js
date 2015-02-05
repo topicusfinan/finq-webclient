@@ -18,24 +18,24 @@ angular.module('finqApp.controller')
         'value',
         'storybookSearch',
         'EVENTS',
-        function ($rootScope,$scope,$timeout,configProvider,valueService,storybookSearchService,EVENTS) {
-        var that = this,
-            searchTimeout = null;
-        this.title = configProvider.server().subject;
-        this.timeout = configProvider.client().searchWait;
-        this.query = '';
+        function ($rootScope, $scope, $timeout, configProvider, valueService, storybookSearchService, EVENTS) {
+            var that = this,
+                searchTimeout = null;
+            this.title = configProvider.server().subject;
+            this.timeout = configProvider.client().searchWait;
+            this.query = '';
 
-        this.search = function() {
-            if (searchTimeout !== null) {
-                clearTimeout(searchTimeout);
-            }
-            searchTimeout = setTimeout(function() {
-                if (that.query !== valueService.searchQuery) {
-                    valueService.searchQuery = that.query;
-                    $rootScope.$broadcast(EVENTS.SCOPE.SEARCH_UPDATED,that.query);
-                    $scope.$apply();
+            this.search = function () {
+                if (searchTimeout !== null) {
+                    clearTimeout(searchTimeout);
                 }
-            },that.timeout);
-        };
+                searchTimeout = setTimeout(function () {
+                    if (that.query !== valueService.searchQuery) {
+                        valueService.searchQuery = that.query;
+                        $rootScope.$broadcast(EVENTS.SCOPE.SEARCH_UPDATED, that.query);
+                        $scope.$apply();
+                    }
+                }, that.timeout);
+            };
 
-    }]);
+        }]);

@@ -10,13 +10,13 @@
  * result information.
  */
 angular.module('finqApp.runner.service')
-    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story','$q','run', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService,$q,runService) {
+    .service('runnerMockSimulator', ['socket', 'STATE', 'EVENTS', 'config', '$timeout', 'story', '$q', 'run', function (socketService, STATE, EVENTS, configProvider, $timeout, storyService, $q, runService) {
         var runs = [],
             active = false;
 
-        this.registerRun = function(runData) {
+        this.registerRun = function (runData) {
             var deferred = $q.defer();
-            storyService.list().then(function() {
+            storyService.list().then(function () {
                 var stories = [];
                 angular.forEach(runData.stories, function (story) {
                     var scenarios = [];
@@ -50,34 +50,34 @@ angular.module('finqApp.runner.service')
             return deferred.promise;
         };
 
-        var setupStepsForScenario = function(scenarioId) {
+        var setupStepsForScenario = function (scenarioId) {
             var scenario = storyService.findScenarioById(scenarioId);
             var steps = [];
             if (scenario.steps.length) {
                 steps.push({status: STATE.RUN.SCENARIO.RUNNING});
-                for (var i=1; i<scenario.steps.length; i++) {
+                for (var i = 1; i < scenario.steps.length; i++) {
                     steps.push({status: STATE.RUN.SCENARIO.QUEUED});
                 }
             }
             return steps;
         };
 
-        var simulateRunResponses = function() {
-            var i,j,k, scenarioHasUpdate;
-            for (i=0; i<runs.length; i++) {
+        var simulateRunResponses = function () {
+            var i, j, k, scenarioHasUpdate;
+            for (i = 0; i < runs.length; i++) {
                 if (Math.random() > configProvider.client().mock.runSimulation.runSelectChance) {
                     continue;
                 }
-                for (j=0; j<runs[i].stories.length; j++) {
-                    if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.storySelectChance,Math.max(runs[i].stories.length,8))) {
+                for (j = 0; j < runs[i].stories.length; j++) {
+                    if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.storySelectChance, Math.max(runs[i].stories.length, 8))) {
                         scenarioHasUpdate = false;
-                        for (k=0; k<runs[i].stories[j].scenarios.length; k++) {
-                            if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance,Math.max(runs[i].stories[j].scenarios.length,8))) {
+                        for (k = 0; k < runs[i].stories[j].scenarios.length; k++) {
+                            if (Math.random() < Math.pow(configProvider.client().mock.runSimulation.scenarioSelectChance, Math.max(runs[i].stories[j].scenarios.length, 8))) {
                                 scenarioHasUpdate = generateScenarioStatusUpdate(runs[i].stories[j].scenarios[k]);
                                 if (scenarioHasUpdate) {
-                                    updateCollectionStatus(runs[i].stories[j],runs[i].stories[j].scenarios);
-                                    updateCollectionStatus(runs[i],runs[i].stories);
-                                    publishSimulatedResponse(runs[i],runs[i].stories[j],runs[i].stories[j].scenarios[k]);
+                                    updateCollectionStatus(runs[i].stories[j], runs[i].stories[j].scenarios);
+                                    updateCollectionStatus(runs[i], runs[i].stories);
+                                    publishSimulatedResponse(runs[i], runs[i].stories[j], runs[i].stories[j].scenarios[k]);
                                 }
                             }
                         }
@@ -91,10 +91,10 @@ angular.module('finqApp.runner.service')
             }
         };
 
-        var updateCollectionStatus = function(collection, collectives) {
+        var updateCollectionStatus = function (collection, collectives) {
             var collectivesCompleted = 0;
             var hasFailedCollective = false;
-            for (var i=0; i<collectives.length; i++) {
+            for (var i = 0; i < collectives.length; i++) {
                 if (collectives[i].status === STATE.RUN.SCENARIO.SUCCESS) {
                     collectivesCompleted++;
                 } else if (collectives[i].status === STATE.RUN.SCENARIO.FAILED) {
@@ -108,7 +108,7 @@ angular.module('finqApp.runner.service')
             }
         };
 
-        var generateScenarioStatusUpdate = function(scenario) {
+        var generateScenarioStatusUpdate = function (scenario) {
             if (scenario.status === STATE.RUN.SCENARIO.RUNNING) {
                 var resultStatusCurrentStep = STATE.RUN.SCENARIO.RUNNING;
                 var random = Math.random();
@@ -128,14 +128,14 @@ angular.module('finqApp.runner.service')
             return false;
         };
 
-        var transferToNextStep = function(scenario,currentStepResult) {
-            for (var i=0; i<scenario.steps.length; i++) {
+        var transferToNextStep = function (scenario, currentStepResult) {
+            for (var i = 0; i < scenario.steps.length; i++) {
                 if (scenario.steps[i].status === STATE.RUN.SCENARIO.RUNNING) {
                     scenario.steps[i].status = currentStepResult;
                     if (currentStepResult === STATE.RUN.SCENARIO.FAILED) {
                         scenario.steps[i].message = 'Fate determined that it was to be so';
-                    } else if (scenario.steps.length > i+1) {
-                        scenario.steps[i+1].status = STATE.RUN.SCENARIO.RUNNING;
+                    } else if (scenario.steps.length > i + 1) {
+                        scenario.steps[i + 1].status = STATE.RUN.SCENARIO.RUNNING;
                         return false;
                     }
                     break;
@@ -144,7 +144,7 @@ angular.module('finqApp.runner.service')
             return true;
         };
 
-        var publishSimulatedResponse = function(run,story,scenario) {
+        var publishSimulatedResponse = function (run, story, scenario) {
             var runUpdate = {
                 id: run.id,
                 status: run.status,
@@ -159,18 +159,18 @@ angular.module('finqApp.runner.service')
                 }
             };
 
-            socketService.emit(EVENTS.SOCKET.RUN.UPDATED,runUpdate);
+            socketService.emit(EVENTS.SOCKET.RUN.UPDATED, runUpdate);
         };
 
-        var validateCompletedRuns = function() {
+        var validateCompletedRuns = function () {
             var completedRuns = [], i;
-            for (i=0; i<runs.length; i++) {
+            for (i = 0; i < runs.length; i++) {
                 if (runService.runIsCompleted(runs[i])) {
-                    completedRuns = completedRuns.concat(runs.splice(i--,1));
+                    completedRuns = completedRuns.concat(runs.splice(i--, 1));
                 }
             }
-            for (i=0; i<completedRuns.length; i++) {
-                completedRuns[i] = angular.extend(completedRuns[i],{
+            for (i = 0; i < completedRuns.length; i++) {
+                completedRuns[i] = angular.extend(completedRuns[i], {
                     completedOn: (new Date()).getTime()
                 });
                 socketService.emit(EVENTS.SOCKET.RUN.COMPLETED, completedRuns[i]);

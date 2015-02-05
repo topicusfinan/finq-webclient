@@ -3,4 +3,4 @@
 /**
  * Created by c.kramer on 8/15/2014.
  */
-angular.module('finqApp.writer',[]);
+angular.module('finqApp.writer', []);

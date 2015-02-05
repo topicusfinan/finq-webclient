@@ -11,21 +11,21 @@
  * event more often than intended by the user.
  */
 angular.module('finqApp.directive')
-    .directive('outsideClick', ['$document', function( $document){
+    .directive('outsideClick', ['$document', function ($document) {
         return {
-            link: function( $scope, $element, $attributes ){
+            link: function ($scope, $element, $attributes) {
                 var scopeExpression = $attributes.outsideClick,
-                    onDocumentClick = function(event){
+                    onDocumentClick = function (event) {
                         var isChild = $element.find(event.target).length > 0;
 
-                        if(!isChild) {
+                        if (!isChild) {
                             $scope.$apply(scopeExpression);
                         }
                     };
 
                 $document.on('click', onDocumentClick);
 
-                $element.on('$destroy', function() {
+                $element.on('$destroy', function () {
                     $document.off('click', onDocumentClick);
                 });
             }

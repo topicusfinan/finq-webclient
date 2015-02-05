@@ -9,10 +9,10 @@
  * Handles the ability to expand and collapse lists and sublists in a story tree.
  * @returns {StoryExpandCollapse}
  */
-var StoryExpandCollapse = function(listId) {
+var StoryExpandCollapse = function (listId) {
     var $list = $(listId);
 
-    this.toggleAll = function() {
+    this.toggleAll = function () {
         var $expandedStoriesOrBooks = $list.find('ul.expand,li.expand');
         if ($expandedStoriesOrBooks.length !== 0) {
             $expandedStoriesOrBooks.removeClass('expand');
@@ -21,23 +21,23 @@ var StoryExpandCollapse = function(listId) {
         }
     };
 
-    this.setup = function() {
-        $list.on('click touchend','[data-toggle="story"]',function() {
+    this.setup = function () {
+        $list.on('click touchend', '[data-toggle="story"]', function () {
             expandStory($(this));
         });
-        $list.on('click touchend','[data-toggle="collection"]',function() {
+        $list.on('click touchend', '[data-toggle="collection"]', function () {
             toggleBook($(this));
         });
     };
 
-    var expandStory = function($storyTrigger) {
+    var expandStory = function ($storyTrigger) {
         var $story = $storyTrigger.closest('li');
         if (!$story.hasClass('expand')) {
             $story.addClass('expand');
         }
     };
 
-    var toggleBook = function($bookTrigger) {
+    var toggleBook = function ($bookTrigger) {
         var $expandedStories = $bookTrigger.closest('li').find('ul.expand,li.expand');
         if ($expandedStories.length !== 0) {
             $expandedStories.removeClass('expand');

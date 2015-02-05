@@ -19,12 +19,12 @@ angular.module('finqApp.mock')
                         id: 46421532,
                         title: 'New orders',
                         sets: [
-                            {id:1},
-                            {id:2}
+                            {id: 1},
+                            {id: 2}
                         ],
                         tags: [
-                            {id:2},
-                            {id:3}
+                            {id: 2},
+                            {id: 3}
                         ],
                         prologue: [
                             {
@@ -59,8 +59,7 @@ angular.module('finqApp.mock')
                                                 'id',
                                                 'value'
                                             ],
-                                            values:
-                                            [
+                                            values: [
                                                 {
                                                     id: '$bookId',
                                                     value: 30
@@ -78,7 +77,7 @@ angular.module('finqApp.mock')
                                 id: 23452345,
                                 title: 'A customer adds an additional EUR 20 book to their basket',
                                 tags: [
-                                    {id:1}
+                                    {id: 1}
                                 ],
                                 steps: [
                                     {
@@ -97,8 +96,7 @@ angular.module('finqApp.mock')
                                                 'id',
                                                 'value'
                                             ],
-                                            values:
-                                            [
+                                            values: [
                                                 {
                                                     id: '$bookId',
                                                     value: 30
@@ -122,13 +120,13 @@ angular.module('finqApp.mock')
                         id: 56421532,
                         title: 'Cancelled orders',
                         sets: [
-                            {id:1}
+                            {id: 1}
                         ],
                         tags: [
-                            {id:2},
-                            {id:3},
-                            {id:4},
-                            {id:6}
+                            {id: 2},
+                            {id: 3},
+                            {id: 4},
+                            {id: 6}
                         ],
                         prologue: [
                             {
@@ -186,8 +184,7 @@ angular.module('finqApp.mock')
                                                 'id',
                                                 'value'
                                             ],
-                                            values:
-                                            [
+                                            values: [
                                                 {
                                                     id: '$otherBookId',
                                                     value: 20
@@ -213,12 +210,12 @@ angular.module('finqApp.mock')
                         id: 66421532,
                         title: 'New stories',
                         sets: [
-                            {id:2}
+                            {id: 2}
                         ],
                         tags: [
-                            {id:2},
-                            {id:3},
-                            {id:5}
+                            {id: 2},
+                            {id: 3},
+                            {id: 5}
                         ],
                         prologue: [
                             {

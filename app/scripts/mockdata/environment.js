@@ -12,19 +12,19 @@ angular.module('finqApp.mock')
     .value('environmentServiceMock', {
         environments: [
             {
-                id : 1,
-                name : 'Chuck Norris',
-                address : ''
+                id: 1,
+                name: 'Chuck Norris',
+                address: ''
             },
             {
-                id : 2,
-                name : 'Steven Seagal',
-                address : ''
+                id: 2,
+                name: 'Steven Seagal',
+                address: ''
             },
             {
-                id : 3,
-                name : 'Jason Statham',
-                address : ''
+                id: 3,
+                name: 'Jason Statham',
+                address: ''
             }
         ]
     });

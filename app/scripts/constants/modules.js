@@ -9,8 +9,8 @@
  */
 
 angular.module('finqApp')
-    .constant('MODULES',{
-        'RUNNER' : {
+    .constant('MODULES', {
+        'RUNNER': {
             id: 'RUNNER',
             sections: {
                 'AVAILABLE': {
@@ -27,7 +27,7 @@ angular.module('finqApp')
                 }
             }
         },
-        'ORGANIZER' : {
+        'ORGANIZER': {
             id: 'ORGANIZER',
             sections: {
                 'SETS': {
@@ -38,7 +38,7 @@ angular.module('finqApp')
                 }
             }
         },
-        'WRITER' : {
+        'WRITER': {
             id: 'WRITER',
             sections: {
                 'STORIES': {

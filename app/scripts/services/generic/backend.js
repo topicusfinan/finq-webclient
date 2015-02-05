@@ -17,13 +17,13 @@ angular.module('finqApp.service')
     .provider('backend', function () {
         var serverAddress = '';
 
-        var transformGetParameters = function(url,queryData) {
+        var transformGetParameters = function (url, queryData) {
             var first = true;
 
-            var transformArray = function(key,values) {
+            var transformArray = function (key, values) {
                 var paramList = '';
                 var first = true;
-                for (var i=0; i<values.length; i++) {
+                for (var i = 0; i < values.length; i++) {
                     paramList += (first ? '' : '&') + key + '=' + values[i];
                     first = false;
                 }
@@ -34,7 +34,7 @@ angular.module('finqApp.service')
                 if (queryData.hasOwnProperty(key)) {
                     url += first ? '?' : '&';
                     if (typeof queryData[key] === 'object') {
-                        url += transformArray(key,queryData[key]);
+                        url += transformArray(key, queryData[key]);
                     } else {
                         url += key + '=' + queryData[key];
                     }
@@ -47,31 +47,31 @@ angular.module('finqApp.service')
         return {
             $get: function ($http) {
                 return {
-                    setServerAddress : function(address) {
+                    setServerAddress: function (address) {
                         serverAddress = address;
                     },
 
-                    get : function(url,queryData) {
+                    get: function (url, queryData) {
                         if (queryData && typeof queryData === 'object') {
-                            url = transformGetParameters(url,queryData);
+                            url = transformGetParameters(url, queryData);
                         }
-                        return $http.get(serverAddress+url);
+                        return $http.get(serverAddress + url);
                     },
 
-                    post : function(url,data) {
-                        return $http.post(serverAddress+url,data);
+                    post: function (url, data) {
+                        return $http.post(serverAddress + url, data);
                     },
 
-                    put : function(url,data) {
-                        return $http.put(serverAddress+url,data);
+                    put: function (url, data) {
+                        return $http.put(serverAddress + url, data);
                     },
 
-                    delete : function(url,data) {
-                        return $http.delete(serverAddress+url,data);
+                    delete: function (url, data) {
+                        return $http.delete(serverAddress + url, data);
                     },
 
-                    patch : function(url,data) {
-                        return $http.patch(serverAddress+url,data);
+                    patch: function (url, data) {
+                        return $http.patch(serverAddress + url, data);
                     }
                 };
             }

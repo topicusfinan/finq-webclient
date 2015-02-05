@@ -16,20 +16,20 @@ angular.module('finqApp.service')
     .service('storybookSearch', ['config', function (configProvider) {
         var books,
             searchList = {
-                global : {
+                global: {
                     scenarios: []
                 },
-                books : []
+                books: []
             };
 
-        var setupLists = function() {
+        var setupLists = function () {
             searchList.global.scenarios = [];
-            angular.forEach(books, function(book) {
+            angular.forEach(books, function (book) {
                 searchList.books[book.id] = {
                     scenarios: []
                 };
-                angular.forEach(book.stories, function(story) {
-                    angular.forEach(story.scenarios, function(scenario) {
+                angular.forEach(book.stories, function (story) {
+                    angular.forEach(story.scenarios, function (scenario) {
                         searchList.global.scenarios.push({
                             book: book.id,
                             title: scenario.title
@@ -43,7 +43,7 @@ angular.module('finqApp.service')
             });
         };
 
-        this.initialize = function(storybooks, forceReload) {
+        this.initialize = function (storybooks, forceReload) {
             if (books !== undefined && !forceReload) {
                 return;
             }
@@ -51,7 +51,7 @@ angular.module('finqApp.service')
             setupLists();
 
             searchList.global.engine = new Bloodhound({
-                datumTokenizer: function(d) {
+                datumTokenizer: function (d) {
                     return Bloodhound.tokenizers.whitespace(d.title);
                 },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -59,9 +59,9 @@ angular.module('finqApp.service')
                 local: searchList.global.scenarios
             });
             searchList.global.engine.initialize();
-            angular.forEach(books, function(book) {
+            angular.forEach(books, function (book) {
                 searchList.books[book.id].engine = new Bloodhound({
-                    datumTokenizer: function(d) {
+                    datumTokenizer: function (d) {
                         return Bloodhound.tokenizers.whitespace(d.title);
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -72,15 +72,15 @@ angular.module('finqApp.service')
             });
         };
 
-        this.suggest = function(query, bookId) {
+        this.suggest = function (query, bookId) {
             var resultType = bookId === undefined ? 'book' : 'story';
             if (searchList.global.engine === undefined) {
                 throw new Error('Storybook search has not been initialized');
             }
             var ids = [];
             var searchEngine = bookId === undefined ? searchList.global.engine : searchList.books[bookId].engine;
-            searchEngine.get(query, function(suggestions) {
-                angular.forEach(suggestions, function(suggestion) {
+            searchEngine.get(query, function (suggestions) {
+                angular.forEach(suggestions, function (suggestion) {
                     if (ids.indexOf(suggestion[resultType]) === -1) {
                         ids.push(suggestion[resultType]);
                     }

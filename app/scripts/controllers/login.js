@@ -15,48 +15,48 @@ angular.module('finqApp.controller')
         '$translate',
         'config',
         'authenticate',
-        function ($state,$scope,$translate,configProvider,authenticateService) {
-        var that = this;
-        this.email = 'admin@example.org';
-        this.password = 'admin';
-        this.submitted = false;
-        this.hasError = false;
-        this.title = configProvider.server().subject;
+        function ($state, $scope, $translate, configProvider, authenticateService) {
+            var that = this;
+            this.email = 'admin@example.org';
+            this.password = 'admin';
+            this.submitted = false;
+            this.hasError = false;
+            this.title = configProvider.server().subject;
 
-        var submitting = false;
+            var submitting = false;
 
-        this.authenticate = function() {
-            if (submitting) {
-                return;
-            }
-            that.hasError = false;
-            that.submitted = true;
-            submitting = true;
-            return authenticateService.authenticate(that.email,that.password).then(loginSuccess,loginFailed);
-        };
+            this.authenticate = function () {
+                if (submitting) {
+                    return;
+                }
+                that.hasError = false;
+                that.submitted = true;
+                submitting = true;
+                return authenticateService.authenticate(that.email, that.password).then(loginSuccess, loginFailed);
+            };
 
-        $translate('GENERAL.EMAIL_PLACEHOLDER').then(function (translatedValue) {
-            that.emailPlaceholder = translatedValue;
-        });
-        $translate('GENERAL.PASS_PLACEHOLDER').then(function (translatedValue) {
-            that.passPlaceholder = translatedValue;
-        });
-        $translate('LOGIN.SUBMIT_TITLE').then(function (translatedValue) {
-            that.submitTitle = translatedValue;
-        });
-
-        var loginSuccess = function() {
-            submitting = false;
-            $state.go('authorized');
-        };
-
-        var loginFailed = function(error) {
-            submitting = false;
-            that.hasError = true;
-            $translate('LOGIN.ERRORS.'+error).then(function (translatedValue) {
-                that.loginError = translatedValue;
+            $translate('GENERAL.EMAIL_PLACEHOLDER').then(function (translatedValue) {
+                that.emailPlaceholder = translatedValue;
             });
-            $scope.login.email.$setValidity(false);
-            $scope.login.password.$setValidity(false);
-        };
-    }]);
+            $translate('GENERAL.PASS_PLACEHOLDER').then(function (translatedValue) {
+                that.passPlaceholder = translatedValue;
+            });
+            $translate('LOGIN.SUBMIT_TITLE').then(function (translatedValue) {
+                that.submitTitle = translatedValue;
+            });
+
+            var loginSuccess = function () {
+                submitting = false;
+                $state.go('authorized');
+            };
+
+            var loginFailed = function (error) {
+                submitting = false;
+                that.hasError = true;
+                $translate('LOGIN.ERRORS.' + error).then(function (translatedValue) {
+                    that.loginError = translatedValue;
+                });
+                $scope.login.email.$setValidity(false);
+                $scope.login.password.$setValidity(false);
+            };
+        }]);

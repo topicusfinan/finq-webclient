@@ -12,12 +12,12 @@ angular.module('finqApp.mock')
     .value('setServiceMock', {
         sets: [
             {
-                id : 1,
-                name : 'Nightly'
+                id: 1,
+                name: 'Nightly'
             },
             {
-                id : 2,
-                name : 'Regression'
+                id: 2,
+                name: 'Regression'
             }
         ]
     });

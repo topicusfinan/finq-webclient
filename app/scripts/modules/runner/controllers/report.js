@@ -23,17 +23,17 @@ angular.module('finqApp.runner.controller')
         'feedback',
         'STATE',
         'runUtils',
-        function ($scope,$routeParams,$location,reportService,moduleService,MODULES,FEEDBACK,feedbackService,STATE,runUtils) {
+        function ($scope, $routeParams, $location, reportService, moduleService, MODULES, FEEDBACK, feedbackService, STATE, runUtils) {
             var that = this;
             this.selectedItem = null;
             this.loaded = false;
             this.runCompleted = true;
 
-            this.list = function() {
-                $location.path('/'+MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.','/'));
+            this.list = function () {
+                $location.path('/' + MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.', '/'));
             };
 
-            reportService.getReport($routeParams.reportId).then(function(report) {
+            reportService.getReport($routeParams.reportId).then(function (report) {
                 $scope.run = report;
                 that.loaded = true;
                 if (report.status === STATE.RUN.RUNNING) {
@@ -42,16 +42,16 @@ angular.module('finqApp.runner.controller')
                 setupRunProgress(report);
                 that.expander = new StoryExpandCollapse('#run-report');
                 that.expander.setup();
-            }, function() {
+            }, function () {
                 feedbackService.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
             });
 
             moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORTS);
 
-            var setupRunProgress = function(report) {
-                angular.forEach(report.stories, function(story) {
+            var setupRunProgress = function (report) {
+                angular.forEach(report.stories, function (story) {
                     story.scenariosCompleted = 0;
-                    angular.forEach(story.scenarios, function(scenario) {
+                    angular.forEach(story.scenarios, function (scenario) {
                         if (scenario.status === STATE.SUCCESS) {
                             story.scenariosCompleted++;
                         }

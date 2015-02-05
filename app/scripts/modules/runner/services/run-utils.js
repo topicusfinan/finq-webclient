@@ -9,13 +9,13 @@
  * A service that provides utility functions related to runs.
  */
 angular.module('finqApp.runner.service')
-    .service('runUtils', ['STATE','$translate',function (STATE,$translate) {
+    .service('runUtils', ['STATE', '$translate', function (STATE, $translate) {
         var that = this;
 
-        this.determineDetailedProgress = function(run) {
-            var updateScenarioDetails = function(scenario) {
+        this.determineDetailedProgress = function (run) {
+            var updateScenarioDetails = function (scenario) {
                 var template, stepsCompleted = 0;
-                for (var i=0; i<scenario.steps.length; i++) {
+                for (var i = 0; i < scenario.steps.length; i++) {
                     scenario.steps[i].highlight = statusToHighlight(scenario.steps[i].status);
                     if (scenario.steps[i].status === STATE.RUN.SCENARIO.SUCCESS || scenario.steps[i].status === STATE.RUN.SCENARIO.FAILED) {
                         stepsCompleted++;
@@ -25,7 +25,7 @@ angular.module('finqApp.runner.service')
                         scenario.message = scenario.steps[i].message;
                     } else if (scenario.steps[i].status === STATE.RUN.SCENARIO.RUNNING) {
                         scenario.message = scenario.steps[i].title;
-                    } else if (i === scenario.steps.length-1 && scenario.steps[i].status === STATE.RUN.SCENARIO.SUCCESS) {
+                    } else if (i === scenario.steps.length - 1 && scenario.steps[i].status === STATE.RUN.SCENARIO.SUCCESS) {
                         scenario.message = '';
                     }
                 }
@@ -40,29 +40,29 @@ angular.module('finqApp.runner.service')
                         template = 'RUNNING_PREPEND';
                         break;
                 }
-                $translate('RUNNER.RUNNING.RUN.MESSAGE.'+template,{
+                $translate('RUNNER.RUNNING.RUN.MESSAGE.' + template, {
                     currentStep: stepsCompleted + (STATE.RUN.SCENARIO.RUNNING ? 1 : 0),
                     totalSteps: scenario.steps.length
-                }).then(function(translatedValue) {
+                }).then(function (translatedValue) {
                     scenario.messagePrefix = translatedValue;
                 });
-                that.calculateProgress(scenario,stepsCompleted,scenario.steps.length);
+                that.calculateProgress(scenario, stepsCompleted, scenario.steps.length);
             };
 
-            angular.forEach(run.stories,function(story) {
-                that.calculateProgress(story,story.scenariosCompleted,story.scenarios.length);
-                for (var i=0; i<story.scenarios.length; i++) {
+            angular.forEach(run.stories, function (story) {
+                that.calculateProgress(story, story.scenariosCompleted, story.scenarios.length);
+                for (var i = 0; i < story.scenarios.length; i++) {
                     updateScenarioDetails(story.scenarios[i]);
                 }
             });
         };
 
-        this.calculateProgress = function(item,actionsCompleted,totalActions) {
-            item.percentage = parseInt(actionsCompleted/totalActions*25, 10)*4;
+        this.calculateProgress = function (item, actionsCompleted, totalActions) {
+            item.percentage = parseInt(actionsCompleted / totalActions * 25, 10) * 4;
             item.highlight = statusToHighlight(item.status);
         };
 
-        var statusToHighlight = function(status) {
+        var statusToHighlight = function (status) {
             switch (status) {
                 case STATE.RUN.SCENARIO.FAILED:
                     return 'failed';

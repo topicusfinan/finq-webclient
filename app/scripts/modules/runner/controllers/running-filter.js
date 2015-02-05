@@ -16,7 +16,7 @@ angular.module('finqApp.runner.controller')
 
         environmentService.list().then(function (environments) {
             that.environments = [];
-            angular.forEach(environments, function(environment) {
+            angular.forEach(environments, function (environment) {
                 that.environments.push({
                     key: environment.id,
                     value: environment.name

@@ -13,19 +13,19 @@ angular.module('finqApp.service')
     .service('subscription', [
         'socket',
         'EVENTS',
-        function (socketService,EVENTS) {
+        function (socketService, EVENTS) {
             var handlers = {},
                 handlerRef = 0;
 
-            this.subscribe = function(runId) {
+            this.subscribe = function (runId) {
                 socketService.emit(EVENTS.SOCKET.RUN.SUBSCRIBE, {run: runId}, true);
             };
 
-            this.unSubscribe = function(runId) {
+            this.unSubscribe = function (runId) {
                 socketService.emit(EVENTS.SOCKET.RUN.UNSUBSCRIBE, {run: runId}, true);
             };
 
-            this.register = function(event, handler) {
+            this.register = function (event, handler) {
                 if (!handlers[event]) {
                     handlers[event] = {};
                     registerSocketEvent(event);
@@ -34,7 +34,7 @@ angular.module('finqApp.service')
                 return handlerRef++;
             };
 
-            this.unRegister = function(event, reference) {
+            this.unRegister = function (event, reference) {
                 if (handlers[event] && handlers[event][reference]) {
                     delete handlers[event][reference];
                     if (Object.keys(handlers[event]).length === 0) {
@@ -46,9 +46,9 @@ angular.module('finqApp.service')
                 return false;
             };
 
-            var registerSocketEvent = function(event) {
-                socketService.on(event, function(event, data) {
-                    angular.forEach(handlers[event], function(handler) {
+            var registerSocketEvent = function (event) {
+                socketService.on(event, function (event, data) {
+                    angular.forEach(handlers[event], function (handler) {
                         handler(event, data);
                     });
                 });

@@ -10,15 +10,15 @@
  * sets will be in the result.
  */
 angular.module('finqApp.runner.filter')
-    .filter('storySetFilter', function() {
-        return function(stories, setsToInclude) {
+    .filter('storySetFilter', function () {
+        return function (stories, setsToInclude) {
             var filteredStories = [];
             if (!setsToInclude.length) {
                 return stories;
             }
-            angular.forEach(stories, function(story) {
+            angular.forEach(stories, function (story) {
                 var include = false;
-                angular.forEach(story.sets, function(set) {
+                angular.forEach(story.sets, function (set) {
                     if (setsToInclude.indexOf(set.id) > -1) {
                         include = true;
                     }

@@ -22,17 +22,17 @@ angular.module('finqApp.runner.service')
         'run',
         'report',
         'utils',
-        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,runService,reportService,utils) {
+        function (moduleService, MODULES, EVENTS, STATE, FEEDBACK, storyService, feedbackService, subscriptionService, runService, reportService, utils) {
             var runningSessions = [],
                 loaded = false;
 
-            this.initialize = function() {
+            this.initialize = function () {
                 subscriptionService.register(EVENTS.SOCKET.RUN.UPDATED, this.handle);
                 subscriptionService.register(EVENTS.SOCKET.RUN.GIST, this.handle);
                 subscriptionService.register(EVENTS.SOCKET.RUN.COMPLETED, this.handle);
             };
 
-            this.handle = function(event,eventData) {
+            this.handle = function (event, eventData) {
                 switch (event) {
                     case EVENTS.INTERNAL.STORY_RUN_STARTED:
                         handleRunStarted(eventData);
@@ -46,13 +46,14 @@ angular.module('finqApp.runner.service')
                     case EVENTS.SOCKET.RUN.COMPLETED:
                         handleNewReport(eventData);
                         break;
-                    default: break;
+                    default:
+                        break;
                 }
             };
 
-            this.getRunningSessions = function() {
+            this.getRunningSessions = function () {
                 if (!loaded) {
-                    storyService.list().then(function() {
+                    storyService.list().then(function () {
                         runService.list().then(initializeRunningStories);
                     });
                     loaded = true;
@@ -60,18 +61,18 @@ angular.module('finqApp.runner.service')
                 return runningSessions;
             };
 
-            this.clearCompletedSessions = function() {
+            this.clearCompletedSessions = function () {
                 if (loaded) {
-                    for (var i=0; i<runningSessions.length; i++) {
+                    for (var i = 0; i < runningSessions.length; i++) {
                         if (runService.runIsCompleted(runningSessions[i])) {
-                            runningSessions.splice(i--,1);
+                            runningSessions.splice(i--, 1);
                         }
                     }
                 }
             };
 
-            var initializeRunningStories = function(storyRuns) {
-                angular.forEach(storyRuns, function(run) {
+            var initializeRunningStories = function (storyRuns) {
+                angular.forEach(storyRuns, function (run) {
                     if (findRun(run.id) === null) {
                         handleRunStarted(run);
                         handleRunGist(run);
@@ -79,37 +80,37 @@ angular.module('finqApp.runner.service')
                 });
             };
 
-            var handleRunStarted = function(runData) {
+            var handleRunStarted = function (runData) {
                 var runningSession = {
-                        id: runData.id,
-                        startedOn: runData.startedOn,
-                        environment: runData.environment,
-                        startedBy: runData.startedBy,
-                        totalScenarios: 0,
-                        scenariosCompleted: 0,
-                        scenariosFailed: 0,
-                        status: STATE.RUN.SCENARIO.RUNNING,
-                        stories: [],
-                        msg: {},
-                        title: ''
-                    };
+                    id: runData.id,
+                    startedOn: runData.startedOn,
+                    environment: runData.environment,
+                    startedBy: runData.startedBy,
+                    totalScenarios: 0,
+                    scenariosCompleted: 0,
+                    scenariosFailed: 0,
+                    status: STATE.RUN.SCENARIO.RUNNING,
+                    stories: [],
+                    msg: {},
+                    title: ''
+                };
 
-                for (var i = 0; i<runData.stories.length; i++) {
-                    runningSession.stories.push(setupStoryForRun(runData.stories[i].id,runData.stories[i].scenarios));
+                for (var i = 0; i < runData.stories.length; i++) {
+                    runningSession.stories.push(setupStoryForRun(runData.stories[i].id, runData.stories[i].scenarios));
                     runningSession.totalScenarios += runData.stories[i].scenarios.length;
                 }
 
-                runService.setupRunTitle(runningSession).then(function(translatedTitle) {
+                runService.setupRunTitle(runningSession).then(function (translatedTitle) {
                     runningSession.title = translatedTitle;
                 });
                 runningSessions.unshift(runningSession);
                 subscriptionService.subscribe(runData.id);
             };
 
-            var handleRunGist = function(runGist) {
+            var handleRunGist = function (runGist) {
                 var i, j;
-                for (i=0; i<runGist.stories.length; i++) {
-                    for (j=0; j<runGist.stories[i].scenarios.length; j++) {
+                for (i = 0; i < runGist.stories.length; i++) {
+                    for (j = 0; j < runGist.stories[i].scenarios.length; j++) {
                         handleRunUpdate({
                             id: runGist.id,
                             status: runGist.status,
@@ -127,7 +128,7 @@ angular.module('finqApp.runner.service')
                 }
             };
 
-            var handleRunUpdate = function(runUpdate) {
+            var handleRunUpdate = function (runUpdate) {
                 var run = findRun(runUpdate.id);
                 if (run === null) {
                     subscriptionService.unSubscribe(runUpdate.id);
@@ -151,7 +152,7 @@ angular.module('finqApp.runner.service')
                         run.scenariosFailed++;
                     }
                 }
-                for (var i=0; i<runUpdate.story.scenario.steps.length; i++) {
+                for (var i = 0; i < runUpdate.story.scenario.steps.length; i++) {
                     scenario.steps[i].status = runUpdate.story.scenario.steps[i].status;
                     scenario.steps[i].message = runUpdate.story.scenario.steps[i].message;
                 }
@@ -160,24 +161,24 @@ angular.module('finqApp.runner.service')
                 }
             };
 
-            var handleCompletedRun = function(run) {
+            var handleCompletedRun = function (run) {
                 subscriptionService.unSubscribe(run.id);
                 runService.removeRun(run.id);
                 if (run.status === STATE.RUN.SCENARIO.FAILED) {
                     var pluralized = utils.pluralize(run.scenariosFailed);
-                    feedbackService.error(FEEDBACK.ERROR.RUN.COMPLETED[pluralized.template],{
+                    feedbackService.error(FEEDBACK.ERROR.RUN.COMPLETED[pluralized.template], {
                         failedCount: pluralized.value,
                         title: run.title
                     });
                 } else {
-                    feedbackService.success(FEEDBACK.SUCCESS.RUN.COMPLETED,{
+                    feedbackService.success(FEEDBACK.SUCCESS.RUN.COMPLETED, {
                         title: run.title
                     });
                 }
             };
 
-            var findRun = function(runId) {
-                for (var i=0; i<runningSessions.length; i++) {
+            var findRun = function (runId) {
+                for (var i = 0; i < runningSessions.length; i++) {
                     if (runningSessions[i].id === runId) {
                         return runningSessions[i];
                     }
@@ -185,39 +186,39 @@ angular.module('finqApp.runner.service')
                 return null;
             };
 
-            var setupStoryForRun = function(storyId,scenarios) {
+            var setupStoryForRun = function (storyId, scenarios) {
                 var story = angular.copy(storyService.findStoryById(storyId));
                 var i, j, keep;
-                angular.extend(story,{
+                angular.extend(story, {
                     status: STATE.RUN.SCENARIO.RUNNING,
                     scenariosCompleted: 0
                 });
-                for (i = 0; i<story.scenarios.length; i++) {
+                for (i = 0; i < story.scenarios.length; i++) {
                     keep = false;
-                    for (j = 0; j<scenarios.length; j++) {
+                    for (j = 0; j < scenarios.length; j++) {
                         if (scenarios[j].id === story.scenarios[i].id) {
                             keep = true;
                             break;
                         }
                     }
                     if (keep) {
-                        angular.extend(story.scenarios[i],{
+                        angular.extend(story.scenarios[i], {
                             status: STATE.RUN.SCENARIO.RUNNING,
                             stepsCompleted: 0
                         });
-                        for (j = 0; j<story.scenarios[i].steps.length; j++) {
-                            angular.extend(story.scenarios[i].steps[j],{
+                        for (j = 0; j < story.scenarios[i].steps.length; j++) {
+                            angular.extend(story.scenarios[i].steps[j], {
                                 status: STATE.RUN.SCENARIO.QUEUED
                             });
                         }
                     } else {
-                        story.scenarios.splice(i--,1);
+                        story.scenarios.splice(i--, 1);
                     }
                 }
                 return story;
             };
 
-            var handleNewReport = function(runData) {
+            var handleNewReport = function (runData) {
                 reportService.addNewReport(runData);
             };
 

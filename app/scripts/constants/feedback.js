@@ -23,15 +23,15 @@ angular.module('finqApp')
         },
         'ERROR': {
             'RUN': {
-                'NO_ENVIRONMENT_SELECTED': {'key':'RUN.NO_ENVIRONMENT_SELECTED'},
-                'REQUEST_FAILED': {'key':'RUN.REQUEST_FAILED'},
+                'NO_ENVIRONMENT_SELECTED': {'key': 'RUN.NO_ENVIRONMENT_SELECTED'},
+                'REQUEST_FAILED': {'key': 'RUN.REQUEST_FAILED'},
                 'COMPLETED': {
                     'SINGULAR': {'key': 'RUN.COMPLETED.SINGULAR'},
                     'PLURAL': {'key': 'RUN.COMPLETED.SINGULAR'}
                 }
             },
             'REPORT': {
-                'UNABLE_TO_LOAD': {'key':'REPORT.UNABLE_TO_LOAD'}
+                'UNABLE_TO_LOAD': {'key': 'REPORT.UNABLE_TO_LOAD'}
             },
             'SOCKET': {
                 'UNABLE_TO_CONNECT': {'key': 'SOCKET.UNABLE_TO_CONNECT'},
@@ -40,7 +40,7 @@ angular.module('finqApp')
         },
         'NOTICE': {
             'RUN': {
-                'REQUEST_IS_TAKING_LONG': {'key':'RUN.REQUEST_IS_TAKING_LONG'}
+                'REQUEST_IS_TAKING_LONG': {'key': 'RUN.REQUEST_IS_TAKING_LONG'}
             },
             'SOCKET': {
                 'RECONNECTING': {'key': 'SOCKET.RECONNECTING'},
@@ -49,7 +49,7 @@ angular.module('finqApp')
         },
         'ALERT': {
             'RUN': {
-                'NO_STORIES_SELECTED': {'key':'RUN.NO_STORIES_SELECTED'}
+                'NO_STORIES_SELECTED': {'key': 'RUN.NO_STORIES_SELECTED'}
             },
             'SOCKET': {
                 'RECONNECTION_TROUBLE': {'key': 'SOCKET.RECONNECTION_TROUBLE'}
@@ -58,11 +58,11 @@ angular.module('finqApp')
         'SUCCESS': {
             'RUN': {
                 'MULTIPLE_REQUEST': {
-                    'key':'RUN.MULTIPLE_REQUEST',
+                    'key': 'RUN.MULTIPLE_REQUEST',
                     'incrementable': true
                 },
-                'SINGLE_REQUEST': {'key':'RUN.SINGLE_REQUEST'},
-                'COMPLETED': {'key':'RUN.COMPLETED'}
+                'SINGLE_REQUEST': {'key': 'RUN.SINGLE_REQUEST'},
+                'COMPLETED': {'key': 'RUN.COMPLETED'}
             },
             'SOCKET': {
                 'RECONNECTED': {'key': 'SOCKET.RECONNECTED'}

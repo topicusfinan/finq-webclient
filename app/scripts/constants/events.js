@@ -8,13 +8,13 @@
  */
 
 angular.module('finqApp')
-    .constant('EVENTS',{
+    .constant('EVENTS', {
         'SCOPE': {
-            'SECTION_STATE_CHANGED' : 'finqApp.scope.sectionStateChanged',
-            'CONFIG_LOADED' : 'finqApp.scope.configLoaded',
-            'SEARCH_UPDATED' : 'finqApp.scope.searchUpdated',
-            'FILTER_SELECT_UPDATED' : 'finqApp.scope.filterSelectUpdated',
-            'CONTENT_LIST_UPDATED' : 'finqApp.scope.contentListUpdated',
+            'SECTION_STATE_CHANGED': 'finqApp.scope.sectionStateChanged',
+            'CONFIG_LOADED': 'finqApp.scope.configLoaded',
+            'SEARCH_UPDATED': 'finqApp.scope.searchUpdated',
+            'FILTER_SELECT_UPDATED': 'finqApp.scope.filterSelectUpdated',
+            'CONTENT_LIST_UPDATED': 'finqApp.scope.contentListUpdated',
             'SYNCHRONIZE_FILTER': 'finqApp.scope.synchronizeFilter',
             'FEEDBACK': 'finqApp.scope.feedback',
             'SECTION_NOTIFICATIONS_UPDATED': 'finqApp.scope.sectionNofificationsUpdated',
@@ -24,7 +24,7 @@ angular.module('finqApp')
             'STORY_RUN_STARTED': 'finqApp.internal.storyRunStarted'
         },
         'SOCKET': {
-            'MAIN' : {
+            'MAIN': {
                 'CONNECTED': 'connect',
                 'RECONNECTED': 'reconnect',
                 'RECONNECTING': 'reconnecting',

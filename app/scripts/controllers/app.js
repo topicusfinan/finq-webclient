@@ -18,21 +18,21 @@ angular.module('finqApp.controller')
         'config',
         'page',
         'EVENTS',
-        function (setup,$route,$scope,$translate,configProvider,pageFactory,EVENTS) {
+        function (setup, $route, $scope, $translate, configProvider, pageFactory, EVENTS) {
             var that = this;
             this.title = 'Finq';
 
             setup.initialize();
 
-            $scope.$on(EVENTS.SCOPE.CONFIG_LOADED,function(event, serverConfigData){
+            $scope.$on(EVENTS.SCOPE.CONFIG_LOADED, function (event, serverConfigData) {
                 that.title = serverConfigData.title;
             });
 
-            $scope.$on(EVENTS.SCOPE.SECTION_STATE_CHANGED,function(event, moduleInfo){
+            $scope.$on(EVENTS.SCOPE.SECTION_STATE_CHANGED, function (event, moduleInfo) {
                 // update the page title
-                pageFactory.setActiveSection(moduleInfo.module,moduleInfo.section);
-                $translate(moduleInfo.section.id+'.TITLE').then(function (translatedValue) {
-                    that.title = pageFactory.getPageTitle(configProvider.server().title,translatedValue);
+                pageFactory.setActiveSection(moduleInfo.module, moduleInfo.section);
+                $translate(moduleInfo.section.id + '.TITLE').then(function (translatedValue) {
+                    that.title = pageFactory.getPageTitle(configProvider.server().title, translatedValue);
                 });
             });
         }

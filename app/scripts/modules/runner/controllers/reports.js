@@ -24,7 +24,7 @@ angular.module('finqApp.runner.controller')
         'EVENTS',
         'FEEDBACK',
         'feedback',
-        function ($scope,configProvider,valueService,reportService,reporterFilterService,moduleService,$timeout,$location,MODULES,EVENTS,FEEDBACK,feedbackService) {
+        function ($scope, configProvider, valueService, reportService, reporterFilterService, moduleService, $timeout, $location, MODULES, EVENTS, FEEDBACK, feedbackService) {
             var that = this;
 
             this.filter = {
@@ -47,15 +47,15 @@ angular.module('finqApp.runner.controller')
 
             moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORTS);
 
-            $timeout(function() {
+            $timeout(function () {
                 // we reapply the filter after an initial delay to ensure that titles for reports are properly defined
                 reporterFilterService.applyFilter();
-            },100);
+            }, 100);
 
-            this.get = function(reportId) {
-                reportService.getReport(reportId).then(function() {
-                    $location.path('/'+MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.','/')+'/'+reportId);
-                }, function() {
+            this.get = function (reportId) {
+                reportService.getReport(reportId).then(function () {
+                    $location.path('/' + MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.', '/') + '/' + reportId);
+                }, function () {
                     feedbackService.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
                 });
             };

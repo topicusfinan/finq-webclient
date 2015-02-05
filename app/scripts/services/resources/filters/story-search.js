@@ -14,14 +14,14 @@
  * to use.
  */
 angular.module('finqApp.runner.filter')
-    .filter('storySearchFilter', ['storybookSearch', function(storybookSearchService) {
-        return function(stories, query, bookId) {
+    .filter('storySearchFilter', ['storybookSearch', function (storybookSearchService) {
+        return function (stories, query, bookId) {
             var filteredStories = [];
             if (query === '') {
                 return stories;
             }
             var storyIds = storybookSearchService.suggest(query, bookId);
-            angular.forEach(stories, function(story) {
+            angular.forEach(stories, function (story) {
                 if (storyIds.indexOf(story.id) !== -1) {
                     filteredStories.push(story);
                 }

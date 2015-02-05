@@ -10,12 +10,12 @@
  * applicable to the runner section of the Finq application.
  */
 angular.module('finqApp.runner', [
-        'ngRoute',
+    'ngRoute',
 
-        'finqApp.runner.service',
-        'finqApp.runner.controller',
-        'finqApp.runner.filter'
-    ]).config(['$routeProvider',function($routeProvider) {
+    'finqApp.runner.service',
+    'finqApp.runner.controller',
+    'finqApp.runner.filter'
+]).config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/runner/available', {
         templateUrl: '/views/modules/runner/available.html',
         controller: 'AvailableCtrl',
@@ -38,6 +38,6 @@ angular.module('finqApp.runner', [
 
 }]);
 
-angular.module('finqApp.runner.service',[]);
-angular.module('finqApp.runner.controller',[]);
-angular.module('finqApp.runner.filter',[]);
+angular.module('finqApp.runner.service', []);
+angular.module('finqApp.runner.controller', []);
+angular.module('finqApp.runner.filter', []);

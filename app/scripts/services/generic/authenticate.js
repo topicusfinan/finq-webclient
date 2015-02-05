@@ -10,53 +10,53 @@
  * authenticated user.
  */
 angular.module('finqApp.service')
-    .service('authenticate', ['$http','$q', function ($http,$q) {
+    .service('authenticate', ['$http', '$q', function ($http, $q) {
         var that = this,
             currentUser,
             address = '';
 
-        this.setAddress = function(authServerAddress) {
+        this.setAddress = function (authServerAddress) {
             address = authServerAddress;
         };
 
-        this.load = function() {
+        this.load = function () {
             var deferred = $q.defer();
             var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
-            },5000);
-            $http.get(address+'/users/current').success(function(userData) {
+            }, 5000);
+            $http.get(address + '/users/current').success(function (userData) {
                 currentUser = userData;
                 deferred.resolve(userData);
-            }).error(function(errorCode) {
+            }).error(function (errorCode) {
                 deferred.reject(errorCode);
-            }).finally(function() {
+            }).finally(function () {
                 clearTimeout(notice);
             });
             return deferred.promise;
         };
 
-        this.authenticate = function(email,password) {
+        this.authenticate = function (email, password) {
             var deferred = $q.defer();
             var notice = setTimeout(function () {
                 deferred.notify('Authenticating is taking too long');
-            },5000);
-            $http.post(address+'/users/login',{
+            }, 5000);
+            $http.post(address + '/users/login', {
                 'email': email,
                 'password': password
-            }).success(function(authToken) {
+            }).success(function (authToken) {
                 $http.defaults.headers.common['X-api-key'] = authToken;
-                that.load().then(function(userData) {
+                that.load().then(function (userData) {
                     deferred.resolve(userData);
                 });
-            }).error(function(errorCode) {
+            }).error(function (errorCode) {
                 deferred.reject(errorCode);
-            }).finally(function() {
+            }).finally(function () {
                 clearTimeout(notice);
             });
             return deferred.promise;
         };
 
-        this.getCurrentUser = function() {
+        this.getCurrentUser = function () {
             return currentUser;
         };
 

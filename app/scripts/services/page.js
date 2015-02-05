@@ -13,18 +13,18 @@ angular.module('finqApp.service')
         var activeModule = null;
         var activeSection = null;
 
-        this.getPageTitle = function(appTitle,controllerTitle) {
+        this.getPageTitle = function (appTitle, controllerTitle) {
             var detailedTitle = controllerTitle !== undefined ? controllerTitle : '';
-            return appTitle + (detailedTitle.length !== 0 ? ' - '+detailedTitle : '');
+            return appTitle + (detailedTitle.length !== 0 ? ' - ' + detailedTitle : '');
         };
 
         return {
-            setActiveSection: function(targetModule,targetSection) {
+            setActiveSection: function (targetModule, targetSection) {
                 activeModule = targetModule.id;
                 activeSection = targetSection.id;
             },
             getPageTitle: this.getPageTitle,
-            getActiveSection: function() {
+            getActiveSection: function () {
                 return {
                     moduleId: activeModule,
                     sectionId: activeSection

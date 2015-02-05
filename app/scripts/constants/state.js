@@ -8,7 +8,7 @@
  */
 
 angular.module('finqApp')
-    .constant('STATE',{
+    .constant('STATE', {
         'RUN': {
             'SCENARIO': {
                 'RUNNING': 'RUNNING',

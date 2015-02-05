@@ -28,7 +28,7 @@ angular.module('finqApp.service')
             reconnecting = null,
             forceDisconnect = false;
 
-        this.connect = function(endPoint, passedOptions) {
+        this.connect = function (endPoint, passedOptions) {
             if (passedOptions) {
                 setupOptions(passedOptions);
             }
@@ -38,22 +38,22 @@ angular.module('finqApp.service')
                 socket = new WebSocket(endPoint);
             }
             lastEndpoint = endPoint;
-            socket.onopen = function() {
+            socket.onopen = function () {
                 handleConnect();
             };
-            socket.onclose = function() {
+            socket.onclose = function () {
                 handleDisconnect(new Date());
             };
-            socket.onmessage = function(data) {
+            socket.onmessage = function (data) {
                 handleMessage(data);
             };
-            socket.onerror = function(error) {
+            socket.onerror = function (error) {
                 dispatchEvent(EVENTS.SOCKET.MAIN.ERROR, error);
             };
             return socket;
         };
 
-        this.disconnect = function() {
+        this.disconnect = function () {
             if (socket) {
                 forceDisconnect = true;
                 socket.close();
@@ -69,7 +69,7 @@ angular.module('finqApp.service')
             callback._once = true;
         };
 
-        this.off = function(eventName, callback) {
+        this.off = function (eventName, callback) {
             if (callback) {
                 var index = listeners[eventName].indexOf(callback);
                 if (index > -1) {
@@ -93,22 +93,23 @@ angular.module('finqApp.service')
             }
         };
 
-        var mockConnection = function() {
+        var mockConnection = function () {
             socket = {
-                close: function() {}
+                close: function () {
+                }
             };
-            setTimeout(function() {
+            setTimeout(function () {
                 socket.onopen();
             }, options.mockConnectionDelay);
         };
 
-        var setupOptions = function(passedOptions) {
-            angular.extend(options,passedOptions);
+        var setupOptions = function (passedOptions) {
+            angular.extend(options, passedOptions);
         };
 
-        var dispatchEvent = function(eventName, data) {
+        var dispatchEvent = function (eventName, data) {
             if (listeners[eventName]) {
-                for (var i=0; i<listeners[eventName].length; i++) {
+                for (var i = 0; i < listeners[eventName].length; i++) {
                     listeners[eventName][i](eventName, data);
                     if (listeners[eventName][i]._once) {
                         listeners[eventName].splice(i--, 1);
@@ -117,7 +118,7 @@ angular.module('finqApp.service')
             }
         };
 
-        var handleConnect = function() {
+        var handleConnect = function () {
             if (reconnecting) {
                 dispatchEvent(EVENTS.SOCKET.MAIN.RECONNECTED);
                 clearTimeout(reconnecting);
@@ -126,7 +127,7 @@ angular.module('finqApp.service')
             }
         };
 
-        var handleDisconnect = function() {
+        var handleDisconnect = function () {
             dispatchEvent(EVENTS.SOCKET.MAIN.DISCONNECTED);
             if (forceDisconnect || !options.reconnectAttempts) {
                 forceDisconnect = false;
@@ -136,21 +137,21 @@ angular.module('finqApp.service')
             return attemptReconnect(1);
         };
 
-        var handleMessage = function(messageData) {
+        var handleMessage = function (messageData) {
             var message = angular.fromJson(messageData);
             if (message.event) {
                 dispatchEvent(message.event, message.data);
             }
         };
 
-        var attemptReconnect = function(attempts) {
+        var attemptReconnect = function (attempts) {
             var now = new Date();
-            if (now-disconnectedOn > options.timeout || attempts > options.reconnectAttempts) {
+            if (now - disconnectedOn > options.timeout || attempts > options.reconnectAttempts) {
                 dispatchEvent(EVENTS.SOCKET.MAIN.RECONNECT_FAILED);
                 return false;
             }
-            var delay = Math.min(options.reconnectDelayMax,(attempts * options.reconnectDelay));
-            reconnecting = setTimeout(function() {
+            var delay = Math.min(options.reconnectDelayMax, (attempts * options.reconnectDelay));
+            reconnecting = setTimeout(function () {
                 if (socket.readyState === socket.CLOSED) {
                     dispatchEvent(EVENTS.SOCKET.MAIN.RECONNECTING);
                     that.connect(lastEndpoint);

@@ -11,9 +11,9 @@
  * it possible to mock certain requests, while letting other request be executed by an actual backend instance
  * to do so, comment the respective request below.
  */
-angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
-        $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
-    }]).run([
+angular.module('finqApp.mock', []).config(['$provide', function ($provide) {
+    $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
+}]).run([
     'STATE',
     'config',
     '$httpBackend',
@@ -27,26 +27,26 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
     'runServiceMock',
     'reportServiceMock',
     'runnerMockSimulator',
-    function(STATE,configProvider,$httpBackend,environmentService,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,reportServiceMock,runnerMockSimulator) {
+    function (STATE, configProvider, $httpBackend, environmentService, appServiceMock, setServiceMock, tagServiceMock, environmentServiceMock, authServiceMock, storyServiceMock, runServiceMock, reportServiceMock, runnerMockSimulator) {
 
         $httpBackend.whenGET('/app').respond(appServiceMock.info);
         $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
         $httpBackend.whenGET('/tags').respond(tagServiceMock.tags);
         $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
-        $httpBackend.whenGET(/^\/runs\/[0-9]+/).respond(function(method, url) {
-            var runId = parseInt(url.split('/')[2],10);
-            for (var i=0; i<reportServiceMock.data.length; i++) {
+        $httpBackend.whenGET(/^\/runs\/[0-9]+/).respond(function (method, url) {
+            var runId = parseInt(url.split('/')[2], 10);
+            for (var i = 0; i < reportServiceMock.data.length; i++) {
                 if (reportServiceMock.data[i].id === runId) {
-                    return [200,reportServiceMock.data[i]];
+                    return [200, reportServiceMock.data[i]];
                 }
             }
             return [404, 'Report not found'];
         });
-        $httpBackend.whenGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=50&page=0').respond(reportServiceMock);
-        $httpBackend.whenGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(function() {
+        $httpBackend.whenGET('/runs?status=' + STATE.RUN.SCENARIO.SUCCESS + '&status=' + STATE.RUN.SCENARIO.FAILED + '&size=50&page=0').respond(reportServiceMock);
+        $httpBackend.whenGET('/runs?status=' + STATE.RUN.SCENARIO.RUNNING + '&size=50&page=0').respond(function () {
             var i, j, k, runningList = angular.copy(runServiceMock);
-            for (i=0; i<runningList.data.length; i++) {
+            for (i = 0; i < runningList.data.length; i++) {
                 runningList.data[i].startedOn = (new Date()).getTime();
                 var simulatorData = {
                     id: runningList.data[i].id,
@@ -55,9 +55,9 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
                     environment: runningList.data[i].environment,
                     stories: []
                 };
-                for (j=0; j<runningList.data[i].stories.length; j++) {
+                for (j = 0; j < runningList.data[i].stories.length; j++) {
                     var scenarios = [];
-                    for (k=0; k<runningList.data[i].stories[j].scenarios.length; k++) {
+                    for (k = 0; k < runningList.data[i].stories[j].scenarios.length; k++) {
                         scenarios.push(runningList.data[i].stories[j].scenarios[k].id);
                     }
                     simulatorData.stories.push({
@@ -67,17 +67,17 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
                 }
                 runnerMockSimulator.registerRun(simulatorData);
             }
-            return [200,runningList];
+            return [200, runningList];
         });
-        $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {
+        $httpBackend.whenPOST('/run/stories').respond(function (method, url, data) {
             var jsonData = angular.fromJson(data);
             var runId = Math.floor((Math.random() * 10000) + 1);
-            runnerMockSimulator.registerRun(angular.extend(jsonData,{
+            runnerMockSimulator.registerRun(angular.extend(jsonData, {
                 id: runId,
                 startedBy: authServiceMock.user,
                 environment: environmentService.getById(jsonData.environment)
             }));
-            return [200,{
+            return [200, {
                 id: runId,
                 startedBy: authServiceMock.user,
                 environment: jsonData.environment,
@@ -85,19 +85,19 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
             }];
         });
         var firstLoginAttempt = true;
-        $httpBackend.whenGET('/users/current').respond(function() {
+        $httpBackend.whenGET('/users/current').respond(function () {
             if (firstLoginAttempt) {
                 firstLoginAttempt = false;
-                return [401,'user not authorized'];
+                return [401, 'user not authorized'];
             }
-            return [200,authServiceMock.user];
+            return [200, authServiceMock.user];
         });
-        $httpBackend.whenPOST('/users/login').respond(function(method, url, data) {
+        $httpBackend.whenPOST('/users/login').respond(function (method, url, data) {
             var jsonData = angular.fromJson(data);
             if (jsonData.email === 'admin@example.org' && jsonData.password === 'admin') {
-                return [200,'fake-authentication-token'];
+                return [200, 'fake-authentication-token'];
             }
-            return [401,authServiceMock.error];
+            return [401, authServiceMock.error];
         });
 
         // Catch-all pass through for all other requests

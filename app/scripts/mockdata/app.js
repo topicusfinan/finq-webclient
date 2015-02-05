@@ -11,8 +11,8 @@
 angular.module('finqApp.mock')
     .value('appServiceMock', {
         info: {
-            title : 'Finq',
-            subject : 'Book store',
+            title: 'Finq',
+            subject: 'Book store',
             authenticate: false
         }
     });

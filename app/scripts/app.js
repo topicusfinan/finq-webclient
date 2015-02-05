@@ -42,7 +42,7 @@ angular
         'finqApp.writer',
 
         'finqApp.translate'
-    ]).config(['$routeProvider','$stateProvider',function($routeProvider,$stateProvider) {
+    ]).config(['$routeProvider', '$stateProvider', function ($routeProvider, $stateProvider) {
         $routeProvider.otherwise({
             redirectTo: '/runner'
         });
@@ -58,7 +58,7 @@ angular
         });
     }]);
 
-angular.module('finqApp.service',[]);
-angular.module('finqApp.directive',[]);
-angular.module('finqApp.filter',[]);
-angular.module('finqApp.controller',[]);
+angular.module('finqApp.service', []);
+angular.module('finqApp.directive', []);
+angular.module('finqApp.filter', []);
+angular.module('finqApp.controller', []);
