@@ -47,16 +47,16 @@ describe('Unit: Story collapse jquery plugin', function() {
 
     it('should be able to expand and collapse all collections collectively', function () {
         expand.toggleAll();
-        expect($list.hasClass('expand')).to.be.true;
+        expect($list.find('li.expand').length).to.equal(4);
         expand.toggleAll();
-        expect($list.hasClass('expand')).to.be.false;
+        expect($list.find('li.expand').length).to.equal(0);
     });
 
     it('should be able expand all stories in a single collection', function () {
         $list.find('i[data-toggle="collection"]:first').click();
-        expect($list.find('ul.expand').length).to.equal(1);
+        expect($list.find('li.expand').length).to.equal(2);
         $list.find('i[data-toggle="collection"]:last').click();
-        expect($list.find('ul.expand').length).to.equal(2);
+        expect($list.find('li.expand').length).to.equal(4);
     });
 
     it('should be able expand a single story', function () {
@@ -84,4 +84,9 @@ describe('Unit: Story collapse jquery plugin', function() {
         expect($list.find('li.expand').length).to.equal(0);
     });
 
+    it('should be able collapse a story after all stories were opened in a single collection', function () {
+        $list.find('i[data-toggle="collection"]:first').click();
+        $list.find('i[data-toggle="story"]:first').click();
+        expect($list.find('li.expand').length).to.equal(1);
+    });
 });
