@@ -174,6 +174,9 @@ angular.module('finqApp.runner.service')
                         title: run.title
                     });
                 }
+                moduleService.updateModuleBadge(MODULES.RUNNER, ['run-'+run.id], true);
+                moduleService.updateSectionBadge(MODULES.RUNNER.sections.REPORTS, ['run-'+run.id], true);
+                moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING, ['run-'+run.id], false);
             };
 
             var findRun = function(runId) {
