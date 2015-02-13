@@ -72,16 +72,18 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenPOST('/run/stories').respond(function(method, url, data) {
             var jsonData = angular.fromJson(data);
             var runId = Math.floor((Math.random() * 10000) + 1);
+            var startedOn = (new Date()).getTime();
             runnerMockSimulator.registerRun(angular.extend(jsonData,{
                 id: runId,
                 startedBy: authServiceMock.user,
-                environment: environmentService.getById(jsonData.environment)
+                environment: environmentService.getById(jsonData.environment),
+                startedOn: startedOn
             }));
             return [200,{
                 id: runId,
                 startedBy: authServiceMock.user,
                 environment: jsonData.environment,
-                startedOn: (new Date()).getTime()
+                startedOn: startedOn
             }];
         });
         var firstLoginAttempt = true;

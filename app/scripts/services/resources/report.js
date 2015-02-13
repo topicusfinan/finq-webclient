@@ -21,6 +21,7 @@ angular.module('finqApp.service')
         'subscription',
         function (backend, $q, $translate, STATE, EVENTS, configProvider, runService, utils) {
             var reports = [],
+                that = this,
                 loadedReportHistory = false,
                 report = null;
 
@@ -52,7 +53,10 @@ angular.module('finqApp.service')
             };
 
             this.addNewReport = function (completedRun) {
-                reports.unshift(createReportFromRun(completedRun));
+                // call the list first once to avoid unexpected clean lists when developing in mocked mode
+                that.list().then(function() {
+                    reports.unshift(createReportFromRun(completedRun));
+                });
             };
 
             var createReportFromRun = function (run) {

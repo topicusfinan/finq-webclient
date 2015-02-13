@@ -116,9 +116,8 @@ describe('Unit: ReportService', function() {
 
     it('should properly load the report list after it has received an individual report from the server', function(done){
         reportService.addNewReport(runData[0]);
-
         loadReports().then(function(reportData){
-            expect(reportData).to.have.length(firstResponse.data.length + secondResponse.data.length);
+            expect(reportData).to.have.length(firstResponse.data.length + secondResponse.data.length + 1);
             done();
         });
         $rootScope.$digest();
