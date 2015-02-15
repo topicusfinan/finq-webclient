@@ -16,7 +16,8 @@ angular.module('finqApp.runner.service')
         'report',
         'reportSearch',
         '$q',
-        function ($filter,valueService,reportService,reportSearchService,$q) {
+        '$timeout',
+        function ($filter,valueService,reportService,reportSearchService,$q,$timeout) {
             var that = this,
                 initialized = false,
                 reportStatusFilter = $filter('reportStatusFilter'),
@@ -35,7 +36,9 @@ angular.module('finqApp.runner.service')
                 var deferred = $q.defer();
                 reportService.list().then(function(reports) {
                     unfilteredReports = reports;
-                    reportSearchService.initialize(reports, true);
+                    $timeout(function() {
+                        reportSearchService.initialize(reports, true);
+                    });
                     that.applyFilter();
                     deferred.resolve();
                     initializing = false;
