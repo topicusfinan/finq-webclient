@@ -107,7 +107,7 @@ describe('Unit: PreloaderCtrl', function() {
         appService.authenticate = true;
         httpBackend.expectGET('/app').respond(200, appService);
         httpBackend.expectGET('/environments').respond(200, environments);
-        httpBackend.expectGET('/users/current').respond(200, {name: 'test'});
+        httpBackend.expectGET('/users/current').respond(200, {name: 'test', email: 'test'});
         httpBackend.expectGET('views/layout.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();

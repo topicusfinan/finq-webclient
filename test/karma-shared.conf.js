@@ -49,6 +49,7 @@ module.exports = function() {
             'bower_components/angular-translate/angular-translate.js',
             'bower_components/angular-ui-router/release/angular-ui-router.js',
             'bower_components/typeahead.js/dist/typeahead.bundle.js',
+            'bower_components/angular-md5/angular-md5.js',
             'app/scripts/*.js',
             'app/scripts/modules/*.js',
             'app/scripts/modules/**/*.js',

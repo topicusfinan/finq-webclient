@@ -35,6 +35,7 @@ describe('Unit: ModuleService', function() {
         });
         config.load();
         $httpBackend.flush();
+
     }));
 
     it('should trigger the handling of events by linked module services', function () {
