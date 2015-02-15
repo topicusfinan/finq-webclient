@@ -1,6 +1,7 @@
 {
     "address": "",
     "authAddress": "",
+    "defaultUserImage": "mm",
     "socket": {
         "endpoint": "",
         "reconnectAttempts": 10,

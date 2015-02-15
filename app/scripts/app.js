@@ -31,6 +31,7 @@ angular
         'ngRoute',
         'ui.router',
         'ngAnimate',
+        'angular-md5',
 
         'finqApp.service',
         'finqApp.directive',

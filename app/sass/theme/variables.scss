@@ -53,6 +53,12 @@ $layout-menu-header-size:               modular-scale($base-font-size, 1, $octav
 $layout-feedback-size:                  1.2em;
 $layout-feedback-padding:               .5em 0;
 $layout-feedback-height:                3.5em;
+$header-account-name-pad:               .8em;
+$header-account-first-size:             .9em;
+$header-account-first-lh:               .5em;
+$header-account-last-size:              1.2em;
+$header-account-img-size:               3em;
+$header-account-img-pad:                .5em;
 
 // login formatting
 $login-font-size:                       modular-scale($base-font-size, 1, $perfect-fifth);

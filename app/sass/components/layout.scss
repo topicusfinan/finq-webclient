@@ -28,10 +28,15 @@ div.layout {
         z-index: 10000;
 
         .title,
-        .search {
+        .search,
+        .account {
             color: $header-title-color;
-            font-size: $header-title-size;
             position: relative;
+        }
+
+        .title,
+        .search {
+            font-size: $header-title-size;
             float: left;
         }
 
@@ -73,6 +78,41 @@ div.layout {
                 &:-webkit-autofill {
                     -webkit-box-shadow: 0 0 0 50px $header-bg-color inset;
                     -webkit-text-fill-color: $header-title-color;
+                }
+            }
+        }
+
+        .account {
+            float: right;
+            min-height: 100%;
+            @include pad(($header-height - $header-title-size)/8 $header-height/8);
+
+            > img {
+                height: $header-account-img-size;
+                position: absolute;
+                right: $header-account-img-pad;
+                top: $header-account-img-pad;
+                max-width: none;
+                cursor: pointer;
+            }
+
+            .name {
+                @include pad($header-account-name-pad $header-account-name-pad/2);
+                right: 4em;
+                position: absolute;
+
+                > span {
+                    display: block;
+                    text-align: right;
+
+                    &.first {
+                        font-size: $header-account-first-size;
+                        line-height: $header-account-first-lh;
+                    }
+
+                    &.last {
+                        font-size: $header-account-last-size;
+                    }
                 }
             }
         }

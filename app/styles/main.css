@@ -610,10 +610,13 @@ div.layout {
     position: fixed;
     z-index: 10000; }
     div.layout > header .title,
-    div.layout > header .search {
+    div.layout > header .search,
+    div.layout > header .account {
       color: #ddd;
+      position: relative; }
+    div.layout > header .title,
+    div.layout > header .search {
       font-size: 2em;
-      position: relative;
       float: left; }
     div.layout > header .title {
       background-color: #262626;
@@ -647,6 +650,29 @@ div.layout {
         div.layout > header .search input:-webkit-autofill {
           -webkit-box-shadow: 0 0 0 50px #1a1a1a inset;
           -webkit-text-fill-color: #ddd; }
+    div.layout > header .account {
+      float: right;
+      min-height: 100%;
+      padding: 0.25em 0.5em; }
+      div.layout > header .account > img {
+        height: 3em;
+        position: absolute;
+        right: 0.5em;
+        top: 0.5em;
+        max-width: none;
+        cursor: pointer; }
+      div.layout > header .account .name {
+        padding: 0.8em 0.4em;
+        right: 4em;
+        position: absolute; }
+        div.layout > header .account .name > span {
+          display: block;
+          text-align: right; }
+          div.layout > header .account .name > span.first {
+            font-size: 0.9em;
+            line-height: 0.5em; }
+          div.layout > header .account .name > span.last {
+            font-size: 1.2em; }
   div.layout > aside,
   div.layout > .main {
     top: 4em; }
