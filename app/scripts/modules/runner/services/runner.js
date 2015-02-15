@@ -19,10 +19,12 @@ angular.module('finqApp.runner.service')
         'story',
         'feedback',
         'subscription',
+        'reporterFilter',
         'run',
         'report',
         'utils',
-        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,runService,reportService,utils) {
+        '$timeout',
+        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,reporterFilterService,runService,reportService,utils,$timeout) {
             var runningSessions = [],
                 loaded = false;
 
@@ -222,6 +224,7 @@ angular.module('finqApp.runner.service')
 
             var handleNewReport = function(runData) {
                 reportService.addNewReport(runData);
+                $timeout(reporterFilterService.initialize);
             };
 
         }]);

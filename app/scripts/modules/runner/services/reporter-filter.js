@@ -12,12 +12,15 @@
 angular.module('finqApp.runner.service')
     .service('reporterFilter', [
         '$filter',
+        'value',
         'report',
+        'reportSearch',
         '$q',
-        function ($filter,reportService,$q) {
+        function ($filter,valueService,reportService,reportSearchService,$q) {
             var that = this,
                 initialized = false,
                 reportStatusFilter = $filter('reportStatusFilter'),
+                reportSearchFilter = $filter('reportSearchFilter'),
                 unfilteredReports = [],
                 initializing = false,
                 filteredReports = [],
@@ -32,6 +35,7 @@ angular.module('finqApp.runner.service')
                 var deferred = $q.defer();
                 reportService.list().then(function(reports) {
                     unfilteredReports = reports;
+                    reportSearchService.initialize(reports, true);
                     that.applyFilter();
                     deferred.resolve();
                     initializing = false;
@@ -54,7 +58,8 @@ angular.module('finqApp.runner.service')
                     });
                     return deferred.promise;
                 } else {
-                    filteredReports = reportStatusFilter(angular.copy(unfilteredReports),statuses);
+                    filteredReports = reportSearchFilter(angular.copy(unfilteredReports), valueService.searchQuery);
+                    filteredReports = reportStatusFilter(angular.copy(filteredReports), statuses);
                     updateStates(filteredReports);
                     return $q.when(filteredReports);
                 }
