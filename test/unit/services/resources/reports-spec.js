@@ -25,8 +25,8 @@ describe('Unit: ReportService', function() {
         reportServiceMock.pageSize = 1;
         firstResponse = angular.copy(reportServiceMock);
         secondResponse = angular.copy(reportServiceMock);
-        firstResponse.data.splice(1,1);
-        secondResponse.data.splice(0,1);
+        firstResponse.data = firstResponse.data.splice(firstResponse.data.length-2,1);
+        secondResponse.data = secondResponse.data.splice(secondResponse.data.length-1,1);
         secondResponse.page = 1;
         $q = _$q_;
         $httpBackend = _$httpBackend_;
@@ -117,7 +117,7 @@ describe('Unit: ReportService', function() {
     it('should properly load the report list after it has received an individual report from the server', function(done){
         reportService.addNewReport(runData[0]);
         loadReports().then(function(reportData){
-            expect(reportData).to.have.length(firstResponse.data.length + secondResponse.data.length + 1);
+            expect(reportData).to.have.length(firstResponse.data.length + secondResponse.data.length);
             done();
         });
         $rootScope.$digest();

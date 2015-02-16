@@ -10,7 +10,7 @@
  * result information.
  */
 angular.module('finqApp.runner.service')
-    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story','$q','run', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService,$q,runService) {
+    .service('runnerMockSimulator', ['socket','STATE','EVENTS','config','$timeout','story','$q','run','reportServiceMock', function (socketService,STATE,EVENTS,configProvider,$timeout,storyService,$q,runService,reportServiceMock) {
         var runs = [],
             active = false;
 
@@ -173,6 +173,7 @@ angular.module('finqApp.runner.service')
                 completedRuns[i] = angular.extend(completedRuns[i],{
                     completedOn: (new Date()).getTime()
                 });
+                reportServiceMock.data.unshift(completedRuns[i]);
                 socketService.emit(EVENTS.SOCKET.RUN.COMPLETED, completedRuns[i]);
             }
             return runs.length;

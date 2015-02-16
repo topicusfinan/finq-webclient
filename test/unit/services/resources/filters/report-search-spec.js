@@ -54,7 +54,7 @@ describe('Unit: Report Search Filter execution', function() {
     it('should keep all reports listed in case of an empty search', function () {
         reportSearchService.initialize(reports);
         var filteredReports = reportSearchFilter(reports,'');
-        expect(filteredReports.length).to.equal(2);
+        expect(filteredReports.length).to.equal(reports.length);
     });
 
     it('should eliminate books that do not have stories with a title that matches the query', function () {
