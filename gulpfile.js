@@ -21,6 +21,11 @@ var scssLint = require('gulp-scss-lint');
 var notify = require('gulp-notify');
 var bourbon = require('node-bourbon');
 var neat = require('node-neat');
+var merge = require('merge-stream');
+var watch = require('gulp-watch');
+var runSequence = require('run-sequence');
+var filter = require('gulp-filter');
+
 //endregion
 
 // region Config
@@ -36,23 +41,29 @@ var options = minimist(process.argv.slice(2), knownOptions);
 var env = config.env[options.env];
 //endregion
 
-gulp.task('default', ['clean', 'scripts', 'sass', 'moveViews', 'injectDependencies', 'moveVendors', 'moveStatics', 'moveConfig', 'moveLang', 'moveFontAwesomeFonts']);
-gulp.task('serve', ['default', 'browser-sync']);
+gulp.task('default', function (done) {
+    runSequence('clean',
+        ['scripts', 'sass', 'moveFiles'], 'injectDependencies', done);
+});
+gulp.task('serve', function(done){
+    runSequence('default', 'browser-sync', done)
+});
 
 gulp.task('clean', Clean);
-gulp.task('moveVendors', ['clean'], MoveVendorFiles);
-gulp.task('moveViews', ['clean'], MoveViews);
-gulp.task('moveStatics', ['clean'], MoveStatics);
-gulp.task('moveConfig', ['clean'], MoveConfig);
-gulp.task('moveLang', ['clean'], MoveLang);
-gulp.task('moveFontAwesomeFonts', ['clean'], MoveFontAwesomeFonts);
-gulp.task('injectDependencies', ['moveVendors', 'scripts', 'sass'], InjectDependencies);
+gulp.task('moveVendors', MoveVendorFiles);
+gulp.task('moveViews', MoveViews);
+gulp.task('moveStatics', MoveStatics);
+gulp.task('moveConfig', MoveConfig);
+gulp.task('moveLang', MoveLang);
+gulp.task('moveFontAwesomeFonts', MoveFontAwesomeFonts);
+gulp.task('injectDependencies', InjectDependencies);
 gulp.task('jslint', JsLint);
 gulp.task('scsslint', ScssLint);
-gulp.task('scripts', ['clean'], Scripts);
-gulp.task('sass', ['clean'], Sass);
-gulp.task('browser-sync', ['injectDependencies'], BrowserSync);
+gulp.task('scripts', Scripts);
+gulp.task('sass', Sass);
+gulp.task('browser-sync', BrowserSync);
 gulp.task('karma', Karma);
+gulp.task('moveFiles', MoveFiles);
 
 /**
  * Clean
@@ -61,9 +72,17 @@ function Clean(cb) {
     del(['build'], cb);
 }
 
-/**
- * Wire dependencies and sources in index and move to build
- */
+function MoveFiles() {
+    var bower = MoveVendorFiles();
+    var faFonts = MoveFontAwesomeFonts();
+    var views = MoveViews();
+    var statics = MoveStatics();
+    var config = MoveConfig();
+    var lang = MoveLang();
+
+    return merge(bower, faFonts, views, statics, config, lang);
+}
+
 function MoveVendorFiles() {
     return gulp.src(mainBowerFiles())
         .pipe(gulp.dest(paths.dest.vendor));
@@ -74,9 +93,6 @@ function MoveFontAwesomeFonts() {
         .pipe(gulp.dest(paths.dest.fonts));
 }
 
-/**
- * Move vendor libraries
- */
 function MoveViews() {
     return gulp.src(paths.src.views + "/**/*")
         .pipe(gulp.dest(paths.dest.views));
@@ -155,26 +171,30 @@ function ScssLint() {
  * Minify if specified in current environment
  */
 function Scripts() {
-    console.log("mockdata: " + env.mockdata);
     var sources = [
         paths.src.scripts + "/app.js",
         (env.mockdata ? "" : "!") + paths.src.scripts + "/modules/mock.js",
         (env.mockdata ? "" : "!") + paths.src.scripts + "/mockdata/**/*",
         paths.src.scripts + "/**/*.js"
     ];
-
-    console.log(sources[1]);
+    var sourcesOptions = {base: paths.src.scripts};
 
     var concatFileName = 'all.min.js';
 
-    return gulp.src(sources, {base: paths.src.scripts})
+    return gulp.src(sources, sourcesOptions)
         .pipe(sourcemaps.init({gulpWarnings: false}))
         .pipe(ngAnnotate({gulpWarnings: false}))
+        .on('error',  swallowError)
         .pipe(gulpif(env.jsminify, uglify()))
         .pipe(gulpif(env.jsconcat, concat(concatFileName)))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.dest.scripts))
         .pipe(reload({stream: true}));
+}
+
+function swallowError(error){
+    console.log(error.toString());
+    this.emit('end');
 }
 
 /**
@@ -183,25 +203,30 @@ function Scripts() {
  * Minify if specified in current environment
  */
 function Sass() {
-    gulp.src(paths.src.scss)
+    var source = paths.src.scss;
+
+    return gulp.src(source)
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: bourbon.with(neat.includePaths)
         }))
+        .on('error',  swallowError)
         .pipe(gulpif(env.scssminify, csso()))
         .pipe(autoprefixer('last 1 version'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.dest.css))
+        .pipe(filter('**/*.css'))
         .pipe(reload({stream: true}));
 }
+
 
 function Karma(done) {
     karma.start({
         configFile: __dirname + "/test/karma.conf.js",
-        //singleRun: true,
+        singleRun: true,
         action: 'run',
         captureConsole: true
-    }, function(){
+    }, function () {
         done();
     });
 }
@@ -216,9 +241,15 @@ function BrowserSync() {
         }
     });
 
-    gulp.watch(paths.src.scss, ['sass']);
-    gulp.watch(paths.src.scripts + "/**/*", ['scripts']);
-    gulp.watch('bower.json', ['moveVendors', 'injectDependencies'])
+    gulp.watch(paths.src.scripts + "/**/*.js", function(){
+        runSequence('scripts', 'injectDependencies');
+    });
+    gulp.watch(paths.src.scssfolder + "/**/*.scss", ['sass']);
+    gulp.watch("app/views/**/*.html", function(){
+        reload();
+    });
+
+
 }
 
 
