@@ -1,0 +1,39 @@
+{
+  "env": {
+    "default": "prod",
+    "prod": {
+      "jsminify": true,
+      "scssminify": false,
+      "jsconcat": true,
+      "mockdata": true
+    },
+    "dev": {
+      "jsminify": false,
+      "scssminify": false,
+      "jsconcat": false,
+      "mockdata": true
+    }
+  },
+  "paths": {
+    "basedir": "build",
+    "sourcedir": "app",
+    "src": {
+      "scripts": "app/scripts",
+      "index": "app/index.html",
+      "scss": "app/scss/main.scss",
+      "views": "app/views",
+      "lang": "app/lang",
+      "fafonts": "bower_components/components-font-awesome/fonts/**/*"
+    },
+    "dest": {
+      "scripts": "build/scripts",
+      "html": "build/html",
+      "css": "build/styles",
+      "index": "build/index.html",
+      "vendor": "build/vendor",
+      "views": "build/views",
+      "lang": "build/lang",
+      "fonts": "build/fonts"
+    }
+  }
+}
