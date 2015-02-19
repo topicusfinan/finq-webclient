@@ -15,6 +15,6 @@ module.exports = function(config) {
             'app/scripts/filters/**/*.js': ['coverage'],
             'app/scripts/modules/*/**/*.js': ['coverage'],
             'app/scripts/services/**/*.js': ['coverage']
-        },
+        }
     });
 };

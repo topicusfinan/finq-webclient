@@ -23,6 +23,7 @@
     "paths": {
         "basedir": "build",
         "sourcedir": "app",
+        "testdir": "test",
         "src": {
             "scripts": "app/scripts",
             "index": "app/index.html",

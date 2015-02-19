@@ -50,6 +50,9 @@ gulp.task('serve', function (done) {
 gulp.task('test', function (done) {
     runSequence('default', 'karma', done);
 });
+gulp.task('testWatch', function(done){
+    runSequence('default', 'karmaWatch')
+});
 
 gulp.task('clean', Clean);
 gulp.task('moveVendors', MoveVendorFiles().stream);
@@ -66,6 +69,7 @@ gulp.task('sass', Sass);
 gulp.task('browser-sync', BrowserSync);
 gulp.task('karma', Karma);
 gulp.task('moveFiles', MoveFiles);
+gulp.task('karmaWatch', ['karma'], KarmaWatch);
 //endregion
 
 // region Helper functions
@@ -253,6 +257,10 @@ function Karma(done) {
     }, function () {
         done();
     });
+}
+
+function KarmaWatch(done){
+    gulp.watch(paths.testdir + "/**/*", ['karma']);
 }
 
 /**
