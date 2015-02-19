@@ -55,7 +55,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "coveralls": "cat ./reports/coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test": "gulp test",
+    "coveralls": "cat ./test/reports/coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }
 }
