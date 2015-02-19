@@ -3,7 +3,7 @@
         "default": "prod",
         "prod": {
             "jsminify": true,
-            "scssminify": false,
+            "scssminify": true,
             "jsconcat": true,
             "mockdata": true
         },
@@ -12,6 +12,12 @@
             "scssminify": false,
             "jsconcat": false,
             "mockdata": true
+        },
+        "dist": {
+            "jsminify": true,
+            "scssminify": true,
+            "jsconcat": true,
+            "mockdata": false
         }
     },
     "paths": {
