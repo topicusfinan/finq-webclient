@@ -154,12 +154,15 @@ function InjectDependencies() {
             paths.dest.scripts + "/app.js",
             paths.dest.scripts + "/modules/mock.js",
             paths.dest.scripts + "/{mockdata,mockdata/**/*.js}", // Matcher for folder first, files second
-            paths.dest.scripts + "/**/*.js"], {read: false}), {name: 'scripts', ignorePath: 'build'}))
+            paths.dest.scripts + "/**/*.js"], {read: false}), {name: 'app', ignorePath: 'build'}))
+        .pipe(inject(gulp.src([
+            // Inject vendor css
+            paths.dest.vendor + "/**/*.css"
+        ], {read: false}), {name: 'vendor', ignorePath: 'build'}))
         .pipe(inject(gulp.src([
             // Inject css
-            paths.dest.css + "/**/*.css",
-            paths.dest.vendor + "/**/*.css"
-        ], {read: false}), {ignorePath: 'build'}))
+            paths.dest.css + "/**/*.css"
+        ], {read: false}), {name: 'app', ignorePath: 'build'}))
         .pipe(gulp.dest("build"))
         .pipe(reload({stream: true}));
 }
