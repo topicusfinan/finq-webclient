@@ -10,7 +10,11 @@ module.exports = function(config) {
         },
         reporters: ['progress', 'coverage'],
         preprocessors: {
-            'build/scripts/**/*.js': ['coverage']
-        }
+            'app/scripts/controllers/**/*.js': ['coverage'],
+            'app/scripts/directives/**/*.js': ['coverage'],
+            'app/scripts/filters/**/*.js': ['coverage'],
+            'app/scripts/modules/*/**/*.js': ['coverage'],
+            'app/scripts/services/**/*.js': ['coverage']
+        },
     });
 };
