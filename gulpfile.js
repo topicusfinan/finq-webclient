@@ -148,16 +148,16 @@ function InjectDependencies() {
         .pipe(inject(gulp.src([
             // Inject vendor libraries, always include angular first, then everything else
             paths.dest.vendor + "/angular.js",
-            paths.dest.vendor + "/**/*"], {read: false}), {name: 'vendor', ignorePath: 'build'}))
+            paths.dest.vendor + "/**/*.js"], {read: false}), {name: 'vendor', ignorePath: 'build'}))
         .pipe(inject(gulp.src([
             // Inject scripts, always include app.js first, then mocks, then everything else
             paths.dest.scripts + "/app.js",
             paths.dest.scripts + "/modules/mock.js",
-            paths.dest.scripts + "/{mockdata,mockdata/**/*}", // Matcher for folder first, files second
-            paths.dest.scripts + "/**/*"], {read: false}), {name: 'scripts', ignorePath: 'build'}))
+            paths.dest.scripts + "/{mockdata,mockdata/**/*.js}", // Matcher for folder first, files second
+            paths.dest.scripts + "/**/*.js"], {read: false}), {name: 'scripts', ignorePath: 'build'}))
         .pipe(inject(gulp.src([
             // Inject css
-            paths.dest.css + "/**/*",
+            paths.dest.css + "/**/*.css",
             paths.dest.vendor + "/**/*.css"
         ], {read: false}), {ignorePath: 'build'}))
         .pipe(gulp.dest("build"))
@@ -237,6 +237,15 @@ function Sass() {
 function Karma(done) {
     karma.start({
         configFile: __dirname + "/test/karma.conf.js",
+        files: [
+            paths.dest.vendor + "/angular.js",
+            paths.dest.vendor + "/**/*.js",
+            paths.dest.scripts + "/app.js",
+            paths.dest.scripts + "/modules/mock.js",
+            paths.dest.scripts + "/{mockdata,mockdata/**/*.js}",
+            paths.dest.scripts + "/**/*.js",
+            'test/unit/**/*.js'
+        ],
         singleRun: true,
         action: 'run',
         captureConsole: true
