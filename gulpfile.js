@@ -24,7 +24,6 @@ var neat = require('node-neat');
 var merge = require('merge-stream');
 var watch = require('gulp-watch');
 var runSequence = require('run-sequence');
-var filter = require('gulp-filter');
 //endregion
 
 // region Config
@@ -230,7 +229,6 @@ function Sass() {
         .pipe(autoPrefixer('last 1 version'))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(paths.dest.css))
-        .pipe(filter('**/*.css'))
         .pipe(reload({stream: true}));
 }
 
