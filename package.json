@@ -45,6 +45,7 @@
     "karma-sinon": "^1.0.3",
     "karma-sinon-chai": "^0.2.0",
     "main-bower-files": "2.5.0",
+    "merge-stream": "^0.1.7",
     "minimist": "1.1.0",
     "mocha": "^1.21.4",
     "node-bourbon": "1.2.3",
