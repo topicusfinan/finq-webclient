@@ -252,7 +252,16 @@ function Karma(done) {
         files: [
             paths.dest.vendor + '/angular.js',
             paths.dest.vendor + '/**/*.js',
-            paths.src.scripts + '/**/*.js',
+            paths.src.scripts + '/*.js',
+            paths.src.scripts + '/modules/*.js',
+            paths.src.scripts + '/modules/**/*.js',
+            paths.src.scripts + '/constants/**/*.js',
+            paths.src.scripts + '/directives/**/*.js',
+            paths.src.scripts + '/services/**/*.js',
+            paths.src.scripts + '/controllers/**/*.js',
+            paths.src.scripts + '/filters/**/*.js',
+            paths.src.scripts + '/plugins/**/*.js',
+            paths.src.scripts + '/mockdata/**/*.js',
             'test/unit/**/*.js'
         ],
         preprocessors: preprocessors,
