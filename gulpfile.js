@@ -41,8 +41,8 @@ var env = config.env[options.env];
 
 // region Tasks
 gulp.task('default', function (done) {
-    runSequence('clean',
-        ['scripts', 'sass', 'moveFiles'], 'injectDependencies', done);
+    runSequence('clean', 'moveFiles',
+        ['scripts', 'sass'], 'injectDependencies', done);
 });
 gulp.task('serve', function (done) {
     runSequence('default', 'browser-sync', done);
@@ -50,7 +50,7 @@ gulp.task('serve', function (done) {
 gulp.task('test', function (done) {
     runSequence('default', 'karma', done);
 });
-gulp.task('testWatch', function(done){
+gulp.task('testWatch', function (done) {
     runSequence('default', 'karmaWatch')
 });
 
@@ -84,7 +84,8 @@ function swallowError(error) {
  * Clean
  */
 function Clean(cb) {
-    del(['build'], cb);
+    del.sync(['./build']);
+    cb();
 }
 
 function MoveFiles() {
@@ -99,19 +100,19 @@ function MoveFiles() {
 }
 
 function MoveVendorFiles() {
-    return gulp.src(mainBowerFiles())
+    return gulp.src(mainBowerFiles(), {buffer: false})
         .pipe(gulp.dest(paths.dest.vendor))
         .pipe(reload({stream: true}));
 }
 
 function MoveFontAwesomeFonts() {
-    return gulp.src(paths.src.fafonts)
+    return gulp.src(paths.src.fafonts, {buffer: false})
         .pipe(gulp.dest(paths.dest.fonts))
         .pipe(reload({stream: true}));
 }
 
 function MoveViews() {
-    return gulp.src(paths.src.views + "/**/*")
+    return gulp.src(paths.src.views + '/**/*', {buffer: false})
         .pipe(gulp.dest(paths.dest.views))
         .pipe(reload({stream: true}));
 }
@@ -121,15 +122,15 @@ function MoveViews() {
  */
 function MoveStatics() {
     return gulp.src([
-        paths.sourcedir + "/*",
-        "!" + paths.sourcedir + "/index.html"
-    ], {nodir: true, dot: true})
+        paths.sourcedir + '/*',
+        '!' + paths.sourcedir + '/index.html'
+    ], {nodir: true, dot: true, buffer: false})
         .pipe(gulp.dest(paths.basedir))
         .pipe(reload({stream: true}));
 }
 
 function MoveConfig() {
-    return gulp.src(paths.src.scripts + "/config.json")
+    return gulp.src(paths.src.scripts + '/config.json', {buffer: false})
         .pipe(gulp.dest(paths.dest.scripts))
         .pipe(reload({stream: true}));
 }
@@ -138,7 +139,7 @@ function MoveConfig() {
  * Move language files
  */
 function MoveLang() {
-    return gulp.src(paths.src.lang + "/**/*")
+    return gulp.src(paths.src.lang + '/**/*', {buffer: false})
         .pipe(gulp.dest(paths.dest.lang))
         .pipe(reload({stream: true}));
 }
@@ -150,23 +151,23 @@ function InjectDependencies() {
     return gulp.src(paths.src.index)
         .pipe(inject(gulp.src([
             // Inject vendor libraries, always include angular first, then everything else
-            paths.dest.vendor + "/angular.js",
-            paths.dest.vendor + "/**/*.js"], {read: false}), {name: 'vendor', ignorePath: 'build'}))
+            paths.dest.vendor + '/angular.js',
+            paths.dest.vendor + '/**/*.js'], {read: false}), {name: 'vendor', ignorePath: 'build'}))
         .pipe(inject(gulp.src([
             // Inject scripts, always include app.js first, then mocks, then everything else
-            paths.dest.scripts + "/app.js",
-            paths.dest.scripts + "/modules/mock.js",
-            paths.dest.scripts + "/{mockdata,mockdata/**/*.js}", // Matcher for folder first, files second
-            paths.dest.scripts + "/**/*.js"], {read: false}), {name: 'app', ignorePath: 'build'}))
+            paths.dest.scripts + '/app.js',
+            paths.dest.scripts + '/modules/mock.js',
+            paths.dest.scripts + '/{mockdata,mockdata/**/*.js}', // Matcher for folder first, files second
+            paths.dest.scripts + '/**/*.js'], {read: false}), {name: 'app', ignorePath: 'build'}))
         .pipe(inject(gulp.src([
             // Inject vendor css
-            paths.dest.vendor + "/**/*.css"
+            paths.dest.vendor + '/**/*.css'
         ], {read: false}), {name: 'vendor', ignorePath: 'build'}))
         .pipe(inject(gulp.src([
             // Inject css
-            paths.dest.css + "/**/*.css"
+            paths.dest.css + '/**/*.css'
         ], {read: false}), {name: 'app', ignorePath: 'build'}))
-        .pipe(gulp.dest("build"))
+        .pipe(gulp.dest('build'))
         .pipe(reload({stream: true}));
 }
 
@@ -174,7 +175,7 @@ function InjectDependencies() {
  * Check JS with jshint
  */
 function JsHint() {
-    return gulp.src(paths.src.scripts + "/**/*.js")
+    return gulp.src(paths.src.scripts + '/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(jshint.reporter('fail'));
@@ -195,10 +196,10 @@ function ScssLint() {
  */
 function Scripts() {
     var sources = [
-        paths.src.scripts + "/app.js",
-        (env.mockdata ? "" : "!") + paths.src.scripts + "/modules/mock.js",
-        (env.mockdata ? "" : "!") + paths.src.scripts + "/mockdata/**/*",
-        paths.src.scripts + "/**/*.js"
+        paths.src.scripts + '/app.js',
+        (env.mockdata ? '' : '!') + paths.src.scripts + '/modules/mock.js',
+        (env.mockdata ? '' : '!') + paths.src.scripts + '/mockdata/**/*',
+        paths.src.scripts + '/**/*.js'
     ];
 
     var sourcesOptions = {base: paths.src.scripts};
@@ -241,14 +242,14 @@ function Sass() {
  */
 function Karma(done) {
     karma.start({
-        configFile: __dirname + "/test/karma.conf.js",
+        configFile: __dirname + '/test/karma.conf.js',
         files: [
-            paths.dest.vendor + "/angular.js",
-            paths.dest.vendor + "/**/*.js",
-            paths.dest.scripts + "/app.js",
-            paths.dest.scripts + "/modules/mock.js",
-            paths.dest.scripts + "/{mockdata,mockdata/**/*.js}",
-            paths.dest.scripts + "/**/*.js",
+            paths.dest.vendor + '/angular.js',
+            paths.dest.vendor + '/**/*.js',
+            paths.dest.scripts + '/app.js',
+            paths.dest.scripts + '/modules/mock.js',
+            paths.dest.scripts + '/{mockdata,mockdata/**/*.js}',
+            paths.dest.scripts + '/**/*.js',
             'test/unit/**/*.js'
         ],
         singleRun: true,
@@ -259,8 +260,8 @@ function Karma(done) {
     });
 }
 
-function KarmaWatch(done){
-    gulp.watch(paths.testdir + "/**/*", ['karma']);
+function KarmaWatch(done) {
+    gulp.watch(paths.testdir + '/**/*', ['karma']);
 }
 
 /**
@@ -274,30 +275,30 @@ function BrowserSync() {
     });
 
     // Watch scripts
-    gulp.watch(paths.src.scripts + "/**/*.js", function () {
+    gulp.watch(paths.src.scripts + '/**/*.js', function () {
         runSequence('scripts', 'injectDependencies');
     });
 
     // Watch scss
-    gulp.watch(paths.src.scssfolder + "/**/*.scss", ['sass']);
+    gulp.watch(paths.src.scssfolder + '/**/*.scss', ['sass']);
 
     // Watch views
-    gulp.watch(paths.src.views + "/**/*.html", ['moveViews']);
+    gulp.watch(paths.src.views + '/**/*.html', ['moveViews']);
 
     // Watch index.html
     gulp.watch(paths.src.index, ['injectDependencies']);
 
     // Watch statics
     gulp.watch([
-        paths.sourcedir + "/*",
-        "!" + paths.sourcedir + "/index.html"
+        paths.sourcedir + '/*',
+        '!' + paths.sourcedir + '/index.html'
     ], ['moveStatics']);
 
     // Watch config
-    gulp.watch(paths.src.scripts + "/config.json", ['moveConfig']);
+    gulp.watch(paths.src.scripts + '/config.json', ['moveConfig']);
 
     // Watch lang
-    gulp.watch(paths.src.lang + "/**/*.json", ['moveLang']);
+    gulp.watch(paths.src.lang + '/**/*.json', ['moveLang']);
 }
 //endregion
 
