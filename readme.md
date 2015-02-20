@@ -15,7 +15,7 @@ To develop you must have the following tools installed and added to your PATH:
 * [Ruby](https://www.ruby-lang.org/) required for Sass
 * [Sass](http://sass-lang.com/) since all styling is developed using Sass
 * [Karma](http://karma-runner.github.io/) for automated testing during development
-* [Grunt](http://gruntjs.com/) for execution of our automated tasks
+* [Gulp](http://gulpjs.com/) for execution of our automated tasks
 * [Bower](http://bower.io/) for application dependency management
 
 ###Install
@@ -27,25 +27,25 @@ After this Sass should be available (which you can check by executing `sass -v` 
 
 To get the proper toolset after installing node you can use the node package manager:
 
-    $ npm install -g grunt-cli
+    $ npm install -g gulp
     $ npm install -g bower
     $ npm install
     $ bower install
 
-This will install Grunt on your command line and makes sure that bower is available for dependency management. Run the above commands in the application directory so all packages and dependencies are retrieved.
+This will install Gulp on your command line and makes sure that bower is available for dependency management. Run the above commands in the application directory so all packages and dependencies are retrieved.
 
 ####Code style
 To support consistent code styling we make use of [jshint](http://www.jshint.com/) for javascript convention validation and [scss-lint](https://github.com/causes/scss-lint) for SASS convention validation. Even though JShint is automatically installed with the above commands, scss-lint requires an additional Ruby Gem to be installed as follows:
 
     $ gem install scss-lint
 
-Grunt is setup to automatically validate the `.scss` files in `app/sass`, so any changes to those files are immediately validated in case you're running Grunt on the background.
+Linters can be run using `gulp scsslint` and `gulp jshint`
 
 ##Running
-When you're all setup you can run the development server using `grunt serve` or generate a distributable using `grunt serve:dist`. A distributable requires you to also have a backend available. The [Finq Runner](https://github.com/topicusfinan/jbehave-rest-runner) has to be installed and running to be able to pass the preloader screen. The non distributable contains a mocked backend for isolated development purposes.
+When you're all setup you can run the development server using `gulp serve` (minified with source maps) or `gulp serve --env dev`. A distributable can be generated using `gulp serve --env dist`. A distributable requires you to also have a backend available. The [Finq Runner](https://github.com/topicusfinan/jbehave-rest-runner) has to be installed and running to be able to pass the preloader screen. The non distributable contains a mocked backend for isolated development purposes.
 
 ###Testing
-To run the unit and end to end tests, execute `grunt test`.
+To run the unit and end to end tests, execute `gulp test`.
 
 ##License
 Finq version 0, Copyright (C) 2014 Christian Kramer. 
