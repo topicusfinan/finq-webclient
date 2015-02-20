@@ -261,8 +261,7 @@ function Karma(done) {
         ],
         preprocessors: preprocessors,
         singleRun: true,
-        action: 'run',
-        captureConsole: true
+        action: 'run'
     }, function () {
         done();
     });

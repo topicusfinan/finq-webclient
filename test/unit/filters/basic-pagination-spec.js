@@ -13,7 +13,7 @@ describe('Unit: Basic Pagination Filter execution', function() {
         module('finqApp.filter');
         inject(function($injector){
             paginationFilter = $injector.get('$filter')('basicPagination');
-        });
+        });sd
     });
     beforeEach(inject(function () {
         items = [1,2,3,4,5,6];
