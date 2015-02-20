@@ -55,7 +55,7 @@ gulp.task('testWatch', function (done) {
 });
 
 gulp.task('clean', Clean);
-gulp.task('moveVendors', MoveVendorFiles().stream);
+gulp.task('moveVendors', MoveVendorFiles);
 gulp.task('moveViews', MoveViews);
 gulp.task('moveStatics', MoveStatics);
 gulp.task('moveConfig', MoveConfig);
