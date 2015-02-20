@@ -252,9 +252,6 @@ function Karma(done) {
         files: [
             paths.dest.vendor + '/angular.js',
             paths.dest.vendor + '/**/*.js',
-            paths.src.scripts + '/app.js',
-            paths.src.scripts + '/modules/mock.js',
-            paths.src.scripts + '/{mockdata,mockdata/**/*.js}',
             paths.src.scripts + '/**/*.js',
             'test/unit/**/*.js'
         ],
