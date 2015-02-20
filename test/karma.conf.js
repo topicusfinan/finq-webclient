@@ -6,7 +6,7 @@ module.exports = function(config) {
         singleRun: true,
         coverageReporter: {
             type : 'lcov',
-            dir : 'test/reports/coverage/'
+            dir : 'reports/coverage/'
         },
         reporters: ['progress', 'coverage']
     });

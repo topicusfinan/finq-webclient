@@ -5,5 +5,5 @@ dist
 bower_components
 .DS_Store
 .idea
-test/reports
+reports
 build

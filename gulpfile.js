@@ -266,7 +266,7 @@ function Karma(done) {
     });
 }
 
-function KarmaWatch(done) {
+function KarmaWatch() {
     gulp.watch(paths.testdir + '/**/*', ['karma']);
 }
 
