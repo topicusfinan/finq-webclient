@@ -18,11 +18,9 @@ var ngAnnotate = require('gulp-ng-annotate');
 var karma = require('karma').server;
 var mainBowerFiles = require('main-bower-files');
 var scsslint = require('gulp-scss-lint');
-var notify = require('gulp-notify');
 var bourbon = require('node-bourbon');
 var neat = require('node-neat');
 var merge = require('merge-stream');
-var watch = require('gulp-watch');
 var runSequence = require('run-sequence');
 //endregion
 
