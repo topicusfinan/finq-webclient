@@ -260,10 +260,9 @@ function Karma(done) {
             'test/unit/**/*.js'
         ],
         preprocessors: preprocessors,
-        singleRun: true,
-        action: 'run'
-    }, function () {
-        done();
+        singleRun: true
+    }, function (exitStatus) {
+        done(exitStatus ? 'There are failing unit tests' : undefined);
     });
 }
 
