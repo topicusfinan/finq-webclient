@@ -48,10 +48,10 @@ gulp.task('serve', function (done) {
     runSequence('default', 'browser-sync', done);
 });
 gulp.task('test', function (done) {
-    runSequence('default', 'karma', done);
+    runSequence('moveVendors', 'karma', done);
 });
 gulp.task('testWatch', function (done) {
-    runSequence('default', 'karmaWatch')
+    runSequence('moveVendors', 'karmaWatch')
 });
 
 gulp.task('clean', Clean);
@@ -242,21 +242,21 @@ function Sass() {
  */
 function Karma(done) {
     var preprocessors = {};
-    preprocessors[paths.dest.scripts + '/controllers/**/*.js'] = ['coverage'];
-    preprocessors[paths.dest.scripts + '/directives/**/*.js'] = ['coverage'];
-    preprocessors[paths.dest.scripts + '/filters/**/*.js'] = ['coverage'];
-    preprocessors[paths.dest.scripts + '/modules/**/*.js'] = ['coverage'];
-    preprocessors[paths.dest.scripts + '/services/**/*.js'] = ['coverage'];
+    preprocessors[paths.src.scripts + '/controllers/**/*.js'] = ['coverage'];
+    preprocessors[paths.src.scripts + '/directives/**/*.js'] = ['coverage'];
+    preprocessors[paths.src.scripts + '/filters/**/*.js'] = ['coverage'];
+    preprocessors[paths.src.scripts + '/modules/**/*.js'] = ['coverage'];
+    preprocessors[paths.src.scripts + '/services/**/*.js'] = ['coverage'];
 
     karma.start({
         configFile: __dirname + '/test/karma.conf.js',
         files: [
             paths.dest.vendor + '/angular.js',
             paths.dest.vendor + '/**/*.js',
-            paths.dest.scripts + '/app.js',
-            paths.dest.scripts + '/modules/mock.js',
-            paths.dest.scripts + '/{mockdata,mockdata/**/*.js}',
-            paths.dest.scripts + '/**/*.js',
+            paths.src.scripts + '/app.js',
+            paths.src.scripts + '/modules/mock.js',
+            paths.src.scripts + '/{mockdata,mockdata/**/*.js}',
+            paths.src.scripts + '/**/*.js',
             'test/unit/**/*.js'
         ],
         preprocessors: preprocessors,
