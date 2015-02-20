@@ -242,7 +242,7 @@ function Karma(done) {
     preprocessors[paths.src.scripts + '/controllers/**/*.js'] = ['coverage'];
     preprocessors[paths.src.scripts + '/directives/**/*.js'] = ['coverage'];
     preprocessors[paths.src.scripts + '/filters/**/*.js'] = ['coverage'];
-    preprocessors[paths.src.scripts + '/modules/**/*.js'] = ['coverage'];
+    preprocessors[paths.src.scripts + '/modules/**/!(mock).js'] = ['coverage'];
     preprocessors[paths.src.scripts + '/services/**/*.js'] = ['coverage'];
 
     karma.start({
