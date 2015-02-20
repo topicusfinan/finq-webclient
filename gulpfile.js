@@ -83,9 +83,8 @@ function swallowError(error) {
 /**
  * Clean
  */
-function Clean(cb) {
+function Clean() {
     del.sync(['./build']);
-    cb();
 }
 
 function MoveFiles() {
