@@ -58,7 +58,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "gulp test",
+    "test": "gulp test --env dev",
     "coveralls": "cat ./test/reports/coverage/*/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   }
 }
