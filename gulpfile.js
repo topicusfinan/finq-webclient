@@ -206,12 +206,12 @@ function Scripts() {
     var concatFileName = 'all.min.js';
 
     return gulp.src(sources, sourcesOptions)
-        .pipe(sourcemaps.init({gulpWarnings: false}))
+        .pipe(gulpif(env.sourcemaps, sourcemaps.init({gulpWarnings: false})))
         .pipe(ngAnnotate({gulpWarnings: false}))
         .on('error', swallowError)
-        .pipe(gulpif(env.jsminify, uglify()))
         .pipe(gulpif(env.jsconcat, concat(concatFileName)))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(env.jsminify, uglify()))
+        .pipe(gulpif(env.sourcemaps, sourcemaps.write()))
         .pipe(gulp.dest(paths.dest.scripts))
         .pipe(reload({stream: true}));
 }
@@ -225,14 +225,14 @@ function Sass() {
     var source = paths.src.scss;
 
     return gulp.src(source)
-        .pipe(sourcemaps.init())
+        .pipe(gulpif(env.sourcemaps, sourcemaps.init()))
         .pipe(sass({
             includePaths: bourbon.with(neat.includePaths)
         }))
         .on('error', swallowError)
         .pipe(gulpif(env.scssminify, csso()))
         .pipe(autoPrefixer('last 1 version'))
-        .pipe(sourcemaps.write())
+        .pipe(gulpif(env.sourcemaps, sourcemaps.write()))
         .pipe(gulp.dest(paths.dest.css))
         .pipe(reload({stream: true}));
 }

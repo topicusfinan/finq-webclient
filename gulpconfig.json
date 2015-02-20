@@ -5,19 +5,22 @@
             "jsminify": true,
             "scssminify": true,
             "jsconcat": true,
-            "mockdata": true
+            "mockdata": true,
+            "sourcemaps": true
         },
         "dev": {
             "jsminify": false,
             "scssminify": false,
             "jsconcat": false,
-            "mockdata": true
+            "mockdata": true,
+            "sourcemaps": true
         },
         "dist": {
             "jsminify": true,
             "scssminify": true,
             "jsconcat": true,
-            "mockdata": false
+            "mockdata": false,
+            "sourcemaps": false
         }
     },
     "paths": {
