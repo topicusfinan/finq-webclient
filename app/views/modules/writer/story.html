@@ -1,0 +1,7 @@
+<div class="top-filter filter-1 ic selectable" ng-show="story.loaded" ng-class="{'active':story.selectedItem === null}" ng-click="story.selectedItem = null">
+    <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}" ng-click="story.list()"></i>
+    <div class="title">
+        <input type="text" ng-model="story.title">
+    </div>
+</div>
+<h1 class="hero-notice" translate="RUNNER.REPORTS.REPORT.RUN_NOT_COMPLETED" ng-show="!story.runCompleted"></h1>

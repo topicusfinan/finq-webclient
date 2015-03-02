@@ -58,4 +58,23 @@
         margin-top: $filter-select-margin-top;
     }
 
+    > .title {
+        float: left;
+
+
+        input {
+            margin: ($header-height - 1.45em) / 2 - $base-spacing / 3 0;
+            border: 1px;
+            line-height: 1.45em;
+            box-sizing: border-box;
+            background-color: lighten($base-accent-color, 5%);
+            border-color: darken($base-accent-color, 10%);
+        }
+
+        input:focus {
+
+        }
+
+    }
+
 }
