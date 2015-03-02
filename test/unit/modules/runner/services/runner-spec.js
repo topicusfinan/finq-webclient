@@ -217,4 +217,29 @@ describe('Unit: RunnerService', function() {
         expect(clearedRunningStories.length).to.equal(0);
     });
 
+    it('should un-subscribe to updates of completed runs', function () {
+        var subscribeSpy = sinon.spy(subscriptionService, 'unSubscribe');
+        startStories([{id: 46421532,scenarios: [{id:23452343}]}]);
+        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,{
+            id: 23452343,
+            status: STATE.RUN.SCENARIO.FAILED,
+            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
+        });
+        subscribeSpy.should.have.been.called.once;
+    });
+
+    it('should update section badges for completed runs by reducing badge count for currently running, and increasing badge count for reports', function () {
+        var moduleSpy = sinon.spy(moduleService, 'updateModuleBadge');
+        var sectionSpy = sinon.spy(moduleService, 'updateSectionBadge');
+        startStories([{id: 46421532,scenarios: [{id:23452343}]}]);
+        generateStoryUpdate(46421532,STATE.RUN.SCENARIO.FAILED,STATE.RUN.SCENARIO.FAILED,{
+            id: 23452343,
+            status: STATE.RUN.SCENARIO.FAILED,
+            steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
+        });
+        moduleSpy.should.have.been.calledWith(MODULES.RUNNER, ['run-1'], true);
+        sectionSpy.should.have.been.calledWith(MODULES.RUNNER.sections.REPORTS, ['run-1'], true);
+        sectionSpy.should.have.been.calledWith(MODULES.RUNNER.sections.RUNNING, ['run-1'], false);
+    });
+
 });

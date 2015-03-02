@@ -20,12 +20,14 @@ angular.module('finqApp.service')
         'utils',
         'subscription',
         function (backend, $q, $translate, STATE, EVENTS, configProvider, runService, utils) {
-            var reports = null,
+            var reports = [],
+                loadedReportHistory = false,
                 report = null;
 
             this.list = function (forceReload) {
-                if (forceReload || reports === null) {
+                if (forceReload || !loadedReportHistory) {
                     reports = [];
+                    loadedReportHistory = true;
                     return load(0);
                 } else {
                     return $q.when(reports);

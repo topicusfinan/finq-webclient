@@ -1,137 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" ng-app="finqApp" ng-controller="AppCtrl as app">
-    <head>
-        <meta charset="utf-8">
-        <title>{{app.title}}</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!-- build:css(.) styles/vendor.css -->
-        <!-- bower:css -->
-        <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
-        <link rel="stylesheet" href="bower_components/hint.css/hint.min.css" />
-        <!-- endbower -->
-        <!-- endbuild -->
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
-        <!-- endbuild -->
-    </head>
-    <body>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{{app.title}}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
-        <div class="layout" ui-view></div>
+    <!-- vendor:css -->
+    <!-- endinject -->
 
-        <!-- build:js(.) scripts/oldieshim.js -->
-        <!--[if lt IE 9]>
-        <script src="bower_components/es5-shim/es5-shim.js"></script>
-        <script src="bower_components/json3/lib/json3.min.js"></script>
-        <![endif]-->
-        <!-- endbuild -->
+    <!-- app:css -->
+    <!-- endinject -->
+</head>
+<body>
+<div class="layout" ui-view></div>
 
-        <!-- build:js(.) scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="bower_components/jquery/dist/jquery.js"></script>
-        <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/json3/lib/json3.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="bower_components/angular-animate/angular-animate.js"></script>
-        <script src="bower_components/angular-touch/angular-touch.js"></script>
-        <script src="bower_components/angular-route/angular-route.js"></script>
-        <script src="bower_components/angular-translate/angular-translate.js"></script>
-        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
-        <script src="bower_components/angular-typeahead/angular-typeahead.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
+<!-- vendor:js -->
+<!-- endinject -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
+<!-- app:js -->
+<!-- endinject -->
 
-        <script src="scripts/constants/events.js"></script>
-        <script src="scripts/constants/feedback.js"></script>
-        <script src="scripts/constants/modules.js"></script>
-        <script src="scripts/constants/state.js"></script>
-
-        <script src="scripts/modules/translate.js"></script>
-        <script src="scripts/modules/runner.js"></script>
-        <script src="scripts/modules/organizer.js"></script>
-        <script src="scripts/modules/writer.js"></script>
-
-        <script src="scripts/controllers/app.js"></script>
-        <script src="scripts/controllers/preloader.js"></script>
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/controllers/layout/layout.js"></script>
-        <script src="scripts/controllers/layout/header.js"></script>
-        <script src="scripts/controllers/layout/menu.js"></script>
-        <script src="scripts/controllers/layout/feedback.js"></script>
-        <script src="scripts/modules/runner/controllers/available.js"></script>
-        <script src="scripts/modules/runner/controllers/running.js"></script>
-        <script src="scripts/modules/runner/controllers/available-filter.js"></script>
-        <script src="scripts/modules/runner/controllers/running-filter.js"></script>
-        <script src="scripts/modules/runner/controllers/reports.js"></script>
-        <script src="scripts/modules/runner/controllers/report-filter.js"></script>
-        <script src="scripts/modules/runner/controllers/report.js"></script>
-
-        <script src="scripts/services/generic/config.js"></script>
-        <script src="scripts/services/value.js"></script>
-        <script src="scripts/services/setup.js"></script>
-        <script src="scripts/services/generic/backend.js"></script>
-        <script src="scripts/services/page.js"></script>
-        <script src="scripts/services/generic/utils.js"></script>
-        <script src="scripts/services/module.js"></script>
-        <script src="scripts/services/generic/translate.js"></script>
-        <script src="scripts/services/generic/authenticate.js"></script>
-        <script src="scripts/services/generic/feedback.js"></script>
-        <script src="scripts/services/support/set.js"></script>
-        <script src="scripts/services/support/tag.js"></script>
-        <script src="scripts/services/support/environment.js"></script>
-        <script src="scripts/services/updates/subscription.js"></script>
-        <script src="scripts/services/updates/socket.js"></script>
-        <script src="scripts/services/updates/websocket.js"></script>
-        <script src="scripts/services/story/story.js"></script>
-        <script src="scripts/modules/runner/services/run-execution.js"></script>
-        <script src="scripts/services/story/storybook-search.js"></script>
-        <script src="scripts/services/story/run.js"></script>
-        <script src="scripts/services/story/report.js"></script>
-        <script src="scripts/modules/runner/services/runner.js"></script>
-        <script src="scripts/modules/runner/services/runner-filter.js"></script>
-        <script src="scripts/modules/runner/services/reporter-filter.js"></script>
-        <script src="scripts/modules/runner/services/run-utils.js"></script>
-
-        <script src="scripts/filters/basic-pagination.js"></script>
-        <script src="scripts/modules/runner/filters/storybook-set.js"></script>
-        <script src="scripts/modules/runner/filters/story-set.js"></script>
-        <script src="scripts/modules/runner/filters/storybook-tag.js"></script>
-        <script src="scripts/modules/runner/filters/story-tag.js"></script>
-        <script src="scripts/modules/runner/filters/scenario-tag.js"></script>
-        <script src="scripts/modules/runner/filters/storybook-search.js"></script>
-        <script src="scripts/modules/runner/filters/story-search.js"></script>
-        <script src="scripts/modules/runner/filters/storybook-pagination.js"></script>
-        <script src="scripts/modules/runner/filters/run-environment.js"></script>
-        <script src="scripts/modules/runner/filters/report-status.js"></script>
-        <script src="scripts/modules/runner/filters/report-pagination.js"></script>
-
-        <script src="scripts/directives/include.js"></script>
-        <script src="scripts/directives/outside-click.js"></script>
-        <script src="scripts/directives/filter-select.js"></script>
-        <script src="scripts/directives/pagination.js"></script>
-        <script src="scripts/directives/radial-progress.js"></script>
-
-        <script src="scripts/plugins/story-collapse.js"></script>
-        <!-- endbuild -->
-
-        <!-- build:js -->
-        <script src="bower_components/angular-mocks/angular-mocks.js"></script>
-        <script src="scripts/modules/mock.js"></script>
-        <script src="scripts/mockdata/app.js"></script>
-        <script src="scripts/mockdata/auth.js"></script>
-        <script src="scripts/mockdata/set.js"></script>
-        <script src="scripts/mockdata/tag.js"></script>
-        <script src="scripts/modules/runner/simulator/runner.js"></script>
-        <script src="scripts/mockdata/environment.js"></script>
-        <script src="scripts/mockdata/story.js"></script>
-        <script src="scripts/mockdata/run.js"></script>
-        <script src="scripts/mockdata/report.js"></script>
-        <!-- endbuild -->
-    </body>
+</body>
 </html>

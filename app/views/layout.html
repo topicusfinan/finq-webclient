@@ -6,6 +6,13 @@
         <i class="fa fa-search"></i>
         <input type="text" placeholder="Search" ng-model="header.query" ng-change="header.search()">
     </div>
+    <div class="account ng-hide" ng-show="header.currentUser()">
+        <img src="http://www.gravatar.com/avatar/{{header.currentUser().gravatarHash}}?d={{header.defaultUserImage}}" />
+        <div class="name">
+            <span class="first">{{header.currentUser().first}}</span>
+            <span class="last">{{header.currentUser().last}}</span>
+        </div>
+    </div>
 </header>
 <aside class="ng-hide" ng-controller="MenuCtrl as menu" ng-show="layout.loaded">
     <ul class="modules">

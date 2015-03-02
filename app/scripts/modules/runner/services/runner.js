@@ -19,10 +19,12 @@ angular.module('finqApp.runner.service')
         'story',
         'feedback',
         'subscription',
+        'reporterFilter',
         'run',
         'report',
         'utils',
-        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,runService,reportService,utils) {
+        '$timeout',
+        function (moduleService,MODULES,EVENTS,STATE,FEEDBACK,storyService,feedbackService,subscriptionService,reporterFilterService,runService,reportService,utils,$timeout) {
             var runningSessions = [],
                 loaded = false;
 
@@ -174,6 +176,9 @@ angular.module('finqApp.runner.service')
                         title: run.title
                     });
                 }
+                moduleService.updateModuleBadge(MODULES.RUNNER, ['run-'+run.id], true);
+                moduleService.updateSectionBadge(MODULES.RUNNER.sections.REPORTS, ['run-'+run.id], true);
+                moduleService.updateSectionBadge(MODULES.RUNNER.sections.RUNNING, ['run-'+run.id], false);
             };
 
             var findRun = function(runId) {
@@ -219,6 +224,7 @@ angular.module('finqApp.runner.service')
 
             var handleNewReport = function(runData) {
                 reportService.addNewReport(runData);
+                $timeout(reporterFilterService.initialize);
             };
 
         }]);

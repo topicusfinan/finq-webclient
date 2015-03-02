@@ -45,6 +45,10 @@ angular.module('finqApp.runner.controller')
                 reporterFilterService.applyFilter(that.filter.status.ids);
             });
 
+            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED, function () {
+                reporterFilterService.applyFilter();
+            });
+
             moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORTS);
 
             $timeout(function() {

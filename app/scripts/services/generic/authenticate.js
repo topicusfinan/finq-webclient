@@ -10,9 +10,9 @@
  * authenticated user.
  */
 angular.module('finqApp.service')
-    .service('authenticate', ['$http','$q', function ($http,$q) {
+    .service('authenticate', ['$http','$q','md5', function ($http,$q,md5) {
         var that = this,
-            currentUser,
+            currentUser = null,
             address = '';
 
         this.setAddress = function(authServerAddress) {
@@ -26,6 +26,7 @@ angular.module('finqApp.service')
             },5000);
             $http.get(address+'/users/current').success(function(userData) {
                 currentUser = userData;
+                currentUser.gravatarHash = md5.createHash(currentUser.email.trim().toLowerCase());
                 deferred.resolve(userData);
             }).error(function(errorCode) {
                 deferred.reject(errorCode);

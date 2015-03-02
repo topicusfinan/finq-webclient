@@ -13,7 +13,8 @@ angular.module('finqApp.mock')
         user: {
             name: 'Foo McFooson',
             first: 'Foo',
-            last: 'McFooson'
+            last: 'McFooson',
+            email: 'foo.mcfooson@example.com'
         },
         error: 'AUTHENTICATION_FAILED'
     });
