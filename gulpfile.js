@@ -35,6 +35,8 @@ var knownOptions = {
 
 var options = minimist(process.argv.slice(2), knownOptions);
 var env = config.env[options.env];
+var karmaDebug = false;
+var karmaCoverage = true;
 //endregion
 
 // region Tasks
@@ -47,6 +49,11 @@ gulp.task('serve', function (done) {
 });
 gulp.task('test', function (done) {
     runSequence('moveVendors', 'karma', done);
+});
+gulp.task('testDebug', function (done) {
+    karmaDebug = true;
+    karmaCoverage = false;
+    runSequence('karma');
 });
 gulp.task('testWatch', function (done) {
     runSequence('moveVendors', 'karmaWatch')
@@ -239,11 +246,18 @@ function Sass() {
  */
 function Karma(done) {
     var preprocessors = {};
-    preprocessors[paths.src.scripts + '/controllers/**/*.js'] = ['coverage'];
-    preprocessors[paths.src.scripts + '/directives/**/*.js'] = ['coverage'];
-    preprocessors[paths.src.scripts + '/filters/**/*.js'] = ['coverage'];
-    preprocessors[paths.src.scripts + '/modules/**/!(mock).js'] = ['coverage'];
-    preprocessors[paths.src.scripts + '/services/**/*.js'] = ['coverage'];
+    if (karmaCoverage){
+        preprocessors[paths.src.scripts + '/controllers/**/*.js'] = ['coverage'];
+        preprocessors[paths.src.scripts + '/directives/**/*.js'] = ['coverage'];
+        preprocessors[paths.src.scripts + '/filters/**/*.js'] = ['coverage'];
+        preprocessors[paths.src.scripts + '/modules/**/!(mock).js'] = ['coverage'];
+        preprocessors[paths.src.scripts + '/services/**/*.js'] = ['coverage'];
+    }
+    preprocessors[paths.src.views + '/**/*.html'] = ['ng-html2js'];
+
+    var browser = [
+        karmaDebug ? 'Chrome' : 'PhantomJS'
+    ];
 
     karma.start({
         configFile: __dirname + '/test/karma.conf.js',
@@ -260,10 +274,12 @@ function Karma(done) {
             paths.src.scripts + '/filters/**/*.js',
             paths.src.scripts + '/plugins/**/*.js',
             paths.src.scripts + '/mockdata/**/*.js',
-            'test/unit/**/*.js'
+            'test/unit/**/*.js',
+            paths.src.views + '/**/*.html'
         ],
         preprocessors: preprocessors,
-        singleRun: true
+        singleRun: !karmaDebug,
+        browsers: browser
     }, function (exitStatus) {
         done(exitStatus ? 'There are failing unit tests' : undefined);
     });

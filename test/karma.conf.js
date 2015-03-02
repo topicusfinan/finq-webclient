@@ -2,11 +2,12 @@ module.exports = function(config) {
     config.set({
         basePath: '../',
         frameworks: ['mocha', 'sinon-chai'],
-        browsers: ['PhantomJS'],
-        singleRun: true,
         coverageReporter: {
             type : 'lcov',
             dir : 'test/reports/coverage/'
+        },
+        ngHtml2JsPreprocessor: {
+            stripPrefix: 'app/'
         },
         reporters: ['progress', 'coverage']
     });
