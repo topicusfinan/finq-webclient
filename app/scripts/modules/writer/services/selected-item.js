@@ -5,9 +5,12 @@ angular.module('finqApp.writer.service')
     .service('selectedItem', function () {
         var selectedItemId, selectedItem;
 
+        ClearSelectedItem();
+
         this.setSelectedItem = SetSelectedItem;
         this.isItemSelected = IsItemSelected;
         this.getSelectedItem = GetSelectedItem;
+        this.getSelectedItemId = GetSelectedItemId;
         this.clearSelectedItem = ClearSelectedItem;
 
         /**
@@ -21,7 +24,7 @@ angular.module('finqApp.writer.service')
         }
 
         function ClearSelectedItem(){
-            selectedItemId = undefined;
+            selectedItemId = null;
             selectedItem = undefined;
         }
 
@@ -38,6 +41,9 @@ angular.module('finqApp.writer.service')
          * @return {string}
          */
         function GetPrefixedId(item){
+            if (item === null){
+                return null;
+            }
             return GetPrefix(item) + item.id;
         }
 
@@ -62,6 +68,10 @@ angular.module('finqApp.writer.service')
 
         function GetSelectedItem(){
             return selectedItem;
+        }
+
+        function GetSelectedItemId(){
+            return selectedItemId;
         }
 
 
