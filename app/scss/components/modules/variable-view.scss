@@ -1,0 +1,119 @@
+$main-columns: $layout-columns - $layout-menu-col;
+$variable-view-columns: 4;
+$layout-main-columns: $main-columns - $variable-view-columns;
+
+
+div.editor-content {
+    position: relative;
+
+    > .has-aside {
+//        position: absolute;
+//        left: 0;
+
+//        max-width: $layout-main-columns / $main-columns * 100%;
+        max-width: 100%;
+        padding-right: 300px;
+//        padding-rig
+        float: left;
+        > div {
+            width: 100%;
+            overflow: hidden;
+
+        }
+    }
+
+    > aside {
+        float: left;
+        position: absolute;
+        right: 0;
+        width: $variable-view-columns / $main-columns * 100%;
+        min-width: 300px;
+        background-color: $gray;
+
+        border-top: $content-list-bg-color $content-list-item-spacing solid;
+        border-left: $content-list-bg-color $content-list-item-spacing solid;
+//        background: $content-list-bg-color;
+
+        > div {
+            width: 100%;
+            > .header {
+                width: inherit;
+                float: left;
+                .title {
+                    padding-left: 0.7em;
+                    font-size: 1em;
+                    float: left;
+                    margin-right: 2.8em;
+                }
+                .actions {
+                    position:absolute;
+                    right: 0;
+                    padding-right: 1em;
+                    line-height: 0.4em;
+                    font-size: 1.5em;
+                }
+            }
+
+            > .variables {
+                float: left;
+                width: inherit;
+                padding: 0 0.5em 0.5em;
+
+                > ul {
+                    float: left;
+                    font-size: 0.9em;
+                    background-color: $light-gray;
+                    width:inherit;
+
+                    padding: 0.6em;
+
+
+                    > li {
+                        line-height: 1em;
+                        padding:0.1em;
+
+
+
+                        > .variable {
+                            display: inline-block;
+                            width: 100%;
+                            position: relative;
+
+                            > div {
+                                display: inherit;
+                                float: left;
+                            }
+
+
+                            $status-width: 20px;
+                            > .title {
+                                min-width: 50%;
+                                padding-right: $status-width;
+                            }
+
+                            > .value {
+                                min-width: 50%;
+                                margin-left: -$status-width;
+                                padding-right: $status-width;
+                            }
+
+                            > .status {
+                                width: $status-width;
+                                position:absolute;
+                                right: 0;
+                            }
+
+
+
+                        }
+
+                    }
+                }
+            }
+
+
+
+        }
+    }
+
+}

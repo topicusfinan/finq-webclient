@@ -1,0 +1,39 @@
+
+
+<ul id="scenario-list" class="main-content-list">
+    <li class="ic cl list-animate" ng-repeat="scenario in scenarios track by scenario.id">
+        <div class="selectable" ng-class="{'active':selectedItem.isItemSelected(scenario, $index)}"
+             ng-click="selectedItem.setSelectedItem(scenario)">
+            <div class="title">
+                <i class="fa fa-bars" data-toggle="collection"></i>
+                <input type="text" ng-model="scenario.editorTitle" ng-init="scenario.editorTitle = scenario.title;">
+            </div>
+            <div class="actions">
+                <button ng-click="scenarioView.applyScenarioTitle(scenario);"
+                        ng-show="scenario.title !== scenario.editorTitle">
+                    <i class="fa fa-check"></i>
+                    <span>Apply</span>
+                </button>
+                <button ng-click="scenarioView.deleteScenario(scenario.id)">
+                    <i class="fa fa-trash-o"></i>
+                    <span>Delete</span>
+                </button>
+                <i class="fa fa-tag"></i>
+            </div>
+        </div>
+        <ul>
+            <li class="ic cl" ng-repeat="step in scenario.steps track by step.id">
+                <div class="selectable" ng-class="{'active': selectedItem.isItemSelected(step, $index, $parent.$index)}"
+                     ng-click="selectedItem.setSelectedItem(step);">
+                    <div class="title">
+                        <span>{{::step.title}}</span>
+                    </div>
+                    <div class="actions">
+                        <i class="fa fa-info-circle" ng-show="scenarioView.isStepIncomplete(step)"></i>
+                        <i class="fa fa-trash-o"></i>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>

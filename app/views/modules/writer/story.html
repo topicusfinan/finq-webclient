@@ -1,7 +1,32 @@
-<div class="top-filter filter-1 ic selectable" ng-show="story.loaded" ng-class="{'active':story.selectedItem === null}" ng-click="story.selectedItem = null">
-    <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}" ng-click="story.list()"></i>
+<div class="top-filter filter-1 ic selectable" ng-show="story.loaded"
+     ng-class="{'active':story.selectedItem.isItemSelected(null)}" ng-click="story.selectedItem.setSelectedItem(null)">
+    <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}"
+       ng-click="story.list()"></i>
+
     <div class="title">
         <input type="text" ng-model="story.title">
     </div>
 </div>
-<h1 class="hero-notice" translate="RUNNER.REPORTS.REPORT.RUN_NOT_COMPLETED" ng-show="!story.runCompleted"></h1>
+<div class="editor-content">
+    <div class="has-aside">
+        <div class="editor">
+            <scenario-view scenarios="story.scenarios"></scenario-view>
+            <div class="tools">
+                <input type="text">
+
+                <div class="select"></div>
+                <div class="actions">
+                    <button>
+                        <i class="fa fa-chain-broken"></i>
+                        <span>Add pending</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <aside ng-show="story.showVariables" scenario-variables-view="story.scenarios">
+
+    </aside>
+</div>
+
