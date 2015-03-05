@@ -2,37 +2,39 @@ $main-columns: $layout-columns - $layout-menu-col;
 $variable-view-columns: 4;
 $layout-main-columns: $main-columns - $variable-view-columns;
 
+//div.layout {
+//    min-width: 1285px;
+////    position:fixed !important;
+//}
+
 
 div.editor-content {
-    position: relative;
+    height: 100%;
 
     > .has-aside {
-//        position: absolute;
-//        left: 0;
-
-//        max-width: $layout-main-columns / $main-columns * 100%;
-        max-width: 100%;
-        padding-right: 300px;
-//        padding-rig
-        float: left;
         > div {
-            width: 100%;
             overflow: hidden;
 
         }
+
+        .title, .title span {
+            max-width: 100%;
+        }
+
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
     }
 
     > aside {
-        float: left;
-        position: absolute;
-        right: 0;
-        width: $variable-view-columns / $main-columns * 100%;
-        min-width: 300px;
-        background-color: $gray;
+        float:right;
+        white-space:nowrap;
+        max-width: 250px;
+        height: 100%;
+
 
         border-top: $content-list-bg-color $content-list-item-spacing solid;
         border-left: $content-list-bg-color $content-list-item-spacing solid;
-//        background: $content-list-bg-color;
 
         > div {
             width: 100%;
@@ -110,9 +112,6 @@ div.editor-content {
                     }
                 }
             }
-
-
-
         }
     }
 

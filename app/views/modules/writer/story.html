@@ -8,6 +8,8 @@
     </div>
 </div>
 <div class="editor-content">
+    <aside ng-show="story.showVariables" scenario-variables-view="story.scenarios">
+    </aside>
     <div class="has-aside">
         <div class="editor">
             <scenario-view scenarios="story.scenarios"></scenario-view>
@@ -23,10 +25,12 @@
                 </div>
             </div>
         </div>
+        <!--<div>Things here need to be on the same line as the aside. and need to be cut of as needed because that's what's supposed to happen.</div>-->
+        <!--Things here need to be on the same line as the aside. and need to be cut of as needed because that's what's supposed to happen.-->
 
     </div>
-    <aside ng-show="story.showVariables" scenario-variables-view="story.scenarios">
 
-    </aside>
+
+    <div style="clear:both;" />
 </div>
 
