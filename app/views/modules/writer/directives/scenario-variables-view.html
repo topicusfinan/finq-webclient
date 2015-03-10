@@ -1,35 +1,37 @@
-<div ng-repeat="variableType in scenarioVariablesView.variableTypes">
-    <div class="header">
-        <div class="title">
-            <span>{{variableType.title}}</span>
+<div class="variable-view">
+    <div ng-repeat="variableScope in scenarioVariablesView.variableScopes">
+        <div class="header">
+            <div class="title">
+                <span>{{variableScope.title}}</span>
+            </div>
+            <div class="actions">
+                <a class="fa fa-caret-up"></a>
+            </div>
         </div>
-        <div class="actions">
-            <a class="fa fa-caret-up"></a>
+        <div class="variables">
+            <ul>
+                <li ng-class="{undefined: variable.value === undefined}" ng-repeat="variable in variableScope.variables">
+                    <div class="variable">
+                        <div class="title">
+                            <span>{{variable.name}}</span>
+                        </div>
+                        <div class="value">
+                            <span>{{variable.value}}</span>
+                        </div>
+                        <div class="status">
+                            <i class="fa fa-chain"
+                               ng-class="{'fa-chain-broken': !variable.linked, 'fa-chain': variable.linked}"></i>
+                        </div>
+                    </div>
+                </li>
+                <li ng-if="variableScope.addable">
+                    <div>
+                        <i class="fa fa-plus"></i>
+                        <i>Add one more</i>
+                    </div>
+                </li>
+            </ul>
         </div>
-    </div>
-    <div class="variables">
-        <ul>
-            <li ng-class="{undefined: variable.value === undefined}" ng-repeat="variable in variableType.variables">
-                <div class="variable">
-                    <div class="title">
-                        <span>{{variable.name}}</span>
-                    </div>
-                    <div class="value">
-                        <span>{{variable.value}}</span>
-                    </div>
-                    <div class="status">
-                        <i class="fa fa-chain"
-                           ng-class="{'fa-chain-broken': !variable.linked, 'fa-chain': variable.linked}"></i>
-                    </div>
-                </div>
-            </li>
-            <li ng-if="variableType.addable">
-                <div>
-                    <i class="fa fa-plus"></i>
-                    <i>Add one more</i>
-                </div>
-            </li>
-        </ul>
-    </div>
 
+    </div>
 </div>

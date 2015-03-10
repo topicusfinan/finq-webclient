@@ -1,4 +1,4 @@
-<div class="top-filter filter-1 ic selectable" ng-show="story.loaded"
+<div class="top-filter filter-1 ic selectable"
      ng-class="{'active':story.selectedItem.isItemSelected(null)}" ng-click="story.selectedItem.setSelectedItem(null)">
     <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}"
        ng-click="story.list()"></i>
@@ -6,31 +6,22 @@
     <div class="title">
         <input type="text" ng-model="story.title">
     </div>
+    <div class="actions">
+        <i class="fa fa-search-minus" ng-click="story.toggleVisible()"></i>
+    </div>
 </div>
 <div class="editor-content">
-    <aside ng-show="story.showVariables" scenario-variables-view="story.scenarios">
-    </aside>
-    <div class="has-aside">
-        <div class="editor">
-            <scenario-view scenarios="story.scenarios"></scenario-view>
-            <div class="tools">
-                <input type="text">
+    <scenario-view scenarios="story.scenarios"></scenario-view>
+    <div class="tools">
+        <input type="text">
 
-                <div class="select"></div>
-                <div class="actions">
-                    <button>
-                        <i class="fa fa-chain-broken"></i>
-                        <span>Add pending</span>
-                    </button>
-                </div>
-            </div>
+        <div class="select"></div>
+        <div class="actions">
+            <button>
+                <i class="fa fa-chain-broken"></i>
+                <span>Add pending</span>
+            </button>
         </div>
-        <!--<div>Things here need to be on the same line as the aside. and need to be cut of as needed because that's what's supposed to happen.</div>-->
-        <!--Things here need to be on the same line as the aside. and need to be cut of as needed because that's what's supposed to happen.-->
-
     </div>
-
-
-    <div style="clear:both;" />
 </div>
 

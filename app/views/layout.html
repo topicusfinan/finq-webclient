@@ -23,5 +23,6 @@
         <li class="list-animate" ng-repeat="section in menu.sections" ng-click="go(section.url)" ng-class="{'active': section.active}"><span>{{section.title}}</span><span class="badge" ng-show="section.badge > 0">{{section.badge}}</span></li>
     </ul>
 </aside>
-<div class="main ng-hide" ng-show="layout.loaded" ng-view></div>
+<div class="main ng-hide" ng-class="{'has-aside': layout.sidebarVisible()}" ng-show="layout.loaded" ng-view></div>
+<div class="sidebar ng-hide" ng-show="layout.loaded" sidebar></div>
 <footer ng-controller="FeedbackCtrl as fb" class="feedback" ng-class="fb.feedback.type" ng-show="fb.show"><span>{{fb.feedback.message}}</span><i class="fa fa-times" ng-click="fb.hide()"></i></footer>

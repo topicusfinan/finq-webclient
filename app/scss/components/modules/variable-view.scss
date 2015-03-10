@@ -2,37 +2,37 @@ $main-columns: $layout-columns - $layout-menu-col;
 $variable-view-columns: 4;
 $layout-main-columns: $main-columns - $variable-view-columns;
 
-//div.layout {
-//    min-width: 1285px;
-////    position:fixed !important;
-//}
-
-
 div.editor-content {
     height: 100%;
 
-    > .has-aside {
-        > div {
-            overflow: hidden;
+    > div {
+        overflow: hidden;
 
-        }
-
-        .title, .title span {
-            max-width: 100%;
-        }
-
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
     }
 
-    > aside {
-        float:right;
-        white-space:nowrap;
-        max-width: 250px;
-        height: 100%;
+    .title, .title span {
+        max-width: 100%;
+    }
 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+div.layout > .has-aside {
+    margin-right: 19em;
+
+}
+
+.sidebar {
+    position: fixed;
+    top: $header-height * 2;
+    right: 0;
+    bottom: 0;
+    width: 19em;
+    background-color: darkgray;
+
+    .variable-view {
         border-top: $content-list-bg-color $content-list-item-spacing solid;
         border-left: $content-list-bg-color $content-list-item-spacing solid;
 
@@ -48,7 +48,7 @@ div.editor-content {
                     margin-right: 2.8em;
                 }
                 .actions {
-                    position:absolute;
+                    position: absolute;
                     right: 0;
                     padding-right: 1em;
                     line-height: 0.4em;
@@ -65,16 +65,13 @@ div.editor-content {
                     float: left;
                     font-size: 0.9em;
                     background-color: $light-gray;
-                    width:inherit;
+                    width: inherit;
 
                     padding: 0.6em;
 
-
                     > li {
                         line-height: 1em;
-                        padding:0.1em;
-
-
+                        padding: 0.1em;
 
                         > .variable {
                             display: inline-block;
@@ -85,7 +82,6 @@ div.editor-content {
                                 display: inherit;
                                 float: left;
                             }
-
 
                             $status-width: 20px;
                             > .title {
@@ -101,11 +97,9 @@ div.editor-content {
 
                             > .status {
                                 width: $status-width;
-                                position:absolute;
+                                position: absolute;
                                 right: 0;
                             }
-
-
 
                         }
 

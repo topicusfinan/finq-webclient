@@ -12,7 +12,6 @@ angular.module('finqApp.writer.directive')
             controller: 'ScenarioVariablesViewCtrl',
             link: function (scope) {
 
-
             },
             controllerAs: 'scenarioVariablesView'
         }
@@ -22,7 +21,7 @@ angular.module('finqApp.writer.directive')
 
         $scope.test = "bar";
         $scope.scenarioVariablesView = {
-            variableTypes: []
+            variableScopes: []
         };
 
         $scope.$watch(function () {
@@ -33,10 +32,14 @@ angular.module('finqApp.writer.directive')
             });
 
         function Update(item) {
-            var variableTypes = [];
+            var variableScopes = [];
             if (item !== null) {
                 // TODO Fill scenario input values
-                variableTypes.push({
+
+
+
+
+                variableScopes.push({
                     title: 'Scenario attribute values',
                     addable: false,
                     variables: [
@@ -51,7 +54,7 @@ angular.module('finqApp.writer.directive')
                 if (item.indexOf('step') !== -1) {
                     // selected item is a step
                     // TODO fill step input and output values
-                    variableTypes.push({
+                    variableScopes.push({
                             title: 'Step input values',
                             addable: false,
                             variables: [
@@ -63,7 +66,7 @@ angular.module('finqApp.writer.directive')
                             ]
                         }
                     );
-                    variableTypes.push({
+                    variableScopes.push({
                             title: 'Step output values',
                             addable: false,
                             variables: [
@@ -77,7 +80,7 @@ angular.module('finqApp.writer.directive')
 
                 }
                 // TODO Fill scenario output values
-                variableTypes.push({
+                variableScopes.push({
                     title: 'Scenario output values',
                     addable: true,
                     variables: [
@@ -90,8 +93,9 @@ angular.module('finqApp.writer.directive')
                 });
             }
 
+            console.log('ctrl test');
 
-            $scope.scenarioVariablesView.variableTypes = variableTypes;
+            $scope.scenarioVariablesView.variableScopes = variableScopes;
         }
 
 

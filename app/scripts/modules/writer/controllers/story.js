@@ -10,29 +10,43 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoryCtrl',
-    function ($scope, selectedItem) {
+    function ($scope, selectedItem, $routeParams, story, sidebar, $rootScope) {
+        var that = this;
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
             isItemSelected: selectedItem.isItemSelected
         };
         this.editStoryTitle = false;
-        this.title = "blaat";
         this.loaded = true;
         this.createNew = true;
-        this.showVariables = true;
 
-        this.scenarios = [
-            {
-                id: 1,
-                title: "foo",
-                steps: [
-                    {
-                        id: 1,
-                        title: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId',
-                        template: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId'
-                    }]
+        this.id = null;
+        this.title = null;
+        this.scenarios = [];
+        this.prologue = [];
+        this.epilogue = [];
+        this.sets = [];
+        this.tags = [];
 
-            }
-        ];
+        this.toggleVisible = sidebar.toggleVisible;
+
+        var foundStory = story.findStoryById(parseInt($routeParams.storyId));
+        if (foundStory === null) {
+            // TODO alert the user to no story found
+        } else {
+            this.id = foundStory.id;
+            this.title = foundStory.title;
+            this.sets = foundStory.sets;
+            this.tags = foundStory.tags;
+            this.scenarios = foundStory.scenarios;
+            this.epilogue = foundStory.epilogue;
+            this.prologue = foundStory.prologue;
+        }
+
+        sidebar.setDirective({
+            'scenario-variables-view': this.scenarios
+        });
+
+
     }
 );
