@@ -4,6 +4,9 @@ $layout-main-columns: $main-columns - $variable-view-columns;
 
 div.editor-content {
     height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     > div {
         overflow: hidden;
@@ -14,9 +17,9 @@ div.editor-content {
         max-width: 100%;
     }
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .scenario-content-list {
+        min-height: 1em;
+    }
 }
 
 div.layout > .has-aside {
