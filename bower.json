@@ -17,7 +17,7 @@
         "angular-ui-router": "~0.2.10",
         "angular-md5": "~0.1.7",
         "components-font-awesome": "~4.1.0",
-        "angular-typeahead": "~0.2.1",
+        "angular-typeahead": "~0.2.2",
         "hint.css": "~1.3.3"
     },
     "devDependencies": {

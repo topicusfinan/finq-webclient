@@ -71,6 +71,29 @@ angular.module('finqApp.writer.controller')
             array.splice(insertPosition, 0, insertObject);
         }
 
+        // TODO move this to a service
+        this.inputValue = "";
+
+        var stepsBloodhound = new Bloodhound({
+            datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.template);},
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: []
+        });
+        stepsBloodhound.initialize();
+
+        that.stepsDataset = {
+            displayKey: 'template',
+            source: stepsBloodhound.ttAdapter()
+        };
+
+        that.typeAheadOptions = {
+            highlight: true
+        };
+
+        step.list().then(function(steps){
+            stepsBloodhound.add(steps);
+        });
+
 
 
     }

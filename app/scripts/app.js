@@ -32,6 +32,7 @@ angular
         'ui.router',
         'ngAnimate',
         'angular-md5',
+        'siyfion.sfTypeahead',
 
         'finqApp.service',
         'finqApp.directive',

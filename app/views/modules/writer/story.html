@@ -13,7 +13,7 @@
 <div class="editor-content">
     <scenario-view scenarios="story.scenarios"></scenario-view>
     <div class="tools">
-        <input type="text" placeholder="{{story.inputPlaceholder}}">
+        <input class="typeahead" type="text" placeholder="{{story.inputPlaceholder}}" sf-typeahead options="story.typeAheadOptions" datasets="story.stepsDataset" ng-model="story.inputValue" >
 
         <div class="select"></div>
         <div class="actions">
