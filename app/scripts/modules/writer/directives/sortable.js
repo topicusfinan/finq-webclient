@@ -11,13 +11,10 @@ angular.module('finqApp.writer.directive')
             },
             restrict: 'A',
             link: function (scope, element) {
-                //var start;
-                //var elementsToBeAdded;
                 var jqElement = $(element);
 
                 var sortableObject = {
                     start: function (event, ui) {
-                        //start = ui.item.index();
                         var ngElementScope = angular.element(ui.item).scope();
                         ngElementScope.start = ui.item.index();
                     },
@@ -31,7 +28,7 @@ angular.module('finqApp.writer.directive')
                         if (movedOnParent){
                             // Move on the same item so move in sortable
                             scope.sortable.splice(ui.item.index(), 0, scope.sortable.splice(ngElementScope.start, 1)[0]);
-                        } else if (ui.sender == null){
+                        } else if (ui.sender === null){
                             // Item has to be removed
                             ngElementScope.removedItem = scope.sortable.splice(ngElementScope.start, 1)[0];
                         } else {
