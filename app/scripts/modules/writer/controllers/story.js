@@ -10,7 +10,7 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoryCtrl',
-    function ($scope, selectedItem, $routeParams, story, sidebar, $rootScope) {
+    function ($scope, selectedItem, $routeParams, story, sidebar, step) {
         var that = this;
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
@@ -27,6 +27,21 @@ angular.module('finqApp.writer.controller')
         this.epilogue = [];
         this.sets = [];
         this.tags = [];
+
+        // TODO move logic to service
+        this.inputPlaceholder = 'Scenario title';
+        $scope.$watch(function(){
+            return selectedItem.getSelectedItemId();
+        }, function(value){
+            if (value !== undefined && value !== null){
+                if (value.indexOf('scenario') !== -1){
+                    that.inputPlaceholder = 'Scenario title';
+                } else if (value.indexOf('step') !== -1){
+                    that.inputPlaceholder = 'Step title';
+                }
+            }
+        });
+
 
         this.toggleVisible = sidebar.toggleVisible;
 
@@ -56,9 +71,7 @@ angular.module('finqApp.writer.controller')
             array.splice(insertPosition, 0, insertObject);
         }
 
-        function MoveObject(array, originalPosition, insertPosition){
-            array.splice(insertPosition, 0, array.splice(originalPosition, 1)[0]);
-        }
+
 
     }
 );
