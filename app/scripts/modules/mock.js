@@ -13,25 +13,13 @@
  */
 angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
-    }]).run([
-    'STATE',
-    'config',
-    '$httpBackend',
-    'environment',
-    'appServiceMock',
-    'setServiceMock',
-    'tagServiceMock',
-    'environmentServiceMock',
-    'authServiceMock',
-    'storyServiceMock',
-    'runServiceMock',
-    'reportServiceMock',
-    'runnerMockSimulator',
-    function(STATE,configProvider,$httpBackend,environmentService,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,reportServiceMock,runnerMockSimulator) {
+    }]).run(
+    function(STATE,config,$httpBackend,environment,appServiceMock,setServiceMock,tagServiceMock,environmentServiceMock,authServiceMock,storyServiceMock,runServiceMock,reportServiceMock,runnerMockSimulator, stepServiceMock) {
 
         $httpBackend.whenGET('/app').respond(appServiceMock.info);
         $httpBackend.whenGET('/sets').respond(setServiceMock.sets);
         $httpBackend.whenGET('/tags').respond(tagServiceMock.tags);
+        $httpBackend.whenGET('/steps').respond(stepServiceMock.steps);
         $httpBackend.whenGET('/environments').respond(environmentServiceMock.environments);
         $httpBackend.whenGET('/books').respond(storyServiceMock.books);
         $httpBackend.whenGET(/^\/runs\/[0-9]+/).respond(function(method, url) {
@@ -76,7 +64,7 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
             runnerMockSimulator.registerRun(angular.extend(jsonData,{
                 id: runId,
                 startedBy: authServiceMock.user,
-                environment: environmentService.getById(jsonData.environment),
+                environment: environment.getById(jsonData.environment),
                 startedOn: startedOn
             }));
             return [200,{
@@ -107,6 +95,6 @@ angular.module('finqApp.mock',[]).config(['$provide', function($provide) {
         $httpBackend.whenPOST(/.*/).passThrough();
         $httpBackend.whenDELETE(/.*/).passThrough();
         $httpBackend.whenPUT(/.*/).passThrough();
-    }]);
+    });
 
 angular.module('finqApp').requires.push('finqApp.mock');
