@@ -156,6 +156,7 @@ function InjectDependencies() {
         .pipe(inject(gulp.src([
             // Inject vendor libraries, always include angular first, then everything else
             paths.dest.vendor + '/angular.js',
+            paths.dest.vendor + '/jquery.js',
             paths.dest.vendor + '/**/*.js'], {read: false}), {name: 'vendor', ignorePath: 'build'}))
         .pipe(inject(gulp.src([
             // Inject scripts, always include app.js first, then mocks, then everything else

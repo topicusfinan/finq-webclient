@@ -93,8 +93,6 @@ angular.module('finqApp.writer.directive')
                 });
             }
 
-            console.log('ctrl test');
-
             $scope.scenarioVariablesView.variableScopes = variableScopes;
         }
 

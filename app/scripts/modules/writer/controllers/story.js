@@ -47,6 +47,18 @@ angular.module('finqApp.writer.controller')
             'scenario-variables-view': this.scenarios
         });
 
+        // TODO remove this, used for poking ng-repeat/checking if scope matches visual representation
+        this.insertObject = function(){
+            InsertObject(this.scenarios[0].steps, 0, {id: 21343241, title: 'sfasdfwe'});
+        };
+
+        function InsertObject(array, insertObject, insertPosition){
+            array.splice(insertPosition, 0, insertObject);
+        }
+
+        function MoveObject(array, originalPosition, insertPosition){
+            array.splice(insertPosition, 0, array.splice(originalPosition, 1)[0]);
+        }
 
     }
 );
