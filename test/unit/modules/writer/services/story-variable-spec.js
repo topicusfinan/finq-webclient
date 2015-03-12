@@ -21,34 +21,34 @@ describe('Unit: Scenario view directive', function () {
     }));
 
     it('should be able to give scenario variable names', function(){
-        expect(scenario1.variables.input[0].getName()).to.equal('customerId');
+        expect(scenario1.getInputVariables()[0].getName()).to.equal('customerId');
     });
 
     it('should be able to give step variable names', function(){
-        expect(scenario1.steps[1].variables.input[0].getName()).to.equal('$customerId');
+        expect(scenario1.steps[1].getInputVariables()[0].getName()).to.equal('$customerId');
     });
 
     it('should be able to give scenario values', function(){
-        expect(scenario1.variables.input[0].getActualValue()).to.equal('313432');
-        expect(scenario1.variables.output[0].getActualValue()).to.equal(undefined);
+        expect(scenario1.getInputVariables()[0].getActualValue()).to.equal('313432');
+        expect(scenario1.getOutputVariables()[0].getActualValue()).to.equal(undefined);
     });
 
     it('should be able to give step values', function(){
-        expect(scenario1.steps[1].variables.input[1].getActualValue()).to.equal('2341');
-        expect(scenario1.steps[1].variables.input[0].getActualValue()).to.equal(undefined);
+        expect(scenario1.steps[1].getInputVariables()[1].getActualValue()).to.equal('2341');
+        expect(scenario1.steps[1].getInputVariables()[0].getActualValue()).to.equal(undefined);
     });
 
     it('should be able to resolve scenario values', function(){
-        expect(scenario1.variables.input[0].getResolvedValue()).to.equal('313432');
-        expect(scenario1.variables.output[0].getResolvedValue()).to.equal(undefined); // scenario output
+        expect(scenario1.getInputVariables()[0].getResolvedValue()).to.equal('313432');
+        expect(scenario1.getOutputVariables()[0].getResolvedValue()).to.equal(undefined); // scenario output
     });
 
     it('should be able to resolve step values', function(){
-        expect(scenario1.steps[1].variables.input[1].getResolvedValue()).to.equal('2341');
-        expect(scenario1.steps[1].variables.input[0].getResolvedValue()).to.equal('313432');
+        expect(scenario1.steps[1].getInputVariables()[1].getResolvedValue()).to.equal('2341');
+        expect(scenario1.steps[1].getInputVariables()[0].getResolvedValue()).to.equal('313432');
     });
 
-
-
-
+    it('should be able to get parent variable', function(){
+        expect(scenario1.steps[1].getParent()).to.equal(scenario1);
+    });
 });

@@ -4,7 +4,7 @@
  * @description
  * # Story variable service
  *
- *
+ * Bind helper functions to a data structure with variables.
  *
  */
 angular.module('finqApp.writer.service')
@@ -13,33 +13,45 @@ angular.module('finqApp.writer.service')
         var rootObject;
 
         /**
-         *
-         * @return {Object} undefined or the requested variable
+         * Look up a variable within a collection (rootObject)
+         * @return {*} undefined or the requested variable
          */
         function LookupVariable(id) {
             var result;
 
-            if (rootObject.variables !== undefined){
+            if (rootObject.variables !== undefined) {
                 result = CheckNode(rootObject, id);
             } else {
-                result = CheckChildren(rootObject, id);
+                result = CheckChild(rootObject, id);
             }
 
             return result === null ? undefined : result;
 
             /// Functions
+            /**
+             * Helper function for CheckNode
+             * @param collection Collection of child nodes
+             * @param compareId Id to compare to
+             * @returns {*}
+             */
             function CheckChildren(collection, compareId) {
                 for (var i = 0; i < collection.length; i++) {
                     var nodeResult = CheckNode(collection[i], compareId);
-                    if (nodeResult !== null){
+                    if (nodeResult !== null) {
                         return nodeResult;
                     }
                 }
                 return null;
             }
 
-            function CheckNode(node, compareId){
-                var childResult;
+            /**
+             * Recursively check a node for the requested variable
+             * @param node Node to evaluate
+             * @param compareId Id to compare to
+             * @returns {*}
+             */
+            function CheckNode(node, compareId) {
+                var childResult, j;
                 var input = node.variables.input;
                 var output = node.variables.output;
                 for (j = 0; j < input.length; j++) {
@@ -56,6 +68,12 @@ angular.module('finqApp.writer.service')
                 }
             }
 
+            /**
+             * Helper function for CheckNode. Does not evaluate the node provided.
+             * @param node Node with children to evaluate
+             * @param compareId Id to compare to
+             * @returns {*}
+             */
             function CheckChild(node, compareId) {
                 var children = FindChildrenProperty(node);
                 if (node.id === compareId) {
@@ -76,38 +94,72 @@ angular.module('finqApp.writer.service')
         }
 
 
-        // New implementation
+        /**
+         * Bind helper functions to an object structure with variables
+         * @param objectWithVariables (JSON) object with a variable structure
+         */
         function SetupVariables(objectWithVariables) {
             rootObject = objectWithVariables;
             SetupVariablesRec(rootObject, null);
 
+            /**
+             * Helper function for SetupVariable
+             * @param objectWithVariables (JSON) object with a variable structure
+             * @param parent Parent object
+             */
             function SetupVariablesRec(objectWithVariables, parent) {
                 var i;
                 var input = objectWithVariables.variables.input;
                 var output = objectWithVariables.variables.output;
+
+                // Set up input and output variables
                 for (i = 0; i < input.length; i++) {
-                    SetupVariable(input[i], parent);
+                    SetupVariable(input[i]);
                 }
                 for (i = 0; i < output.length; i++) {
-                    SetupVariable(output[i], parent);
+                    SetupVariable(output[i]);
                 }
+
+                // Recursive call
                 var children = FindChildrenProperty(objectWithVariables);
                 if (children !== null) {
                     for (i = 0; i < children.length; i++) {
                         SetupVariablesRec(children[i], objectWithVariables);
                     }
                 }
+
+                // Register methods
+                objectWithVariables.getInputVariables = GetInputVariables;
+                objectWithVariables.getOutputVariables = GetOutputVariables;
+                objectWithVariables.getParent = GetParent;
+
+                function GetInputVariables() {
+                    return objectWithVariables.variables.input;
+                }
+
+                function GetOutputVariables() {
+                    return objectWithVariables.variables.output;
+                }
+
+                function GetParent() {
+                    return parent;
+                }
             }
 
-            function SetupVariable(variableData, parent) {
+            /**
+             * Bind helper functions to variable
+             * @param variableData Variable data
+             */
+            function SetupVariable(variableData) {
+                // Register methods
                 variableData.getName = GetName;
                 variableData.isReference = IsReference;
                 variableData.getResolvedValue = GetResolvedValue;
                 variableData.getActualValue = GetActualValue;
                 variableData.setActualValue = SetActualValue;
                 variableData.setReference = SetReference;
-                variableData.parent = parent;
 
+                // Functions
                 function GetActualValue() {
                     return variableData.value;
                 }
@@ -115,7 +167,7 @@ angular.module('finqApp.writer.service')
                 function GetResolvedValue() {
                     if (IsReference()) {
                         var variable = LookupVariable(variableData.reference);
-                        if (variable !== undefined){
+                        if (variable !== undefined) {
                             return variable.getActualValue();
                         }
                         return variable;
@@ -147,6 +199,12 @@ angular.module('finqApp.writer.service')
             }
         }
 
+        /**
+         * Uses a list of known names for child properties to provide the child property
+         * @param object
+         * @returns {*}
+         * @constructor
+         */
         function FindChildrenProperty(object) {
             var childNames = ['steps'];
             for (var i = 0; i < childNames.length; i++) {
