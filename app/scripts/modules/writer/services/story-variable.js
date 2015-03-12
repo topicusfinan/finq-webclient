@@ -10,6 +10,8 @@
 angular.module('finqApp.writer.service')
     .service('storyVariable', function () {
         this.setupVariables = SetupVariables;
+        this.setupVariable = SetupVariable;
+        this.setupNode = SetupNode;
         var rootObject;
 
         /**
@@ -101,101 +103,110 @@ angular.module('finqApp.writer.service')
         function SetupVariables(objectWithVariables) {
             rootObject = objectWithVariables;
             SetupVariablesRec(rootObject, null);
+        }
 
-            /**
-             * Helper function for SetupVariable
-             * @param objectWithVariables (JSON) object with a variable structure
-             * @param parent Parent object
-             */
-            function SetupVariablesRec(objectWithVariables, parent) {
-                var i;
-                var input = objectWithVariables.variables.input;
-                var output = objectWithVariables.variables.output;
+        /**
+         * Helper function for SetupVariable
+         * @param objectWithVariables (JSON) object with a variable structure
+         * @param parent Parent object
+         */
+        function SetupVariablesRec(objectWithVariables, parent) {
+            var i;
+            var input = objectWithVariables.variables.input;
+            var output = objectWithVariables.variables.output;
 
-                // Set up input and output variables
-                for (i = 0; i < input.length; i++) {
-                    SetupVariable(input[i]);
-                }
-                for (i = 0; i < output.length; i++) {
-                    SetupVariable(output[i]);
-                }
+            // Set up input and output variables
+            for (i = 0; i < input.length; i++) {
+                SetupVariable(input[i]);
+            }
+            for (i = 0; i < output.length; i++) {
+                SetupVariable(output[i]);
+            }
 
-                // Recursive call
-                var children = FindChildrenProperty(objectWithVariables);
-                if (children !== null) {
-                    for (i = 0; i < children.length; i++) {
-                        SetupVariablesRec(children[i], objectWithVariables);
-                    }
-                }
-
-                // Register methods
-                objectWithVariables.getInputVariables = GetInputVariables;
-                objectWithVariables.getOutputVariables = GetOutputVariables;
-                objectWithVariables.getParent = GetParent;
-
-                function GetInputVariables() {
-                    return objectWithVariables.variables.input;
-                }
-
-                function GetOutputVariables() {
-                    return objectWithVariables.variables.output;
-                }
-
-                function GetParent() {
-                    return parent;
+            // Recursive call
+            var children = FindChildrenProperty(objectWithVariables);
+            if (children !== null) {
+                for (i = 0; i < children.length; i++) {
+                    SetupVariablesRec(children[i], objectWithVariables);
                 }
             }
 
-            /**
-             * Bind helper functions to variable
-             * @param variableData Variable data
-             */
-            function SetupVariable(variableData) {
-                // Register methods
-                variableData.getName = GetName;
-                variableData.isReference = IsReference;
-                variableData.getResolvedValue = GetResolvedValue;
-                variableData.getActualValue = GetActualValue;
-                variableData.setActualValue = SetActualValue;
-                variableData.setReference = SetReference;
+            // Register methods
+            SetupNode(objectWithVariables, parent);
+        }
 
-                // Functions
-                function GetActualValue() {
-                    return variableData.value;
-                }
+        /**
+         * Bind helper functions to a node
+         * @param node An object with variables
+         * @param parent Parent object to be linked
+         */
+        function SetupNode(node, parent){
+            node.getInputVariables = GetInputVariables;
+            node.getOutputVariables = GetOutputVariables;
+            node.getParent = GetParent;
 
-                function GetResolvedValue() {
-                    if (IsReference()) {
-                        var variable = LookupVariable(variableData.reference);
-                        if (variable !== undefined) {
-                            return variable.getActualValue();
-                        }
-                        return variable;
-                    } else {
-                        return GetActualValue();
+            function GetInputVariables() {
+                return node.variables.input;
+            }
+
+            function GetOutputVariables() {
+                return node.variables.output;
+            }
+
+            function GetParent() {
+                return parent;
+            }
+        }
+
+        /**
+         * Bind helper functions to variable
+         * @param variableData Variable data
+         */
+        function SetupVariable(variableData) {
+            // Register methods
+            variableData.getName = GetName;
+            variableData.isReference = IsReference;
+            variableData.getResolvedValue = GetResolvedValue;
+            variableData.getActualValue = GetActualValue;
+            variableData.setActualValue = SetActualValue;
+            variableData.setReference = SetReference;
+
+            // Functions
+            function GetActualValue() {
+                return variableData.value;
+            }
+
+            function GetResolvedValue() {
+                if (IsReference()) {
+                    var variable = LookupVariable(variableData.reference);
+                    if (variable !== undefined) {
+                        return variable.getActualValue();
                     }
+                    return variable;
+                } else {
+                    return GetActualValue();
                 }
+            }
 
-                function GetName() {
-                    return variableData.name;
-                }
+            function GetName() {
+                return variableData.name;
+            }
 
-                function SetActualValue(value) {
-                    delete variableData.reference;
-                    variableData.value = value;
-                }
+            function SetActualValue(value) {
+                delete variableData.reference;
+                variableData.value = value;
+            }
 
-                function SetReference(reference) {
-                    delete variableData.value;
-                    variableData.reference = reference;
-                }
+            function SetReference(reference) {
+                delete variableData.value;
+                variableData.reference = reference;
+            }
 
-                /**
-                 * @return {boolean}
-                 */
-                function IsReference() {
-                    return variableData.reference !== undefined && variableData.reference !== null;
-                }
+            /**
+             * @return {boolean}
+             */
+            function IsReference() {
+                return variableData.reference !== undefined && variableData.reference !== null;
             }
         }
 

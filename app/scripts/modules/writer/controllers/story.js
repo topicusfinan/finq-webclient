@@ -10,7 +10,7 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoryCtrl',
-    function ($scope, selectedItem, $routeParams, story, sidebar, step) {
+    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable) {
         var that = this;
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
@@ -27,6 +27,8 @@ angular.module('finqApp.writer.controller')
         this.epilogue = [];
         this.sets = [];
         this.tags = [];
+
+
 
         // TODO move logic to service
         this.inputPlaceholder = 'Scenario title';
@@ -49,6 +51,7 @@ angular.module('finqApp.writer.controller')
         if (foundStory === null) {
             // TODO alert the user to no story found
         } else {
+
             this.id = foundStory.id;
             this.title = foundStory.title;
             this.sets = foundStory.sets;
@@ -61,6 +64,8 @@ angular.module('finqApp.writer.controller')
         sidebar.setDirective({
             'scenario-variables-view': this.scenarios
         });
+
+
 
         // TODO remove this, used for poking ng-repeat/checking if scope matches visual representation
         this.insertObject = function(){
