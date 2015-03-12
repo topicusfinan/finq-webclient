@@ -264,7 +264,9 @@ function Karma(done) {
     karma.start({
         configFile: __dirname + '/test/karma.conf.js',
         files: [
+            paths.dest.vendor + '/jquery.js',
             paths.dest.vendor + '/angular.js',
+            paths.dest.vendor + '/typeahead*.js',
             paths.dest.vendor + '/**/*.js',
             paths.src.scripts + '/*.js',
             paths.src.scripts + '/modules/*.js',
