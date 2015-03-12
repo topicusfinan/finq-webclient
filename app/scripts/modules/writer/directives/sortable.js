@@ -56,13 +56,13 @@ angular.module('finqApp.writer.directive')
 
             if (movedOnParent) {
                 // Move on the same item so move in sortable
-                arrayOperations.move($scope.sortable, ngElementScope.start, ui.item.index());
+                arrayOperations.moveItem($scope.sortable, ngElementScope.start, ui.item.index());
             } else if (ui.sender === null) {
                 // Item has to be removed
-                ngElementScope.removedItem = arrayOperations.remove($scope.sortable, ngElementScope.start);
+                ngElementScope.removedItem = arrayOperations.removeItem($scope.sortable, ngElementScope.start);
             } else {
                 // Item has to be added on the correct location
-                arrayOperations.insert($scope.sortable, ui.item.index(), ngElementScope.removedItem);
+                arrayOperations.insertItem($scope.sortable, ui.item.index(), ngElementScope.removedItem);
 
                 // Remove item injected by sortable
                 ui.item.remove();

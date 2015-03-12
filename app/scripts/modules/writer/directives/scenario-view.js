@@ -16,9 +16,9 @@ angular.module('finqApp.writer.directive')
             }
         }
     })
-    .controller('ScenarioViewCtrl', function ($scope, selectedItem) {
+    .controller('ScenarioViewCtrl', function ($scope, selectedItem, arrayOperations) {
         $scope.scenarioView = {
-            deleteScenario: DeleteScenario,
+            deleteItem: DeleteItem,
             isStepIncomplete: IsStepIncomplete,
             applyScenarioTitle: ApplyScenarioTitle
         };
@@ -33,9 +33,10 @@ angular.module('finqApp.writer.directive')
         $scope.scenarioContentListClass = '.scenario-content-list';
 
         //$scope.registerSortable = RegisterSortable;
+        
 
-        function DeleteScenario(scenario) {
-            // TODO
+        function DeleteItem(collection, index) {
+            arrayOperations.removeItem(collection, index);
         }
 
         function ApplyScenarioTitle(scenario) {

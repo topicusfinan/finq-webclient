@@ -17,11 +17,11 @@
 
         <div class="select"></div>
         <div class="actions">
-            <button>
-                <i class="fa fa-chain-broken"></i>
+            <button ng-show="story.isString(story.inputValue)">
+                <i class="fa fa-chain-broken" ></i>
                 <span>Add pending</span>
             </button>
-            <button ng-click="story.insertObject()">
+            <button ng-click="story.insertObject()" ng-hide="story.isString(story.inputValue)">
                 <span>Insert</span>
             </button>
         </div>
