@@ -31,67 +31,54 @@ angular.module('finqApp.writer.directive')
                 Update(item);
             });
 
-        function Update(item) {
+        function Update(itemId) {
+            var item = selectedItem.getSelectedItem();
             var variableScopes = [];
-            if (item !== null) {
+            if (itemId !== null) {
                 // TODO Fill scenario input values
 
 
-
-
-
-                variableScopes.push({
-                    title: 'Scenario attribute values',
-                    addable: false,
-                    variables: [
-                        {
-                            name: '$customerid',
-                            value: '#customerid',
-                            linked: true
-                        }
-                    ]
-                });
-
-                if (item.indexOf('step') !== -1) {
-                    // selected item is a step
-                    // TODO fill step input and output values
+                if (itemId.indexOf('step') !== -1) {
+                    // step
                     variableScopes.push({
-                            title: 'Step input values',
-                            addable: false,
-                            variables: [
-                                {
-                                    name: 'amount',
-                                    value: 'undefined',
-                                    linked: false
-                                }
-                            ]
-                        }
-                    );
-                    variableScopes.push({
-                            title: 'Step output values',
-                            addable: false,
-                            variables: [
-                                {
-                                    name: 'amount',
-                                    linked: false
-                                }
-                            ]
-                        }
-                    )
+                        title: 'Scenario attribute values',
+                        addable: true,
+                        variables: item.getParent().getInputVariables()
+                    });
 
+                    variableScopes.push({
+                        title: 'Step input values',
+                        addable: false,
+                        variables: item.getInputVariables()
+                    });
+
+                    variableScopes.push({
+                        title: 'Step output values',
+                        addable: false,
+                        variables: item.getOutputVariables()
+                    });
+
+
+                    variableScopes.push({
+                        title: 'Scenario output values',
+                        addable: true,
+                        variables: item.getParent().getOutputVariables()
+                    });
+                } else {
+                    // Scenario
+                    variableScopes.push({
+                        title: 'Scenario input values',
+                        addable: true,
+                        variables: item.getInputVariables()
+                    });
+
+                    variableScopes.push({
+                        title: 'Scenario output values',
+                        addable: true,
+                        variables: item.getOutputVariables()
+                    });
                 }
-                // TODO Fill scenario output values
-                variableScopes.push({
-                    title: 'Scenario output values',
-                    addable: true,
-                    variables: [
-                        {
-                            name: 'foo',
-                            value: 'bar',
-                            linked: false
-                        }
-                    ]
-                });
+
             }
 
             $scope.scenarioVariablesView.variableScopes = variableScopes;

@@ -51,6 +51,7 @@ angular.module('finqApp.writer.controller')
         if (foundStory === null) {
             // TODO alert the user to no story found
         } else {
+            storyVariable.setupVariables(foundStory);
 
             this.id = foundStory.id;
             this.title = foundStory.title;

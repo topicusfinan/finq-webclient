@@ -57,42 +57,34 @@ angular.module('finqApp.writer.service')
                 var input = node.variables.input;
                 var output = node.variables.output;
                 for (j = 0; j < input.length; j++) {
-                    childResult = CheckChild(input[j], compareId);
-                    if (childResult !== null) {
-                        return childResult;
+                    if (input[j].id === compareId) {
+                        return input[j];
                     }
                 }
                 for (j = 0; j < output.length; j++) {
-                    childResult = CheckChild(output[j], compareId);
-                    if (childResult !== null) {
-                        return childResult;
+                    if(output[j].id === compareId){
+                        return output[j];
                     }
                 }
-            }
-
-            /**
-             * Helper function for CheckNode. Does not evaluate the node provided.
-             * @param node Node with children to evaluate
-             * @param compareId Id to compare to
-             * @returns {*}
-             */
-            function CheckChild(node, compareId) {
                 var children = FindChildrenProperty(node);
-                if (node.id === compareId) {
-                    return node;
-                } else if (children !== null) {
-                    return CheckChildren(children);
+                if (children !== null){
+                    return CheckChildren(children, compareId);
                 }
                 return null;
+
             }
         }
 
-        function ResolveReference(variable) {
-            var referenceVariable = LookupVariable(variable.id);
-            if (referenceVariable.value !== undefined) {
-                return referenceVariable.value;
+        function ResolveReference(id) {
+            var referenceVariable = LookupVariable(id);
+            if (referenceVariable !== undefined) {
+                if (referenceVariable.reference !== undefined){
+                    return ResolveReference(referenceVariable.reference);
+                } else {
+                    return referenceVariable;
+                }
             }
-            return ResolveReference(referenceVariable.reference);
+            return null;
         }
 
 
@@ -112,16 +104,19 @@ angular.module('finqApp.writer.service')
          */
         function SetupVariablesRec(objectWithVariables, parent) {
             var i;
-            var input = objectWithVariables.variables.input;
-            var output = objectWithVariables.variables.output;
+            if (objectWithVariables.variables !== undefined){
+                var input = objectWithVariables.variables.input;
+                var output = objectWithVariables.variables.output;
 
-            // Set up input and output variables
-            for (i = 0; i < input.length; i++) {
-                SetupVariable(input[i]);
+                // Set up input and output variables
+                for (i = 0; i < input.length; i++) {
+                    SetupVariable(input[i]);
+                }
+                for (i = 0; i < output.length; i++) {
+                    SetupVariable(output[i]);
+                }
             }
-            for (i = 0; i < output.length; i++) {
-                SetupVariable(output[i]);
-            }
+
 
             // Recursive call
             var children = FindChildrenProperty(objectWithVariables);
@@ -178,14 +173,13 @@ angular.module('finqApp.writer.service')
 
             function GetResolvedValue() {
                 if (IsReference()) {
-                    var variable = LookupVariable(variableData.reference);
+                    var variable = ResolveReference(variableData.reference);
                     if (variable !== undefined) {
-                        return variable.getActualValue();
+                        return variable.getResolvedValue();
                     }
                     return variable;
-                } else {
-                    return GetActualValue();
                 }
+                return GetActualValue() || GetName();
             }
 
             function GetName() {
@@ -217,7 +211,7 @@ angular.module('finqApp.writer.service')
          * @constructor
          */
         function FindChildrenProperty(object) {
-            var childNames = ['steps'];
+            var childNames = ['steps', 'scenarios'];
             for (var i = 0; i < childNames.length; i++) {
                 if (object[childNames[i]] !== undefined) {
                     return object[childNames[i]];

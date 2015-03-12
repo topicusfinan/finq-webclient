@@ -13,14 +13,14 @@
                 <li ng-class="{undefined: variable.value === undefined}" ng-repeat="variable in variableScope.variables">
                     <div class="variable">
                         <div class="title">
-                            <span>{{variable.name}}</span>
+                            <span>{{variable.getName()}}</span>
                         </div>
                         <div class="value">
-                            <span>{{variable.value}}</span>
+                            <span>{{variable.getResolvedValue()}}</span>
                         </div>
                         <div class="status">
                             <i class="fa fa-chain"
-                               ng-class="{'fa-chain-broken': !variable.linked, 'fa-chain': variable.linked}"></i>
+                               ng-class="{'fa-chain-broken': !variable.isReference(), 'fa-chain': variable.isReference()}"></i>
                         </div>
                     </div>
                 </li>
