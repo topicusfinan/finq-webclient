@@ -19,6 +19,4 @@ angular.module('finqApp.writer.service')
         function MoveItem(collection, startPosition, endPosition){
             InsertItem(collection, endPosition, RemoveItem(collection, startPosition));
         }
-
-
     });

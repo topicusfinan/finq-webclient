@@ -39,6 +39,7 @@ angular.module('finqApp.writer.directive')
 
 
 
+
                 variableScopes.push({
                     title: 'Scenario attribute values',
                     addable: false,

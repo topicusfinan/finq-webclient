@@ -33,7 +33,7 @@ angular.module('finqApp.writer.directive')
         $scope.scenarioContentListClass = '.scenario-content-list';
 
         //$scope.registerSortable = RegisterSortable;
-        
+
 
         function DeleteItem(collection, index) {
             arrayOperations.removeItem(collection, index);

@@ -185,6 +185,10 @@ angular.module('finqApp.mock')
                                 tags: [],
                                 steps: [
                                     {
+                                        variables: {
+                                            input: [],
+                                            output: []
+                                        },
                                         title: 'when the customer with id $customerId orders a new book with id $otherBookId',
                                         template: 'when the customer with id $customerId orders a new book with id $bookId'
                                     },
@@ -221,12 +225,18 @@ angular.module('finqApp.mock')
                                     {
                                         title: 'then the basket with id $basketId should contain the following [[products]]',
                                         template: 'then the basket with id $basketId should contain the following [[products]]',
-                                        variables: []
+                                        variables: {
+                                            input: [],
+                                            output: []
+                                        }
                                     },
                                     {
                                         title: 'and the total value of the basket with id $basketId should be EUR 20',
                                         template: 'then the total value of the basket with id $basketId should be EUR $totalCost',
-                                        variables: []
+                                        variables: {
+                                            input: [],
+                                            output: []
+                                        }
                                     }
                                 ]
                             }
@@ -241,6 +251,7 @@ angular.module('finqApp.mock')
                     {
                         id: 66421532,
                         title: 'New stories',
+                        variables: [],
                         sets: [
                             {id:2}
                         ],
@@ -252,11 +263,13 @@ angular.module('finqApp.mock')
                         prologue: [
                             {
                                 title: 'given that a role with authorization WRITE_STORY is available with id $roleId',
-                                template: 'given that a role with authorization $key is available'
+                                template: 'given that a role with authorization $key is available',
+                                variables: []
                             },
                             {
                                 title: 'when a user with id $userId has been created',
-                                template: 'when a user with id $userId has been created'
+                                template: 'when a user with id $userId has been created',
+                                variables: []
                             }
                         ],
                         epilogue: [],
@@ -268,15 +281,18 @@ angular.module('finqApp.mock')
                                 steps: [
                                     {
                                         title: 'when the user with id $userId is given the role with id $roleId',
-                                        template: 'when the user with id $userId is given the role with id $roleId'
+                                        template: 'when the user with id $userId is given the role with id $roleId',
+                                        variables: []
                                     },
                                     {
                                         title: 'and the user with id $userId creates a new story with id $storyId',
-                                        template: 'when the user with id $userId creates a new story with id $storyId'
+                                        template: 'when the user with id $userId creates a new story with id $storyId',
+                                        variables: []
                                     },
                                     {
                                         title: 'then the story with id $storyId should be available in the storylist',
-                                        template: 'then the story with id $storyId should be available in the storylist'
+                                        template: 'then the story with id $storyId should be available in the storylist',
+                                        variables: []
                                     }
                                 ]
                             }
