@@ -90,6 +90,9 @@ angular.module('finqApp.writer.controller')
             highlight: true
         };
 
+        that.isString = angular.isString;
+
+
         step.list().then(function(steps){
             stepsBloodhound.add(steps);
         });

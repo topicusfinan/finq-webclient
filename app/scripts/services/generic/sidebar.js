@@ -14,6 +14,7 @@ angular.module('finqApp.runner.service')
         this.setVisible = SetVisible;
         this.toggleVisible = ToggleVisible;
         this.getVisible = GetVisible;
+        this.hasVisibleSidebar = HasVisibleSidebar;
 
         /**
          * @return {boolean}
@@ -29,6 +30,10 @@ angular.module('finqApp.runner.service')
 
         function GetDirective() {
             return directive;
+        }
+
+        function HasVisibleSidebar(){
+            return HasSidebar() && GetVisible();
         }
 
 
