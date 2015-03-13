@@ -7,6 +7,8 @@ $full-menu-max-size:              17em;
 $full-filter-size-bp-1-no-act:    new-breakpoint(max-width 54em);
 $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
 
+$full-title-size-bp-1:            new-breakpoint(max-width 74em);
+
 
 @include media($full-menu-min-size-bp) {
     div.layout {
@@ -115,7 +117,14 @@ $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
                 width: 0;
                 opacity: 0;
             }
-
         }
+    }
+}
+
+@include media($full-title-size-bp-1) {
+
+    .top-filter .title > span.verbose {
+        width: 0;
+        opacity: 0;
     }
 }

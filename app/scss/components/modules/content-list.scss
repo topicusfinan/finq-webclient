@@ -17,83 +17,90 @@
 
     margin-bottom: 6em;
 
-    li.cl > div {
-        position: relative;
-        color: $section-header-color;
-        margin-top: $content-list-item-spacing;
-        padding-left: $section-list-icon-text-pad;
+    li.cl {
 
-        &.selectable:hover {
-            cursor: pointer;
-            background: $hover-bg-color;
-            color: $highlight-color;
-
-            > div.comments {
-
-                span,
-                a {
-                    color: $highlight-color;
-                }
-
-                a.hover {
-                    color: darken($highlight-color, 10%);
-                }
-            }
+        &.ic > div {
+            padding-left: $section-list-icon-text-pad;
         }
 
-        > div.title {
-            float: left;
+        > div {
+            padding-left: $section-list-text-pad;
+            position: relative;
+            color: $section-header-color;
+            margin-top: $content-list-item-spacing;
 
-            > i {
-                color: $section-list-icon-color;
+            &.selectable:hover {
+                cursor: pointer;
+                background: $hover-bg-color;
+                color: $highlight-color;
 
-                &.success {
-                    color: $success-color;
-                }
+                > div.comments {
 
-                &.failed {
-                    color: $error-color;
+                    span,
+                    a {
+                        color: $highlight-color;
+                    }
+
+                    a.hover {
+                        color: darken($highlight-color, 10%);
+                    }
                 }
             }
 
-            > span,
-            > div {
-                @include ellipsis;
+            > div.title {
+                float: left;
+
+                > i {
+                    color: $section-list-icon-color;
+
+                    &.success {
+                        color: $success-color;
+                    }
+
+                    &.failed {
+                        color: $error-color;
+                    }
+                }
+
+                > span,
+                > div {
+                    @include ellipsis;
+                }
             }
-        }
 
-        > i,
-        > div.title > i,
-        > div.title > .radial-progress {
-            position: absolute;
-        }
-
-        > div.details {
-            display: none;
-            float: left;
-            clear: both;
-            font-size: .9em;
-
-            .legend {
-                opacity: .7;
+            > i,
+            > div.title > i,
+            > div.title > .radial-progress {
+                position: absolute;
             }
-        }
-
-        &.detailed.active,
-        &.detailed.always {
-            min-height: $content-list-item-2-det-height;
-            max-height: $content-list-item-2-det-height;
 
             > div.details {
-                display: block;
-            }
-
-            > div.comments {
                 display: none;
+                float: left;
+                clear: both;
+                font-size: .9em;
+
+                .legend {
+                    opacity: .7;
+                }
             }
 
-            > div.actions {
-                top: $content-list-det-actions-top;
+            &.detailed.active,
+            &.detailed.always {
+                min-height: $content-list-item-2-det-height;
+                max-height: $content-list-item-2-det-height;
+
+                > div.details {
+                    display: block;
+                }
+
+                > div.comments {
+                    display: none;
+                }
+
+                > div.actions {
+                    top: $content-list-det-actions-top;
+                }
             }
         }
     }
