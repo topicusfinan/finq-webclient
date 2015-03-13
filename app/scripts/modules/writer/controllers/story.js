@@ -29,21 +29,22 @@ angular.module('finqApp.writer.controller')
         this.tags = [];
 
 
-
         // TODO move logic to service
         this.inputPlaceholder = 'Scenario title';
-        $scope.$watch(function(){
+        $scope.$watch(function () {
             return selectedItem.getSelectedItemId();
-        }, function(value){
-            if (value !== undefined && value !== null){
-                if (value.indexOf('scenario') !== -1){
+        }, function (value) {
+            if (value !== undefined && value !== null) {
+                if (value.indexOf('scenario') !== -1) {
                     that.inputPlaceholder = 'Scenario title';
-                } else if (value.indexOf('step') !== -1){
+                } else if (value.indexOf('step') !== -1) {
                     that.inputPlaceholder = 'Step title';
                 }
             }
         });
 
+        that.expander = new StoryExpandCollapse('#main-content-list');
+        that.expander.setup();
 
         this.toggleVisible = sidebar.toggleVisible;
 
@@ -67,13 +68,12 @@ angular.module('finqApp.writer.controller')
         });
 
 
-
         // TODO remove this, used for poking ng-repeat/checking if scope matches visual representation
-        this.insertObject = function(){
+        this.insertObject = function () {
             InsertObject(this.scenarios[0].steps, 0, {id: 21343241, title: 'sfasdfwe'});
         };
 
-        function InsertObject(array, insertObject, insertPosition){
+        function InsertObject(array, insertObject, insertPosition) {
             array.splice(insertPosition, 0, insertObject);
         }
 
@@ -81,7 +81,9 @@ angular.module('finqApp.writer.controller')
         this.inputValue = "";
 
         var stepsBloodhound = new Bloodhound({
-            datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.template);},
+            datumTokenizer: function (d) {
+                return Bloodhound.tokenizers.whitespace(d.template);
+            },
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             local: []
         });
@@ -99,10 +101,9 @@ angular.module('finqApp.writer.controller')
         that.isString = angular.isString;
 
 
-        step.list().then(function(steps){
+        step.list().then(function (steps) {
             stepsBloodhound.add(steps);
         });
-
 
 
     }

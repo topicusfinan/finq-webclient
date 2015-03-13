@@ -60,8 +60,10 @@ angular.module('finqApp.writer.service')
                 prefix = "story";
             } else if (item.steps !== undefined){
                 prefix = "scenario";
-            } else {
+            } else if (item.name !== undefined) {
                 prefix = "step";
+            } else {
+                prefix = "section"
             }
             return prefix;
         }

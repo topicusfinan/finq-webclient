@@ -6,6 +6,7 @@ angular.module('finqApp.writer.directive')
             scope: {
                 scenarios: '='
             },
+            replace: true,
             restrict: 'E',
             templateUrl: 'views/modules/writer/directives/scenario-view.html',
             controller: 'ScenarioViewCtrl',

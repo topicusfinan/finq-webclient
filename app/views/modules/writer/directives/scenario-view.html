@@ -1,11 +1,11 @@
 
 
-<ul id="scenario-list" class="main-content-list" sortable="scenarios" handle="mainListHandler">
-    <li class="ic cl list-animate" ng-repeat="scenario in scenarios track by scenario.id">
-        <div class="selectable" ng-class="{'active':selectedItem.isItemSelected(scenario, $index)}"
+<ul id="scenario-list" sortable="scenarios" handle="mainListHandler">
+    <li class="ic cl" ng-repeat="scenario in scenarios track by scenario.id">
+        <div class="selectable" ng-class="{'active':selectedItem.isItemSelected(scenario)}"
              ng-click="selectedItem.setSelectedItem(scenario)">
             <div class="title">
-                <i class="fa fa-bars handle" data-toggle="story"></i>
+                <i class="fa expand handle" data-toggle="story"></i>
                 <input type="text" ng-model="scenario.editorTitle" ng-init="scenario.editorTitle = scenario.title;">
             </div>
             <div class="actions">
@@ -23,7 +23,7 @@
         </div>
         <ul class="scenario-content-list" sortable="scenario.steps" handle="stepListHandler" connect-with="scenarioContentListClass">
             <li class="ic cl" ng-repeat="step in scenario.steps">
-                <div class="selectable" ng-class="{'active': selectedItem.isItemSelected(step, $index, $parent.$index)}"
+                <div class="selectable" ng-class="{'active': selectedItem.isItemSelected(step)}"
                      ng-click="selectedItem.setSelectedItem(step);">
                     <div class="title">
                         <i class="fa fa-bars scenario-handle"></i>

@@ -35,9 +35,9 @@
         </div>
         <ul>
             <li class="ic cl" ng-repeat="story in book.stories track by story.id">
-                <div class="selectable" ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.selectedItem = 'story'+story.id" data-toggle="story">
+                <div class="selectable" ng-class="{'active':available.selectedItem === 'story'+story.id}" ng-click="available.selectedItem = 'story'+story.id" >
                     <div class="title">
-                        <i class="fa expand"></i>
+                        <i class="fa expand" data-toggle="story"></i>
                         <span class="separate">{{::story.title}}</span>
                     </div>
                     <div class="actions">

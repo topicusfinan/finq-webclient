@@ -4,11 +4,11 @@
 angular.module('finqApp.writer.directive')
     .directive('sortable', function () {
         return {
-            scope: {
-                'sortable': '=', // collection to be modified
-                'connectWith': '=', // connect with selector
-                'handle': '=' // handle class selector
-            },
+            //scope: {
+            //    'sortable': '=', // collection to be modified
+            //    'connectWith': '=', // connect with selector
+            //    'handle': '=' // handle class selector
+            //},
             restrict: 'A',
             controller: 'SortableCtrl',
             link: function (scope, element) {

@@ -34,7 +34,7 @@ angular.module('finqApp.writer.directive')
         function Update(itemId) {
             var item = selectedItem.getSelectedItem();
             var variableScopes = [];
-            if (itemId !== null) {
+            if (itemId !== null && item.getParent !== undefined) {
                 // TODO Fill scenario input values
 
 
