@@ -18,6 +18,7 @@ angular.module('finqApp.mock')
                     {
                         id: 46421532,
                         title: 'New orders',
+                        variables: {input: [], output: []},
                         sets: [
                             {id:1},
                             {id:2}
@@ -29,15 +30,18 @@ angular.module('finqApp.mock')
                         prologue: [
                             {
                                 title: 'when a customer with id $customerId has been created',
-                                template: 'when a customer with id $customerId has been created'
+                                template: 'when a customer with id $customerId has been created',
+                                variables: {input: [], output: []}
                             },
                             {
                                 title: 'and a book with id $bookId is created with "my story" as a title, and value of EUR 30',
-                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost',
+                                variables: {input: [], output: []}
                             },
                             {
                                 title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of EUR 20',
-                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
+                                template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost',
+                                variables: {input: [], output: []}
                             }
                         ],
                         epilogue: [],
