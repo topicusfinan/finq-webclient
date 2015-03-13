@@ -18,24 +18,24 @@ angular.module('finqApp.directive')
         }
     })
     .controller('sidebarCtrl', function ($scope, sidebar, $compile) {
-        $scope.watchData = WatchData;
-        $scope.update = Update;
-        $scope.getVisible = GetVisible;
-        $scope.setVisible = SetVisible;
+        $scope.watchData = watchData;
+        $scope.update = update;
+        $scope.getVisible = getVisible;
+        $scope.setVisible = setVisible;
 
-        function WatchData() {
+        function watchData() {
             return sidebar.getDirective();
         }
 
-        function GetVisible() {
+        function getVisible() {
             return sidebar.getVisible();
         }
 
-        function SetVisible(element, visible){
+        function setVisible(element, visible){
             element.css('visibility', visible ? 'visible' : 'hidden');
         }
 
-        function Update(element) {
+        function update(element) {
             element.empty();
             if (!sidebar.hasSidebar()) {
                 return;

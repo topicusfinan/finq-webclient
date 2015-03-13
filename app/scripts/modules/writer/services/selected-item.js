@@ -5,25 +5,25 @@ angular.module('finqApp.writer.service')
     .service('selectedItem', function () {
         var selectedItemId, selectedItem;
 
-        ClearSelectedItem();
+        clearSelectedItem();
 
-        this.setSelectedItem = SetSelectedItem;
-        this.isItemSelected = IsItemSelected;
-        this.getSelectedItem = GetSelectedItem;
-        this.getSelectedItemId = GetSelectedItemId;
-        this.clearSelectedItem = ClearSelectedItem;
+        this.setSelectedItem = setSelectedItem;
+        this.isItemSelected = isItemSelected;
+        this.getSelectedItem = getSelectedItem;
+        this.getSelectedItemId = getSelectedItemId;
+        this.clearSelectedItem = clearSelectedItem;
 
         /**
          * Set selectedItem to reference the new item with a prefix based on its type
          * @param newItem
          * @returns {void}
          */
-        function SetSelectedItem(newItem){
-            selectedItemId = GetPrefixedId(newItem);
+        function setSelectedItem(newItem){
+            selectedItemId = getPrefixedId(newItem);
             selectedItem = newItem;
         }
 
-        function ClearSelectedItem(){
+        function clearSelectedItem(){
             selectedItemId = null;
             selectedItem = undefined;
         }
@@ -33,18 +33,18 @@ angular.module('finqApp.writer.service')
          * @param {Object} item
          * @returns {boolean}
          */
-        function IsItemSelected(item){
-            return GetPrefixedId(item) === selectedItemId;
+        function isItemSelected(item){
+            return getPrefixedId(item) === selectedItemId;
         }
 
         /**
          * @return {string}
          */
-        function GetPrefixedId(item){
+        function getPrefixedId(item){
             if (item === null){
                 return null;
             }
-            return GetPrefix(item) + item.id;
+            return getPrefix(item) + item.id;
         }
 
         /**
@@ -52,7 +52,7 @@ angular.module('finqApp.writer.service')
          * @param {Object} item
          * @returns {string}
          */
-        function GetPrefix(item){
+        function getPrefix(item){
             var prefix;
             if (item.stories !== undefined){
                 prefix = "book";
@@ -68,11 +68,11 @@ angular.module('finqApp.writer.service')
             return prefix;
         }
 
-        function GetSelectedItem(){
+        function getSelectedItem(){
             return selectedItem;
         }
 
-        function GetSelectedItemId(){
+        function getSelectedItemId(){
             return selectedItemId;
         }
 

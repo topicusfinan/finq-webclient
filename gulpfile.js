@@ -1,3 +1,4 @@
+'use strict';
 //region Require
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
@@ -53,29 +54,29 @@ gulp.task('test', function (done) {
 gulp.task('testDebug', function (done) {
     karmaDebug = true;
     karmaCoverage = false;
-    runSequence('karma');
+    runSequence('karma', done);
 });
 gulp.task('testWatch', function (done) {
-    runSequence('moveVendors', 'karmaWatch')
+    runSequence('moveVendors', 'karmaWatch', done);
 });
 
-gulp.task('clean', Clean);
-gulp.task('moveVendors', MoveVendorFiles);
-gulp.task('moveViews', MoveViews);
-gulp.task('moveStatics', MoveStatics);
-gulp.task('moveConfig', MoveConfig);
-gulp.task('moveLang', MoveLang);
-gulp.task('moveFontAwesomeFonts', MoveFontAwesomeFonts);
-gulp.task('injectDependencies', InjectDependencies);
-gulp.task('jshint', JsHint);
-gulp.task('scsslint', ScssLint);
-gulp.task('scripts', Scripts);
-gulp.task('sass', Sass);
-gulp.task('browser-sync', BrowserSync);
-gulp.task('karma', Karma);
-gulp.task('moveFiles', MoveFiles);
-gulp.task('karmaWatch', ['karma'], KarmaWatch);
-gulp.task('reload', Reload);
+gulp.task('clean', cleanTask);
+gulp.task('moveVendors', moveVendorFilesTask);
+gulp.task('moveViews', moveViewsTask);
+gulp.task('moveStatics', moveStaticsTask);
+gulp.task('moveConfig', moveConfigTask);
+gulp.task('moveLang', moveLangTask);
+gulp.task('moveFontAwesomeFonts', moveFontAwesomeFontsTask);
+gulp.task('injectDependencies', injectDependenciesTask);
+gulp.task('jshint', jsHintTask);
+gulp.task('scsslint', scssLintTask);
+gulp.task('scripts', scriptsTask);
+gulp.task('sass', sassTask);
+gulp.task('browser-sync', browserSyncTask);
+gulp.task('karma', karmaTask);
+gulp.task('moveFiles', moveFilesTask);
+gulp.task('karmaWatch', ['karmaTask'], karmaWatchTask);
+gulp.task('reload', reloadTask);
 //endregion
 
 // region Helper functions
@@ -87,34 +88,34 @@ function swallowError(error) {
 
 // region Function declarations
 /**
- * Clean
+ * cleanTask
  */
-function Clean() {
+function cleanTask() {
     del.sync(['./build']);
 }
 
-function MoveFiles() {
-    var bower = MoveVendorFiles();
-    var faFonts = MoveFontAwesomeFonts();
-    var views = MoveViews();
-    var statics = MoveStatics();
-    var config = MoveConfig();
-    var lang = MoveLang();
+function moveFilesTask() {
+    var bower = moveVendorFilesTask();
+    var faFonts = moveFontAwesomeFontsTask();
+    var views = moveViewsTask();
+    var statics = moveStaticsTask();
+    var config = moveConfigTask();
+    var lang = moveLangTask();
 
     return merge(bower, faFonts, views, statics, config, lang);
 }
 
-function MoveVendorFiles() {
+function moveVendorFilesTask() {
     return gulp.src(mainBowerFiles(), {buffer: false})
         .pipe(gulp.dest(paths.dest.vendor));
 }
 
-function MoveFontAwesomeFonts() {
+function moveFontAwesomeFontsTask() {
     return gulp.src(paths.src.fafonts, {buffer: false})
         .pipe(gulp.dest(paths.dest.fonts));
 }
 
-function MoveViews() {
+function moveViewsTask() {
     return gulp.src(paths.src.views + '/**/*', {buffer: false})
         .pipe(gulp.dest(paths.dest.views))
         .pipe(reload({stream: true}));
@@ -123,7 +124,7 @@ function MoveViews() {
 /**
  * Move files in source root, exclude index.html because that is parsed
  */
-function MoveStatics() {
+function moveStaticsTask() {
     return gulp.src([
         paths.sourcedir + '/*',
         '!' + paths.sourcedir + '/index.html'
@@ -131,7 +132,7 @@ function MoveStatics() {
         .pipe(gulp.dest(paths.basedir));
 }
 
-function MoveConfig() {
+function moveConfigTask() {
     return gulp.src(paths.src.scripts + '/config.json', {buffer: false})
         .pipe(gulp.dest(paths.dest.scripts));
 }
@@ -139,7 +140,7 @@ function MoveConfig() {
 /**
  * Move language files
  */
-function MoveLang() {
+function moveLangTask() {
     return gulp.src(paths.src.lang + '/**/*', {buffer: false})
         .pipe(gulp.dest(paths.dest.lang));
 }
@@ -147,7 +148,7 @@ function MoveLang() {
 /**
  * Inject dependencies into index.html
  */
-function InjectDependencies() {
+function injectDependenciesTask() {
     return gulp.src(paths.src.index)
         .pipe(inject(gulp.src([
             // Inject vendor libraries, always include angular first, then everything else
@@ -176,7 +177,7 @@ function InjectDependencies() {
 /**
  * Check JS with jshint
  */
-function JsHint() {
+function jsHintTask() {
     return gulp.src(paths.src.scripts + '/**/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter(stylish))
@@ -186,7 +187,7 @@ function JsHint() {
 /**
  * Check SCSS with scsslint
  */
-function ScssLint() {
+function scssLintTask() {
     gulp.src(paths.src.scss)
         .pipe(scsslint())
         .pipe(scsslint.failReporter());
@@ -196,7 +197,7 @@ function ScssLint() {
  * Generate sourcemaps and output to build
  * Minify if specified in current environment
  */
-function Scripts() {
+function scriptsTask() {
     var sources = [
         paths.src.scripts + '/app.js',
         (env.mockdata ? '' : '!') + paths.src.scripts + '/modules/mock.js',
@@ -222,7 +223,7 @@ function Scripts() {
  * Includes autoPrefixer and sourcemaps
  * Minify if specified in current environment
  */
-function Sass() {
+function sassTask() {
     var source = paths.src.scss;
 
     return gulp.src(source)
@@ -241,7 +242,7 @@ function Sass() {
 /**
  * Run Mocha tests with Karma
  */
-function Karma(done) {
+function karmaTask(done) {
     var preprocessors = {};
     if (karmaCoverage){
         preprocessors[paths.src.scripts + '/controllers/**/*.js'] = ['coverage'];
@@ -284,18 +285,18 @@ function Karma(done) {
     });
 }
 
-function Reload(){
+function reloadTask(){
 
 }
 
-function KarmaWatch() {
+function karmaWatchTask() {
     gulp.watch(paths.testdir + '/**/*', ['karma']);
 }
 
 /**
  * Serve files and watch for changes
  */
-function BrowserSync() {
+function browserSyncTask() {
     browserSync({
         server: {
             baseDir: paths.basedir

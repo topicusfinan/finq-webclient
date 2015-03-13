@@ -10,36 +10,36 @@
 angular.module('finqApp.writer.service')
     .service('storyVariable', function () {
         var INPUT = 'input', OUTPUT = 'output';
-        this.setupVariables = SetupVariables;
-        this.setupVariable = SetupVariable;
-        this.setupNode = SetupNode;
+        this.setupVariables = setupVariables;
+        this.setupVariable = setupVariable;
+        this.setupNode = setupNode;
         var rootObject;
 
         /**
          * Look up a variable within a collection (rootObject)
          * @return {*} undefined or the requested variable
          */
-        function LookupVariable(id) {
+        function lookupVariable(id) {
             var result;
 
             if (rootObject.variables !== undefined) {
-                result = CheckNode(rootObject, id);
+                result = checkNode(rootObject, id);
             } else {
-                result = CheckNode(FindChildrenProperty(rootObject), id);
+                result = checkNode(findChildrenProperty(rootObject), id);
             }
 
             return result === null ? undefined : result;
 
             /// Functions
             /**
-             * Helper function for CheckNode
+             * Helper function for checkNode
              * @param collection Collection of child nodes
              * @param compareId Id to compare to
              * @returns {*}
              */
-            function CheckChildren(collection, compareId) {
+            function checkChildren(collection, compareId) {
                 for (var i = 0; i < collection.length; i++) {
-                    var nodeResult = CheckNode(collection[i], compareId);
+                    var nodeResult = checkNode(collection[i], compareId);
                     if (nodeResult !== null) {
                         return nodeResult;
                     }
@@ -53,7 +53,7 @@ angular.module('finqApp.writer.service')
              * @param compareId Id to compare to
              * @returns {*}
              */
-            function CheckNode(node, compareId) {
+            function checkNode(node, compareId) {
                 var j;
                 var input = node.variables.input;
                 var output = node.variables.output;
@@ -67,9 +67,9 @@ angular.module('finqApp.writer.service')
                         return output[j];
                     }
                 }
-                var children = FindChildrenProperty(node);
+                var children = findChildrenProperty(node);
                 if (children !== null) {
-                    return CheckChildren(children, compareId);
+                    return checkChildren(children, compareId);
                 }
                 return null;
             }
@@ -78,11 +78,11 @@ angular.module('finqApp.writer.service')
         /**
          * @return {null}
          */
-        function ResolveReference(id) {
-            var referenceVariable = LookupVariable(id);
+        function resolveReference(id) {
+            var referenceVariable = lookupVariable(id);
             if (referenceVariable !== undefined) {
                 if (referenceVariable.reference !== undefined) {
-                    return ResolveReference(referenceVariable.reference);
+                    return resolveReference(referenceVariable.reference);
                 } else {
                     return referenceVariable;
                 }
@@ -95,17 +95,17 @@ angular.module('finqApp.writer.service')
          * Bind helper functions to an object structure with variables
          * @param objectWithVariables (JSON) object with a variable structure
          */
-        function SetupVariables(objectWithVariables) {
+        function setupVariables(objectWithVariables) {
             rootObject = objectWithVariables;
-            SetupVariablesRec(rootObject, null);
+            setupVariablesRec(rootObject, null);
         }
 
         /**
-         * Helper function for SetupVariable
+         * Helper function for setupVariable
          * @param objectWithVariables (JSON) object with a variable structure
          * @param parent Parent object
          */
-        function SetupVariablesRec(objectWithVariables, parent) {
+        function setupVariablesRec(objectWithVariables, parent) {
             var i;
             if (objectWithVariables.variables !== undefined) {
                 var input = objectWithVariables.variables.input;
@@ -113,24 +113,24 @@ angular.module('finqApp.writer.service')
 
                 // Set up input and output variables
                 for (i = 0; i < input.length; i++) {
-                    SetupVariable(input[i], INPUT);
+                    setupVariable(input[i], INPUT);
                 }
                 for (i = 0; i < output.length; i++) {
-                    SetupVariable(output[i], OUTPUT);
+                    setupVariable(output[i], OUTPUT);
                 }
             }
 
 
             // Recursive call
-            var children = FindChildrenProperty(objectWithVariables);
+            var children = findChildrenProperty(objectWithVariables);
             if (children !== null) {
                 for (i = 0; i < children.length; i++) {
-                    SetupVariablesRec(children[i], objectWithVariables);
+                    setupVariablesRec(children[i], objectWithVariables);
                 }
             }
 
             // Register methods
-            SetupNode(objectWithVariables, parent);
+            setupNode(objectWithVariables, parent);
         }
 
         /**
@@ -138,20 +138,20 @@ angular.module('finqApp.writer.service')
          * @param node An object with variables
          * @param parent Parent object to be linked
          */
-        function SetupNode(node, parent) {
-            node.getInputVariables = GetInputVariables;
-            node.getOutputVariables = GetOutputVariables;
-            node.getParent = GetParent;
+        function setupNode(node, parent) {
+            node.getInputVariables = getInputVariables;
+            node.getOutputVariables = getOutputVariables;
+            node.getParent = getParent;
 
-            function GetInputVariables() {
+            function getInputVariables() {
                 return node.variables.input;
             }
 
-            function GetOutputVariables() {
+            function getOutputVariables() {
                 return node.variables.output;
             }
 
-            function GetParent() {
+            function getParent() {
                 return parent;
             }
         }
@@ -161,26 +161,26 @@ angular.module('finqApp.writer.service')
          * @param variableData Variable data
          * @param inputOutput Whether the variable is input or output
          */
-        function SetupVariable(variableData, inputOutput) {
+        function setupVariable(variableData, inputOutput) {
             var cachedReference = null;
             // Register methods
-            variableData.getName = GetName;
-            variableData.isReference = IsReference;
-            variableData.isValue = IsValue;
-            variableData.getResolvedValue = GetResolvedValue;
-            variableData.getResolvedID = GetResolvedID;
-            variableData.getVariableClass = GetVariableClass;
-            variableData.getActualValue = GetActualValue;
-            variableData.getActualID = GetActualID;
-            variableData.setActualValue = SetActualValue;
-            variableData.setReference = SetReference;
+            variableData.getName = getName;
+            variableData.isReference = isReference;
+            variableData.isValue = isValue;
+            variableData.getResolvedValue = getResolvedValue;
+            variableData.getResolvedID = getResolvedID;
+            variableData.getVariableClass = getVariableClass;
+            variableData.getActualValue = getActualValue;
+            variableData.getActualID = getActualID;
+            variableData.setActualValue = setActualValue;
+            variableData.setReference = setReference;
 
             // Functions
             /**
              * Get the actual unresolved value (no references)
              * @returns {*}
              */
-            function GetActualValue() {
+            function getActualValue() {
                 return variableData.value;
             }
 
@@ -188,7 +188,7 @@ angular.module('finqApp.writer.service')
              * Get the actual unresolved id (no references)
              * @returns {*}
              */
-            function GetActualID() {
+            function getActualID() {
                 return variableData.id;
             }
 
@@ -197,40 +197,40 @@ angular.module('finqApp.writer.service')
              * Will only return the name on a referenced value, if not a reference it will return undefined (actual value)
              * @returns {*}
              */
-            function GetResolvedValue() {
-                if (IsReference()) {
-                    var variable = ResolveReference(variableData.reference);
+            function getResolvedValue() {
+                if (isReference()) {
+                    var variable = resolveReference(variableData.reference);
                     if (variable !== undefined) {
                         return variable.getResolvedValue() || variable.getName();
                     }
                     return variable;
                 }
-                return GetActualValue();
+                return getActualValue();
             }
 
             /**
-             * Get the ID of the variable which value is displayed by GetResolvedValue
+             * Get the ID of the variable which value is displayed by getResolvedValue
              * @return {*}
              */
-            function GetResolvedID() {
-                if (IsReference()) {
-                    var variable = ResolveReference(variableData.reference);
+            function getResolvedID() {
+                if (isReference()) {
+                    var variable = resolveReference(variableData.reference);
                     if (variable !== undefined) {
                         return variable.getResolvedID();
                     }
                     return variable;
                 }
-                return GetActualID();
+                return getActualID();
             }
 
-            function GetName() {
+            function getName() {
                 return variableData.name;
             }
 
             /**
              * @return {string}
              */
-            function GetVariableClass() {
+            function getVariableClass() {
                 var classBuild = [];
                 if (inputOutput === INPUT) {
                     classBuild.push('input');
@@ -256,7 +256,7 @@ angular.module('finqApp.writer.service')
              * Set the actual value and remove any reference
              * @param value
              */
-            function SetActualValue(value) {
+            function setActualValue(value) {
                 cachedReference = null;
                 delete variableData.reference;
                 variableData.value = value;
@@ -266,7 +266,7 @@ angular.module('finqApp.writer.service')
              * Set the reference and remove any value
              * @param reference
              */
-            function SetReference(reference) {
+            function setReference(reference) {
                 cachedReference = null;
                 delete variableData.value;
                 variableData.reference = reference;
@@ -275,14 +275,14 @@ angular.module('finqApp.writer.service')
             /**
              * @return {boolean}
              */
-            function IsReference() {
+            function isReference() {
                 return variableData.reference !== undefined && variableData.reference !== null;
             }
 
             /**
              * @return {boolean}
              */
-            function IsValue(){
+            function isValue(){
                 return variableData.value !== undefined && variableData.value !== null;
             }
         }
@@ -291,9 +291,8 @@ angular.module('finqApp.writer.service')
          * Uses a list of known names for child properties to provide the child property
          * @param object
          * @returns {*}
-         * @constructor
          */
-        function FindChildrenProperty(object) {
+        function findChildrenProperty(object) {
             var childNames = ['steps', 'scenarios'];
             for (var i = 0; i < childNames.length; i++) {
                 if (object[childNames[i]] !== undefined) {

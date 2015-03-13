@@ -39,15 +39,15 @@ angular.module('finqApp.writer.directive')
         }
     })
     .controller('SortableCtrl', function ($scope, arrayOperations) {
-        $scope.sortableObjectStart = SortableObjectStart;
-        $scope.sortableObjectEnd = SortableObjectEnd;
+        $scope.sortableObjectStart = sortableObjectStart;
+        $scope.sortableObjectEnd = sortableObjectEnd;
 
-        function SortableObjectStart(event, ui){
+        function sortableObjectStart(event, ui){
             var ngElementScope = angular.element(ui.item).scope();
             ngElementScope.start = ui.item.index();
         }
 
-        function SortableObjectEnd(event, ui, element){
+        function sortableObjectEnd(event, ui, element){
             var animatedElements = $(element).find('.list-animate');
             var movedOnParent = ui.item.parent().is(element) && ui.sender === null;
             var ngElementScope = angular.element(ui.item).scope();
