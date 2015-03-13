@@ -39,6 +39,14 @@ $badge-bg-color:                        $red;
 $badge-color:                           #fff;
 $badge-radius:                          .3em;
 
+// form colors
+$base-input-bg-color:                   #fff;
+$base-input-color:                      $body-color;
+$inverted-input-bg-color:               #000;
+$inverted-input-color:                  #fff;
+
+$list-input-bg-color:                   rgba($inverted-input-bg-color,.3);
+
 // layout formatting
 $header-height:                         modular-scale($base-font-size, 2, $octave);
 $layout-columns:                        24;
