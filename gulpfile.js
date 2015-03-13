@@ -75,6 +75,7 @@ gulp.task('browser-sync', BrowserSync);
 gulp.task('karma', Karma);
 gulp.task('moveFiles', MoveFiles);
 gulp.task('karmaWatch', ['karma'], KarmaWatch);
+gulp.task('reload', Reload);
 //endregion
 
 // region Helper functions
@@ -105,14 +106,12 @@ function MoveFiles() {
 
 function MoveVendorFiles() {
     return gulp.src(mainBowerFiles(), {buffer: false})
-        .pipe(gulp.dest(paths.dest.vendor))
-        .pipe(reload({stream: true}));
+        .pipe(gulp.dest(paths.dest.vendor));
 }
 
 function MoveFontAwesomeFonts() {
     return gulp.src(paths.src.fafonts, {buffer: false})
-        .pipe(gulp.dest(paths.dest.fonts))
-        .pipe(reload({stream: true}));
+        .pipe(gulp.dest(paths.dest.fonts));
 }
 
 function MoveViews() {
@@ -129,14 +128,12 @@ function MoveStatics() {
         paths.sourcedir + '/*',
         '!' + paths.sourcedir + '/index.html'
     ], {nodir: true, dot: true, buffer: false})
-        .pipe(gulp.dest(paths.basedir))
-        .pipe(reload({stream: true}));
+        .pipe(gulp.dest(paths.basedir));
 }
 
 function MoveConfig() {
     return gulp.src(paths.src.scripts + '/config.json', {buffer: false})
-        .pipe(gulp.dest(paths.dest.scripts))
-        .pipe(reload({stream: true}));
+        .pipe(gulp.dest(paths.dest.scripts));
 }
 
 /**
@@ -144,8 +141,7 @@ function MoveConfig() {
  */
 function MoveLang() {
     return gulp.src(paths.src.lang + '/**/*', {buffer: false})
-        .pipe(gulp.dest(paths.dest.lang))
-        .pipe(reload({stream: true}));
+        .pipe(gulp.dest(paths.dest.lang));
 }
 
 /**
@@ -219,7 +215,6 @@ function Scripts() {
         .pipe(gulpif(env.jsminify, uglify()))
         .pipe(gulpif(env.sourcemaps, sourcemaps.write()))
         .pipe(gulp.dest(paths.dest.scripts))
-        .pipe(reload({stream: true}));
 }
 
 /**
@@ -289,6 +284,10 @@ function Karma(done) {
     });
 }
 
+function Reload(){
+
+}
+
 function KarmaWatch() {
     gulp.watch(paths.testdir + '/**/*', ['karma']);
 }
@@ -300,6 +299,7 @@ function BrowserSync() {
     browserSync({
         server: {
             baseDir: paths.basedir
+            //reloadDelay: 100
         }
     });
 
@@ -312,7 +312,9 @@ function BrowserSync() {
     gulp.watch(paths.src.scssfolder + '/**/*.scss', ['sass']);
 
     // Watch views
-    gulp.watch(paths.src.views + '/**/*.html', ['moveViews']);
+    gulp.watch(paths.src.views + '/**/*.html', function(){
+        runSequence('moveViews', 'reload');
+    });
 
     // Watch index.html
     gulp.watch(paths.src.index, ['injectDependencies']);
@@ -321,13 +323,19 @@ function BrowserSync() {
     gulp.watch([
         paths.sourcedir + '/*',
         '!' + paths.sourcedir + '/index.html'
-    ], ['moveStatics']);
+    ], function(){
+        runSequence('moveStatics', 'reload');
+    });
 
     // Watch config
-    gulp.watch(paths.src.scripts + '/config.json', ['moveConfig']);
+    gulp.watch(paths.src.scripts + '/config.json', function(){
+        runSequence('moveConfig', 'reload');
+    });
 
     // Watch lang
-    gulp.watch(paths.src.lang + '/**/*.json', ['moveLang']);
+    gulp.watch(paths.src.lang + '/**/*.json', function(){
+        runSequence('moveLang', 'reload');
+    });
 }
 //endregion
 
