@@ -3,20 +3,20 @@
  */
 angular.module('finqApp.writer.service')
     .service('arrayOperations', function () {
-        this.insertItem = InsertItem;
-        this.moveItem = MoveItem;
-        this.removeItem = RemoveItem;
+        this.insertItem = insertItem;
+        this.moveItem = moveItem;
+        this.removeItem = removeItem;
 
 
-        function InsertItem(collection, position, item){
+        function insertItem(collection, position, item){
             collection.splice(position, 0, item);
         }
 
-        function RemoveItem(collection, position){
+        function removeItem(collection, position){
             return collection.splice(position, 1)[0];
         }
 
-        function MoveItem(collection, startPosition, endPosition){
-            InsertItem(collection, endPosition, RemoveItem(collection, startPosition));
+        function moveItem(collection, startPosition, endPosition){
+            insertItem(collection, endPosition, removeItem(collection, startPosition));
         }
     });
