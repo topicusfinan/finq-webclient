@@ -10,7 +10,7 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoryCtrl',
-    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable) {
+    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable, module, MODULES) {
         var that = this;
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
@@ -28,6 +28,11 @@ angular.module('finqApp.writer.controller')
         this.sets = [];
         this.tags = [];
 
+        this.expander = new StoryExpandCollapse('#main-content-list');
+        this.expander.setup();
+
+        module.setCurrentSection(MODULES.WRITER.sections.STORIES);
+
 
         // TODO move logic to service
         this.inputPlaceholder = 'Scenario title';
@@ -43,8 +48,7 @@ angular.module('finqApp.writer.controller')
             }
         });
 
-        that.expander = new StoryExpandCollapse('#main-content-list');
-        that.expander.setup();
+
 
         this.toggleVisible = sidebar.toggleVisible;
 
