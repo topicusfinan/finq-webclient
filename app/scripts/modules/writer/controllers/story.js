@@ -51,6 +51,7 @@ angular.module('finqApp.writer.controller')
 
 
         this.toggleVisible = sidebar.toggleVisible;
+        this.hasVisibleSidebar = sidebar.hasVisibleSidebar;
 
         var foundStory = story.findStoryById(parseInt($routeParams.storyId));
         if (foundStory === null) {
