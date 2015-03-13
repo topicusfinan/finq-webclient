@@ -10,7 +10,7 @@ describe('Unit: Scenario view directive', function () {
     var book, story, scenario1;
 
     beforeEach(inject(function (storyServiceMock) {
-        book = storyServiceMock.books[0];
+        book = $.extend(true, {}, storyServiceMock.books[0]);
         story = book.stories[1];
         scenario1 = story.scenarios[1];
     }));
@@ -29,6 +29,14 @@ describe('Unit: Scenario view directive', function () {
         expect(scenario1.steps[1].getInputVariables()[0].getName()).to.equal('$customerId');
     });
 
+    it('should be able to give scenario variable ids', function(){
+        expect(scenario1.getInputVariables()[0].getActualID()).to.equal(531286);
+    });
+
+    it('should be able to give step variable ids', function(){
+        expect(scenario1.steps[1].getInputVariables()[0].getActualID()).to.equal(863154);
+    });
+
     it('should be able to give scenario values', function(){
         expect(scenario1.getInputVariables()[0].getActualValue()).to.equal('313432');
         expect(scenario1.getOutputVariables()[0].getActualValue()).to.equal(undefined);
@@ -41,12 +49,24 @@ describe('Unit: Scenario view directive', function () {
 
     it('should be able to resolve scenario values', function(){
         expect(scenario1.getInputVariables()[0].getResolvedValue()).to.equal('313432');
-        expect(scenario1.getOutputVariables()[0].getResolvedValue()).to.equal(undefined); // scenario output
+        expect(scenario1.getOutputVariables()[0].getResolvedValue()).to.equal('#success'); // scenario output
     });
 
     it('should be able to resolve step values', function(){
         expect(scenario1.steps[1].getInputVariables()[1].getResolvedValue()).to.equal('2341');
         expect(scenario1.steps[1].getInputVariables()[0].getResolvedValue()).to.equal('313432');
+        expect(scenario1.steps[1].getOutputVariables()[0].getResolvedValue()).to.equal(undefined); // step output
+    });
+
+    it('should be able to resolve scenario ids', function(){
+        expect(scenario1.getInputVariables()[0].getResolvedID()).to.equal(531286);
+        expect(scenario1.getOutputVariables()[0].getResolvedID()).to.equal(321308); // scenario output
+    });
+
+    it('should be able to resolve step ids', function(){
+        expect(scenario1.steps[1].getInputVariables()[1].getResolvedID()).to.equal(45136);
+        expect(scenario1.steps[1].getInputVariables()[0].getResolvedID()).to.equal(531286);
+        expect(scenario1.steps[1].getOutputVariables()[0].getResolvedID()).to.equal(321308); // step output
     });
 
     it('should be able to get parent variable', function(){
@@ -78,5 +98,14 @@ describe('Unit: Scenario view directive', function () {
         storyVariable.setupNode(newNode, scenario1);
         arrayOperations.insertItem(scenario1.steps, 1, newNode);
         expect(scenario1.steps[1].getInputVariables).to.not.be.undefined();
+    });
+
+    it('should set classes based on variable type', function(){
+        expect(scenario1.getInputVariables()[0].getVariableClass()).to.have.string('input').string('user');
+        expect(scenario1.getOutputVariables()[0].getVariableClass()).to.have.string('output').string('reference');
+        expect(scenario1.steps[1].getInputVariables()[0].getVariableClass()).to.have.string('input').string('reference');
+        expect(scenario1.steps[1].getInputVariables()[1].getVariableClass()).to.have.string('input').string('user');
+        expect(scenario1.steps[1].getInputVariables()[2].getVariableClass()).to.have.string('input').string('undefined');
+        expect(scenario1.steps[1].getOutputVariables()[0].getVariableClass()).to.have.string('output').string('runtime');
     });
 });

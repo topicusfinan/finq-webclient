@@ -211,8 +211,7 @@ angular.module('finqApp.mock')
                                                 },
                                                 {
                                                     id: 648563,
-                                                    name: '$basketId',
-                                                    value: '21039'
+                                                    name: '$basketId'
                                                 }
                                             ],
                                             output: [

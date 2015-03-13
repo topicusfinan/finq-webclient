@@ -9,6 +9,7 @@
  */
 angular.module('finqApp.writer.service')
     .service('storyVariable', function () {
+        var INPUT = 'input', OUTPUT = 'output';
         this.setupVariables = SetupVariables;
         this.setupVariable = SetupVariable;
         this.setupNode = SetupNode;
@@ -24,7 +25,7 @@ angular.module('finqApp.writer.service')
             if (rootObject.variables !== undefined) {
                 result = CheckNode(rootObject, id);
             } else {
-                result = CheckChild(rootObject, id);
+                result = CheckNode(FindChildrenProperty(rootObject), id);
             }
 
             return result === null ? undefined : result;
@@ -53,7 +54,7 @@ angular.module('finqApp.writer.service')
              * @returns {*}
              */
             function CheckNode(node, compareId) {
-                var childResult, j;
+                var j;
                 var input = node.variables.input;
                 var output = node.variables.output;
                 for (j = 0; j < input.length; j++) {
@@ -62,23 +63,25 @@ angular.module('finqApp.writer.service')
                     }
                 }
                 for (j = 0; j < output.length; j++) {
-                    if(output[j].id === compareId){
+                    if (output[j].id === compareId) {
                         return output[j];
                     }
                 }
                 var children = FindChildrenProperty(node);
-                if (children !== null){
+                if (children !== null) {
                     return CheckChildren(children, compareId);
                 }
                 return null;
-
             }
         }
 
+        /**
+         * @return {null}
+         */
         function ResolveReference(id) {
             var referenceVariable = LookupVariable(id);
             if (referenceVariable !== undefined) {
-                if (referenceVariable.reference !== undefined){
+                if (referenceVariable.reference !== undefined) {
                     return ResolveReference(referenceVariable.reference);
                 } else {
                     return referenceVariable;
@@ -104,16 +107,16 @@ angular.module('finqApp.writer.service')
          */
         function SetupVariablesRec(objectWithVariables, parent) {
             var i;
-            if (objectWithVariables.variables !== undefined){
+            if (objectWithVariables.variables !== undefined) {
                 var input = objectWithVariables.variables.input;
                 var output = objectWithVariables.variables.output;
 
                 // Set up input and output variables
                 for (i = 0; i < input.length; i++) {
-                    SetupVariable(input[i]);
+                    SetupVariable(input[i], INPUT);
                 }
                 for (i = 0; i < output.length; i++) {
-                    SetupVariable(output[i]);
+                    SetupVariable(output[i], OUTPUT);
                 }
             }
 
@@ -135,7 +138,7 @@ angular.module('finqApp.writer.service')
          * @param node An object with variables
          * @param parent Parent object to be linked
          */
-        function SetupNode(node, parent){
+        function SetupNode(node, parent) {
             node.getInputVariables = GetInputVariables;
             node.getOutputVariables = GetOutputVariables;
             node.getParent = GetParent;
@@ -156,42 +159,115 @@ angular.module('finqApp.writer.service')
         /**
          * Bind helper functions to variable
          * @param variableData Variable data
+         * @param inputOutput Whether the variable is input or output
          */
-        function SetupVariable(variableData) {
+        function SetupVariable(variableData, inputOutput) {
+            var cachedReference = null;
             // Register methods
             variableData.getName = GetName;
             variableData.isReference = IsReference;
+            variableData.isValue = IsValue;
             variableData.getResolvedValue = GetResolvedValue;
+            variableData.getResolvedID = GetResolvedID;
+            variableData.getVariableClass = GetVariableClass;
             variableData.getActualValue = GetActualValue;
+            variableData.getActualID = GetActualID;
             variableData.setActualValue = SetActualValue;
             variableData.setReference = SetReference;
 
             // Functions
+            /**
+             * Get the actual unresolved value (no references)
+             * @returns {*}
+             */
             function GetActualValue() {
                 return variableData.value;
             }
 
+            /**
+             * Get the actual unresolved id (no references)
+             * @returns {*}
+             */
+            function GetActualID() {
+                return variableData.id;
+            }
+
+            /**
+             * Get the actual unresolved value, the resolved value, or the name of the resolved value
+             * Will only return the name on a referenced value, if not a reference it will return undefined (actual value)
+             * @returns {*}
+             */
             function GetResolvedValue() {
                 if (IsReference()) {
                     var variable = ResolveReference(variableData.reference);
                     if (variable !== undefined) {
-                        return variable.getResolvedValue();
+                        return variable.getResolvedValue() || variable.getName();
                     }
                     return variable;
                 }
-                return GetActualValue() || GetName();
+                return GetActualValue();
+            }
+
+            /**
+             * Get the ID of the variable which value is displayed by GetResolvedValue
+             * @return {*}
+             */
+            function GetResolvedID() {
+                if (IsReference()) {
+                    var variable = ResolveReference(variableData.reference);
+                    if (variable !== undefined) {
+                        return variable.getResolvedID();
+                    }
+                    return variable;
+                }
+                return GetActualID();
             }
 
             function GetName() {
                 return variableData.name;
             }
 
+            /**
+             * @return {string}
+             */
+            function GetVariableClass() {
+                var classBuild = [];
+                if (inputOutput === INPUT) {
+                    classBuild.push('input');
+                } else {
+                    classBuild.push('output');
+                }
+
+                if (variableData.reference === undefined && variableData.value === undefined) {
+                    if (inputOutput === OUTPUT) {
+                        classBuild.push('runtime');
+                    } else {
+                        classBuild.push('undefined');
+                    }
+                } else if (variableData.value !== undefined) {
+                    classBuild.push('user');
+                } else {
+                    classBuild.push('reference');
+                }
+                return classBuild.join(' ');
+            }
+
+            /**
+             * Set the actual value and remove any reference
+             * @param value
+             */
             function SetActualValue(value) {
+                cachedReference = null;
                 delete variableData.reference;
                 variableData.value = value;
             }
 
+            /**
+             * Set the reference and remove any value
+             * @param reference
+             */
             function SetReference(reference) {
+                cachedReference = null;
                 delete variableData.value;
                 variableData.reference = reference;
             }
@@ -201,6 +277,13 @@ angular.module('finqApp.writer.service')
              */
             function IsReference() {
                 return variableData.reference !== undefined && variableData.reference !== null;
+            }
+
+            /**
+             * @return {boolean}
+             */
+            function IsValue(){
+                return variableData.value !== undefined && variableData.value !== null;
             }
         }
 
