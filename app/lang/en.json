@@ -147,7 +147,11 @@
     "WRITER" : {
         "TITLE" : "Write",
         "STORIES" : {
-            "TITLE" : "Stories"
+            "TITLE" : "Stories",
+            "BEFORE_NEW_TITLE" : "Create a new story named",
+            "LIST" : {
+                "SCENARIOS" : "Scenarios"
+            }
         },
         "STEPS" : {
             "TITLE" : "Test steps"
