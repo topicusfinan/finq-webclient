@@ -17,15 +17,15 @@ angular.module('finqApp.writer', [
     }).when('/writer/stories/new', {
         templateUrl: '/views/modules/writer/story.html',
         controller: 'StoryCtrl',
-        controllerAs: "story"
+        controllerAs: 'story'
     }).when('/writer/stories/:storyId', {
         templateUrl: '/views/modules/writer/story.html',
         controller: 'StoryCtrl',
-        controllerAs: "story"
+        controllerAs: 'story'
     }).when('/writer/steps', {
         templateUrl: '/views/modules/writer/steps.html',
         controller: 'StepsCtrl',
-        controllerAs: "steps"
+        controllerAs: 'steps'
     }).when('/writer', {
         redirectTo: '/writer/stories'
     });

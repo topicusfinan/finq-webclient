@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by marc.fokkert on 6-3-2015.
  */
@@ -15,7 +16,7 @@ angular.module('finqApp.directive')
                 });
             },
             controller: 'sidebarCtrl'
-        }
+        };
     })
     .controller('sidebarCtrl', function ($scope, sidebar, $compile) {
         $scope.watchData = watchData;

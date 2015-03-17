@@ -4,19 +4,19 @@ angular.module('finqApp.mock')
         steps: [
             {
                 id: 21423,
-                template: "when a $tester adds a $step",
+                template: 'when a $tester adds a $step',
                 variables: [
                     {
                         input: [
                             {
                                 id: 21423,
-                                name: "tester"
+                                name: 'tester'
                             }
                         ],
                         output: [
                             {
                                 id: 2923,
-                                name: "step"
+                                name: 'step'
                             }
                         ]
                     }
@@ -24,12 +24,12 @@ angular.module('finqApp.mock')
             },
             {
                 id: 89234,
-                template: "then $it should work",
+                template: 'then $it should work',
                 variables: [
                     {
                         input: [{
                             id: 12432,
-                            name: "it"
+                            name: 'it'
                         }],
                         output: []
                     }

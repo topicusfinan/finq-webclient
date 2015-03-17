@@ -1,39 +1,41 @@
+/*global $: false */
+'use strict';
 /**
  * Created by marc.fokkert on 6-3-2015.
  */
 angular.module('finqApp.runner.service')
     .service('sidebar', function ($rootScope) {
         var directive, visible;
-        Clean();
+        clean();
 
-        this.setDirective = SetDirective;
-        this.clean = Clean;
-        this.hasSidebar = HasSidebar;
-        this.getSidebar = GetSidebar;
-        this.getDirective = GetDirective;
-        this.setVisible = SetVisible;
-        this.toggleVisible = ToggleVisible;
-        this.getVisible = GetVisible;
-        this.hasVisibleSidebar = HasVisibleSidebar;
+        this.setDirective = setDirective;
+        this.clean = clean;
+        this.hasSidebar = hasSidebar;
+        this.getSidebar = getSidebar;
+        this.getDirective = getDirective;
+        this.setVisible = setVisible;
+        this.toggleVisible = toggleVisible;
+        this.getVisible = getVisible;
+        this.hasVisibleSidebar = hasVisibleSidebar;
 
         /**
          * @return {boolean}
          */
-        function HasSidebar() {
+        function hasSidebar() {
             return directive !== null;
         }
 
-        function Clean() {
+        function clean() {
             directive = null;
             visible = false;
         }
 
-        function GetDirective() {
+        function getDirective() {
             return directive;
         }
 
-        function HasVisibleSidebar(){
-            return HasSidebar() && GetVisible();
+        function hasVisibleSidebar(){
+            return hasSidebar() && getVisible();
         }
 
 
@@ -41,23 +43,23 @@ angular.module('finqApp.runner.service')
          * Sets the current directive
          * @param attributes A key value pair with attribute=value
          */
-        function SetDirective(attributes) {
+        function setDirective(attributes) {
             directive = attributes;
         }
 
-        function SetVisible(visibility){
+        function setVisible(visibility){
             visible = visibility;
         }
 
-        function ToggleVisible(){
+        function toggleVisible(){
             visible = !visible;
         }
 
-        function GetVisible(){
+        function getVisible(){
             return visible;
         }
 
-        function GetSidebar(providedScope) {
+        function getSidebar(providedScope) {
             var viewBagName = 'bag';
             var scope = providedScope || $rootScope;
             var element = $('<aside></aside>');
@@ -72,6 +74,6 @@ angular.module('finqApp.runner.service')
             return {
                 template: element,
                 scope: scope
-            }
+            };
         }
     });

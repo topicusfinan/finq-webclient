@@ -14,13 +14,13 @@
  * has been initialized with the booklist to use.
  */
 angular.module('finqApp.runner.filter')
-    .filter('reportSearchFilter', ['reportSearch', function(reportSearchService) {
+    .filter('reportSearchFilter', function(reportSearch) {
         return function(reports, query) {
             var filteredReports = [];
             if (query === '') {
                 return reports;
             }
-            var reportIds = reportSearchService.suggest(query);
+            var reportIds = reportSearch.suggest(query);
             angular.forEach(reports, function(report) {
                 if (reportIds.indexOf(report.id) !== -1) {
                     filteredReports.push(report);
@@ -29,4 +29,4 @@ angular.module('finqApp.runner.filter')
 
             return filteredReports;
         };
-    }]);
+    });

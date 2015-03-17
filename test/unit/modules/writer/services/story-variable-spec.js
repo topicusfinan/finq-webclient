@@ -108,4 +108,14 @@ describe('Unit: Scenario view directive', function () {
         expect(scenario1.steps[1].getInputVariables()[2].getVariableClass()).to.have.string('input').string('undefined');
         expect(scenario1.steps[1].getOutputVariables()[0].getVariableClass()).to.have.string('output').string('runtime');
     });
+
+    it('should be able to add input and output variables', function(){
+        var newVariable = {
+            id: 3452451,
+            name: 'foo',
+            value: '432134'
+        };
+        scenario1.steps[1].addInputVariable(newVariable);
+        expect(scenario1.steps[1].getInputVariables()[3].getActualID()).to.equal(3452451);
+    })
 });

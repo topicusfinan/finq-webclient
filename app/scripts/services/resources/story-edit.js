@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by marc.fokkert on 13-3-2015.
  */
@@ -30,7 +31,7 @@ angular.module('finqApp.service')
             if (storyList > 0 && !isDirty(storyList.peek().id)){
                 storyList.pop(); // Remove last item if pristine
             }
-            if (storyList.length == maxCachedItems){
+            if (storyList.length === maxCachedItems){
                 storyList.shift(); // Remove first item if storyList gets too large
             }
             storyList.push(story);
@@ -58,7 +59,7 @@ angular.module('finqApp.service')
             if (foundStory === null){
                 return false; // no 'working' entry, so unchanged
             }
-            return !(JSON.stringify(foundStory.original) === JSON.stringify(foundStory.working));
+            return JSON.stringify(foundStory.original) !== JSON.stringify(foundStory.working);
         }
 
         /**

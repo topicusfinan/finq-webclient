@@ -1,3 +1,4 @@
+/*global StoryExpandCollapse:false, Bloodhound:false */
 'use strict';
 
 /**
@@ -75,15 +76,15 @@ angular.module('finqApp.writer.controller')
 
         // TODO remove this, used for poking ng-repeat/checking if scope matches visual representation
         this.insertObject = function () {
-            InsertObject(this.scenarios[0].steps, 0, {id: 21343241, title: 'sfasdfwe'});
+            insertObject(this.scenarios[0].steps, 0, {id: 21343241, title: 'sfasdfwe'});
         };
 
-        function InsertObject(array, insertObject, insertPosition) {
-            array.splice(insertPosition, 0, insertObject);
+        function insertObject(array, object, insertPosition) {
+            array.splice(insertPosition, 0, object);
         }
 
         // TODO move this to a service
-        this.inputValue = "";
+        this.inputValue = '';
 
         var stepsBloodhound = new Bloodhound({
             datumTokenizer: function (d) {

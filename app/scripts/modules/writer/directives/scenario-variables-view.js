@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by marc.fokkert on 4-3-2015.
  */
@@ -10,28 +11,22 @@ angular.module('finqApp.writer.directive')
             restrict: 'A',
             templateUrl: 'views/modules/writer/directives/scenario-variables-view.html',
             controller: 'ScenarioVariablesViewCtrl',
-            link: function (scope) {
-
-            },
             controllerAs: 'scenarioVariablesView'
-        }
+        };
     })
     .controller('ScenarioVariablesViewCtrl', function ($scope, selectedItem) {
-        var that = this;
-
-        $scope.test = "bar";
         $scope.scenarioVariablesView = {
             variableScopes: []
         };
 
         $scope.$watch(function () {
                 return selectedItem.getSelectedItemId();
-            }
-            , function (item) {
-                Update(item);
+            },
+            function (item) {
+                update(item);
             });
 
-        function Update(itemId) {
+        function update(itemId) {
             var item = selectedItem.getSelectedItem();
             var variableScopes = [];
             if (itemId !== null && item.getParent !== undefined) {

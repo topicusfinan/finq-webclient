@@ -1,4 +1,6 @@
-/** * Created by marc.fokkert on 2-3-2015.
+'use strict';
+/**
+ * Created by marc.fokkert on 2-3-2015.
  */
 angular.module('finqApp.writer.directive')
     .directive('scenarioView', function () {
@@ -9,18 +11,13 @@ angular.module('finqApp.writer.directive')
             replace: true,
             restrict: 'E',
             templateUrl: 'views/modules/writer/directives/scenario-view.html',
-            controller: 'ScenarioViewCtrl',
-            link: function (scope) {
-                //scope.registerSortable();
-
-
-            }
-        }
+            controller: 'ScenarioViewCtrl'
+        };
     })
     .controller('ScenarioViewCtrl', function ($scope, selectedItem, arrayOperations) {
         $scope.scenarioView = {
             deleteItem: DeleteItem,
-            isStepIncomplete: IsStepIncomplete,
+            //isStepIncomplete: IsStepIncomplete,
             applyScenarioTitle: ApplyScenarioTitle
         };
 
@@ -44,10 +41,10 @@ angular.module('finqApp.writer.directive')
             scenario.title = scenario.editorTitle;
         }
 
-        function IsStepIncomplete(step) {
-            // TODO create a service to evaluate this
-
-        }
+        //function IsStepIncomplete(step) {
+        //    // TODO create a service to evaluate this
+        //
+        //}
 
 
         //var start;

@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Created by marc.fokkert on 4-3-2015.
  */
@@ -55,15 +56,15 @@ angular.module('finqApp.writer.service')
         function getPrefix(item){
             var prefix;
             if (item.stories !== undefined){
-                prefix = "book";
+                prefix = 'book';
             } else if (item.scenarios !== undefined){
-                prefix = "story";
+                prefix = 'story';
             } else if (item.steps !== undefined){
-                prefix = "scenario";
+                prefix = 'scenario';
             } else if (item.template !== undefined) {
-                prefix = "step";
+                prefix = 'step';
             } else {
-                prefix = "section"
+                prefix = 'section';
             }
             return prefix;
         }

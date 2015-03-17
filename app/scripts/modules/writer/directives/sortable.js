@@ -1,3 +1,5 @@
+/*global $: false */
+'use strict';
 /**
  * Created by marc.fokkert on 10-3-2015.
  */
@@ -29,14 +31,14 @@ angular.module('finqApp.writer.directive')
 
                 jqElement.sortable(sortableObject);
 
-                scope.$parent.$parent.$on("finqApp.scope.sortableElementAdded", function () {
+                scope.$parent.$parent.$on('finqApp.scope.sortableElementAdded', function () {
                     if (scope.connectWith !== undefined) {
                         jqElement.sortable('option', 'connectWith', $(scope.connectWith));
                     }
                 });
-                scope.$parent.$parent.$broadcast("finqApp.scope.sortableElementAdded");
+                scope.$parent.$parent.$broadcast('finqApp.scope.sortableElementAdded');
             }
-        }
+        };
     })
     .controller('SortableCtrl', function ($scope, arrayOperations) {
         $scope.sortableObjectStart = sortableObjectStart;

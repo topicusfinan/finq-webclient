@@ -9,7 +9,7 @@
  * Makes it possible to execute CRUD and list operations on tags.
  */
 angular.module('finqApp.service')
-    .service('tag', ['backend','$q', function (backend,$q) {
+    .service('tag', function (backend,$q) {
         var tags = null;
         var load = function() {
             var deferred = $q.defer();
@@ -28,4 +28,4 @@ angular.module('finqApp.service')
                 return $q.when(tags);
             }
         };
-    }]);
+    });

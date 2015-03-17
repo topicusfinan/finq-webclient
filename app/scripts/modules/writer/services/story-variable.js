@@ -1,3 +1,4 @@
+'use strict';
 /**
  * @ngdoc function
  * @name finqApp.writer.service:storyVariables
@@ -141,6 +142,8 @@ angular.module('finqApp.writer.service')
         function setupNode(node, parent) {
             node.getInputVariables = getInputVariables;
             node.getOutputVariables = getOutputVariables;
+            node.addInputVariable = addInputVariable;
+            node.addOutputVariable = addOutputVariable;
             node.getParent = getParent;
 
             function getInputVariables() {
@@ -149,6 +152,16 @@ angular.module('finqApp.writer.service')
 
             function getOutputVariables() {
                 return node.variables.output;
+            }
+
+            function addInputVariable(variableData){
+                setupVariable(variableData, INPUT);
+                node.variables.input.push(variableData);
+            }
+
+            function addOutputVariable(variableData){
+                setupVariable(variableData, OUTPUT);
+                node.variables.output.push(variableData);
             }
 
             function getParent() {

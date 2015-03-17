@@ -215,7 +215,7 @@ function scriptsTask() {
         .pipe(gulpif(env.jsconcat, concat(concatFileName)))
         .pipe(gulpif(env.jsminify, uglify()))
         .pipe(gulpif(env.sourcemaps, sourcemaps.write()))
-        .pipe(gulp.dest(paths.dest.scripts))
+        .pipe(gulp.dest(paths.dest.scripts));
 }
 
 /**
