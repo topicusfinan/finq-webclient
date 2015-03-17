@@ -40,8 +40,7 @@ angular.module('finqApp.runner.controller')
 
             moduleService.setCurrentSection(MODULES.RUNNER.sections.RUNNING);
 
-            this.expander = new StoryExpandCollapse('#run-list');
-            this.expander.setup();
+
 
             this.purge = function() {
                 runnerService.clearCompletedSessions();

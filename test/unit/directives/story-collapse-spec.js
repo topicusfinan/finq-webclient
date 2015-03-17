@@ -7,12 +7,13 @@
 'use strict';
 
 describe('Unit: Story collapse jquery plugin', function() {
+    beforeEach(module('finqApp'));
 
     var $list,
-        expand;
+        scope;
 
-    beforeEach(function() {
-        var template  = '<ul>';
+    beforeEach(inject(function($rootScope, $compile) {
+        var template  = '<ul story-collapse>';
             template += '   <li>';
             template += '       <i data-toggle="collection"></i>';
             template += '       <ul>';
@@ -40,15 +41,16 @@ describe('Unit: Story collapse jquery plugin', function() {
             template += '       </ul>';
             template += '   </li>';
             template += '</ul>';
-        $list = $(template);
-        expand = new StoryExpandCollapse($list);
-        expand.setup();
-    });
+
+        scope = $rootScope;
+        var element = $compile(template)(scope);
+        $list = $(element);
+    }));
 
     it('should be able to expand and collapse all collections collectively', function () {
-        expand.toggleAll();
+        scope.toggleAll();
         expect($list.find('li.expand').length).to.equal(4);
-        expand.toggleAll();
+        scope.toggleAll();
         expect($list.find('li.expand').length).to.equal(0);
     });
 
@@ -74,13 +76,13 @@ describe('Unit: Story collapse jquery plugin', function() {
 
     it('should be able collapse all stories at once when collections were opened individually', function () {
         $list.find('i[data-toggle="collection"]:first').click();
-        expand.toggleAll();
+        scope.toggleAll();
         expect($list.find('ul.expand').length).to.equal(0);
     });
 
     it('should be able collapse all stories at once when stories were opened individually', function () {
         $list.find('i[data-toggle="story"]:first').click();
-        expand.toggleAll();
+        scope.toggleAll();
         expect($list.find('li.expand').length).to.equal(0);
     });
 

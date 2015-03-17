@@ -11,7 +11,7 @@
         </button>
     </div>
 </div>
-<ul id="run-list" class="main-content-list filter-1">
+<ul id="run-list" story-collapse class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = (runs() | runEnvironmentFilter:running.filter.env.ids) track by run.id">
         <div>
             <div class="title limited">

@@ -68,9 +68,6 @@ angular.module('finqApp.runner.controller')
                 });
             });
 
-            this.expander = new StoryExpandCollapse('#story-list');
-            this.expander.setup();
-
             this.run = function (type, id) {
                 var story,
                     scenarios,

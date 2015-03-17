@@ -17,7 +17,7 @@
         <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{::available.maxSelectItems}}"></div>
     </div>
 </div>
-<ul id="story-list" class="main-content-list filter-2">
+<ul id="story-list" story-collapse class="main-content-list filter-2">
     <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | storybookPaginationFilter:available.currentPage:available.maxScenarios) track by book.id">
         <div class="selectable" ng-class="{'active':available.selectedItem === 'book'+book.id}" ng-click="available.selectedItem = 'book'+book.id">
             <div class="title">

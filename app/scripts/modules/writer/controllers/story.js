@@ -1,4 +1,4 @@
-/*global StoryExpandCollapse:false, Bloodhound:false */
+/*global Bloodhound:false */
 'use strict';
 
 /**
@@ -28,9 +28,6 @@ angular.module('finqApp.writer.controller')
         this.epilogue = [];
         this.sets = [];
         this.tags = [];
-
-        this.expander = new StoryExpandCollapse('#main-content-list');
-        this.expander.setup();
 
         module.setCurrentSection(MODULES.WRITER.sections.STORIES);
 

@@ -40,8 +40,6 @@ angular.module('finqApp.runner.controller')
                     that.runCompleted = false;
                 }
                 setupRunProgress(report);
-                that.expander = new StoryExpandCollapse('#run-report');
-                that.expander.setup();
             }, function() {
                 feedbackService.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
             });
