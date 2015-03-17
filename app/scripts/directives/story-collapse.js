@@ -1,3 +1,5 @@
+/*global $:false */
+'use strict';
 /**
  * Created by marc.fokkert on 17-3-2015.
  */
