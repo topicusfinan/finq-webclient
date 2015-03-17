@@ -150,7 +150,9 @@
             "TITLE" : "Stories",
             "BEFORE_NEW_TITLE" : "Create a new story named",
             "LIST" : {
-                "SCENARIOS" : "Scenarios"
+                "PROLOGUE": "Prologue",
+                "SCENARIOS" : "Scenarios",
+                "EPILOGUE": "Epilogue"
             }
         },
         "STEPS" : {
