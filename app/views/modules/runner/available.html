@@ -1,5 +1,5 @@
 <div class="top-filter ic ng-hide filter-2 selectable" ng-show="filter.loaded" ng-class="{'active':available.selectedItem === null}" ng-click="available.selectedItem = null" ng-controller="AvailableFilterCtrl as filter">
-    <i class="fa fa-bars" ng-click="available.expander.toggleAll()"></i>
+    <i class="fa fa-bars" ng-click="toggleAll()"></i>
     <div class="filters">
         <i class="fa fa-folder-open-o" ng-class="{'inactive':!available.filter.set.ids.length}" ng-click="filter.expand.set = !filter.expand.set"></i>
         <span translate="RUNNER.AVAILABLE.FILTER.BEFORE_SET" ng-hide="!available.filter.set.ids.length && !filter.expand.set"></span>
