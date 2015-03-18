@@ -16,7 +16,8 @@ angular.module('finqApp.writer.directive')
     })
     .controller('ScenarioViewCtrl', function ($scope, selectedItem, arrayOperations) {
         $scope.scenarioView = {
-            deleteItem: DeleteItem
+            deleteItem: deleteItem,
+            isStepIncomplete: isStepIncomplete
         };
 
         $scope.selectedItem = {
@@ -28,8 +29,14 @@ angular.module('finqApp.writer.directive')
         $scope.stepListHandler = '.scenario-handle';
         $scope.scenarioContentListClass = '.scenario-content-list';
 
-        function DeleteItem(collection, index) {
+        function deleteItem(collection, index) {
             arrayOperations.removeItem(collection, index);
         }
+
+        function isStepIncomplete(step) {
+            return step.isIncomplete();
+        }
+
+
 
     });

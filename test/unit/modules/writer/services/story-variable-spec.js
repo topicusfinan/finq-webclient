@@ -117,5 +117,14 @@ describe('Unit: Scenario view directive', function () {
         };
         scenario1.steps[1].addInputVariable(newVariable);
         expect(scenario1.steps[1].getInputVariables()[3].getActualID()).to.equal(3452451);
+    });
+
+    it('should mark fully resolved steps as complete', function(){
+        arrayOperations.removeItem(scenario1.steps[1].getInputVariables(),2);
+        expect(scenario1.steps[1].isIncomplete()).to.be.false();
+    });
+
+    it('should mark incomplete steps as incomplete', function(){
+        expect(scenario1.steps[1].isIncomplete()).to.be.true();
     })
 });

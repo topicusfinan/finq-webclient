@@ -145,6 +145,7 @@ angular.module('finqApp.writer.service')
             node.addInputVariable = addInputVariable;
             node.addOutputVariable = addOutputVariable;
             node.getParent = getParent;
+            node.isIncomplete = isIncomplete;
 
             function getInputVariables() {
                 return node.variables.input;
@@ -154,18 +155,34 @@ angular.module('finqApp.writer.service')
                 return node.variables.output;
             }
 
-            function addInputVariable(variableData){
+            function addInputVariable(variableData) {
                 setupVariable(variableData, INPUT);
                 node.variables.input.push(variableData);
             }
 
-            function addOutputVariable(variableData){
+            function addOutputVariable(variableData) {
                 setupVariable(variableData, OUTPUT);
                 node.variables.output.push(variableData);
             }
 
             function getParent() {
                 return parent;
+            }
+
+            /**
+             * Check if the node has input variables which don't resolve to a value
+             * @returns {boolean}
+             */
+            function isIncomplete() {
+                var inputVariables = getInputVariables();
+
+                for (var i = 0; i < inputVariables.length; i++) {
+                    var inputVariable = inputVariables[i];
+                    if (inputVariable.getResolvedValue() === undefined) {
+                        return true;
+                    }
+                }
+                return false;
             }
         }
 
@@ -295,7 +312,7 @@ angular.module('finqApp.writer.service')
             /**
              * @return {boolean}
              */
-            function isValue(){
+            function isValue() {
                 return variableData.value !== undefined && variableData.value !== null;
             }
         }
