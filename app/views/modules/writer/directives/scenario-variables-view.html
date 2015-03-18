@@ -15,9 +15,9 @@
         <div class="variables">
             <ul>
                 <li ng-class="{undefined: variable.value === undefined}" ng-repeat="variable in variableScope.variables">
-                    <div class="variable" ng-class="['var' + variable.getResolvedID(), variable.getVariableClass()]">
+                    <div class="variable" ng-class="['var' + variable.getResolvedName(), variable.getVariableClass()]">
                         <div class="title">
-                            <span>{{variable.getName()}}</span>
+                            <span>{{variable.getResolvedName()}}</span>
                         </div>
                         <div class="value">
                             <span>{{variable.getResolvedValue()}}</span>

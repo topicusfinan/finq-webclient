@@ -22,21 +22,12 @@ describe('Unit: Scenario view directive', function () {
     }));
 
     it('should be able to give scenario variable names', function(){
-        expect(scenario1.getInputVariables()[0].getName()).to.equal('customerId');
+        expect(scenario1.getInputVariables()[0].getActualName()).to.equal('customerId');
     });
 
     it('should be able to give step variable names', function(){
-        expect(scenario1.steps[1].getInputVariables()[0].getName()).to.equal('$customerId');
+        expect(scenario1.steps[1].getInputVariables()[0].getActualName()).to.equal('$customerId');
     });
-
-    it('should be able to give scenario variable ids', function(){
-        expect(scenario1.getInputVariables()[0].getActualID()).to.equal(531286);
-    });
-
-    it('should be able to give step variable ids', function(){
-        expect(scenario1.steps[1].getInputVariables()[0].getActualID()).to.equal(863154);
-    });
-
     it('should be able to give scenario values', function(){
         expect(scenario1.getInputVariables()[0].getActualValue()).to.equal('313432');
         expect(scenario1.getOutputVariables()[0].getActualValue()).to.equal(undefined);
@@ -52,21 +43,21 @@ describe('Unit: Scenario view directive', function () {
         expect(scenario1.getOutputVariables()[0].getResolvedValue()).to.equal('#success'); // scenario output
     });
 
+    it('should be able to resolve scenario names', function(){
+        expect(scenario1.getInputVariables()[0].getResolvedName()).to.equal('customerId');
+        expect(scenario1.getOutputVariables()[0].getResolvedName()).to.equal('#success'); // scenario output
+    });
+
     it('should be able to resolve step values', function(){
         expect(scenario1.steps[1].getInputVariables()[1].getResolvedValue()).to.equal('2341');
         expect(scenario1.steps[1].getInputVariables()[0].getResolvedValue()).to.equal('313432');
         expect(scenario1.steps[1].getOutputVariables()[0].getResolvedValue()).to.equal(undefined); // step output
     });
 
-    it('should be able to resolve scenario ids', function(){
-        expect(scenario1.getInputVariables()[0].getResolvedID()).to.equal(531286);
-        expect(scenario1.getOutputVariables()[0].getResolvedID()).to.equal(321308); // scenario output
-    });
-
-    it('should be able to resolve step ids', function(){
-        expect(scenario1.steps[1].getInputVariables()[1].getResolvedID()).to.equal(45136);
-        expect(scenario1.steps[1].getInputVariables()[0].getResolvedID()).to.equal(531286);
-        expect(scenario1.steps[1].getOutputVariables()[0].getResolvedID()).to.equal(321308); // step output
+    it('should be able to resolve step names', function(){
+        expect(scenario1.steps[1].getInputVariables()[1].getResolvedName()).to.equal('$productId');
+        expect(scenario1.steps[1].getInputVariables()[0].getResolvedName()).to.equal('customerId');
+        expect(scenario1.steps[1].getOutputVariables()[0].getResolvedName()).to.equal('#success'); // step output
     });
 
     it('should be able to get parent variable', function(){
@@ -75,7 +66,6 @@ describe('Unit: Scenario view directive', function () {
 
     it('should be able to register methods to a variable if it has been added later', function(){
         var newVariable = {
-            id: 1346321,
             name: 'foo',
             value: '1234156'
         };
@@ -86,7 +76,6 @@ describe('Unit: Scenario view directive', function () {
 
     it('should be able to register methods to a node if it has been added later', function(){
         var newNode = {
-            id: 34523,
             title: 'foo',
             variables: {
                 input: [],
@@ -111,12 +100,11 @@ describe('Unit: Scenario view directive', function () {
 
     it('should be able to add input and output variables', function(){
         var newVariable = {
-            id: 3452451,
             name: 'foo',
             value: '432134'
         };
         scenario1.steps[1].addInputVariable(newVariable);
-        expect(scenario1.steps[1].getInputVariables()[3].getActualID()).to.equal(3452451);
+        expect(scenario1.steps[1].getInputVariables()[3].getActualName()).to.equal('foo');
     });
 
     it('should mark fully resolved steps as complete', function(){

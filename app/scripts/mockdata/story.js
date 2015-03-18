@@ -180,16 +180,14 @@ angular.module('finqApp.mock')
                                 variables: {
                                     input: [
                                         {
-                                            id: 531286,
                                             name: 'customerId',
                                             value: '313432'
                                         }
                                     ],
                                     output: [
                                         {
-                                            id: -1,
                                             name: 'bar',
-                                            reference: 321308
+                                            reference: '#success'
                                         }
                                     ]
                                 },
@@ -211,23 +209,19 @@ angular.module('finqApp.mock')
                                         variables: {
                                             input: [
                                                 {
-                                                    id: 863154,
                                                     name: '$customerId',
-                                                    reference: 531286
+                                                    reference: 'customerId'
                                                 },
                                                 {
-                                                    id: 45136,
                                                     name: '$productId',
                                                     value: '2341'
                                                 },
                                                 {
-                                                    id: 648563,
                                                     name: '$basketId'
                                                 }
                                             ],
                                             output: [
                                                 {
-                                                    id: 321308,
                                                     name: '#success'
                                                 }
                                             ]

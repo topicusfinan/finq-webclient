@@ -20,13 +20,13 @@ angular.module('finqApp.writer.service')
          * Look up a variable within a collection (rootObject)
          * @return {*} undefined or the requested variable
          */
-        function lookupVariable(id) {
+        function lookupVariable(name) {
             var result;
 
             if (rootObject.variables !== undefined) {
-                result = checkNode(rootObject, id);
+                result = checkNode(rootObject, name);
             } else {
-                result = checkNode(findChildrenProperty(rootObject), id);
+                result = checkNode(findChildrenProperty(rootObject), name);
             }
 
             return result === null ? undefined : result;
@@ -35,12 +35,12 @@ angular.module('finqApp.writer.service')
             /**
              * Helper function for checkNode
              * @param collection Collection of child nodes
-             * @param compareId Id to compare to
+             * @param compareName Name to compare to
              * @returns {*}
              */
-            function checkChildren(collection, compareId) {
+            function checkChildren(collection, compareName) {
                 for (var i = 0; i < collection.length; i++) {
-                    var nodeResult = checkNode(collection[i], compareId);
+                    var nodeResult = checkNode(collection[i], compareName);
                     if (nodeResult !== null) {
                         return nodeResult;
                     }
@@ -51,26 +51,26 @@ angular.module('finqApp.writer.service')
             /**
              * Recursively check a node for the requested variable
              * @param node Node to evaluate
-             * @param compareId Id to compare to
+             * @param compareName Name to compare to
              * @returns {*}
              */
-            function checkNode(node, compareId) {
+            function checkNode(node, compareName) {
                 var j;
                 var input = node.variables.input;
                 var output = node.variables.output;
                 for (j = 0; j < input.length; j++) {
-                    if (input[j].id === compareId) {
+                    if (input[j].name === compareName) {
                         return input[j];
                     }
                 }
                 for (j = 0; j < output.length; j++) {
-                    if (output[j].id === compareId) {
+                    if (output[j].name === compareName) {
                         return output[j];
                     }
                 }
                 var children = findChildrenProperty(node);
                 if (children !== null) {
-                    return checkChildren(children, compareId);
+                    return checkChildren(children, compareName);
                 }
                 return null;
             }
@@ -79,8 +79,8 @@ angular.module('finqApp.writer.service')
         /**
          * @return {null}
          */
-        function resolveReference(id) {
-            var referenceVariable = lookupVariable(id);
+        function resolveReference(name) {
+            var referenceVariable = lookupVariable(name);
             if (referenceVariable !== undefined) {
                 if (referenceVariable.reference !== undefined) {
                     return resolveReference(referenceVariable.reference);
@@ -194,14 +194,13 @@ angular.module('finqApp.writer.service')
         function setupVariable(variableData, inputOutput) {
             var cachedReference = null;
             // Register methods
-            variableData.getName = getName;
+            variableData.getActualName = getActualName;
             variableData.isReference = isReference;
             variableData.isValue = isValue;
             variableData.getResolvedValue = getResolvedValue;
-            variableData.getResolvedID = getResolvedID;
+            variableData.getResolvedName = getResolvedName;
             variableData.getVariableClass = getVariableClass;
             variableData.getActualValue = getActualValue;
-            variableData.getActualID = getActualID;
             variableData.setActualValue = setActualValue;
             variableData.setReference = setReference;
 
@@ -215,14 +214,6 @@ angular.module('finqApp.writer.service')
             }
 
             /**
-             * Get the actual unresolved id (no references)
-             * @returns {*}
-             */
-            function getActualID() {
-                return variableData.id;
-            }
-
-            /**
              * Get the actual unresolved value, the resolved value, or the name of the resolved value
              * Will only return the name on a referenced value, if not a reference it will return undefined (actual value)
              * @returns {*}
@@ -231,29 +222,25 @@ angular.module('finqApp.writer.service')
                 if (isReference()) {
                     var variable = resolveReference(variableData.reference);
                     if (variable !== undefined) {
-                        return variable.getResolvedValue() || variable.getName();
+                        return variable.getResolvedValue() || variable.getActualName();
                     }
                     return variable;
                 }
                 return getActualValue();
             }
 
-            /**
-             * Get the ID of the variable which value is displayed by getResolvedValue
-             * @return {*}
-             */
-            function getResolvedID() {
+            function getResolvedName(){
                 if (isReference()) {
                     var variable = resolveReference(variableData.reference);
                     if (variable !== undefined) {
-                        return variable.getResolvedID();
+                        return variable.getResolvedName() || variable.getActualName();
                     }
                     return variable;
                 }
-                return getActualID();
+                return getActualName();
             }
 
-            function getName() {
+            function getActualName() {
                 return variableData.name;
             }
 
