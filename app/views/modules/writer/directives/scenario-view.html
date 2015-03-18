@@ -1,17 +1,12 @@
 <ul id="scenario-list" sortable="scenarios" handle="mainListHandler">
     <li class="ic cl" ng-repeat="scenario in scenarios track by scenario.id">
-        <div class="selectable" ng-class="{'active':selectedItem.isItemSelected(scenario)}"
-             ng-click="selectedItem.setSelectedItem(scenario)">
-            <div class="title">
+        <div class="selectable" ng-class="{'active':selectedItem.isItemSelected(scenario)}" ng-click="selectedItem.setSelectedItem(scenario)">
+            <div class="title editable">
                 <i class="fa expand handle" data-toggle="story"></i>
-                <input type="text" ng-model="scenario.editorTitle" ng-init="scenario.editorTitle = scenario.title;">
+                <span class="separate editable">{{scenario.title}}</span>
+                <input type="text" ng-model="scenario.title">
             </div>
             <div class="actions">
-                <button ng-click="scenarioView.applyScenarioTitle(scenario);"
-                        ng-show="scenario.title !== scenario.editorTitle">
-                    <i class="fa fa-check"></i>
-                    <span>Apply</span>
-                </button>
                 <button ng-click="scenarioView.deleteItem(scenarios, $index)">
                     <i class="fa fa-trash-o"></i>
                     <span>Delete</span>
@@ -21,8 +16,7 @@
         </div>
         <ul class="scenario-content-list" sortable="scenario.steps" handle="stepListHandler" connect-with="scenarioContentListClass">
             <li class="ic cl" ng-repeat="step in scenario.steps">
-                <div class="selectable" ng-class="{'active': selectedItem.isItemSelected(step)}"
-                     ng-click="selectedItem.setSelectedItem(step);">
+                <div class="selectable" ng-class="{'active': selectedItem.isItemSelected(step)}" ng-click="selectedItem.setSelectedItem(step);">
                     <div class="title">
                         <i class="fa fa-bars scenario-handle"></i>
                         <span>{{::step.title}}</span>

@@ -91,8 +91,12 @@ $section-header-icon-size:              modular-scale($base-font-size, 1, $octav
 $section-header-input-width:            20em;
 $section-list-side-padding:             1em;
 $section-list-icon-left:                $header-height / $section-header-font-size / 5 * 1em;
+$section-list-icon-left-invert:         $header-height / $section-header-font-size / 5 * 1.13em;
 $section-list-text-pad:                 $section-list-icon-left;
 $section-list-icon-text-pad:            modular-scale($section-list-icon-left, 3, $major-seventh);
+$section-list-input-width:              10em;
+$section-list-input-padding:            .5em;
+$section-list-input-margin:             -.3em;
 
 // filter buttons
 $filter-button-padding:                 .5em;
@@ -158,7 +162,6 @@ $run-success-color:                     $lime;
 $run-skipped-color:                     $yellow;
 $run-progress-scenario-todo-bg:         lighten($light-gray, 4%);
 $run-progress-scenario-done-bg:         darken($light-gray, 8%);
-
 
 $tooltip-bg-color:                      $dark-gray;
 $tooltip-color:                         $highlight-color;

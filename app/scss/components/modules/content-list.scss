@@ -50,6 +50,10 @@
             > div.title {
                 float: left;
 
+                &.editable {
+                    position: relative;
+                }
+
                 > i {
                     color: $section-list-icon-color;
 
@@ -60,6 +64,18 @@
                     &.failed {
                         color: $error-color;
                     }
+                }
+
+                > input {
+                    margin: (($header-height - $section-header-font-size) / 9.5) $filter-button-padding / 2;
+                    margin-bottom: 0;
+                    background-color: $list-input-bg-color;
+                    color: $inverted-input-color;
+                    border: 0;
+                    min-width: $section-list-input-width;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
                 }
 
                 > span,
@@ -258,6 +274,20 @@
                         background: $base-accent-color;
                     }
 
+                    &.selectable:hover,
+                    &.active,
+                    &.active:hover {
+                        > div.title {
+                            > input[type="text"] {
+                                opacity: 1;
+                            }
+
+                            > span.editable {
+                                opacity: 0;
+                            }
+                        }
+                    }
+
                     > div > button,
                     .select > button {
                         font-size: $content-list-item-2-font-size - .1;
@@ -272,9 +302,23 @@
                         margin: 0 $filter-button-padding / 2;
                     }
 
-                    > div.title > i,
-                    > div.title > .radial-progress {
-                        left: $section-list-icon-left * $content-list-item-2-icon-left;
+                    > div.title {
+
+                        > i,
+                        > .radial-progress {
+                            left: $section-list-icon-left * $content-list-item-2-icon-left;
+                        }
+
+                        &.editable {
+                            > i,
+                            > .radial-progress {
+                                left: -$section-list-icon-left-invert * $content-list-item-2-icon-left;
+                            }
+
+                            > span.editable {
+                                padding-right: $section-list-input-padding * 2;
+                            }
+                        }
                     }
 
                     > div.title > .radial-progress {
@@ -297,6 +341,13 @@
                         font-size: $content-list-item-2-font-size;
                         line-height: $content-list-item-2-font-size;
                         padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 3) 0;
+                    }
+
+                    > div.title > input[type="text"] {
+                        font-size: $content-list-item-2-font-size;
+                        padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 5) $section-list-input-padding;
+                        margin-left: $section-list-input-margin;
+                        opacity: 0;
                     }
 
                     > div.title > .radial-progress {
