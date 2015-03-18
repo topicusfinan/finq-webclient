@@ -5,38 +5,37 @@
 angular.module('finqApp.directive')
     .directive('sidebar', function () {
         return {
-            scope: {},
+            scope: {
+                expand: '=sidebar'
+            },
             restrict: 'A',
             link: function (scope, element) {
                 scope.$watch(scope.watchData, function () {
                     scope.update(element);
                 });
-                scope.$watch(scope.getVisible, function (value) {
-                    scope.setVisible(element, value);
-                });
+
+                if (scope.expand) {
+                    element.addClass('expand');
+                }
             },
             controller: 'sidebarCtrl'
         };
     })
-    .controller('sidebarCtrl', function ($scope, sidebar, $compile) {
+    .controller('sidebarCtrl', function ($scope, sidebar, $compile, $element) {
         $scope.watchData = watchData;
-        $scope.update = update;
-        $scope.getVisible = getVisible;
-        $scope.setVisible = setVisible;
+        $scope.update = reinitialize;
+        $scope.toggleExpand = toggleExpand;
+        $scope.isShown = sidebar.getVisible;
 
         function watchData() {
             return sidebar.getDirective();
         }
 
-        function getVisible() {
-            return sidebar.getVisible();
+        function toggleExpand() {
+            $element.toggleClass('expand');
         }
 
-        function setVisible(element, visible){
-            element.css('visibility', visible ? 'visible' : 'hidden');
-        }
-
-        function update(element) {
+        function reinitialize(element) {
             element.empty();
             if (!sidebar.hasSidebar()) {
                 return;

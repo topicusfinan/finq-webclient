@@ -118,12 +118,12 @@ div.layout {
         }
     }
 
-    > aside,
+    > nav,
     > .main {
         top: $header-height;
     }
 
-    > aside {
+    > nav {
         width: $menu-size;
         background-color: $layout-side-bg-color;
         position: fixed;

@@ -5,9 +5,6 @@
         <span class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
         <input type="text" ng-model="story.title">
     </div>
-    <div class="actions">
-        <i class="fa" ng-class="{'fa-search-minus': story.hasVisibleSidebar(), 'inactive fa-search-plus': !story.hasVisibleSidebar()}" ng-click="story.toggleVisible()"></i>
-    </div>
 </div>
 <div class="editor-content">
     <ul id="main-content-list" story-collapse class="main-content-list">

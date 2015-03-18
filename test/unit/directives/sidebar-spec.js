@@ -6,7 +6,7 @@ describe('Unit: sidebar', function () {
     var element, scope, sidebar;
 
     beforeEach(inject(function ($rootScope, $compile) {
-        var template = '<div sidebar></div>';
+        var template = '<aside sidebar></aside>';
         scope = $rootScope;
         element = $compile(template)(scope);
     }));
@@ -19,7 +19,7 @@ describe('Unit: sidebar', function () {
         sidebar.setDirective({'test':'foo'});
         scope.$apply();
         expect(sidebar.hasSidebar()).to.be.true();
-        expect(element.find('aside').attr('test')).to.equal('bag["test"]');
+        expect(element.find('div').attr('test')).to.equal('bag["test"]');
     });
 
     it('should clear code', function(){

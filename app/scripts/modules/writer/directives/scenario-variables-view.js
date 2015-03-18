@@ -6,7 +6,6 @@ angular.module('finqApp.writer.directive')
     .directive('scenarioVariablesView', function () {
         return {
             scope: {
-                //scenarios: '='
             },
             restrict: 'A',
             templateUrl: 'views/modules/writer/directives/scenario-variables-view.html',

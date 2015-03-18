@@ -17,7 +17,6 @@ angular.module('finqApp.writer.controller')
             setSelectedItem: selectedItem.setSelectedItem,
             isItemSelected: selectedItem.isItemSelected
         };
-        this.editStoryTitle = false;
         this.loaded = true;
         this.createNew = true;
 
@@ -67,7 +66,7 @@ angular.module('finqApp.writer.controller')
         }
 
         sidebar.setDirective({
-            'scenario-variables-view': this.scenarios
+            'scenario-variables-view': null
         });
 
 

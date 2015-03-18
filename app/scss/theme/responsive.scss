@@ -17,7 +17,7 @@ $full-title-size-bp-1:            new-breakpoint(max-width 74em);
             width: ($full-menu-min-size / $header-title-size) * 1em;
         }
 
-        > aside {
+        > nav {
             width: $full-menu-min-size;
         }
 
@@ -38,7 +38,7 @@ $full-title-size-bp-1:            new-breakpoint(max-width 74em);
             width: ($full-menu-max-size / $header-title-size) * 1em;
         }
 
-        > aside {
+        > nav {
             width: $full-menu-max-size;
         }
 

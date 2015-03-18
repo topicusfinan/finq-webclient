@@ -1,3 +1,7 @@
+<div class="sb-header">
+    <i class="fa" ng-class="{'fa-search-minus': isShown(), 'inactive fa-search-plus': !story.isShown()}" ng-click="toggleExpand()"></i>
+    <span>Story details</span>
+</div>
 <div class="variable-view">
     <div ng-repeat="variableScope in scenarioVariablesView.variableScopes">
         <div class="header">

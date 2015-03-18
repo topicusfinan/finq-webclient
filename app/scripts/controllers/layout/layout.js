@@ -12,8 +12,8 @@ angular.module('finqApp.controller')
     .controller('LayoutCtrl', function ($timeout, sidebar) {
         var that = this;
 
-        this.hasVisibleSidebar = function(){
-            return sidebar.hasVisibleSidebar();
+        this.hasSidebar = function(){
+            return sidebar.hasSidebar();
         };
 
         // delay the loaded indication to allow for appear effects

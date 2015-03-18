@@ -13,10 +13,6 @@ angular.module('finqApp.runner.service')
         this.hasSidebar = hasSidebar;
         this.getSidebar = getSidebar;
         this.getDirective = getDirective;
-        this.setVisible = setVisible;
-        this.toggleVisible = toggleVisible;
-        this.getVisible = getVisible;
-        this.hasVisibleSidebar = hasVisibleSidebar;
 
         /**
          * @return {boolean}
@@ -34,10 +30,6 @@ angular.module('finqApp.runner.service')
             return directive;
         }
 
-        function hasVisibleSidebar(){
-            return hasSidebar() && getVisible();
-        }
-
 
         /**
          * Sets the current directive
@@ -47,22 +39,10 @@ angular.module('finqApp.runner.service')
             directive = attributes;
         }
 
-        function setVisible(visibility){
-            visible = visibility;
-        }
-
-        function toggleVisible(){
-            visible = !visible;
-        }
-
-        function getVisible(){
-            return visible;
-        }
-
         function getSidebar(providedScope) {
             var viewBagName = 'bag';
             var scope = providedScope || $rootScope;
-            var element = $('<aside></aside>');
+            var element = $('<div></div>');
             scope[viewBagName] = directive;
 
             for (var key in directive) {
