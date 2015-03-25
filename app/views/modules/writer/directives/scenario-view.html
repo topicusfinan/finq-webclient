@@ -21,7 +21,7 @@
                         <span>{{::step.title}}</span>
                     </div>
                     <div class="actions">
-                        <i class="fa fa-info-circle" ng-show="scenarioView.isStepIncomplete(step)"></i>
+                        <i class="fa fa-exclamation-circle" ng-show="scenarioView.isStepIncomplete(step)"></i>
                         <i class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index, step)"></i>
                     </div>
                 </div>
