@@ -7,7 +7,7 @@
                 <input type="text" ng-model="scenario.title">
             </div>
             <div class="actions">
-                <button ng-click="scenarioView.deleteItem(scenarios, $index)">
+                <button ng-click="scenarioView.deleteItem(scenarios, $index, scenario)">
                     <i class="fa fa-trash-o"></i>
                     <span translate="WRITER.STORIES.SCENARIOS.DELETE"></span>
                 </button>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="actions">
                         <i class="fa fa-info-circle" ng-show="scenarioView.isStepIncomplete(step)"></i>
-                        <i class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index)"></i>
+                        <i class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index, step)"></i>
                     </div>
                 </div>
             </li>
