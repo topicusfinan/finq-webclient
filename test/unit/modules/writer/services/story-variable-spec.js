@@ -21,47 +21,9 @@ describe('Unit: Scenario view directive', function () {
         storyVariable.setupVariables(scenario1);
     }));
 
-    it('should be able to give scenario variable names', function(){
-        expect(scenario1.getInputVariables()[0].getActualName()).to.equal('customerId');
-    });
-
-    it('should be able to give step variable names', function(){
-        expect(scenario1.steps[1].getInputVariables()[0].getActualName()).to.equal('$customerId');
-    });
-    it('should be able to give scenario values', function(){
-        expect(scenario1.getInputVariables()[0].getActualValue()).to.equal('313432');
-        expect(scenario1.getOutputVariables()[0].getActualValue()).to.equal(undefined);
-    });
-
     it('should be able to give step values', function(){
-        expect(scenario1.steps[1].getInputVariables()[1].getActualValue()).to.equal('2341');
-        expect(scenario1.steps[1].getInputVariables()[0].getActualValue()).to.equal(undefined);
-    });
-
-    it('should be able to resolve scenario values', function(){
-        expect(scenario1.getInputVariables()[0].getResolvedValue()).to.equal('313432');
-        expect(scenario1.getOutputVariables()[0].getResolvedValue()).to.equal('#success'); // scenario output
-    });
-
-    it('should be able to resolve scenario names', function(){
-        expect(scenario1.getInputVariables()[0].getResolvedName()).to.equal('customerId');
-        expect(scenario1.getOutputVariables()[0].getResolvedName()).to.equal('#success'); // scenario output
-    });
-
-    it('should be able to resolve step values', function(){
-        expect(scenario1.steps[1].getInputVariables()[1].getResolvedValue()).to.equal('2341');
-        expect(scenario1.steps[1].getInputVariables()[0].getResolvedValue()).to.equal('313432');
-        expect(scenario1.steps[1].getOutputVariables()[0].getResolvedValue()).to.equal(undefined); // step output
-    });
-
-    it('should be able to resolve step names', function(){
-        expect(scenario1.steps[1].getInputVariables()[1].getResolvedName()).to.equal('$productId');
-        expect(scenario1.steps[1].getInputVariables()[0].getResolvedName()).to.equal('customerId');
-        expect(scenario1.steps[1].getOutputVariables()[0].getResolvedName()).to.equal('#success'); // step output
-    });
-
-    it('should be able to get parent variable', function(){
-        expect(scenario1.steps[1].getParent()).to.equal(scenario1);
+        expect(scenario1.steps[1].getInputVariables()[1].getValue()).to.equal('customerId');
+        expect(scenario1.steps[1].getInputVariables()[0].getValue()).to.equal('foo');
     });
 
     it('should be able to register methods to a variable if it has been added later', function(){
@@ -71,9 +33,9 @@ describe('Unit: Scenario view directive', function () {
         };
         storyVariable.setupVariable(newVariable);
         arrayOperations.insertItem(scenario1.steps[1].getInputVariables(), 1, newVariable);
-        expect(scenario1.steps[1].getInputVariables()[1].getActualValue).to.not.be.undefined();
+        expect(scenario1.steps[1].getInputVariables()[1].getValue()).to.not.be.undefined();
     });
-
+    //
     it('should be able to register methods to a node if it has been added later', function(){
         var newNode = {
             title: 'foo',
@@ -89,30 +51,53 @@ describe('Unit: Scenario view directive', function () {
         expect(scenario1.steps[1].getInputVariables).to.not.be.undefined();
     });
 
-    it('should set classes based on variable type', function(){
-        expect(scenario1.getInputVariables()[0].getVariableClass()).to.have.string('input').string('user');
-        expect(scenario1.getOutputVariables()[0].getVariableClass()).to.have.string('output').string('reference');
-        expect(scenario1.steps[1].getInputVariables()[0].getVariableClass()).to.have.string('input').string('reference');
-        expect(scenario1.steps[1].getInputVariables()[1].getVariableClass()).to.have.string('input').string('user');
-        expect(scenario1.steps[1].getInputVariables()[2].getVariableClass()).to.have.string('input').string('undefined');
-        expect(scenario1.steps[1].getOutputVariables()[0].getVariableClass()).to.have.string('output').string('runtime');
-    });
-
     it('should be able to add input and output variables', function(){
         var newVariable = {
-            name: 'foo',
-            value: '432134'
+            value: 'testVariable'
         };
         scenario1.steps[1].addInputVariable(newVariable);
-        expect(scenario1.steps[1].getInputVariables()[3].getActualName()).to.equal('foo');
+        expect(scenario1.steps[1].getInputVariables()[4].getValue()).to.equal('testVariable');
     });
 
     it('should mark fully resolved steps as complete', function(){
-        arrayOperations.removeItem(scenario1.steps[1].getInputVariables(),2);
-        expect(scenario1.steps[1].isIncomplete()).to.be.false();
+        expect(scenario1.steps[0].isIncomplete()).to.be.false();
+        expect(scenario1.steps[2].isIncomplete()).to.be.false();
     });
 
     it('should mark incomplete steps as incomplete', function(){
         expect(scenario1.steps[1].isIncomplete()).to.be.true();
-    })
+    });
+
+    it('should give the previous step', function(){
+        expect(scenario1.steps[1].getPreviousSibling()).to.equal(scenario1.steps[0]);
+    });
+
+    it('should be able to lookup a variable declared before the current step', function(){
+        expect(scenario1.steps[1].getInputVariables()[0].getReferenceVariable()).to.equal(null);
+        expect(scenario1.steps[1].getInputVariables()[1].getReferenceVariable()).to.equal(scenario1.steps[0].getOutputVariables()[0]);
+    });
+
+    it('should give null if no reference can be found', function(){
+        expect(scenario1.steps[1].getInputVariables()[0].getReferenceVariable()).to.be.null();
+    });
+
+    it('should mark input variables that reference an output variable as linked', function(){
+        expect(scenario1.steps[1].getInputVariables()[1].isLinked()).to.be.true();
+        expect(scenario1.steps[1].getInputVariables()[0].isLinked()).to.be.false();
+    });
+
+    it('should mark output variables that are referenced by an input variable as linked', function(){
+        expect(scenario1.steps[0].getOutputVariables()[0].isLinked()).to.be.true();
+        expect(scenario1.steps[2].getOutputVariables()[0].isLinked()).to.be.false();
+    });
+
+    it('should get all child variables', function(){
+        var outputVariables = scenario1.getAvailableOutputVariables();
+        expect(outputVariables.length).to.equal(2);
+    });
+
+
+
+
+
 });

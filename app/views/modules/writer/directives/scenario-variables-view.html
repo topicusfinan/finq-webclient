@@ -15,16 +15,16 @@
         <div class="variables">
             <ul>
                 <li ng-class="{undefined: variable.value === undefined}" ng-repeat="variable in variableScope.variables">
-                    <div class="variable" ng-class="['var' + variable.getResolvedName(), variable.getVariableClass()]">
+                    <div class="variable" ng-class="['var' + variable.getValue(), variable.getVariableClass()]">
                         <div class="title">
-                            <span>{{variable.getResolvedName()}}</span>
+                            <span>{{variable.getName()}}</span>
                         </div>
                         <div class="value">
-                            <span>{{variable.getResolvedValue()}}</span>
+                            <span>{{variable.getValue()}}</span>
                         </div>
                         <div class="status">
                             <i class="fa fa-chain"
-                               ng-class="{'fa-chain-broken': !variable.isReference(), 'fa-chain': variable.isReference()}"></i>
+                               ng-class="{'fa-chain-broken': !variable.isLinked(), 'fa-chain': variable.isLinked()}"></i>
                         </div>
                     </div>
                 </li>

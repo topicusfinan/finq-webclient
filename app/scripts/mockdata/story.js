@@ -18,33 +18,29 @@ angular.module('finqApp.mock')
                     {
                         id: 46421532,
                         title: 'New orders',
-                        variables: {input: [], output: []},
                         sets: [
-                            {id:1},
-                            {id:2}
+                            {id: 1},
+                            {id: 2}
                         ],
                         tags: [
-                            {id:2},
-                            {id:3}
+                            {id: 2},
+                            {id: 3}
                         ],
                         prologue: [
                             {
                                 id: 3209471,
                                 title: 'when a customer with id $customerId has been created',
                                 template: 'when a customer with id $customerId has been created',
-                                variables: {input: [], output: []}
                             },
                             {
                                 id: 340183,
                                 title: 'and a book with id $bookId is created with "my story" as a title, and value of EUR 30',
                                 template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost',
-                                variables: {input: [], output: []}
                             },
                             {
                                 id: 1234028,
                                 title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of EUR 20',
                                 template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost',
-                                variables: {input: [], output: []}
                             }
                         ],
                         epilogue: [],
@@ -53,7 +49,6 @@ angular.module('finqApp.mock')
                                 id: 23452343,
                                 title: 'A customer adds a EUR 30 book to their empty basket',
                                 tags: [],
-                                variables: {input: [], output: []},
                                 steps: [
                                     {
                                         id: 4,
@@ -79,9 +74,8 @@ angular.module('finqApp.mock')
                             {
                                 id: 23452345,
                                 title: 'A customer adds an additional EUR 20 book to their basket',
-                                variables: {input: [], output: []},
                                 tags: [
-                                    {id:1}
+                                    {id: 1}
                                 ],
                                 steps: [
                                     {
@@ -115,32 +109,28 @@ angular.module('finqApp.mock')
                     {
                         id: 56421532,
                         title: 'Cancelled orders',
-                        variables: {input: [], output: []},
                         sets: [
-                            {id:1}
+                            {id: 1}
                         ],
                         tags: [
-                            {id:2},
-                            {id:3},
-                            {id:4},
-                            {id:6}
+                            {id: 2},
+                            {id: 3},
+                            {id: 4},
+                            {id: 6}
                         ],
                         prologue: [
                             {
                                 id: 32040127,
-                                variables: {input: [], output: []},
                                 title: 'when a customer with id $customerId has been created',
                                 template: 'when a customer with id $customerId has been created'
                             },
                             {
                                 id: 234094,
-                                variables: {input: [], output: []},
                                 title: 'and a book with id $bookId is created with "my story" as a title, and value of EUR 30',
                                 template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
                             },
                             {
                                 id: 230948,
-                                variables: {input: [], output: []},
                                 title: 'and a book with id $otherBookId is created with "my other story" as a title, and a value of EUR 20',
                                 template: 'when a book with id $bookId is created with $title as a title, and a value of EUR $cost'
                             },
@@ -157,7 +147,6 @@ angular.module('finqApp.mock')
                             {
                                 id: 33452343,
                                 title: 'A customer removes the only item they have in their basket',
-                                variables: {input: [], output: []},
                                 tags: [],
                                 steps: [
                                     {
@@ -177,27 +166,17 @@ angular.module('finqApp.mock')
                             {
                                 id: 33452345,
                                 title: 'A customer removes an item they have in their basket, but there are some left',
-                                variables: {
-                                    input: [
-                                        {
-                                            name: 'customerId',
-                                            value: '313432'
-                                        }
-                                    ],
-                                    output: [
-                                        {
-                                            name: 'bar',
-                                            reference: '#success'
-                                        }
-                                    ]
-                                },
                                 tags: [],
                                 steps: [
                                     {
                                         id: 32413,
                                         variables: {
                                             input: [],
-                                            output: []
+                                            output: [
+                                                {
+                                                    name: 'customerId'
+                                                }
+                                            ]
                                         },
                                         title: 'when the customer with id $customerId orders a new book with id $otherBookId',
                                         template: 'when the customer with id $customerId orders a new book with id $bookId'
@@ -209,20 +188,28 @@ angular.module('finqApp.mock')
                                         variables: {
                                             input: [
                                                 {
-                                                    name: '$customerId',
-                                                    reference: 'customerId'
+                                                    name: 'test',
+                                                    value: 'foo'
                                                 },
                                                 {
-                                                    name: '$productId',
-                                                    value: '2341'
+                                                    name: 'customerId',
+                                                    value: 'customerId'
                                                 },
                                                 {
-                                                    name: '$basketId'
+                                                    name: 'productId',
+                                                    value: 'productId'
+                                                },
+                                                {
+                                                    name: 'basketId',
+                                                    value: 'basketId'
                                                 }
                                             ],
                                             output: [
                                                 {
-                                                    name: '#success'
+                                                    name: 'success'
+                                                },
+                                                {
+                                                    name: 'customerId'
                                                 }
                                             ]
                                         }
@@ -232,8 +219,17 @@ angular.module('finqApp.mock')
                                         title: 'then the basket with id $basketId should contain the following [[products]]',
                                         template: 'then the basket with id $basketId should contain the following [[products]]',
                                         variables: {
-                                            input: [],
-                                            output: []
+                                            input: [
+                                                {
+                                                    name: 'customerId',
+                                                    value: 'customerId'
+                                                }
+                                            ],
+                                            output: [
+                                                {
+                                                    name: 'customerId'
+                                                }
+                                            ]
                                         }
                                     },
                                     {
@@ -258,14 +254,13 @@ angular.module('finqApp.mock')
                     {
                         id: 66421532,
                         title: 'New stories',
-                        variables: {input: [], output: []},
                         sets: [
-                            {id:2}
+                            {id: 2}
                         ],
                         tags: [
-                            {id:2},
-                            {id:3},
-                            {id:5}
+                            {id: 2},
+                            {id: 3},
+                            {id: 5}
                         ],
                         prologue: [
                             {

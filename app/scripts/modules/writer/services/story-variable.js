@@ -17,78 +17,121 @@ angular.module('finqApp.writer.service')
         var rootObject;
 
         /**
-         * Look up a variable within a collection (rootObject)
-         * @return {*} undefined or the requested variable
+         * Look for variables 'upwards' in an attempt to find a declaration
+         * @param node
+         * @param name
+         * @param [first]
          */
-        function lookupVariable(name) {
-            var result;
-
-            if (rootObject.variables !== undefined) {
-                result = checkNode(rootObject, name);
-            } else {
-                result = checkNode(findChildrenProperty(rootObject), name);
-            }
-
-            return result === null ? undefined : result;
-
-            /// Functions
-            /**
-             * Helper function for checkNode
-             * @param collection Collection of child nodes
-             * @param compareName Name to compare to
-             * @returns {*}
-             */
-            function checkChildren(collection, compareName) {
-                for (var i = 0; i < collection.length; i++) {
-                    var nodeResult = checkNode(collection[i], compareName);
-                    if (nodeResult !== null) {
-                        return nodeResult;
+        function lookupPreviouslyDeclaredVariable(node, name, first) {
+            var i, result;
+            if (first === false){
+                // Check variables
+                var outputVariables = node.getOutputVariables();
+                for (i = 0; i < outputVariables.length; i++) {
+                    var outputVariable = outputVariables[i];
+                    if (outputVariable.getName() === name) {
+                        return outputVariable;
                     }
                 }
-                return null;
-            }
 
-            /**
-             * Recursively check a node for the requested variable
-             * @param node Node to evaluate
-             * @param compareName Name to compare to
-             * @returns {*}
-             */
-            function checkNode(node, compareName) {
-                var j;
-                var input = node.variables.input;
-                var output = node.variables.output;
-                for (j = 0; j < input.length; j++) {
-                    if (input[j].name === compareName) {
-                        return input[j];
-                    }
-                }
-                for (j = 0; j < output.length; j++) {
-                    if (output[j].name === compareName) {
-                        return output[j];
-                    }
-                }
+                // Check child elements
                 var children = findChildrenProperty(node);
                 if (children !== null) {
-                    return checkChildren(children, compareName);
+                    for (i = children.length; i > 0; i--) {
+                        result = lookupPreviouslyDeclaredVariable(children[i], name, false);
+                        if (result !== null) {
+                            return result;
+                        }
+                    }
                 }
-                return null;
             }
+
+            // Check previous sibling
+            var previousSibling = node.getPreviousSibling();
+            if (previousSibling !== null) {
+                result = lookupPreviouslyDeclaredVariable(previousSibling, name, false);
+                if (result !== null) {
+                    return result;
+                }
+            }
+
+            return null;
         }
 
         /**
-         * @return {null}
+         * Look for variables 'downwards' in an attempt to figure out if this variable is used later
+         * @param node
+         * @param name
+         * @param first
          */
-        function resolveReference(name) {
-            var referenceVariable = lookupVariable(name);
-            if (referenceVariable !== undefined) {
-                if (referenceVariable.reference !== undefined) {
-                    return resolveReference(referenceVariable.reference);
-                } else {
-                    return referenceVariable;
+        function lookupLaterReferencedVariable(node, name, first){
+            var i, result;
+            if (first === false){
+                // Check variables
+                var inputVariables = node.getInputVariables();
+                for (i = 0; i < inputVariables.length; i++) {
+                    var inputVariable = inputVariables[i];
+                    if (inputVariable.getValue() === name) {
+                        return inputVariable;
+                    }
+                }
+
+                // Check child elements
+                var children = findChildrenProperty(node);
+                if (children !== null) {
+                    for (i = 0; i < children.length; i++) {
+                        result = lookupLaterReferencedVariable(children[i], name, false);
+                        if (result !== null) {
+                            return result;
+                        }
+                    }
                 }
             }
+
+            // Check previous sibling
+            var nextSibling = node.getNextSibling();
+            if (nextSibling !== null) {
+                result = lookupLaterReferencedVariable(nextSibling, name, false);
+                if (result !== null) {
+                    return result;
+                }
+            }
+
             return null;
+        }
+
+        /**
+         * Get all output variables for a node, can be used for type ahead
+         * @param node Node to inspect
+         * @returns {Array}
+         */
+        function getAllChildOutputVariables(node) {
+            var variables = node.getOutputVariables() || [];
+
+            var children = findChildrenProperty(node);
+            if (children !== null) {
+                for (var i = 0; i < children.length; i++) {
+                    mergeVariables(variables, getAllChildOutputVariables(children[i]));
+                }
+            }
+            return variables;
+
+            function mergeVariables(array, toMerge) {
+                var arrayLength = array.length;
+                for (var i = 0; i < toMerge.length; i++) {
+                    var updated = false;
+                    for (var j = 0; j < arrayLength; j++) {
+                        if (toMerge[i].getName() === array[j].getName()) {
+                            array[j] = toMerge[i];
+                            updated = true;
+                            break;
+                        }
+                    }
+                    if (!updated) {
+                        array.push(toMerge[i]);
+                    }
+                }
+            }
         }
 
 
@@ -98,15 +141,17 @@ angular.module('finqApp.writer.service')
          */
         function setupVariables(objectWithVariables) {
             rootObject = objectWithVariables;
-            setupVariablesRec(rootObject, null);
+            setupVariablesRec(rootObject, null, null, null);
         }
 
         /**
          * Helper function for setupVariable
          * @param objectWithVariables (JSON) object with a variable structure
+         * @param previousNode Previous (JSON) object with a variable structure
+         * @param nextNode Next (JSON) object with a variable structure
          * @param parent Parent object
          */
-        function setupVariablesRec(objectWithVariables, parent) {
+        function setupVariablesRec(objectWithVariables, previousNode, nextNode, parent) {
             var i;
             if (objectWithVariables.variables !== undefined) {
                 var input = objectWithVariables.variables.input;
@@ -114,59 +159,84 @@ angular.module('finqApp.writer.service')
 
                 // Set up input and output variables
                 for (i = 0; i < input.length; i++) {
-                    setupVariable(input[i], INPUT);
+                    setupVariable(input[i], objectWithVariables, INPUT);
                 }
                 for (i = 0; i < output.length; i++) {
-                    setupVariable(output[i], OUTPUT);
+                    setupVariable(output[i], objectWithVariables, OUTPUT);
                 }
-            }
 
+
+            }
 
             // Recursive call
             var children = findChildrenProperty(objectWithVariables);
             if (children !== null) {
                 for (i = 0; i < children.length; i++) {
-                    setupVariablesRec(children[i], objectWithVariables);
+                    var previousChildNode = i > 0 ? children[i - 1] : null;
+                    var nextChildNode = i < children.length - 1 ? children[i + 1] : null;
+                    setupVariablesRec(children[i], previousChildNode, nextChildNode, objectWithVariables);
                 }
             }
 
             // Register methods
-            setupNode(objectWithVariables, parent);
+            setupNode(objectWithVariables, previousNode, nextNode, parent);
         }
 
         /**
          * Bind helper functions to a node
          * @param node An object with variables
+         * @param previousNode The previous object with variables
+         * @param nextNode The next object with variables
          * @param parent Parent object to be linked
          */
-        function setupNode(node, parent) {
+        function setupNode(node, previousNode, nextNode, parent) {
             node.getInputVariables = getInputVariables;
             node.getOutputVariables = getOutputVariables;
             node.addInputVariable = addInputVariable;
             node.addOutputVariable = addOutputVariable;
             node.getParent = getParent;
+            node.getPreviousSibling = getPreviousSibling;
+            node.getNextSibling = getNextSibling;
+            node.getAvailableOutputVariables = getAvailableOutputVariables;
+
             node.isIncomplete = isIncomplete;
 
             function getInputVariables() {
-                return node.variables.input;
+                if (node.variables !== undefined) {
+                    return node.variables.input;
+                }
             }
 
             function getOutputVariables() {
-                return node.variables.output;
+                if (node.variables !== undefined) {
+                    return node.variables.output;
+                }
             }
 
             function addInputVariable(variableData) {
-                setupVariable(variableData, INPUT);
+                setupVariable(variableData, node);
                 node.variables.input.push(variableData);
             }
 
             function addOutputVariable(variableData) {
-                setupVariable(variableData, OUTPUT);
+                setupVariable(variableData, node);
                 node.variables.output.push(variableData);
             }
 
             function getParent() {
                 return parent;
+            }
+
+            function getPreviousSibling() {
+                return previousNode;
+            }
+
+            function getNextSibling() {
+                return nextNode;
+            }
+
+            function getAvailableOutputVariables() {
+                return getAllChildOutputVariables(node);
             }
 
             /**
@@ -178,7 +248,7 @@ angular.module('finqApp.writer.service')
 
                 for (var i = 0; i < inputVariables.length; i++) {
                     var inputVariable = inputVariables[i];
-                    if (inputVariable.getResolvedValue() === undefined) {
+                    if (!inputVariable.isLinked()) {
                         return true;
                     }
                 }
@@ -189,118 +259,38 @@ angular.module('finqApp.writer.service')
         /**
          * Bind helper functions to variable
          * @param variableData Variable data
-         * @param inputOutput Whether the variable is input or output
+         * @param parent Parent node
+         * @param inputOutput Whether a variable is input or output
          */
-        function setupVariable(variableData, inputOutput) {
-            var cachedReference = null;
-            // Register methods
-            variableData.getActualName = getActualName;
-            variableData.isReference = isReference;
-            variableData.isValue = isValue;
-            variableData.getResolvedValue = getResolvedValue;
-            variableData.getResolvedName = getResolvedName;
-            variableData.getVariableClass = getVariableClass;
-            variableData.getActualValue = getActualValue;
-            variableData.setActualValue = setActualValue;
-            variableData.setReference = setReference;
+        function setupVariable(variableData, parent, inputOutput) {
+            variableData.getValue = getValue;
+            variableData.getName = getName;
+            variableData.setValue = setValue;
+            variableData.getReferenceVariable = getReferenceVariable;
+            variableData.isLinked = isLinked;
 
-            // Functions
-            /**
-             * Get the actual unresolved value (no references)
-             * @returns {*}
-             */
-            function getActualValue() {
+            function getValue() {
                 return variableData.value;
             }
 
-            /**
-             * Get the actual unresolved value, the resolved value, or the name of the resolved value
-             * Will only return the name on a referenced value, if not a reference it will return undefined (actual value)
-             * @returns {*}
-             */
-            function getResolvedValue() {
-                if (isReference()) {
-                    var variable = resolveReference(variableData.reference);
-                    if (variable !== undefined) {
-                        return variable.getResolvedValue() || variable.getActualName();
-                    }
-                    return variable;
-                }
-                return getActualValue();
-            }
-
-            function getResolvedName(){
-                if (isReference()) {
-                    var variable = resolveReference(variableData.reference);
-                    if (variable !== undefined) {
-                        return variable.getResolvedName() || variable.getActualName();
-                    }
-                    return variable;
-                }
-                return getActualName();
-            }
-
-            function getActualName() {
-                return variableData.name;
-            }
-
-            /**
-             * @return {string}
-             */
-            function getVariableClass() {
-                var classBuild = [];
-                if (inputOutput === INPUT) {
-                    classBuild.push('input');
-                } else {
-                    classBuild.push('output');
-                }
-
-                if (variableData.reference === undefined && variableData.value === undefined) {
-                    if (inputOutput === OUTPUT) {
-                        classBuild.push('runtime');
-                    } else {
-                        classBuild.push('undefined');
-                    }
-                } else if (variableData.value !== undefined) {
-                    classBuild.push('user');
-                } else {
-                    classBuild.push('reference');
-                }
-                return classBuild.join(' ');
-            }
-
-            /**
-             * Set the actual value and remove any reference
-             * @param value
-             */
-            function setActualValue(value) {
-                cachedReference = null;
-                delete variableData.reference;
+            function setValue(value) {
                 variableData.value = value;
             }
 
-            /**
-             * Set the reference and remove any value
-             * @param reference
-             */
-            function setReference(reference) {
-                cachedReference = null;
-                delete variableData.value;
-                variableData.reference = reference;
+            function getName(){
+                return variableData.name;
             }
 
-            /**
-             * @return {boolean}
-             */
-            function isReference() {
-                return variableData.reference !== undefined && variableData.reference !== null;
+            function getReferenceVariable() {
+                if (inputOutput === INPUT){
+                    return lookupPreviouslyDeclaredVariable(parent, getValue());
+                } else if (inputOutput === OUTPUT){
+                    return lookupLaterReferencedVariable(parent, getName());
+                }
             }
 
-            /**
-             * @return {boolean}
-             */
-            function isValue() {
-                return variableData.value !== undefined && variableData.value !== null;
+            function isLinked() {
+                return getReferenceVariable() !== null;
             }
         }
 

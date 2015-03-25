@@ -33,13 +33,6 @@ angular.module('finqApp.writer.directive')
 
 
                 if (itemId.indexOf('step') !== -1) {
-                    // step
-                    variableScopes.push({
-                        title: 'Scenario attribute values',
-                        addable: true,
-                        variables: item.getParent().getInputVariables()
-                    });
-
                     variableScopes.push({
                         title: 'Step input values',
                         addable: false,
@@ -49,26 +42,6 @@ angular.module('finqApp.writer.directive')
                     variableScopes.push({
                         title: 'Step output values',
                         addable: false,
-                        variables: item.getOutputVariables()
-                    });
-
-
-                    variableScopes.push({
-                        title: 'Scenario output values',
-                        addable: true,
-                        variables: item.getParent().getOutputVariables()
-                    });
-                } else {
-                    // Scenario
-                    variableScopes.push({
-                        title: 'Scenario input values',
-                        addable: true,
-                        variables: item.getInputVariables()
-                    });
-
-                    variableScopes.push({
-                        title: 'Scenario output values',
-                        addable: true,
                         variables: item.getOutputVariables()
                     });
                 }
