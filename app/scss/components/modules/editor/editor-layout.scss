@@ -1,0 +1,23 @@
+div.editor-content {
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    > div {
+        overflow: hidden;
+
+    }
+
+    .title, .title span {
+        max-width: 100%;
+    }
+
+    .scenario-content-list {
+        min-height: 1em;
+    }
+}
+
+div.layout > .has-aside {
+    margin-right: 19em;
+}
