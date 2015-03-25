@@ -248,7 +248,7 @@ angular.module('finqApp.writer.service')
 
                 for (var i = 0; i < inputVariables.length; i++) {
                     var inputVariable = inputVariables[i];
-                    if (!inputVariable.isLinked()) {
+                    if (inputVariable.isReference() && !inputVariable.isLinked()) {
                         return true;
                     }
                 }
@@ -268,6 +268,7 @@ angular.module('finqApp.writer.service')
             variableData.setValue = setValue;
             variableData.getReferenceVariable = getReferenceVariable;
             variableData.isLinked = isLinked;
+            variableData.isReference = isReference;
 
             function getValue() {
                 return variableData.value;
@@ -291,6 +292,14 @@ angular.module('finqApp.writer.service')
 
             function isLinked() {
                 return getReferenceVariable() !== null;
+            }
+
+            function isReference() {
+                if (inputOutput === INPUT){
+                    return getValue().indexOf('$') === 0;
+                } else if (inputOutput === OUTPUT){
+                    return false;
+                }
             }
         }
 

@@ -22,7 +22,7 @@ describe('Unit: Scenario view directive', function () {
     }));
 
     it('should be able to give step values', function(){
-        expect(scenario1.steps[1].getInputVariables()[1].getValue()).to.equal('customerId');
+        expect(scenario1.steps[1].getInputVariables()[1].getValue()).to.equal('$customerId');
         expect(scenario1.steps[1].getInputVariables()[0].getValue()).to.equal('foo');
     });
 
@@ -94,6 +94,11 @@ describe('Unit: Scenario view directive', function () {
     it('should get all child variables', function(){
         var outputVariables = scenario1.getAvailableOutputVariables();
         expect(outputVariables.length).to.equal(2);
+    });
+
+    it('should identify variables as references', function(){
+        expect(scenario1.steps[1].getInputVariables()[1].isReference()).to.be.true();
+        expect(scenario1.steps[1].getInputVariables()[0].isReference()).to.be.false();
     });
 
 

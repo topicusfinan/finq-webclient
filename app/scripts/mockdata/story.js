@@ -174,7 +174,7 @@ angular.module('finqApp.mock')
                                             input: [],
                                             output: [
                                                 {
-                                                    name: 'customerId'
+                                                    name: '$customerId'
                                                 }
                                             ]
                                         },
@@ -193,23 +193,23 @@ angular.module('finqApp.mock')
                                                 },
                                                 {
                                                     name: 'customerId',
-                                                    value: 'customerId'
+                                                    value: '$customerId'
                                                 },
                                                 {
                                                     name: 'productId',
-                                                    value: 'productId'
+                                                    value: '$productId'
                                                 },
                                                 {
                                                     name: 'basketId',
-                                                    value: 'basketId'
+                                                    value: '$basketId'
                                                 }
                                             ],
                                             output: [
                                                 {
-                                                    name: 'success'
+                                                    name: '$success'
                                                 },
                                                 {
-                                                    name: 'customerId'
+                                                    name: '$customerId'
                                                 }
                                             ]
                                         }
@@ -222,12 +222,12 @@ angular.module('finqApp.mock')
                                             input: [
                                                 {
                                                     name: 'customerId',
-                                                    value: 'customerId'
+                                                    value: '$customerId'
                                                 }
                                             ],
                                             output: [
                                                 {
-                                                    name: 'customerId'
+                                                    name: '$customerId'
                                                 }
                                             ]
                                         }
