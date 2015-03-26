@@ -147,15 +147,21 @@
     "WRITER" : {
         "TITLE" : "Write",
         "STORIES" : {
-            "TITLE" : "Stories",
-            "BEFORE_NEW_TITLE" : "Create a new story named",
-            "LIST" : {
-                "PROLOGUE" : "Prologue",
-                "SCENARIOS" : "Scenarios",
+            "TITLE": "Stories",
+            "BEFORE_NEW_TITLE": "Create a new story named",
+            "LIST": {
+                "PROLOGUE": "Prologue",
+                "SCENARIOS": "Scenarios",
                 "EPILOGUE": "Epilogue"
             },
-            "SCENARIOS" : {
-                "DELETE" : "Delete"
+            "SCENARIOS": {
+                "DELETE": "Delete"
+            },
+            "MODAL" : {
+                "INPUT_TITLE": "Input mapping for",
+                "INPUT_DESCRIPTION": "Set a value by either supplying a reference to a scenario attribute or by specifying a particular value. <br>Reference a scenario attribute using $attribute",
+                "OUTPUT_TITLE": "Output mapping for",
+                "OUTPUT_DESCRIPTION": "Set a attribute variable name to map to. You cannot use a variable name that has already been used in the scope of this scenario. <br>Keep this empty to unmap."
             }
         },
         "STEPS" : {

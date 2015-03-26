@@ -1,0 +1,36 @@
+<div class="modal-window">
+    <div class="title">{{variableModalCtrl.title}}</div>
+    <div class="simple-text-input" ng-show="variableModalCtr.simple">
+        <input type="text">
+    </div>
+    <div class="table-text-input" ng-hide="variableModalCtr.simple">
+        <form>
+            <ul class="tabs">
+                <li ng-repeat="tab in variableModalCtrl.tabs" ng-click="variableModalCtrl.visibleTab = $index">
+                    {{$index + 1}}
+                <li ng-click="variableModalCtrl.addTab()">+
+            </ul>
+
+            <ul class="tab-content">
+                <li ng-repeat="tab in variableModalCtrl.tabs" ng-show="variableModalCtrl.visibleTab === $index">
+                    <label ng-repeat="field in tab">{{field.name}}
+                        <input type="text" ng-model="field.value">
+                    </label>
+                </li>
+            </ul>
+        </form>
+
+    </div>
+    <p class="description">
+        {{variableModalCtrl.description}}
+    </p>
+
+    <div class="actions">
+        <button ng-show="variableModalCtrl.simple === false && variableModalCtrl.tabs.length !== 0"
+                ng-click="variableModalCtrl.removeTab(variableModalCtrl.visibleTab)"><i
+            class="fa fa-trash-o"></i>Delete
+        </button>
+        <button><i class="fa fa-times"></i>Cancel</button>
+        <button><i class="fa fa-check"></i>Apply</button>
+    </div>
+</div>

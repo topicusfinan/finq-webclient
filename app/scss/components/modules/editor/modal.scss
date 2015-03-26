@@ -1,0 +1,49 @@
+.modal-wrapper {
+    position: fixed;
+    z-index: 11000;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-color: rgba(black, 0.5);
+
+    .modal-window {
+        position: absolute;
+        top: 0; left: 0; bottom: 0; right: 0;
+        width: 600px;
+        height: 400px;
+        margin: auto;
+        background-color: white;
+        opacity: 100;
+        padding: 1em;
+    }
+
+    div, p, ul  {
+        float: left;
+    }
+
+    .title, .description, .table-text-input, .tab-content, .tabs {
+        width: 100%;
+    }
+
+    ul.tabs {
+        height: 1.6em;
+        li {
+            float:left;
+            width: 2em;
+            text-align: center;
+            border: 1px solid black;
+            border-right-width: 0;
+            border-bottom-width: 0;
+            cursor: pointer;
+        }
+        li:last-child {
+            border: 1px solid black;
+            border-bottom-width: 0;
+        }
+    }
+
+    ul.tab-content {
+        border: 0 solid black;
+        border-top-width: 1px;
+    }
+
+
+}
