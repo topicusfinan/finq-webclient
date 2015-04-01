@@ -9,6 +9,9 @@ $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
 
 $full-title-size-bp-1:            new-breakpoint(max-width 94em);
 
+$full-list-item-title-size-bp-1:  new-breakpoint(max-width 87em);
+$full-list-item-title-size-bp-2:  new-breakpoint(max-width 65em);
+
 
 @include media($full-menu-min-size-bp) {
     div.layout {
@@ -126,5 +129,19 @@ $full-title-size-bp-1:            new-breakpoint(max-width 94em);
     .top-filter .title > span.verbose {
         width: 0;
         opacity: 0;
+    }
+}
+
+@include media($full-list-item-title-size-bp-1) {
+
+    .main-content-list li.cl > div > div.title {
+        max-width: 80%;
+    }
+}
+
+@include media($full-list-item-title-size-bp-2) {
+
+    .main-content-list li.cl > div > div.title {
+        max-width: 70%;
     }
 }

@@ -1,5 +1,5 @@
 <div class="sb-header">
-    <i class="fa" ng-class="{'fa-search-minus': isShown(), 'inactive fa-search-plus': !story.isShown()}" ng-click="toggleExpand()"></i>
+    <i class="fa" ng-class="{'fa-search-minus': isShown(), 'inactive fa-search-plus': !story.isShown()}" ng-click="$parent.toggleExpand()"></i>
     <span>Story details</span>
 </div>
 <div class="variable-view">
@@ -36,6 +36,5 @@
                 </li>
             </ul>
         </div>
-
     </div>
 </div>

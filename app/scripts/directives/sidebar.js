@@ -13,34 +13,43 @@ angular.module('finqApp.directive')
                 scope.$watch(scope.watchData, function () {
                     scope.update(element);
                 });
-
-                if (scope.expand) {
-                    element.addClass('expand');
-                }
             },
             controller: 'sidebarCtrl'
         };
     })
-    .controller('sidebarCtrl', function ($scope, sidebar, $compile, $element) {
+    .controller('sidebarCtrl', function ($scope, sidebar, $compile, $element, STATE) {
         $scope.watchData = watchData;
         $scope.update = reinitialize;
         $scope.toggleExpand = toggleExpand;
-        $scope.isShown = sidebar.getVisible;
+
+        if ($scope.expand) {
+            sidebar.expand();
+        } else {
+            sidebar.collapse();
+        }
 
         function watchData() {
             return sidebar.getDirective();
         }
 
         function toggleExpand() {
-            $element.toggleClass('expand');
+            switch (sidebar.getStatus()) {
+                case STATE.SIDEBAR.COLLAPSED:
+                    sidebar.expand();
+                    break;
+                case STATE.SIDEBAR.EXPANDED:
+                    sidebar.collapse();
+                    break;
+                default: break;
+            }
         }
 
         function reinitialize(element) {
             element.empty();
-            if (!sidebar.hasSidebar()) {
+            if (sidebar.getStatus() === STATE.SIDEBAR.HIDDEN) {
                 return;
             }
-            var sidebarObject = sidebar.getSidebar($scope);
+            var sidebarObject = sidebar.get($scope);
 
             element.append($compile(sidebarObject.template)(sidebarObject.scope));
         }
