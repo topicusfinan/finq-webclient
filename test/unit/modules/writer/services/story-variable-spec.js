@@ -22,8 +22,8 @@ describe('Unit: Scenario view directive', function () {
     }));
 
     it('should be able to give step values', function(){
-        expect(scenario1.steps[1].getInputVariables()[1].getValue()).to.equal('$customerId');
-        expect(scenario1.steps[1].getInputVariables()[0].getValue()).to.equal('foo');
+        expect(scenario1.steps[1].getInputVariables()[1].getSetValue()).to.equal('$customerId');
+        expect(scenario1.steps[1].getInputVariables()[0].getSetValue()).to.equal('foo');
     });
 
     it('should be able to register methods to a variable if it has been added later', function(){
@@ -33,7 +33,7 @@ describe('Unit: Scenario view directive', function () {
         };
         storyVariable.setupVariable(newVariable);
         arrayOperations.insertItem(scenario1.steps[1].getInputVariables(), 1, newVariable);
-        expect(scenario1.steps[1].getInputVariables()[1].getValue()).to.not.be.undefined();
+        expect(scenario1.steps[1].getInputVariables()[1].getSetValue()).to.not.be.undefined();
     });
     //
     it('should be able to register methods to a node if it has been added later', function(){
@@ -56,7 +56,7 @@ describe('Unit: Scenario view directive', function () {
             value: 'testVariable'
         };
         scenario1.steps[1].addInputVariable(newVariable);
-        expect(scenario1.steps[1].getInputVariables()[4].getValue()).to.equal('testVariable');
+        expect(scenario1.steps[1].getInputVariables()[4].getSetValue()).to.equal('testVariable');
     });
 
     it('should mark fully resolved steps as complete', function(){

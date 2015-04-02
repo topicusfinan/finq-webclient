@@ -29,7 +29,7 @@ angular.module('finqApp.writer.service')
                 var outputVariables = node.getOutputVariables();
                 for (i = 0; i < outputVariables.length; i++) {
                     var outputVariable = outputVariables[i];
-                    if (outputVariable.getName() === name) {
+                    if (outputVariable.getSetName() === name) {
                         return outputVariable;
                     }
                 }
@@ -71,7 +71,7 @@ angular.module('finqApp.writer.service')
                 var inputVariables = node.getInputVariables();
                 for (i = 0; i < inputVariables.length; i++) {
                     var inputVariable = inputVariables[i];
-                    if (inputVariable.getValue() === name) {
+                    if (inputVariable.getSetValue() === name) {
                         return inputVariable;
                     }
                 }
@@ -121,7 +121,7 @@ angular.module('finqApp.writer.service')
                 for (var i = 0; i < toMerge.length; i++) {
                     var updated = false;
                     for (var j = 0; j < arrayLength; j++) {
-                        if (toMerge[i].getName() === array[j].getName()) {
+                        if (toMerge[i].getSetName() === array[j].getSetName()) {
                             array[j] = toMerge[i];
                             updated = true;
                             break;
@@ -263,30 +263,33 @@ angular.module('finqApp.writer.service')
          * @param inputOutput Whether a variable is input or output
          */
         function setupVariable(variableData, parent, inputOutput) {
-            variableData.getValue = getValue;
-            variableData.getName = getName;
-            variableData.setValue = setValue;
             variableData.getReferenceVariable = getReferenceVariable;
             variableData.isLinked = isLinked;
             variableData.isReference = isReference;
+            variableData.isTable = isTable;
+            variableData.getSetName = getSetName;
+            variableData.getSetValue = getSetValue;
 
-            function getValue() {
-                return variableData.value;
-            }
 
-            function setValue(value) {
+            function getSetValue(value){
+                if (value === undefined){
+                    return variableData.value;
+                }
                 variableData.value = value;
             }
 
-            function getName(){
-                return variableData.name;
+            function getSetName(name){
+                if (name === undefined){
+                    return variableData.name;
+                }
+                variableData.name = name;
             }
 
             function getReferenceVariable() {
                 if (inputOutput === INPUT){
-                    return lookupPreviouslyDeclaredVariable(parent, getValue());
+                    return lookupPreviouslyDeclaredVariable(parent, getSetValue());
                 } else if (inputOutput === OUTPUT){
-                    return lookupLaterReferencedVariable(parent, getName());
+                    return lookupLaterReferencedVariable(parent, getSetName());
                 }
             }
 
@@ -294,11 +297,15 @@ angular.module('finqApp.writer.service')
                 return getReferenceVariable() !== null;
             }
 
+            function isTable(){
+                return variableData.table !== undefined;
+            }
+
             function isReference() {
-                if (inputOutput === INPUT){
-                    return getValue().indexOf('$') === 0;
-                } else if (inputOutput === OUTPUT){
+                if (isTable() || inputOutput === OUTPUT){
                     return false;
+                } else if (inputOutput === INPUT){
+                    return getSetValue().indexOf('$') === 0;
                 }
             }
         }

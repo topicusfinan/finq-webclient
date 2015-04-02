@@ -14,13 +14,13 @@
         </div>
         <div class="variables">
             <ul>
-                <li ng-class="{undefined: variable.value === undefined}" ng-repeat="variable in variableScope.variables">
-                    <div class="variable" ng-class="['var' + variable.getValue(), variable.getVariableClass()]">
+                <li ng-class="{undefined: variable.getSetValue() === undefined}" ng-repeat="variable in variableScope.variables">
+                    <div class="variable" ng-class="['var' + variable.getSetValue(), variable.getVariableClass()]">
                         <div class="title">
-                            <span>{{variable.getName()}}</span>
+                            <span ng-click="scenarioVariablesView.editVariable(variable)">{{variable.getSetName()}}</span>
                         </div>
                         <div class="value">
-                            <span>{{variable.getValue()}}</span>
+                            <span>{{variable.getSetValue()}}</span>
                         </div>
                         <div class="status">
                             <i class="fa fa-chain"

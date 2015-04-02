@@ -13,9 +13,10 @@ angular.module('finqApp.writer.directive')
             controllerAs: 'scenarioVariablesView'
         };
     })
-    .controller('ScenarioVariablesViewCtrl', function ($scope, selectedItem) {
+    .controller('ScenarioVariablesViewCtrl', function ($scope, selectedItem, variableModal) {
         $scope.scenarioVariablesView = {
-            variableScopes: []
+            variableScopes: [],
+            editVariable: editVariable
         };
 
         $scope.$watch(function () {
@@ -24,6 +25,10 @@ angular.module('finqApp.writer.directive')
             function (item) {
                 update(item);
             });
+
+        function editVariable(variable){
+            variableModal.showModalForVariable(variable);
+        }
 
         function update(itemId) {
             var item = selectedItem.getSelectedItem();

@@ -1,18 +1,20 @@
 <div class="modal-window">
     <div class="title">{{variableModalCtrl.title}}</div>
-    <div class="simple-text-input" ng-show="variableModalCtr.simple">
-        <input type="text">
+    <div class="simple-text-input" ng-show="variableModalCtrl.simple">
+        <label>{{variableModalCtrl.variable.getSetName()}}
+            <input type="text" ng-model="variableModalCtrl.variable.getSetValue" ng-model-options="{ getterSetter: true }" >
+        </label>
     </div>
-    <div class="table-text-input" ng-hide="variableModalCtr.simple">
+    <div class="table-text-input" ng-hide="variableModalCtrl.simple">
         <form>
             <ul class="tabs">
-                <li ng-repeat="tab in variableModalCtrl.tabs" ng-click="variableModalCtrl.visibleTab = $index">
+                <li ng-repeat="tab in variableModalCtrl.tabs | filter:variableModalCtrl.ignoreUndefined" ng-click="variableModalCtrl.visibleTab = $index" ng-class="{selected: variableModalCtrl.visibleTab === $index}">
                     {{$index + 1}}
                 <li ng-click="variableModalCtrl.addTab()">+
             </ul>
 
             <ul class="tab-content">
-                <li ng-repeat="tab in variableModalCtrl.tabs" ng-show="variableModalCtrl.visibleTab === $index">
+                <li ng-repeat="tab in variableModalCtrl.tabs | filter:variableModalCtrl.ignoreUndefined" ng-show="variableModalCtrl.visibleTab === $index">
                     <label ng-repeat="field in tab">{{field.name}}
                         <input type="text" ng-model="field.value">
                     </label>
@@ -30,7 +32,7 @@
                 ng-click="variableModalCtrl.removeTab(variableModalCtrl.visibleTab)"><i
             class="fa fa-trash-o"></i>Delete
         </button>
-        <button><i class="fa fa-times"></i>Cancel</button>
-        <button><i class="fa fa-check"></i>Apply</button>
+        <button ng-click="variableModalCtrl.close()"><i class="fa fa-times"></i>Cancel</button>
+        <button ng-click="variableModalCtrl.apply()"><i class="fa fa-check"></i>Apply</button>
     </div>
 </div>

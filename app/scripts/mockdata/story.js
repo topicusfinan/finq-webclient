@@ -159,7 +159,47 @@ angular.module('finqApp.mock')
                                         id: 641541,
                                         title: 'then the basket with id $basketId should be empty',
                                         template: null,
-                                        variables: {input: [], output: []}
+                                        variables: {
+                                            input: [
+                                                {
+                                                    name: 'table',
+                                                    table: {
+                                                        tableHeader: [
+                                                            {
+                                                                name: 'foo',
+                                                                value: ''
+                                                            },
+                                                            {
+                                                                name: 'bar',
+                                                                value: ''
+                                                            }
+                                                        ],
+                                                        tableData: [
+                                                            [
+                                                                {
+                                                                    name: 'foo',
+                                                                    value: 'test1'
+                                                                },
+                                                                {
+                                                                    name: 'bar',
+                                                                    value: 'blaat1'
+                                                                }
+                                                            ],
+                                                            [
+                                                                {
+                                                                    name: 'foo',
+                                                                    value: 'test1'
+                                                                },
+                                                                {
+                                                                    name: 'bar',
+                                                                    value: 'blaat1'
+                                                                }
+                                                            ]
+                                                        ]
+                                                    }
+                                                }
+                                            ], output: []
+                                        }
                                     }
                                 ]
                             },

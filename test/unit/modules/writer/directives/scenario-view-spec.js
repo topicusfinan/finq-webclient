@@ -33,7 +33,7 @@ describe('Unit: Scenario view directive', function () {
     beforeEach(inject(function ($rootScope, $compile) {
         var template = angular.element('<scenario-view scenarios="scenarios" ></div>');
 
-        scope = $rootScope;
+        scope = $rootScope.$new();
         scope.scenarios = scenarios;
 
         $compile(template)(scope);
