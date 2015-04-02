@@ -9,11 +9,15 @@
  * Handles the layout logic.
  */
 angular.module('finqApp.controller')
-    .controller('LayoutCtrl', function ($timeout, sidebar) {
+    .controller('LayoutCtrl', function ($timeout, sidebar, STATE) {
         var that = this;
 
         this.hasSidebar = function(){
-            return sidebar.hasSidebar();
+            return sidebar.getStatus() !== STATE.SIDEBAR.HIDDEN;
+        };
+
+        this.sidebarIsExpanded = function() {
+            return sidebar.getStatus() === STATE.SIDEBAR.EXPANDED;
         };
 
         // delay the loaded indication to allow for appear effects
