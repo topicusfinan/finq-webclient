@@ -11,7 +11,7 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoryCtrl',
-    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable, module, MODULES) {
+    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable, module, MODULES, STATE) {
         var that = this;
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
@@ -45,10 +45,21 @@ angular.module('finqApp.writer.controller')
             }
         });
 
+        this.toggleSidebar = function() {
+            switch (sidebar.getStatus()) {
+                case STATE.SIDEBAR.COLLAPSED:
+                    sidebar.expand();
+                    break;
+                case STATE.SIDEBAR.EXPANDED:
+                    sidebar.collapse();
+                    break;
+                default: break;
+            }
+        };
 
-
-        this.toggleVisible = sidebar.toggleVisible;
-        this.hasVisibleSidebar = sidebar.hasVisibleSidebar;
+        this.sidebarIsExpanded = function() {
+            return sidebar.getStatus() === STATE.SIDEBAR.EXPANDED;
+        };
 
         var foundStory = story.findStoryById(parseInt($routeParams.storyId));
         if (foundStory === null) {
@@ -91,16 +102,16 @@ angular.module('finqApp.writer.controller')
         });
         stepsBloodhound.initialize();
 
-        that.stepsDataset = {
+        this.stepsDataset = {
             displayKey: 'template',
             source: stepsBloodhound.ttAdapter()
         };
 
-        that.typeAheadOptions = {
+        this.typeAheadOptions = {
             highlight: true
         };
 
-        that.isString = angular.isString;
+        this.isString = angular.isString;
 
 
         step.list().then(function (steps) {

@@ -20,7 +20,6 @@ angular.module('finqApp.directive')
     .controller('sidebarCtrl', function ($scope, sidebar, $compile, $element, STATE) {
         $scope.watchData = watchData;
         $scope.update = reinitialize;
-        $scope.toggleExpand = toggleExpand;
 
         if ($scope.expand) {
             sidebar.expand();
@@ -30,18 +29,6 @@ angular.module('finqApp.directive')
 
         function watchData() {
             return sidebar.getDirective();
-        }
-
-        function toggleExpand() {
-            switch (sidebar.getStatus()) {
-                case STATE.SIDEBAR.COLLAPSED:
-                    sidebar.expand();
-                    break;
-                case STATE.SIDEBAR.EXPANDED:
-                    sidebar.collapse();
-                    break;
-                default: break;
-            }
         }
 
         function reinitialize(element) {

@@ -55,7 +55,4 @@ angular.module('finqApp.writer.directive')
             $scope.scenarioVariablesView.variableScopes = variableScopes;
         }
 
-        console.log($scope);
-
-
     });

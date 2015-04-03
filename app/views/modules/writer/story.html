@@ -1,14 +1,17 @@
-<div class="top-filter ic selectable fixed" ng-class="{'active':story.selectedItem.isItemSelected(null)}" ng-click="story.selectedItem.setSelectedItem(null)">
+<div class="top-filter ic fixed active">
     <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}" ng-click="story.list()"></i>
     <div class="title">
         <span class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
         <input type="text" ng-model="story.title">
     </div>
+    <div class="actions">
+        <i class="fa" ng-class="{'fa-search-minus': story.sidebarIsExpanded(), 'inactive fa-search-plus': !story.sidebarIsExpanded()}" ng-click="story.toggleSidebar()"></i>
+    </div>
 </div>
 <div class="editor-content">
     <ul id="main-content-list" story-collapse class="main-content-list">
         <li class="cl list-animate">
-            <div ng-class="{'active':story.selectedItem.isItemSelected({id:0})}">
+            <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:0})}" ng-click="story.selectedItem.setSelectedItem(null)">
                 <div class="title">
                     <span class="separate" translate="WRITER.STORIES.LIST.PROLOGUE"></span>
                 </div>
@@ -16,7 +19,7 @@
             <scenario-view scenarios="story.prologue" class="ic cl list-animate"></scenario-view>
         </li>
         <li class="cl list-animate">
-            <div ng-class="{'active':story.selectedItem.isItemSelected({id:1})}">
+            <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:1})}" ng-click="story.selectedItem.setSelectedItem(null)">
                 <div class="title">
                     <span class="separate" translate="WRITER.STORIES.LIST.SCENARIOS"></span>
                 </div>
@@ -24,7 +27,7 @@
             <scenario-view scenarios="story.scenarios" class="ic cl list-animate"></scenario-view>
         </li>
         <li class="cl list-animate">
-            <div ng-class="{'active':story.selectedItem.isItemSelected({id:2})}">
+            <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:2})}" ng-click="story.selectedItem.setSelectedItem(null)">
                 <div class="title">
                     <span class="separate" translate="WRITER.STORIES.LIST.EPILOGUE"></span>
                 </div>
