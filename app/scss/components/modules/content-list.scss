@@ -316,6 +316,13 @@
                                 left: -$section-list-icon-left-invert * $content-list-item-2-icon-left;
                             }
 
+                            > i.handle {
+                                font-size: 1.5em;
+                                top: .4em;
+                                color: $content-list-handle-color;
+                                left: -1.9em;
+                            }
+
                             > span.editable {
                                 padding-right: $section-list-input-padding * 2;
                             }
@@ -329,6 +336,13 @@
                     > div.title > i {
                         font-size: $content-list-item-2-icon-size;
                         top: $content-list-item-2-icon-top;
+
+                        &.handle {
+                            font-size: 1.5em;
+                            top: .5em;
+                            color: $content-list-handle-color;
+                            left: .45em;
+                        }
 
                         &.expand:after {
 

@@ -2,7 +2,8 @@
     <li class="ic cl" ng-repeat="scenario in scenarios track by scenario.id">
         <div class="selectable" ng-class="{'active':selectedItem.isItemSelected(scenario)}" ng-click="selectedItem.setSelectedItem(scenario)">
             <div class="title editable">
-                <i class="fa expand handle" data-toggle="story"></i>
+                <i class="fa fa-ellipsis-v handle"></i>
+                <i class="fa expand" data-toggle="story"></i>
                 <span class="separate editable">{{scenario.title}}</span>
                 <input type="text" ng-model="scenario.title">
             </div>
@@ -17,7 +18,7 @@
             <li class="ic cl" ng-repeat="step in scenario.steps">
                 <div class="selectable" ng-class="{'active': selectedItem.isItemSelected(step)}" ng-click="selectedItem.setSelectedItem(step);">
                     <div class="title">
-                        <i class="fa fa-bars scenario-handle"></i>
+                        <i class="fa fa-ellipsis-v handle"></i>
                         <span>{{::step.title}}</span>
                     </div>
                     <div class="actions">

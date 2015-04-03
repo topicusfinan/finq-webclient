@@ -225,5 +225,5 @@ input.ng-invalid {
 }
 
 .sidebar {
-    @include transition(width ease-in $sidebar-toggle-speed);
+    //@include transition(width ease-in $sidebar-toggle-speed);
 }
