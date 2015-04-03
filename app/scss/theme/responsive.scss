@@ -7,7 +7,7 @@ $full-menu-max-size:              17em;
 $full-filter-size-bp-1-no-act:    new-breakpoint(max-width 54em);
 $full-filter-size-bp-2:           new-breakpoint(max-width 94em);
 
-$full-title-size-bp-1:            new-breakpoint(max-width 94em);
+$full-title-size-bp-1:            new-breakpoint(max-width 87em);
 
 $full-list-item-title-size-bp-1:  new-breakpoint(max-width 87em);
 $full-list-item-title-size-bp-2:  new-breakpoint(max-width 65em);
@@ -26,6 +26,9 @@ $full-list-item-title-size-bp-2:  new-breakpoint(max-width 65em);
 
         > .main {
             margin-left: $full-menu-min-size;
+            > .top-filter.fixed {
+                left: $full-menu-min-size;
+            }
         }
 
         > footer.feedback {
@@ -47,6 +50,9 @@ $full-list-item-title-size-bp-2:  new-breakpoint(max-width 65em);
 
         > .main {
             margin-left: $full-menu-max-size;
+            > .top-filter.fixed {
+                left: $full-menu-max-size;
+            }
         }
 
         > footer.feedback {

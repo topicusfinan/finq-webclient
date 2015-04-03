@@ -220,6 +220,10 @@ input.ng-invalid {
     }
 }
 
-.main, .sidebar {
-    @include transition(all ease-in $sidebar-toggle-speed);
+.main {
+    @include transition(margin-right ease-in $sidebar-toggle-speed);
+}
+
+.sidebar {
+    @include transition(width ease-in $sidebar-toggle-speed);
 }

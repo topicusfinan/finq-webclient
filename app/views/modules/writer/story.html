@@ -1,5 +1,4 @@
-<div class="top-filter ic selectable"
-     ng-class="{'active':story.selectedItem.isItemSelected(null)}" ng-click="story.selectedItem.setSelectedItem(null)">
+<div class="top-filter ic selectable fixed" ng-class="{'active':story.selectedItem.isItemSelected(null)}" ng-click="story.selectedItem.setSelectedItem(null)">
     <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}" ng-click="story.list()"></i>
     <div class="title">
         <span class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>

@@ -11,6 +11,14 @@
         padding-left: $section-list-icon-text-pad;
     }
 
+    &.fixed {
+        position: fixed;
+        top: 4em;
+        z-index: 1;
+        right: 0;
+        left: $menu-size;
+    }
+
     > .filters {
         float: left;
     }
