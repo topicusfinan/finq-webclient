@@ -5,7 +5,7 @@
  */
 angular.module('finqApp.runner.service')
     .service('sidebar', function ($rootScope,STATE) {
-        var directive, expanded = false;
+        var directive = null, expanded = false;
 
         this.setDirective = setDirective;
         this.getStatus = getStatus;
