@@ -1,5 +1,6 @@
 $view-animate-hide-speed: .7s;
 $view-animate-show-speed: 1s;
+$sidebar-toggle-speed: .18s;
 $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
 div.layout {
@@ -217,4 +218,12 @@ input.ng-invalid {
     > li.cl > ul li.cl.expand > ul {
         max-height: 1000px;
     }
+}
+
+.editor-content {
+    @include transition(margin-right ease-in $sidebar-toggle-speed);
+}
+
+.sidebar {
+    @include transition(width ease-in $sidebar-toggle-speed);
 }

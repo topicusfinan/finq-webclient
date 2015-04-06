@@ -29,6 +29,13 @@
             color: $section-header-color;
             margin-top: $content-list-item-spacing;
 
+            &.selectable:hover,
+            .active {
+                > div.title {
+                    max-width: 85%;
+                }
+            }
+
             &.selectable:hover {
                 cursor: pointer;
                 background: $hover-bg-color;
@@ -49,7 +56,6 @@
 
             > div.title {
                 float: left;
-                max-width: 85%;
 
                 &.editable {
                     position: relative;

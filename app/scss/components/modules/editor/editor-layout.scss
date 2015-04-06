@@ -1,6 +1,7 @@
 div.editor-content {
     height: 100%;
-    margin-top: 4em;
+    margin-top: $header-height;
+    margin-right: $sidebar-collapsed-width;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -16,10 +17,6 @@ div.editor-content {
     .scenario-content-list {
         min-height: 1em;
     }
-}
-
-div.layout > .has-sb {
-    margin-right: $sidebar-collapsed-width;
 
     &.sb-expand {
         margin-right: $sidebar-expanded-width;

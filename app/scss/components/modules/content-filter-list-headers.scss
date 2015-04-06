@@ -26,6 +26,15 @@
         background: $hover-bg-color;
     }
 
+    &.selectable:hover,
+    &.active {
+        .actions {
+            opacity: 1;
+            width: auto;
+            overflow: visible;
+        }
+    }
+
     &.active,
     &.active:hover {
         background: $base-accent-color;
@@ -38,12 +47,6 @@
             span {
                 color: $highlight-color;
             }
-        }
-
-        .actions {
-            opacity: 1;
-            width: auto;
-            overflow: visible;
         }
 
         .comments > span {

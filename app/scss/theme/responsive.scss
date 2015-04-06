@@ -140,14 +140,20 @@ $full-list-item-title-size-bp-2:  new-breakpoint(max-width 65em);
 
 @include media($full-list-item-title-size-bp-1) {
 
-    .main-content-list li.cl > div > div.title {
-        max-width: 80%;
+    .main-content-list li.cl > div.selectable:hover,
+    .main-content-list li.cl > div.active {
+        > div.title {
+            max-width: 80%;
+        }
     }
 }
 
 @include media($full-list-item-title-size-bp-2) {
 
-    .main-content-list li.cl > div > div.title {
-        max-width: 70%;
+    .main-content-list li.cl > div.selectable:hover,
+    .main-content-list li.cl > div.active {
+        > div.title {
+            max-width: 70%;
+        }
     }
 }
