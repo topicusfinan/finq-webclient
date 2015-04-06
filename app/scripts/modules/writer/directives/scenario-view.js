@@ -25,10 +25,6 @@ angular.module('finqApp.writer.directive')
             isItemSelected: selectedItem.isItemSelected
         };
 
-        $scope.mainListHandler = '.handle';
-        $scope.stepListHandler = '.scenario-handle';
-        $scope.scenarioContentListClass = '.scenario-content-list';
-
         function deleteItem(collection, index, deletedItem) {
             arrayOperations.removeItem(collection, index);
             if (selectedItem.isItemSelected(deletedItem)){
@@ -39,7 +35,5 @@ angular.module('finqApp.writer.directive')
         function isStepIncomplete(step) {
             return step.isIncomplete();
         }
-
-
 
     });

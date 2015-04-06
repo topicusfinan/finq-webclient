@@ -13,7 +13,7 @@ angular.module('finqApp.writer.directive')
             //},
             restrict: 'A',
             controller: 'SortableCtrl',
-            link: function (scope, element) {
+            link: function (scope, element, attrs) {
                 var jqElement = $(element);
 
                 var sortableObject = {
@@ -25,15 +25,17 @@ angular.module('finqApp.writer.directive')
                     }
                 };
 
-                if (scope.handle !== undefined) {
-                    sortableObject.handle = scope.handle;
+                scope.sortable = attrs.sortable;
+
+                if (attrs.handle !== undefined) {
+                    sortableObject.handle = attrs.handle;
                 }
 
                 jqElement.sortable(sortableObject);
 
                 scope.$parent.$parent.$on('finqApp.scope.sortableElementAdded', function () {
-                    if (scope.connectWith !== undefined) {
-                        jqElement.sortable('option', 'connectWith', $(scope.connectWith));
+                    if (attrs.connectWith !== undefined) {
+                        jqElement.sortable('option', 'connectWith', $(attrs.connectWith));
                     }
                 });
                 scope.$parent.$parent.$broadcast('finqApp.scope.sortableElementAdded');

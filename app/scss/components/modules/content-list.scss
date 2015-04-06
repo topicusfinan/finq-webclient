@@ -322,13 +322,6 @@
                                 left: -$section-list-icon-left-invert * $content-list-item-2-icon-left;
                             }
 
-                            > i.handle {
-                                font-size: 1.5em;
-                                top: .4em;
-                                color: $content-list-handle-color;
-                                left: -1.9em;
-                            }
-
                             > span.editable {
                                 padding-right: $section-list-input-padding * 2;
                             }
@@ -343,11 +336,22 @@
                         font-size: $content-list-item-2-icon-size;
                         top: $content-list-item-2-icon-top;
 
-                        &.handle {
+                        &.scenario-handle,
+                        &.step-handle {
                             font-size: 1.5em;
-                            top: .5em;
                             color: $content-list-handle-color;
-                            left: 1.5em;
+                        }
+
+                        &.scenario-handle {
+                            top: .4em;
+                            left: -2.2em;
+                            padding: 0 .3em;
+                        }
+
+                        &.step-handle {
+                            top: .5em;
+                            left: 1.2em;
+                            padding: 0 .3em;
                         }
 
                         &.expand:after {
