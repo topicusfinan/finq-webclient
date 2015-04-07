@@ -18,7 +18,8 @@ angular.module('finqApp')
             'SYNCHRONIZE_FILTER': 'finqApp.scope.synchronizeFilter',
             'FEEDBACK': 'finqApp.scope.feedback',
             'SECTION_NOTIFICATIONS_UPDATED': 'finqApp.scope.sectionNofificationsUpdated',
-            'MODULE_NOTIFICATIONS_UPDATED': 'finqApp.scope.moduleNotificationsUpdated'
+            'MODULE_NOTIFICATIONS_UPDATED': 'finqApp.scope.moduleNotificationsUpdated',
+            'SORTABLE_ELEMENT_ADDED': 'finqApp.scope.sortableElementAdded'
         },
         'INTERNAL': {
             'STORY_RUN_STARTED': 'finqApp.internal.storyRunStarted'

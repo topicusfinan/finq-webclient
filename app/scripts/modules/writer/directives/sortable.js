@@ -13,15 +13,20 @@ angular.module('finqApp.writer.directive')
             //},
             restrict: 'A',
             controller: 'SortableCtrl',
-            link: function (scope, element, attrs) {
+            link: function (scope, element, attrs, EVENTS) {
                 var jqElement = $(element);
 
                 var sortableObject = {
                     start: function (event, ui) {
-                        scope.sortableObjectStart(event, ui);
+                        scope.sortableObjectStart(event, ui, element);
+                        scope.setClasses(element, attrs.connectWith);
                     },
                     update: function (event, ui) {
                         scope.sortableObjectEnd(event, ui, element);
+                        scope.removeClasses(element, attrs.connectWith);
+                    },
+                    stop: function () {
+                        scope.removeClasses(element, attrs.connectWith);
                     }
                 };
 
@@ -33,22 +38,40 @@ angular.module('finqApp.writer.directive')
 
                 jqElement.sortable(sortableObject);
 
-                scope.$parent.$parent.$on('finqApp.scope.sortableElementAdded', function () {
+                scope.$parent.$parent.$on(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED, function () {
                     if (attrs.connectWith !== undefined) {
                         jqElement.sortable('option', 'connectWith', $(attrs.connectWith));
                     }
                 });
-                scope.$parent.$parent.$broadcast('finqApp.scope.sortableElementAdded');
+                scope.$parent.$parent.$broadcast(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED);
             }
         };
     })
     .controller('SortableCtrl', function ($scope, arrayOperations, $rootScope) {
         $scope.sortableObjectStart = sortableObjectStart;
         $scope.sortableObjectEnd = sortableObjectEnd;
+        $scope.removeClasses = removeClasses;
+        $scope.setClasses = setClasses;
 
         function sortableObjectStart(event, ui){
             var ngElementScope = angular.element(ui.item).scope();
             ngElementScope.start = ui.item.index();
+        }
+
+        function setClasses(element, connectWith) {
+            if (connectWith) {
+                $(connectWith).addClass('sorting');
+            } else {
+                element.addClass('sorting');
+            }
+        }
+
+        function removeClasses(element, connectWith) {
+            if (connectWith) {
+                $(connectWith).removeClass('sorting');
+            } else {
+                element.removeClass('sorting');
+            }
         }
 
         function sortableObjectEnd(event, ui, element){

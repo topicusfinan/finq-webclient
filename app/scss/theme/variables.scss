@@ -172,3 +172,7 @@ $tooltip-border-radius:                 .3em;
 // sidebar formatting
 $sidebar-expanded-width:                19em;
 $sidebar-collapsed-width:               3em;
+
+// editor formatting
+$editor-sort-active-border:             2px dashed;
+$editor-highlight-active-color:         lighten($yellow, 20%);

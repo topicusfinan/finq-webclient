@@ -16,9 +16,24 @@ div.editor-content {
 
     .scenario-content-list {
         min-height: 1em;
+
+        > li {
+            opacity: 0;
+        }
+    }
+
+    .expand .scenario-content-list {
+        > li {
+            opacity: 1;
+        }
     }
 
     &.sb-expand {
         margin-right: $sidebar-expanded-width;
+    }
+
+    .sorting {
+        border: $editor-sort-active-border;
+        background: $editor-highlight-active-color;
     }
 }
