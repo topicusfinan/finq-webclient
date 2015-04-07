@@ -138,6 +138,8 @@ $content-list-item-1-icon-top:          .4em;
 $content-list-item-1-icon-left:         1.25;
 $content-list-item-1-com-font-size:     $base-font-size;
 $content-list-item-1-com-color:         lighten($dark-gray, 25%);
+$content-list-item-action-icon-size:    modular-scale($base-font-size, 1, $minor-sixth);
+$content-list-item-action-icon-top:     .1em;
 
 $content-list-2-button-margin-top:      .27em;
 $content-list-2-select-margin-top:      .17em;

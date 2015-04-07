@@ -22,8 +22,8 @@
                         <span>{{::step.title}}</span>
                     </div>
                     <div class="actions">
-                        <i class="fa fa-exclamation-circle" ng-show="scenarioView.isStepIncomplete(step)"></i>
-                        <i class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index, step)"></i>
+                        <strong class="hint--left separate" data-hint="{{'WRITER.STORIES.SCENARIOS.PENDING' | translate}}"><i class="fa fa-exclamation-circle" ng-show="scenarioView.isStepIncomplete(step)"></i></strong>
+                        <strong class="hint--left" data-hint="{{'WRITER.STORIES.SCENARIOS.DELETE' | translate}}"><i class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index, step)"></i></strong>
                     </div>
                 </div>
             </li>

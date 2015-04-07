@@ -155,7 +155,8 @@
                 "EPILOGUE": "Epilogue"
             },
             "SCENARIOS": {
-                "DELETE": "Delete"
+                "DELETE": "Delete",
+                "INCOMPLETE": "Missing variables"
             },
             "MODAL" : {
                 "INPUT_TITLE": "Input mapping for",
