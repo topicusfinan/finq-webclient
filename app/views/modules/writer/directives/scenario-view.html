@@ -1,6 +1,6 @@
 <ul id="scenario-list" sortable="scenarios" handle=".scenario-handle">
     <li class="ic cl" ng-repeat="scenario in scenarios track by scenario.id">
-        <div class="selectable" ng-class="{'active':selectedItem.isItemSelected(scenario)}" ng-click="selectedItem.setSelectedItem(scenario)">
+        <div class="selectable quick" ng-class="{'active':selectedItem.isItemSelected(scenario)}" ng-click="selectedItem.setSelectedItem(scenario)">
             <div class="title editable">
                 <i class="fa fa-ellipsis-v scenario-handle"></i>
                 <i class="fa expand" data-toggle="story"></i>
@@ -16,7 +16,7 @@
         </div>
         <ul class="scenario-content-list" sortable="scenario.steps" handle=".step-handle" connect-with=".scenario-content-list">
             <li class="ic cl" ng-repeat="step in scenario.steps">
-                <div class="selectable" ng-class="{'active': selectedItem.isItemSelected(step)}" ng-click="selectedItem.setSelectedItem(step);">
+                <div class="selectable quick" ng-class="{'active': selectedItem.isItemSelected(step)}" ng-click="selectedItem.setSelectedItem(step);">
                     <div class="title">
                         <i class="fa fa-ellipsis-v step-handle"></i>
                         <span>{{::step.title}}</span>

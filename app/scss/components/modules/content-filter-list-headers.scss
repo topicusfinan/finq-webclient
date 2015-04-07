@@ -26,7 +26,7 @@
         background: $hover-bg-color;
     }
 
-    &.selectable:hover,
+    &.quick:hover,
     &.active {
         .actions {
             opacity: 1;

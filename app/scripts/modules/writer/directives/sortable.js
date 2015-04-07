@@ -4,7 +4,7 @@
  * Created by marc.fokkert on 10-3-2015.
  */
 angular.module('finqApp.writer.directive')
-    .directive('sortable', function () {
+    .directive('sortable', function (EVENTS) {
         return {
             //scope: {
             //    'sortable': '=', // collection to be modified
@@ -13,7 +13,7 @@ angular.module('finqApp.writer.directive')
             //},
             restrict: 'A',
             controller: 'SortableCtrl',
-            link: function (scope, element, attrs, EVENTS) {
+            link: function (scope, element, attrs) {
                 var jqElement = $(element);
 
                 var sortableObject = {
