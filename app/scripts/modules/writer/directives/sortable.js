@@ -25,7 +25,7 @@ angular.module('finqApp.writer.directive')
                     }
                 };
 
-                scope.sortable = attrs.sortable;
+                scope.sortable = scope[attrs.sortable];
 
                 if (attrs.handle !== undefined) {
                     sortableObject.handle = attrs.handle;
@@ -42,7 +42,7 @@ angular.module('finqApp.writer.directive')
             }
         };
     })
-    .controller('SortableCtrl', function ($scope, arrayOperations) {
+    .controller('SortableCtrl', function ($scope, arrayOperations, $rootScope) {
         $scope.sortableObjectStart = sortableObjectStart;
         $scope.sortableObjectEnd = sortableObjectEnd;
 
@@ -72,7 +72,7 @@ angular.module('finqApp.writer.directive')
                 ui.item.remove();
 
                 // This digest is needed to regenerate the element that was just removed
-                $scope.$parent.$digest();
+                $rootScope.$digest();
             }
 
             animatedElements.addClass('list-animate');
