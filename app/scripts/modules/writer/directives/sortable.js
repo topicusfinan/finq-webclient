@@ -1,16 +1,21 @@
 /*global $: false */
 'use strict';
 /**
- * Created by marc.fokkert on 10-3-2015.
+ * @ngdoc function
+ * @name finqApp.writer.directive:sortable
+ * @description
+ * # Sortable directive
+ *
+ * Wrapper for JQueryUI's sortable
+ * Uses the following scope values:
+ * *sortable*: Collection to be modified
+ * *connectWith*: Connect with selector
+ * *handle*: handle class selector
+ *
  */
 angular.module('finqApp.writer.directive')
     .directive('sortable', function (EVENTS) {
         return {
-            //scope: {
-            //    'sortable': '=', // collection to be modified
-            //    'connectWith': '=', // connect with selector
-            //    'handle': '=' // handle class selector
-            //},
             restrict: 'A',
             controller: 'SortableCtrl',
             link: function (scope, element, attrs) {
@@ -38,12 +43,12 @@ angular.module('finqApp.writer.directive')
 
                 jqElement.sortable(sortableObject);
 
-                scope.$parent.$parent.$on(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED, function () {
+                scope.$root.$on(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED, function () {
                     if (attrs.connectWith !== undefined) {
                         jqElement.sortable('option', 'connectWith', $(attrs.connectWith));
                     }
                 });
-                scope.$parent.$parent.$broadcast(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED);
+                scope.$root.$broadcast(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED);
             }
         };
     })
@@ -53,28 +58,26 @@ angular.module('finqApp.writer.directive')
         $scope.removeClasses = removeClasses;
         $scope.setClasses = setClasses;
 
-        function sortableObjectStart(event, ui){
+        function sortableObjectStart(event, ui) {
             var ngElementScope = angular.element(ui.item).scope();
             ngElementScope.start = ui.item.index();
         }
 
         function setClasses(element, connectWith) {
             if (connectWith) {
-                $(connectWith).addClass('sorting');
-            } else {
-                element.addClass('sorting');
+                element.parents().last().find(connectWith).addClass('sorting');
             }
+            element.addClass('sorting');
         }
 
         function removeClasses(element, connectWith) {
             if (connectWith) {
-                $(connectWith).removeClass('sorting');
-            } else {
-                element.removeClass('sorting');
+                element.parents().last().find(connectWith).removeClass('sorting');
             }
+            element.removeClass('sorting');
         }
 
-        function sortableObjectEnd(event, ui, element){
+        function sortableObjectEnd(event, ui, element) {
             var animatedElements = $(element).find('.list-animate');
             var movedOnParent = ui.item.parent().is(element) && ui.sender === null;
             var ngElementScope = angular.element(ui.item).scope();
