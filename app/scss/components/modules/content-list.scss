@@ -32,7 +32,7 @@
             &.selectable:hover,
             .active {
                 > div.title {
-                    max-width: 85%;
+                    max-width: calc(100% - 8em);
                 }
             }
 
