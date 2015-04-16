@@ -28,7 +28,7 @@ describe('Unit: Scenario view directive', function () {
         element = $compile(template)(scope);
         scope.$digest();
 
-        childScope = element.scope().$$childHead;
+        childScope = scope.$$childHead;
     }));
 
     it('should provide a helper function for isIncomplete', function(){

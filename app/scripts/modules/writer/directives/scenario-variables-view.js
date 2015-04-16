@@ -33,9 +33,6 @@ angular.module('finqApp.writer.directive')
             var item = selectedItem.getSelectedItem();
             var variableScopes = [];
             if (itemId !== null && item.getParent !== undefined) {
-                // TODO Fill scenario input values
-
-
                 if (itemId.indexOf('step') !== -1) {
                     variableScopes.push({
                         title: 'Step input values',
@@ -49,7 +46,6 @@ angular.module('finqApp.writer.directive')
                         variables: item.getOutputVariables()
                     });
                 }
-
             }
 
             $scope.scenarioVariablesView.variableScopes = variableScopes;
