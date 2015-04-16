@@ -20,10 +20,7 @@ angular.module('finqApp.writer.directive')
             isStepIncomplete: isStepIncomplete
         };
 
-        $scope.selectedItem = {
-            setSelectedItem: selectedItem.setSelectedItem,
-            isItemSelected: selectedItem.isItemSelected
-        };
+        $scope.selectedItem = selectedItem;
 
         function deleteItem(collection, index, deletedItem) {
             arrayOperations.removeItem(collection, index);

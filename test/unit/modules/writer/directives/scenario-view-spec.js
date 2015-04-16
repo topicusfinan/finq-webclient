@@ -7,51 +7,50 @@ describe('Unit: Scenario view directive', function () {
     beforeEach(module('finqApp'));
 
     var element, scope;
-    var span, input;
     var scenarios;
 
     var titleInput;
-
-    beforeEach(function () {
-        scenarios = [
-            {
-                id: 1,
-                title: "foo",
-                steps: [
-                    {
-                        title: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId',
-                        template: 'when the customer with id $customerId orders a new book with id $bookId resulting in a basket with id $basketId'
-                    }]
-
-            }
-        ];
-    });
+    var childScope;
 
     beforeEach(module('views/modules/writer/directives/scenario-view.html'));
 
+    beforeEach(inject(function (storyServiceMock) {
+        scenarios = [angular.copy(storyServiceMock.books[0].stories[0].scenarios[0])];
+    }));
 
-    beforeEach(inject(function ($rootScope, $compile) {
+    beforeEach(inject(function ($rootScope, $compile, storyVariable) {
         var template = angular.element('<scenario-view scenarios="scenarios" ></div>');
+        storyVariable.setupVariables(scenarios[0]);
 
         scope = $rootScope.$new();
         scope.scenarios = scenarios;
 
-        $compile(template)(scope);
+        element = $compile(template)(scope);
         scope.$digest();
-        element = $(template);
+
+        childScope = element.scope().$$childHead;
     }));
 
-    beforeEach(function () {
-        titleInput = element.find('input[ng-model="scenario.title"]');
+    it('should provide a helper function for isIncomplete', function(){
+        var isIncomplete = sinon.spy(scenarios[0].steps[0], 'isIncomplete');
+        childScope.scenarioView.isStepIncomplete(scenarios[0].steps[0]);
+        expect(isIncomplete).to.be.calledOnce;
     });
 
-    //it('should save user input when the user clicks on apply', function () {
-    //    scope.scenarios[0].editorTitle = 'foo';
-    //    scope.$digest();
-    //    expect(scope.scenarios[0].title).to.equal('foo');
-    //    scope.scenarioView.applyScenarioTitle(scope.scenarios[0]);
-    //    expect(scope.scenarios[0].title).to.equal('bar');
-    //});
+    it('should delete an item', inject(function(arrayOperations){
+        var removeItem = sinon.spy(arrayOperations, 'removeItem');
+        childScope.scenarioView.deleteItem(scenarios[0].steps, 0, scenarios[0].steps[0]);
+        expect(scenarios[0].steps.length).to.equal(2);
+        expect(removeItem).to.be.calledWith(scenarios[0].steps, 0);
+    }));
 
+    it('should delete a selected item', inject(function(selectedItem, arrayOperations){
+        var clearSelectedItem = sinon.spy(selectedItem, 'clearSelectedItem');
+        var removeItem = sinon.spy(arrayOperations, 'removeItem');
+        selectedItem.setSelectedItem(scenarios[0].steps[0]);
+        childScope.scenarioView.deleteItem(scenarios[0].steps, 0, scenarios[0].steps[0]);
+        expect(clearSelectedItem).to.be.calledOnce;
+        expect(removeItem).to.be.calledWith(scenarios[0].steps, 0);
+    }))
 
 });
