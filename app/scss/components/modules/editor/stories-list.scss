@@ -1,0 +1,160 @@
+$animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
+
+@mixin selectable($base-hover-color, $selected-hover-color) {
+    &.selectable:hover {
+        background: $base-hover-color;
+    }
+
+    &.active,
+    &.active:hover {
+        background: $selected-hover-color;
+    }
+
+    &.selectable:hover,
+    &.active,
+    &.active:hover {
+        > div.title {
+            > input[type="text"] {
+                opacity: 1;
+            }
+
+            > span.editable {
+                opacity: 0;
+            }
+        }
+    }
+    @include transition(background $animate-std-cubic .1s);
+}
+
+@mixin list-item-height($height) {
+    font-size: $content-list-item-2-font-size;
+    line-height: $content-list-item-2-font-size;
+    min-height: $content-list-item-2-height;
+    max-height: $content-list-item-2-height;
+}
+
+.list-item {
+    border-top: 2px white solid;
+
+    // Collapse expand arrow
+    i.fa.expand:after {
+        content: '\f0da'
+    }
+    &.expand i.fa.expand:after {
+        content: '\f0d7';
+    }
+
+    .header {
+        @include selectable($hover-bg-color, $base-accent-color);
+
+        display: flex;
+        align-items: center;
+
+        .prefix {
+            user-select: none;
+            min-width: 2em;
+            text-align: center;
+            font-size: $content-list-item-1-icon-size;
+        }
+
+        .title {
+            display: flex;
+            flex: 1;
+
+            align-items: center;
+        }
+
+        button {
+            background: $secondary-button-bg-color;
+            border: $filter-button-border;
+        }
+
+        button:hover {
+            background: $secondary-button-bg-color-hov;
+        }
+
+        .actions {
+            display: none;
+        }
+
+        &.active .actions, &:hover .actions {
+            display: block;
+        }
+    }
+
+
+
+    > ul > li > ul > li {
+        @include transition(opacity $animate-std-cubic .4s, max-height cubic-bezier(0, .6, .85, 1) .2s);
+        overflow: hidden;
+        height: auto;
+        max-height: 0;
+    }
+
+    > ul > li.expand > ul > li {
+        display: block;
+        max-height: 1000px;
+    }
+}
+
+.stories.filter {
+    @extend .list-item;
+    border-top: 0;
+    background: $base-accent-color;
+
+    .header .actions {
+        display: block;
+    }
+
+    .title {
+        @include list-item-height($section-header-font-size);
+    }
+}
+
+.stories.list {
+    display: flex;
+    flex-flow: column;
+
+    .book {
+        // Book
+        background: $content-list-item-1-bg-color;
+        &.active {
+            background: $base-accent-color;
+        }
+
+        .title {
+            @include list-item-height($content-list-item-1-font-size);
+        }
+
+        .story {
+            // Story
+            background: $content-list-item-2-bg-color;
+            &.active {
+                background: $base-accent-color;
+            }
+
+            .title {
+                @include list-item-height($content-list-item-2-font-size);
+            }
+
+            .scenario {
+                // Scenario
+                background: $content-list-item-3-bg-color;
+                border-color: #eaeaea;
+                &.active {
+                    background: $base-accent-color;
+                }
+
+                .title {
+                    @include list-item-height($content-list-item-2-font-size);
+                }
+            }
+        }
+    }
+
+
+}
+
+
+
+

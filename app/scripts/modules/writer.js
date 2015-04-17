@@ -18,6 +18,10 @@ angular.module('finqApp.writer', [
         templateUrl: '/views/modules/writer/story.html',
         controller: 'StoryCtrl',
         controllerAs: 'story'
+    }).when('/writer/stories/new/:bookId', {
+        templateUrl: '/views/modules/writer/story.html',
+        controller: 'StoryCtrl',
+        controllerAs: 'story'
     }).when('/writer/stories/:storyId', {
         templateUrl: '/views/modules/writer/story.html',
         controller: 'StoryCtrl',

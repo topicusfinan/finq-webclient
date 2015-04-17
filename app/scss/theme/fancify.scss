@@ -61,10 +61,6 @@ div.layout {
         &.ng-hide {
             left: -$menu-size;
         }
-
-        .sections li {
-            @include transition(background linear .1s);
-        }
     }
 }
 
