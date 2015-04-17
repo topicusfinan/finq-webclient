@@ -69,6 +69,10 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
             border: $filter-button-border;
         }
 
+        button a {
+            color: white;
+        }
+
         button:hover {
             background: $secondary-button-bg-color-hov;
         }
@@ -95,6 +99,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         display: block;
         max-height: 1000px;
     }
+
 }
 
 .stories.filter {

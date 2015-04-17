@@ -10,7 +10,6 @@ angular.module('finqApp.directive')
             templateUrl: 'views/directives/linkify.html',
             link: function(scope, element){
                 var attr = element[0].attributes[0];
-                console.log(attr);
                 scope.$watch(function(){return $(element).attr('linkify');}, function(newVal){
                     scope.link = '#' + newVal;
                 });
