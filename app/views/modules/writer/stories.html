@@ -8,10 +8,10 @@
             <div class="select"></div>
         </div>
         <div class="actions">
-            <button linkify="/writer/stories/new">
+            <a href="#/writer/stories/new">
                 <i class="fa fa-plus"></i>
                 <span translate="WRITER.STORIES.NEW_STORY"></span>
-            </button>
+            </a>
         </div>
     </div>
 </div>
@@ -25,10 +25,10 @@
                 <span class="separate">{{::book.title}}</span>
             </div>
             <div class="actions">
-                <button linkify="/writer/stories/new/{{::book.id}}">
+                <a href="#/writer/stories/new/{{::book.id}}">
                     <i class="fa fa-plus"></i>
                     <span translate="WRITER.STORIES.NEW_STORY"></span>
-                </button>
+                </a>
             </div>
         </div>
         <ul>
@@ -41,10 +41,10 @@
                         <span class="separate">{{::story.title}}</span>
                     </div>
                     <div class="actions">
-                        <button linkify="/writer/stories/{{::story.id}}">
+                        <a href="#/writer/stories/{{::story.id}}">
                             <i class="fa fa-edit"></i>
                             <span translate="WRITER.STORIES.EDIT"></span>
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <ul>

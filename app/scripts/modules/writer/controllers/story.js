@@ -11,7 +11,7 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoryCtrl',
-    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable, module, MODULES, STATE) {
+    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable, module, MODULES, STATE, $window) {
         var that = this;
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
@@ -45,7 +45,7 @@ angular.module('finqApp.writer.controller')
             }
         });
 
-        this.toggleSidebar = function() {
+        this.toggleSidebar = function () {
             switch (sidebar.getStatus()) {
                 case STATE.SIDEBAR.COLLAPSED:
                     sidebar.expand();
@@ -53,11 +53,12 @@ angular.module('finqApp.writer.controller')
                 case STATE.SIDEBAR.EXPANDED:
                     sidebar.collapse();
                     break;
-                default: break;
+                default:
+                    break;
             }
         };
 
-        this.sidebarIsExpanded = function() {
+        this.sidebarIsExpanded = function () {
             return sidebar.getStatus() === STATE.SIDEBAR.EXPANDED;
         };
 
@@ -65,6 +66,7 @@ angular.module('finqApp.writer.controller')
         if (foundStory === null) {
             // TODO alert the user to no story found
         } else {
+            that.createNew = false;
             storyVariable.setupVariables(foundStory);
 
             this.id = foundStory.id;
@@ -79,6 +81,10 @@ angular.module('finqApp.writer.controller')
         sidebar.setDirective({
             'scenario-variables-view': null
         });
+
+        this.back = function () {
+            $window.history.back();
+        };
 
 
         // TODO remove this, used for poking ng-repeat/checking if scope matches visual representation

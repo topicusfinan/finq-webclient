@@ -1,7 +1,8 @@
 <div class="top-filter ic fixed active">
-    <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}" ng-click="story.list()"></i>
+    <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}" ng-click="story.back()"></i>
     <div class="title">
-        <span class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
+        <span ng-show="story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
+        <span ng-show="!story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_TITLE"></span>
         <input type="text" ng-model="story.title">
     </div>
     <div class="actions">

@@ -64,16 +64,13 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
             align-items: center;
         }
 
-        button {
+        a {
+            @extend %button;
             background: $secondary-button-bg-color;
             border: $filter-button-border;
         }
 
-        button a {
-            color: white;
-        }
-
-        button:hover {
+        a:hover {
             background: $secondary-button-bg-color-hov;
         }
 
@@ -86,18 +83,18 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         }
     }
 
-
-
     > ul > li > ul > li {
         @include transition(opacity $animate-std-cubic .4s, max-height cubic-bezier(0, .6, .85, 1) .2s);
         overflow: hidden;
         height: auto;
         max-height: 0;
+        border-style: none;
     }
 
     > ul > li.expand > ul > li {
         display: block;
         max-height: 1000px;
+        borer-style: solid;
     }
 
 }

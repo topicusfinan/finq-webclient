@@ -149,6 +149,7 @@
         "STORIES" : {
             "TITLE": "Stories",
             "BEFORE_STORIES_FILTER": "Manage",
+            "BEFORE_TITLE": "Modify a story named",
             "BEFORE_NEW_TITLE": "Create a new story named",
             "NEW_STORY": "New story",
             "NEW_SCENARIO": "New scenario",
