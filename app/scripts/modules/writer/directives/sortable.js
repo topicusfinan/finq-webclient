@@ -44,7 +44,7 @@ angular.module('finqApp.writer.directive')
                 jqElement.sortable(sortableObject);
 
                 scope.$root.$on(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED, function () {
-                    if (attrs.connectWith !== undefined) {
+                    if (attrs.connectWith !== undefined && jqElement.sortable('instance') !== undefined) {
                         jqElement.sortable('option', 'connectWith', $(attrs.connectWith));
                     }
                 });
