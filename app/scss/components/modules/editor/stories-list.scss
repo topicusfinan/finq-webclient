@@ -55,17 +55,19 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
             min-width: 2em;
             text-align: center;
             font-size: $content-list-item-1-icon-size;
+            cursor: pointer;
         }
 
         .title {
             display: flex;
             flex: 1;
-
             align-items: center;
+            cursor: default;
         }
 
         a {
             @extend %button;
+            user-select: none;
             background: $secondary-button-bg-color;
             border: $filter-button-border;
         }

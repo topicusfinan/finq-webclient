@@ -13,7 +13,7 @@ angular.module('finqApp.service')
 
         function getStory(storyId) {
             var foundStory = getStoryFromList(storyId);
-            if (foundStory !== null){
+            if (foundStory !== null) {
                 return foundStory.working;
             }
             var originalStory = story.findStoryById(storyId);
@@ -26,12 +26,12 @@ angular.module('finqApp.service')
             return foundStory.working;
         }
 
-        function addStoryToList(story){
+        function addStoryToList(story) {
             var maxCachedItems = config.client().editor.maxStoryCache;
-            if (storyList > 0 && !isDirty(storyList.peek().id)){
+            if (storyList > 0 && !isDirty(storyList.peek().id)) {
                 storyList.pop(); // Remove last item if pristine
             }
-            if (storyList.length === maxCachedItems){
+            if (storyList.length === maxCachedItems) {
                 storyList.shift(); // Remove first item if storyList gets too large
             }
             storyList.push(story);
@@ -40,7 +40,7 @@ angular.module('finqApp.service')
         /**
          * @return {*}
          */
-        function getStoryFromList(storyId){
+        function getStoryFromList(storyId) {
             for (var i = 0; i < storyList.length; i++) {
                 if (storyList[i].id === storyId) {
                     return storyList[i];
@@ -54,9 +54,9 @@ angular.module('finqApp.service')
          * @param {number} storyId
          * @return {boolean} dirty
          */
-        function isDirty(storyId){
+        function isDirty(storyId) {
             var foundStory = getStoryFromList(storyId);
-            if (foundStory === null){
+            if (foundStory === null) {
                 return false; // no 'working' entry, so unchanged
             }
             return JSON.stringify(foundStory.original) !== JSON.stringify(foundStory.working);
@@ -88,7 +88,7 @@ angular.module('finqApp.service')
          * Creates a clean working copy from the original story
          * @param {number} storyId
          */
-        function cancel(storyId){
+        function cancel(storyId) {
             var story = getStoryFromList(storyId);
             cloneAndParse(story.original, story.working);
         }
@@ -97,7 +97,7 @@ angular.module('finqApp.service')
          * Apply changes from the working copy to the original story
          * @param {number} storyId
          */
-        function apply(storyId){
+        function apply(storyId) {
             var story = getStoryFromList(storyId);
             merge(story.original, story.working);
             // TODO add persistence

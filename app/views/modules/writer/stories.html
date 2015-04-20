@@ -5,6 +5,7 @@
         </div>
         <div class="title">
             <span class="verbose" translate="WRITER.STORIES.BEFORE_STORIES_FILTER"></span>
+
             <div class="select"></div>
         </div>
         <div class="actions">
@@ -16,10 +17,11 @@
     </div>
 </div>
 <ul class="stories list" story-collapse>
-    <li class="list-item book" ng-repeat="book in storybooks track by book.id" >
-        <div class="header selectable" ng-class="{'active':stories.selectedItem.isItemSelected(book)}" ng-click="stories.selectedItem.setSelectedItem(book)">
-            <div class="prefix">
-                <i class="fa fa-bars" data-toggle="collection"></i>
+    <li class="list-item book" ng-repeat="book in storybooks track by book.id">
+        <div class="header selectable" ng-class="{'active':stories.selectedItem.isItemSelected(book)}"
+             ng-click="stories.selectedItem.setSelectedItem(book)">
+            <div class="prefix" data-toggle="collection">
+                <i class="fa fa-bars"></i>
             </div>
             <div class="title">
                 <span class="separate">{{::book.title}}</span>
@@ -32,10 +34,11 @@
             </div>
         </div>
         <ul>
-            <li class="list-item story " ng-repeat="story in book.stories track by story.id" >
-                <div class="header selectable" ng-class="{'active':stories.selectedItem.isItemSelected(story)}" ng-click="stories.selectedItem.setSelectedItem(story)">
-                    <div class="prefix">
-                        <i class="fa expand" data-toggle="story"></i>
+            <li class="list-item story " ng-repeat="story in book.stories track by story.id">
+                <div class="header selectable" ng-class="{'active':stories.selectedItem.isItemSelected(story)}"
+                     ng-click="stories.selectedItem.setSelectedItem(story)">
+                    <div class="prefix" data-toggle="story">
+                        <i class="fa expand"></i>
                     </div>
                     <div class="title">
                         <span class="separate">{{::story.title}}</span>
