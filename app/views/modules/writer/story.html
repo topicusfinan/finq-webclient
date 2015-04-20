@@ -3,9 +3,13 @@
     <div class="title">
         <span ng-show="story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
         <span ng-show="!story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_TITLE"></span>
-        <input type="text" ng-model="story.title">
+        <input type="text" ng-model="story.model.title">
     </div>
     <div class="actions">
+        <button ng-click="story.save()">
+            <i class="fa fa-check"></i>
+            <span translate="WRITER.STORIES.SAVE"></span>
+        </button>
         <i class="fa" ng-class="{'fa-search-minus': story.sidebarIsExpanded(), 'inactive fa-search-plus': !story.sidebarIsExpanded()}" ng-click="story.toggleSidebar()"></i>
     </div>
 </div>
@@ -18,7 +22,7 @@
                     <span class="separate" translate="WRITER.STORIES.LIST.PROLOGUE"></span>
                 </div>
             </div>
-            <scenario-view scenarios="story.prologue" class="ic cl list-animate"></scenario-view>
+            <scenario-view scenarios="story.model.prologue" class="ic cl list-animate"></scenario-view>
         </li>
         <li class="cl list-animate">
             <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:1})}" ng-click="story.selectedItem.setSelectedItem(null)">
@@ -26,7 +30,7 @@
                     <span class="separate" translate="WRITER.STORIES.LIST.SCENARIOS"></span>
                 </div>
             </div>
-            <scenario-view scenarios="story.scenarios" class="ic cl list-animate"></scenario-view>
+            <scenario-view scenarios="story.model.scenarios" class="ic cl list-animate"></scenario-view>
         </li>
         <li class="cl list-animate">
             <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:2})}" ng-click="story.selectedItem.setSelectedItem(null)">
@@ -34,7 +38,7 @@
                     <span class="separate" translate="WRITER.STORIES.LIST.EPILOGUE"></span>
                 </div>
             </div>
-            <scenario-view scenarios="story.epilogue" class="ic cl list-animate"></scenario-view>
+            <scenario-view scenarios="story.model.epilogue" class="ic cl list-animate"></scenario-view>
         </li>
     </ul>
     <div class="tools">

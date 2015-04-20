@@ -154,6 +154,7 @@
             "NEW_STORY": "New story",
             "NEW_SCENARIO": "New scenario",
             "EDIT": "Edit",
+            "SAVE": "Save",
             "FILTER": {
                 "ALL_STORIES": "All stories",
                 "PENDING_STORIES": "Stories with pending steps",

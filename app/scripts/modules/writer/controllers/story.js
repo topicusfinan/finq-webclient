@@ -11,7 +11,7 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoryCtrl',
-    function ($scope, selectedItem, $routeParams, story, sidebar, step, storyVariable, module, MODULES, STATE, $window) {
+    function ($scope, selectedItem, $routeParams, storyEdit, sidebar, step, storyVariable, module, MODULES, STATE, $location) {
         var that = this;
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
@@ -20,13 +20,14 @@ angular.module('finqApp.writer.controller')
         this.loaded = true;
         this.createNew = true;
 
-        this.id = null;
-        this.title = null;
-        this.scenarios = [];
-        this.prologue = [];
-        this.epilogue = [];
-        this.sets = [];
-        this.tags = [];
+        //this.id = null;
+        //this.title = null;
+        //this.scenarios = [];
+        //this.prologue = [];
+        //this.epilogue = [];
+        //this.sets = [];
+        //this.tags = [];
+        this.model = null;
 
         module.setCurrentSection(MODULES.WRITER.sections.STORIES);
 
@@ -62,20 +63,21 @@ angular.module('finqApp.writer.controller')
             return sidebar.getStatus() === STATE.SIDEBAR.EXPANDED;
         };
 
-        var foundStory = story.findStoryById(parseInt($routeParams.storyId));
+        var foundStory = storyEdit.getStory(parseInt($routeParams.storyId));
         if (foundStory === null) {
             // TODO alert the user to no story found
         } else {
             that.createNew = false;
             storyVariable.setupVariables(foundStory);
+            this.model = foundStory;
 
-            this.id = foundStory.id;
-            this.title = foundStory.title;
-            this.sets = foundStory.sets;
-            this.tags = foundStory.tags;
-            this.scenarios = foundStory.scenarios;
-            this.epilogue = foundStory.epilogue;
-            this.prologue = foundStory.prologue;
+            //this.id = foundStory.id;
+            //this.title = foundStory.title;
+            //this.sets = foundStory.sets;
+            //this.tags = foundStory.tags;
+            //this.scenarios = foundStory.scenarios;
+            //this.epilogue = foundStory.epilogue;
+            //this.prologue = foundStory.prologue;
         }
 
         sidebar.setDirective({
@@ -83,7 +85,12 @@ angular.module('finqApp.writer.controller')
         });
 
         this.back = function () {
-            $window.history.back();
+            storyEdit.cancel(this.model.id);
+            $location.url('/writer/stories');
+        };
+
+        this.save = function () {
+            storyEdit.apply(this.model.id);
         };
 
 
