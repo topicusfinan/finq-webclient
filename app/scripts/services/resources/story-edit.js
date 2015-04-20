@@ -70,7 +70,7 @@ angular.module('finqApp.service')
          */
         function cloneAndParse(b, a) {
             a = a || {};
-            var workingStory = angular.extend(a, b);
+            var workingStory = angular.merge(a, b);
             storyVariable.setupVariables(workingStory);
             return workingStory;
         }
@@ -81,7 +81,7 @@ angular.module('finqApp.service')
          * @param b {object} Object to be used as source
          */
         function merge(a, b) {
-            angular.merge(a, b);
+            angular.extend(a, b);
         }
 
         /**

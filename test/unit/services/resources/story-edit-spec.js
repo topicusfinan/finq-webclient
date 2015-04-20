@@ -34,8 +34,11 @@ describe('Unit: Story Edit', function () {
     it('should not change the storyService object', function () {
         var storyObject = storyEdit.getStory(56421532);
         storyObject.title = 'foobar';
+        storyObject.scenarios[0].title = 'foobartest'; // Also modify a lower value (test recursive copy)
         var originalStoryObject = story.findStoryById(56421532);
+        expect(originalStoryObject.scenarios[0].title).to.equal('A customer removes the only item they have in their basket');
         expect(originalStoryObject.title).to.equal('Cancelled orders');
+        expect(storyEdit.getStory(56421532).scenarios[0].title).to.equal('foobartest');
         expect(storyEdit.getStory(56421532).title).to.equal('foobar');
     });
 
