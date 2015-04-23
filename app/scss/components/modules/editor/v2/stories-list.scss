@@ -1,0 +1,202 @@
+$animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
+
+@mixin selectable($base-hover-color, $selected-hover-color) {
+    &.selectable:hover {
+        background: $base-hover-color;
+    }
+
+    &.active,
+    &.active:hover {
+        background: $selected-hover-color;
+    }
+
+    @include transition(background $animate-std-cubic .1s);
+}
+
+@mixin list-item-height($height, $font-size) {
+    font-size: $font-size;
+    line-height: $font-size;
+    min-height: $height;
+    max-height: $height;
+}
+
+.list-item {
+
+    // Collapse expand arrow
+    i.fa.expand:after {
+        content: '\f0da'
+    }
+    &.expand i.fa.expand:after {
+        content: '\f0d7';
+    }
+
+    .header {
+        @include selectable($hover-bg-color, $base-accent-color);
+        border-top: 2px white solid;
+
+        display: flex;
+        align-items: center;
+
+        .prefix {
+            display: flex;
+            justify-content: space-around;
+
+            * {
+                flex: 1;
+            }
+
+            .scenario-handle, .step-handle {
+                padding-left: 0.2em;
+                text-align: left;
+            }
+
+            user-select: none;
+            min-width: 2em;
+            text-align: center;
+            font-size: $content-list-item-1-icon-size;
+            cursor: pointer;
+        }
+
+        .title {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            cursor: default;
+
+            span {
+                max-width: fit-content;
+                padding-right: 1.5em;
+                flex: 1;
+            }
+
+            input {
+                margin: 0;
+                flex: 1;
+            }
+        }
+
+        .title.editable {
+            &:not(:hover) {
+                input:not(:focus) {
+                    border-color: transparent;
+                    box-shadow: none;
+                    background-color: inherit;
+                }
+            }
+        }
+
+        a, button {
+            @extend %button;
+            user-select: none;
+            background: $secondary-button-bg-color;
+            border: $filter-button-border;
+        }
+
+        a:hover {
+            background: $secondary-button-bg-color-hov;
+        }
+
+        .actions {
+            display: none;
+            max-width: fit-content;
+            padding: 0 1.5em 0 1.2em;
+            user-select: none;
+
+            * {
+                margin-right: 0.3em;
+            }
+
+            .fa {
+                font-size: 1.5em;
+            }
+        }
+
+        &.active .actions, &:hover .actions {
+            display: block;
+        }
+    }
+}
+
+.stories.filter {
+    @extend .list-item;
+    border: 0;
+    background: $base-accent-color;
+
+    .header {
+        border-style: none;
+
+        .actions {
+            display: block;
+        }
+
+        .title {
+            @include list-item-height($header-height, $section-header-font-size);
+        }
+    }
+}
+
+.has-aside {
+    display: flex;
+    flex-flow: row;
+
+    .content {
+        display: flex;
+        flex-flow: column;
+        flex: 1;
+    }
+
+    aside {
+        @include transition(opacity $animate-std-cubic .4s, min-width cubic-bezier(0, .6, .85, 1) .2s);
+        max-width: 3em;
+    }
+
+    aside.expand {
+        max-width: 15em;
+        min-width: 15em;
+    }
+}
+
+.stories.list {
+    display: flex;
+    flex-flow: column;
+
+    .book, .prologue, .scenarios, .epilogue {
+        background: $content-list-item-1-bg-color;
+        &.active {
+            background: $base-accent-color;
+        }
+
+        .title {
+            @include list-item-height($content-list-item-1-height, $content-list-item-1-font-size);
+        }
+    }
+
+    .story,  {
+        // Story
+        background: $content-list-item-2-bg-color;
+        &.active {
+            background: $base-accent-color;
+        }
+
+        .title {
+            @include list-item-height($content-list-item-2-height, $content-list-item-2-font-size);
+        }
+    }
+
+    .scenario {
+        // Scenario
+        background: $content-list-item-3-bg-color;
+        border-color: #eaeaea;
+        &.active {
+            background: $base-accent-color;
+        }
+
+        .title {
+            @include list-item-height($content-list-item-2-height, $content-list-item-2-font-size);
+        }
+    }
+}
+
+
+
+

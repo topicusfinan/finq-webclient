@@ -1,10 +1,12 @@
-<ul id="scenario-list" sortable="scenarios" handle=".scenario-handle">
-    <li class="ic cl" ng-repeat="scenario in scenarios track by scenario.id">
-        <div class="selectable quick" ng-class="{'active':selectedItem.isItemSelected(scenario)}" ng-click="selectedItem.setSelectedItem(scenario)">
-            <div class="title editable">
+<ul class="story-content-list" sortable="scenarios" handle=".scenario-handle" connect-with=".story-content-list">
+    <li class="list-item scenario" ng-repeat="scenario in scenarios track by scenario.id">
+        <div class="header selectable" ng-class="{'active':selectedItem.isItemSelected(scenario)}"
+             ng-click="selectedItem.setSelectedItem(scenario)">
+            <div class="prefix">
                 <i class="fa fa-ellipsis-v scenario-handle"></i>
                 <i class="fa expand" data-toggle="story"></i>
-                <span class="separate editable">{{scenario.title}}</span>
+            </div>
+            <div class="title editable">
                 <input type="text" ng-model="scenario.title">
             </div>
             <div class="actions">
@@ -14,16 +16,22 @@
                 </button>
             </div>
         </div>
-        <ul class="scenario-content-list" sortable="scenario.steps" handle=".step-handle" connect-with=".scenario-content-list">
-            <li class="ic cl" ng-repeat="step in scenario.steps">
-                <div class="selectable quick" ng-class="{'active': selectedItem.isItemSelected(step)}" ng-click="selectedItem.setSelectedItem(step);">
-                    <div class="title">
+        <ul class="scenario-content-list list-animate" sortable="scenario.steps" handle=".step-handle" connect-with=".scenario-content-list">
+            <li class="list-item step" ng-repeat="step in scenario.steps">
+                <div class="header selectable" ng-class="{'active': selectedItem.isItemSelected(step)}"
+                     ng-click="selectedItem.setSelectedItem(step);">
+                    <div class="prefix">
                         <i class="fa fa-ellipsis-v step-handle"></i>
+                    </div>
+                    <div class="title">
                         <span>{{::step.title}}</span>
                     </div>
                     <div class="actions">
-                        <strong class="hint--left separate" data-hint="{{'WRITER.STORIES.SCENARIOS.PENDING' | translate}}"><i class="fa fa-exclamation-circle" ng-show="scenarioView.isStepIncomplete(step)"></i></strong>
-                        <strong class="hint--left" data-hint="{{'WRITER.STORIES.SCENARIOS.DELETE' | translate}}"><i class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index, step)"></i></strong>
+                        <strong class="hint--left separate"
+                                data-hint="{{'WRITER.STORIES.SCENARIOS.PENDING' | translate}}"><i
+                            class="fa fa-exclamation-circle" ng-show="scenarioView.isStepIncomplete(step)"></i></strong>
+                        <strong class="hint--left" data-hint="{{'WRITER.STORIES.SCENARIOS.DELETE' | translate}}"><i
+                            class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index, step)"></i></strong>
                     </div>
                 </div>
             </li>

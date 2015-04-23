@@ -25,17 +25,27 @@ angular.module('finqApp.writer.directive')
                     start: function (event, ui) {
                         scope.sortableObjectStart(event, ui, element);
                         scope.setClasses(element, attrs.connectWith);
+                        jqElement.sortable('refresh'); // Required to update positions after styling changes
                     },
                     update: function (event, ui) {
-                        scope.sortableObjectEnd(event, ui, element);
                         scope.removeClasses(element, attrs.connectWith);
+                        scope.sortableObjectEnd(event, ui, element);
                     },
                     stop: function () {
                         scope.removeClasses(element, attrs.connectWith);
                     }
                 };
 
-                scope.sortable = scope[attrs.sortable];
+                var splitSortable = attrs.sortable.split('.');
+                scope.sortable = scope;
+                angular.forEach(splitSortable, function(v){
+                    if (scope.sortable !== undefined){
+                        scope.sortable = scope.sortable[v];
+                    }
+                    if (scope.sortable === undefined){
+                        console.error(v + ' for '+ attrs.sortable +' does not resolve to a value on the scope!');
+                    }
+                });
 
                 if (attrs.handle !== undefined) {
                     sortableObject.handle = attrs.handle;
@@ -78,12 +88,13 @@ angular.module('finqApp.writer.directive')
         }
 
         function sortableObjectEnd(event, ui, element) {
-            var animatedElements = $(element).find('.list-animate');
+            var animatedElements = $(element).find('.list-animate').add($(element).has('.list-animate'));
             var movedOnParent = ui.item.parent().is(element) && ui.sender === null;
             var ngElementScope = angular.element(ui.item).scope();
 
             animatedElements.removeClass('list-animate');
 
+            // TODO refactor to use 'receive' and 'remove' events
             if (movedOnParent) {
                 // Move on the same item so move in sortable
                 arrayOperations.moveItem($scope.sortable, ngElementScope.start, ui.item.index());

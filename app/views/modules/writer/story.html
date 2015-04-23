@@ -1,61 +1,84 @@
-<div class="top-filter ic fixed active">
-    <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}" ng-click="story.back()"></i>
-    <div class="title">
-        <span ng-show="story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
-        <span ng-show="!story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_TITLE"></span>
-        <input type="text" ng-model="story.model.title">
-    </div>
-    <div class="actions">
-        <button ng-click="story.save()">
-            <i class="fa fa-check"></i>
-            <span translate="WRITER.STORIES.SAVE"></span>
-        </button>
-        <i class="fa" ng-class="{'fa-search-minus': story.sidebarIsExpanded(), 'inactive fa-search-plus': !story.sidebarIsExpanded()}" ng-click="story.toggleSidebar()"></i>
-    </div>
-</div>
-<aside class="sidebar" ng-class="{'expand' : story.sidebarIsExpanded()}" sidebar="false"></aside>
-<div class="editor-content" ng-class="{'sb-expand' : story.sidebarIsExpanded()}">
-    <ul id="main-content-list" story-collapse class="main-content-list">
-        <li class="cl list-animate">
-            <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:0})}" ng-click="story.selectedItem.setSelectedItem(null)">
-                <div class="title">
-                    <span class="separate" translate="WRITER.STORIES.LIST.PROLOGUE"></span>
-                </div>
-            </div>
-            <scenario-view scenarios="story.model.prologue" class="ic cl list-animate"></scenario-view>
-        </li>
-        <li class="cl list-animate">
-            <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:1})}" ng-click="story.selectedItem.setSelectedItem(null)">
-                <div class="title">
-                    <span class="separate" translate="WRITER.STORIES.LIST.SCENARIOS"></span>
-                </div>
-            </div>
-            <scenario-view scenarios="story.model.scenarios" class="ic cl list-animate"></scenario-view>
-        </li>
-        <li class="cl list-animate">
-            <div class="selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:2})}" ng-click="story.selectedItem.setSelectedItem(null)">
-                <div class="title">
-                    <span class="separate" translate="WRITER.STORIES.LIST.EPILOGUE"></span>
-                </div>
-            </div>
-            <scenario-view scenarios="story.model.epilogue" class="ic cl list-animate"></scenario-view>
-        </li>
-    </ul>
-    <div class="tools">
-        <input class="typeahead" type="text" placeholder="{{story.inputPlaceholder}}" sf-typeahead options="story.typeAheadOptions" datasets="story.stepsDataset" ng-model="story.inputValue" >
-        <div class="select"></div>
+<div class="stories filter list-item">
+    <div class="header selectable">
+        <div class="prefix">
+            <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}"
+               ng-click="story.back()"></i>
+        </div>
+        <div class="title">
+            <span ng-show="story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
+            <span ng-show="!story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_TITLE"></span>
+            <input type="text" ng-model="story.model.title">
+        </div>
         <div class="actions">
-            <button ng-show="story.isString(story.inputValue)">
-                <i class="fa fa-chain-broken" ></i>
-                <span>Add pending</span>
+            <button ng-click="story.save()">
+                <i class="fa fa-check"></i>
+                <span translate="WRITER.STORIES.SAVE"></span>
             </button>
-            <button ng-click="story.insertObject()" ng-hide="story.isString(story.inputValue)">
-                <span>Insert</span>
-            </button>
+            <span ng-click="story.toggleSidebar()">
+            <i class="fa"
+               ng-class="{'fa-search-minus': story.sidebarIsExpanded(), 'inactive fa-search-plus': !story.sidebarIsExpanded()}"></i>
+            </span>
         </div>
     </div>
 </div>
-<div variable-modal >
+<div class="has-aside">
+    <div class="content">
+        <ul class="stories list" story-collapse>
+            <li class="list-item prologue">
+                <div class="header selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:0})}"
+                     ng-click="story.selectedItem.setSelectedItem(null)">
+                    <div class="prefix">
+                        <i class="fa fa-bars" data-toggle="collection"></i>
+                    </div>
+                    <div class="title">
+                        <span class="separate" translate="WRITER.STORIES.LIST.PROLOGUE"></span>
+                    </div>
+                </div>
+                <scenario-view scenarios="story.model.prologue"></scenario-view>
+            </li>
+            <li class="list-item scenarios">
+                <div class="header selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:1})}"
+                     ng-click="story.selectedItem.setSelectedItem(null)">
+                    <div class="prefix">
+                        <i class="fa fa-bars" data-toggle="collection"></i>
+                    </div>
+                    <div class="title">
+                        <span class="separate" translate="WRITER.STORIES.LIST.SCENARIOS"></span>
+                    </div>
+                </div>
+                <scenario-view scenarios="story.model.scenarios"></scenario-view>
+            </li>
+            <li class="list-item epilogue">
+                <div class="header selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:2})}"
+                     ng-click="story.selectedItem.setSelectedItem(null)">
+                    <div class="prefix">
+                        <i class="fa fa-bars" data-toggle="collection"></i>
+                    </div>
+                    <div class="title">
+                        <span class="separate" translate="WRITER.STORIES.LIST.EPILOGUE"></span>
+                    </div>
+                </div>
+                <scenario-view scenarios="story.model.epilogue"></scenario-view>
+            </li>
+        </ul>
+        <div class="tools">
+            <input class="typeahead" type="text" placeholder="{{story.inputPlaceholder}}" sf-typeahead
+                   options="story.typeAheadOptions" datasets="story.stepsDataset" ng-model="story.inputValue">
+            <div class="select"></div>
+            <div class="actions">
+                <button ng-show="story.isString(story.inputValue)">
+                    <i class="fa fa-chain-broken"></i>
+                    <span>Add pending</span>
+                </button>
+                <button ng-click="story.insertObject()" ng-hide="story.isString(story.inputValue)">
+                    <span>Insert</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <aside ng-class="{'expand' : story.sidebarIsExpanded()}" sidebar="false"></aside>
+</div>
+<div variable-modal>
 
 </div>
 

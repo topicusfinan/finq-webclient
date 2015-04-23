@@ -29,7 +29,8 @@
 @import 'components/modules/editor/sidebar';
 @import 'components/modules/editor/variable-blocks';
 @import 'components/modules/editor/modal';
-@import 'components/modules/editor/stories-list';
+@import 'components/modules/editor/v2/stories-list';
+@import 'components/modules/editor/v2/sortable';
 
 // finally enhance the components with some theme magic
 @import 'theme/styles';

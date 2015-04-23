@@ -1,0 +1,73 @@
+$animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
+
+.list-item {
+    // Provide dropable space for top level list
+    > ul {
+        margin-top: -10px;
+        padding-top: 10px;
+        min-height: 10px;
+    }
+
+    > ul > li > ul {
+        @include transition(max-height $animate-std-cubic .5s);
+    }
+
+    > ul > li > ul {
+        min-height: 10px;
+        max-height: 1000px;
+    }
+
+    > ul > li:not(.expand) > ul {
+        min-height: 0;
+        max-height: 0;
+        overflow-y: hidden;
+
+        > li {
+            //@include transition(max-height $animate-std-cubic .5s);
+            max-height: 0;
+            //border-width: 0;
+            overflow-y: hidden;
+        }
+
+        &.sorting {
+            //@include transition(max-height none);
+
+            //max-height: calc(10px + #{$content-list-item-2-height});
+            max-height: 1000px;
+            margin-top: -10px;
+
+
+            li {
+                //max-height: 0;
+                //border-width: 0;
+                display: none;
+            }
+
+            .ui-sortable-placeholder {
+                max-height: 1000px;
+                display: block;
+            }
+        }
+    }
+
+    > ul > li > ul > li {
+        //@include transition(opacity $animate-std-cubic .5s, max-height $animate-std-cubic .5s, border-width linear .1s);
+        @include transition(opacity $animate-std-cubic .5s, max-height $animate-std-cubic .5s);
+        max-height: 1000px;
+    }
+
+    > ul > li > ul > li {
+        opacity: 0;
+    }
+
+
+    > ul > li.expand > ul > li {
+        opacity: 1;
+    }
+
+    .ui-sortable-placeholder {
+        visibility: visible !important;
+        background-color: darken($content-list-item-2-bg-color, 10%);
+        opacity: 1;
+    }
+}

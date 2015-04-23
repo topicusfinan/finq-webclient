@@ -32,5 +32,4 @@ angular.module('finqApp.writer.directive')
         function isStepIncomplete(step) {
             return step.isIncomplete();
         }
-
     });
