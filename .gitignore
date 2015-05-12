@@ -7,3 +7,5 @@ bower_components
 .idea
 test/reports
 build
+app/css
+config.codekit
