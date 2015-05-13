@@ -1,6 +1,6 @@
 .sidebar .variable-view {
-    border-top: $content-list-bg-color $content-list-item-spacing solid;
-    border-left: $content-list-bg-color $content-list-item-spacing solid;
+    border-top: lighten(lighten($gray, 10%), 20%) $content-list-item-spacing solid;
+    border-left: lighten(lighten($gray, 10%), 20%) $content-list-item-spacing solid;
 
     > div {
         width: 100%;

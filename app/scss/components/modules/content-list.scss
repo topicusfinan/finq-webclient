@@ -26,7 +26,7 @@
         > div {
             padding-left: $section-list-text-pad;
             position: relative;
-            color: $section-header-color;
+            color: darken($dark-gray, 5%);
             margin-top: $content-list-item-spacing;
 
             &.selectable:hover,
@@ -38,18 +38,18 @@
 
             &.selectable:hover {
                 cursor: pointer;
-                background: $hover-bg-color;
-                color: $highlight-color;
+                background: lighten($base-accent-color, 20%);
+                color: #fff;
 
                 > div.comments {
 
                     span,
                     a {
-                        color: $highlight-color;
+                        color: #fff;
                     }
 
                     a.hover {
-                        color: darken($highlight-color, 10%);
+                        color: darken(#fff, 10%);
                     }
                 }
             }
@@ -62,7 +62,7 @@
                 }
 
                 > i {
-                    color: $section-list-icon-color;
+                    color: lighten($dark-gray, 5%);
 
                     &.success {
                         color: $success-color;
@@ -76,8 +76,8 @@
                 > input {
                     margin: (($header-height - $section-header-font-size) / 9.5) $filter-button-padding / 2;
                     margin-bottom: 0;
-                    background-color: $list-input-bg-color;
-                    color: $inverted-input-color;
+                    background-color: rgba(#000,.3);
+                    color: #fff;
                     border: 0;
                     min-width: $section-list-input-width;
                     position: absolute;
@@ -146,7 +146,7 @@
     > li.cl > ul li.cl > ul li.cl > div.selectable:hover {
         > div.title > .radial-progress {
             .circle .mask .fill {
-                background: $highlight-color;
+                background: #fff;
             }
 
             .inset {
@@ -156,20 +156,20 @@
     }
 
     > li.cl {
-        border-top: $content-list-bg-color $content-list-item-spacing solid;
-        background: $content-list-bg-color;
+        border-top: lighten(lighten($gray, 10%), 20%) $content-list-item-spacing solid;
+        background: lighten(lighten($gray, 10%), 20%);
 
         > div {
             min-height: $content-list-item-1-height;
             max-height: $content-list-item-1-height;
-            background: $content-list-item-1-bg-color;
+            background: lighten(lighten($gray, 10%), 5%);
             margin-top: 0;
 
             &.selectable:hover {
-                background: $hover-bg-color;
+                background: lighten($base-accent-color, 20%);
 
                 > div.comments {
-                    background: $hover-bg-color;
+                    background: lighten($base-accent-color, 20%);
                 }
             }
 
@@ -214,15 +214,15 @@
             }
 
             > div.title > .radial-progress {
-                @include radial-progress(1em, .65em, darken($content-list-item-1-bg-color, 8%), #fff, $content-list-item-1-bg-color);
+                @include radial-progress(1em, .65em, darken(lighten(lighten($gray, 10%), 5%), 8%), #fff, lighten(lighten($gray, 10%), 5%));
                 font-size: $content-list-item-1-progress-size;
 
                 .inset[data-highlight="failed"] {
-                    background: $run-failed-color;
+                    background: $light-red;
                 }
 
                 .inset[data-highlight="success"] {
-                    background: $run-success-color;
+                    background: $lime;
                 }
             }
 
@@ -236,21 +236,21 @@
             }
 
             > div.comments {
-                background: $content-list-item-1-bg-color;
+                background: lighten(lighten($gray, 10%), 5%);
 
                 > span,
                 > a {
                     font-size: $content-list-item-1-com-font-size;
                     line-height: $content-list-item-1-com-font-size;
                     padding: (($content-list-item-1-height - $content-list-item-1-com-font-size) / 2) 0;
-                    color: $content-list-item-1-com-color;
+                    color: lighten($dark-gray, 25%);
                 }
 
                 > a {
                     color: $base-accent-color;
 
                     &:hover {
-                        color: $link-hover-color;
+                        color: darken($base-accent-color, 10%);
                     }
                 }
 
@@ -271,15 +271,15 @@
         > ul {
 
             li.cl {
-                background: $content-list-3-bg-color;
+                background: lighten(lighten($gray, 10%), 5%);
 
                 > div {
                     min-height: $content-list-item-2-height;
                     max-height: $content-list-item-2-height;
-                    background: $content-list-item-2-bg-color;
+                    background: lighten(lighten($gray, 10%), 15%);
 
                     &.selectable:hover {
-                        background: $hover-bg-color;
+                        background: lighten($base-accent-color, 20%);
                     }
 
                     &.active,
@@ -345,7 +345,7 @@
                         &.scenario-handle,
                         &.step-handle {
                             font-size: 1.5em;
-                            color: $content-list-handle-color;
+                            color: #bbb;
                         }
 
                         &.scenario-handle {
@@ -382,15 +382,15 @@
                     }
 
                     > div.title > .radial-progress {
-                        @include radial-progress(1em, .75em, darken($content-list-item-2-bg-color, 8%), #fff, $content-list-item-2-bg-color);
+                        @include radial-progress(1em, .75em, darken(lighten(lighten($gray, 10%), 15%), 8%), #fff, lighten(lighten($gray, 10%), 15%));
                         font-size: $content-list-item-2-progress-size;
 
                         .inset[data-highlight="failed"] {
-                            background: $run-failed-color;
+                            background: $light-red;
                         }
 
                         .inset[data-highlight="success"] {
-                            background: $run-success-color;
+                            background: $lime;
                         }
                     }
                 }
@@ -401,23 +401,23 @@
                     overflow-y: hidden;
 
                     li.cl > div {
-                        background: $content-list-item-3-bg-color;
+                        background: lighten(lighten($gray, 10%), 20%);
                         padding-top: $content-list-item-3-spacing;
                         margin-top: $content-list-item-spacing / 2;
 
                         &.success {
-                            background: lighten($run-success-color, 30%);
+                            background: lighten($lime, 30%);
 
                             > div.title .radial-progress .circle .mask .fill {
-                                background: lighten($run-success-color, 10%);
+                                background: lighten($lime, 10%);
                             }
                         }
 
                         &.failed {
-                            background: lighten($run-failed-color, 30%);
+                            background: lighten($light-red, 30%);
 
                             > div.title .radial-progress .circle .mask .fill {
-                                background: lighten($run-failed-color, 10%);
+                                background: lighten($light-red, 10%);
                             }
                         }
 
@@ -433,7 +433,7 @@
                         }
 
                         &.selectable:hover {
-                            background: $hover-bg-color;
+                            background: lighten($base-accent-color, 20%);
                         }
 
                         > div > button,
@@ -452,7 +452,7 @@
                             }
 
                             .radial-progress {
-                                @include radial-progress(1em, 0, $run-progress-scenario-todo-bg, $run-progress-scenario-done-bg);
+                                @include radial-progress(1em, 0, lighten($light-gray, 4%), darken($light-gray, 8%));
                             }
                         }
                     }

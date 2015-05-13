@@ -12,7 +12,7 @@ div.layout {
             padding-right: $header-height/6;
 
             &:after {
-                background-color: $header-title-bg-color;
+                background-color: darken($dark-gray, 5%);
                 height: 100%;
                 width: $header-height/4;
                 position: absolute;
@@ -31,8 +31,8 @@ div.layout {
             }
 
             &:before {
-                background-color: $header-bg-color;
-                border-right: $header-title-bg-color 3px solid;
+                background-color: darken($dark-gray, 10%);
+                border-right: darken($dark-gray, 5%) 3px solid;
                 height: 100%;
                 width: $header-height/2.5;
                 position: absolute;

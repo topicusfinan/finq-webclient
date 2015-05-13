@@ -5,7 +5,7 @@ $base-font-family: $sans-serif;
 $header-font-family: $base-font-family;
 
 // Font Sizes
-$base-font-size: 1em;
+$base-font-size: 1rem;
 $h1-font-size: $base-font-size * 2.25;
 $h2-font-size: $base-font-size * 2;
 $h3-font-size: $base-font-size * 1.75;
@@ -23,7 +23,7 @@ $base-spacing: $base-line-height * 1em;
 $base-z-index: 0;
 
 // Colors
-$blue: #477dca;
+$blue: #477dca; 
 $dark-gray: #333;
 $medium-gray: #999;
 $light-gray: #ddd;
@@ -41,7 +41,7 @@ $base-accent-color: $blue;
 // Link Colors
 $base-link-color: $base-accent-color;
 $hover-link-color: darken($base-accent-color, 15);
-$base-button-color: $base-link-color;
+$light-gray: $base-link-color;
 $hover-button-color: $hover-link-color;
 
 // Flash Colors

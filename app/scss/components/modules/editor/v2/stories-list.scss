@@ -31,7 +31,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
     }
 
     .header {
-        @include selectable($hover-bg-color, $base-accent-color);
+        @include selectable(lighten($base-accent-color, 20%), $base-accent-color);
         border-top: 2px white solid;
 
         display: flex;
@@ -88,12 +88,12 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         a, button {
             @extend %button;
             user-select: none;
-            background: $secondary-button-bg-color;
+            background: $dark-gray;
             border: $filter-button-border;
         }
 
         a:hover {
-            background: $secondary-button-bg-color-hov;
+            background: darken($dark-gray, 10%);
         }
 
         .actions {
@@ -161,7 +161,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
     flex-flow: column;
 
     .book, .prologue, .scenarios, .epilogue {
-        background: $content-list-item-1-bg-color;
+        background: lighten(lighten($gray, 10%), 5%);
         &.active {
             background: $base-accent-color;
         }
@@ -173,7 +173,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
     .story,  {
         // Story
-        background: $content-list-item-2-bg-color;
+        background: lighten(lighten($gray, 10%), 15%);
         &.active {
             background: $base-accent-color;
         }
@@ -185,7 +185,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
     .scenario {
         // Scenario
-        background: $content-list-item-3-bg-color;
+        background: lighten(lighten($gray, 10%), 20%);
         border-color: #eaeaea;
         &.active {
             background: $base-accent-color;

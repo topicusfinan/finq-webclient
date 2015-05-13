@@ -2,8 +2,8 @@
     cursor: pointer;
     min-height: $header-height;
     max-height: $header-height;
-    background: $section-header-bg-color;
-    color: $section-header-color;
+    background: lighten($gray, 10%);
+    color: darken($dark-gray, 5%);
     white-space: nowrap;
     padding-left: $section-list-text-pad;
 
@@ -33,10 +33,10 @@
             &.inactive {
                 margin-left: $filter-button-padding / 2;
                 margin-right: 0;
-                color: $section-list-icon-color;
+                color: lighten($dark-gray, 5%);
 
                 &:hover {
-                    color: $section-header-color;
+                    color: darken($dark-gray, 5%);
                 }
             }
         }
@@ -47,7 +47,7 @@
         left: $section-list-icon-left;
         top: $section-header-icon-top;
         font-size: $section-header-icon-size;
-        color: $section-list-icon-color;
+        color: lighten($dark-gray, 5%);
     }
 
     > div > span {
@@ -77,8 +77,8 @@
             margin-bottom: 0;
             font-size: $section-header-font-size;
             line-height: $section-header-font-size / 1.5;
-            background-color: $list-input-bg-color;
-            color: $inverted-input-color;
+            background-color: rgba(#000,.3);
+            color: #fff;
             border: 0;
             width: $section-header-input-width;
         }

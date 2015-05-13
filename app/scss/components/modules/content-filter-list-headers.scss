@@ -23,7 +23,7 @@
     }
 
     &.selectable:hover {
-        background: $hover-bg-color;
+        background: lighten($base-accent-color, 20%);
     }
 
     &.quick:hover,
@@ -38,22 +38,22 @@
     &.active,
     &.active:hover {
         background: $base-accent-color;
-        color: $highlight-color;
+        color: #fff;
 
         .select > button {
-            background: $select-list-hl-button-bg-color;
+            background: none;
             border: $select-list-hl-button-border;
 
             span {
-                color: $highlight-color;
+                color: #fff;
             }
         }
 
         .comments > span {
-            color: $highlight-color;
+            color: #fff;
 
             &.highlight {
-                color: $highlight-color;
+                color: #fff;
             }
         }
     }
@@ -64,13 +64,13 @@
     }
 
     > div > button {
-        background: $secondary-button-bg-color;
+        background: $dark-gray;
         border: $filter-button-border;
         padding: ($filter-button-padding / 2) $filter-button-padding * 2;
     }
 
     > div .select > button {
-        background: $select-list-button-bg-color;
+        background: none;
         border: $select-list-button-border;
         padding: ($filter-button-padding / 2) $filter-button-padding;
 
@@ -80,6 +80,6 @@
     }
 
     > div > button:hover {
-        background: $secondary-button-bg-color-hov;
+        background: darken($dark-gray, 10%);
     }
 }

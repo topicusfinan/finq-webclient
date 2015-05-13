@@ -67,7 +67,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
     .ui-sortable-placeholder {
         visibility: visible !important;
-        background-color: darken($content-list-item-2-bg-color, 10%);
+        background-color: darken(lighten(lighten($gray, 10%), 15%), 10%);
         opacity: 1;
     }
 }

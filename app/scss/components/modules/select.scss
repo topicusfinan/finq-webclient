@@ -15,7 +15,7 @@
             right: $select-list-button-padding * 1.5;
             top: 25%;
             margin-left: $select-list-button-padding;
-            color: $section-header-color;
+            color: darken($dark-gray, 5%);
         }
 
         span {
@@ -29,12 +29,12 @@
     .select-dropdown {
         position: absolute;
         text-align: left;
-        color: $select-list-color;
+        color: lighten($dark-gray, 20%);
         font-weight: normal;
         font-size: $select-list-font-size;
         left: 0;
         top: 2.5em / $select-list-font-size + $select-list-button-padding;
-        background: $select-list-bg-color;
+        background: #fff;
         width: 100%;
         padding: $select-list-button-padding 0;
         border: $select-list-border;
@@ -57,7 +57,7 @@
             }
 
             &:hover {
-                background: $select-list-hl-bg-color;
+                background: darken(#fff, 5%);
                 cursor: pointer;
             }
 
@@ -69,7 +69,7 @@
                     @extend %icon;
                     line-height: inherit;
                     content: '\f00c';
-                    color: $select-list-color;
+                    color: lighten($dark-gray, 20%);
                     position: absolute;
                     right: 1em;
                 }
@@ -82,14 +82,14 @@
 
         button {
             background: none;
-            color: $select-list-color;
+            color: lighten($dark-gray, 20%);
             width: 100%;
             padding: 0;
             margin: -$select-list-button-padding 0;
             border-radius: 0;
 
             &:hover {
-                background: darken($select-list-bg-color, 10%);
+                background: darken(#fff, 10%);
             }
         }
     }

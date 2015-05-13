@@ -14,22 +14,22 @@ footer.feedback {
 
     &.error {
         background-color: $error-color;
-        color: $body-bg-color;
+        color: darken(#fff, 10%);
     }
 
     &.success {
         background-color: $success-color;
-        color: $body-bg-color;
+        color: darken(#fff, 10%);
     }
 
     &.alert {
         background-color: $alert-color;
-        color: $body-bg-color;
+        color: darken(#fff, 10%);
     }
 
     &.notice {
         background-color: $notice-color;
-        color: $body-color;
+        color: $dark-gray;
     }
 
     i {

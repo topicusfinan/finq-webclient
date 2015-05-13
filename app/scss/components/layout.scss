@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    background-color: $body-bg-color;
-    color: $body-color;
+    background-color: darken(#fff, 10%);
+    color: $dark-gray;
 
     h1,
     h2,
@@ -23,14 +23,14 @@ div.layout {
         @include fill-parent;
         height: $header-height;
         min-width: $header-height * 10;
-        background-color: $header-bg-color;
+        background-color: darken($dark-gray, 10%);
         position: fixed;
         z-index: 10000;
 
         .title,
         .search,
         .account {
-            color: $header-title-color;
+            color: $light-gray;
             position: relative;
         }
 
@@ -41,7 +41,7 @@ div.layout {
         }
 
         .title {
-            background-color: $header-title-bg-color;
+            background-color: darken($dark-gray, 5%);
             width: $menu-size;
             @include pad(($header-height - $header-title-size)/8 $header-height/8);
 
@@ -61,7 +61,7 @@ div.layout {
                 top: .5em;
                 left: .1em;
                 margin-right: .3em;
-                color: $header-search-ico-color;
+                color: lighten($dark-gray, 20%);
             }
 
             input {
@@ -71,13 +71,13 @@ div.layout {
                 background: none;
                 border: 0;
                 box-shadow: none;
-                color: $header-title-color;;
+                color: $light-gray;;
                 border-radius: 0;
 
                 // temporary fix for webkit issue 46543
                 &:-webkit-autofill {
-                    -webkit-box-shadow: 0 0 0 50px $header-bg-color inset;
-                    -webkit-text-fill-color: $header-title-color;
+                    -webkit-box-shadow: 0 0 0 50px darken($dark-gray, 10%) inset;
+                    -webkit-text-fill-color: $light-gray;
                 }
             }
         }
@@ -125,10 +125,10 @@ div.layout {
 
     > nav {
         width: $menu-size;
-        background-color: $layout-side-bg-color;
+        background-color: lighten($dark-gray, 5%);
         position: fixed;
         min-height: 100%;
-        color: $layout-side-color;
+        color: $gray;
         z-index: 2;
 
         .modules {
@@ -151,12 +151,12 @@ div.layout {
 
                 &:hover {
                     cursor: pointer;
-                    background: $layout-side-bg-hover-color;
-                    color: $highlight-color;
+                    background: lighten($dark-gray, 20%);
+                    color: #fff;
                 }
 
                 &.active {
-                    background: $layout-active-comp-bg-color;
+                    background: #000;
                     color: $base-accent-color;
                 }
 
@@ -165,8 +165,8 @@ div.layout {
                     top: .2em;
                     right: .3em;
                     padding: 0 .5em;
-                    background: $badge-bg-color;
-                    color: $badge-color;
+                    background: $red;
+                    color: #fff;
                     border-radius: $badge-radius;
                     font-size: .4em;
                 }
@@ -180,18 +180,18 @@ div.layout {
                 @include ellipsis;
                 @include pad($layout-menu-size/4 $layout-menu-size/2);
                 font-size: $layout-menu-size;
-                border-left: .3em solid $layout-side-bg-color;
+                border-left: .3em solid lighten($dark-gray, 5%);
                 position: relative;
 
                 &:hover,
                 &.active {
-                    color: $highlight-color;
-                    background-color: $layout-side-bg-hover-color;
+                    color: #fff;
+                    background-color: lighten($dark-gray, 20%);
                 }
 
                 &:hover {
                     cursor: pointer;
-                    border-color: $layout-side-color;
+                    border-color: $gray;
                 }
 
                 &.active {
@@ -203,8 +203,8 @@ div.layout {
                     top: .43em;
                     right: .3em;
                     padding: 0 .5em;
-                    background: $badge-bg-color;
-                    color: $badge-color;
+                    background: $red;
+                    color: #fff;
                     border-radius: $badge-radius;
                     font-size: .9em;
                 }
@@ -215,8 +215,8 @@ div.layout {
             font-size: $layout-menu-header-size;
             display: block;
             @include pad($layout-menu-header-size/8 $layout-menu-header-size/4);
-            background: $layout-side-header-bg-color;
-            color: $layout-side-header-color;
+            background: darken($dark-gray, 5%);
+            color: lighten($dark-gray, 20%);
         }
     }
 

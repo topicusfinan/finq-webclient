@@ -3,11 +3,11 @@ button {
 
     &.primary {
         background-color: $base-accent-color;
-        color: $highlight-color;
+        color: #fff;
 
         &:hover {
             background-color: darken($base-accent-color, 10%);
-            color: darken($highlight-color, 10%);
+            color: darken(#fff, 10%);
         }
     }
 
@@ -32,7 +32,7 @@ input.ng-invalid {
     padding: .5em;
     background-color: $error-color;
     border-radius: $base-border-radius;
-    color: $body-bg-color;
+    color: darken(#fff, 10%);
 }
 
 .notice-feedback {
@@ -40,7 +40,7 @@ input.ng-invalid {
     padding: .5em;
     background-color: $notice-color;
     border-radius: $base-border-radius;
-    color: $body-color;
+    color: $dark-gray;
 }
 
 .select {
@@ -55,7 +55,7 @@ input.ng-invalid {
 
     .select-dropdown {
         border-radius: .3em;
-        @include css-triangle(.5em, $select-list-border-width, $select-list-border-color, top, $select-list-bg-color, absolute);
+        @include css-triangle(.5em, $select-list-border-width, lighten($gray, 10%), top, #fff, absolute);
 
         button:first-child {
             border-radius: .2em .2em 0 0;
@@ -69,18 +69,18 @@ input.ng-invalid {
 
 button {
     background-color: $base-accent-color;
-    color: $highlight-color;
+    color: #fff;
 
     &:hover {
         background-color: darken($base-accent-color, 10%);
-        color: darken($highlight-color, 10%);
+        color: darken(#fff, 10%);
     }
 
     &.secondary {
-        background-color: $secondary-button-bg-color;
+        background-color: $dark-gray;
 
         &:hover {
-            background-color: $secondary-button-bg-color-hov;
+            background-color: darken($dark-gray, 10%);
         }
     }
 }
