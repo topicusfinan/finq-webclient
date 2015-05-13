@@ -41,7 +41,7 @@ $full-list-item-title-size-bp-2:  new-breakpoint(max-width 65rem);
     div.layout {
 
         > header .title {
-            width: ($full-menu-max-size / $header-title-size) * 1em;
+            width: ($full-menu-max-size / $header-title-size) * 1;
         }
 
         > nav {
