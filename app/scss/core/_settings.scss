@@ -5,9 +5,13 @@
 
 
 // Set your own font
-$font-family-body: sans-serif;
-$font-family-heading: georgia;
+$font-family-body: 'georgia', sans-serif;
+$font-family-heading:  'georgia', sans-serif;
 
+// $sans-serif: $helvetica;
+// $serif: $georgia;
+// $font-family-body: $sans-serif;
+// $header-font-family: $font-family-body;
 
 // The base font-size, all other elements will adjust to this value
 $font-size-base: 14px;
@@ -28,7 +32,7 @@ $max-width: 1140px;
 
 
 // Use the spacing variable on margins and paddings
-$spacing: 1rem;
+$spacing: 1.5rem;
 
 
 // Adjust the border-radius
@@ -52,10 +56,28 @@ $z-index-30: 30;
 // Colors
 // Add your own color variables
 
+// Wanted color palet
+// #7e8f82 GLily pad
+// #418789 Teal
+// #955251 Marsala (brand)
+// #73b9d9 Aqua splash (detail?)
+// #5388cd Marina (neutral)
+
 // Color brand
-$color-brand-40: #29c882;
-$color-brand-50: #09a25f; // Default
-$color-brand-60: #038049;
+$color-brand-50: #1ca382; // Default
+
+$color-brand-30: lighten($color-brand-50, 20%);
+$color-brand-40: lighten($color-brand-50, 7%);
+$color-brand-60: darken($color-brand-50, 7%);
+$color-brand-70: darken($color-brand-50, 20%);
+
+// Color detail (secondary brand color)
+$color-detail-50: #73b9d9; // Default
+
+$color-detail-30: lighten($color-detail-50, 20%);
+$color-detail-40: lighten($color-detail-50, 7%);
+$color-detail-60: darken($color-detail-50, 7%);
+$color-detail-70: darken($color-detail-50, 20%);
 
 // Color success
 $color-success-50: #39b924; // Default
@@ -66,18 +88,42 @@ $color-alert-50: #f3490d; // Default
 $color-alert-60: #d33e09;
 
 // Color neutral
-$color-neutral-10: #eef2f0;
-$color-neutral-30: #ccd6d2;
-$color-neutral-50: #8d9994;
-$color-neutral-70: #3f4542;
-$color-neutral-90: #232725;
-
-// #7e8f82 GLily pad
-// #418789 Teal
-// #955251 Marsala
-// #73b9d9 Aqua splash
-// #5388cd Marina
+$color-neutral-10: #E9EAEB; // gray lighten 12%
+$color-neutral-20: #D6DADC;
+$color-neutral-30: #C3CACE; // gray
+$color-neutral-40: #86949B;
+$color-neutral-50: #52656E; // Default
+$color-neutral-60: #404E54;
+$color-neutral-70: #333E42; 
+$color-neutral-90: #1B2224; // almost black
 
 // Color basics
 $black: #000;
 $white: #fff;
+
+// OLD colors
+$blue: #477dca; 
+$dark-gray: #333;
+$medium-gray: #999;
+$light-gray: #ddd;
+$light-red: #fbe3e4;
+$light-yellow: #fff6bf;
+$light-green: #e6efc2;
+
+$blue:                                  #049cdb;
+$dark-blue:                             #0064cd;
+$green:                                 #87b848;
+$lime:                                  #beca68;
+$red:                                   #a52b1f;
+$light-red:                             #c22b1c;
+$yellow:                                #ffc40d;
+$orange:                                #f90;
+$dark-orange:                           #ae4901;
+$pink:                                  #c3325f;
+$purple:                                #7a43b6;
+$gray:                                  darken($light-gray, 20%);
+
+$alert-color: $light-yellow;
+$error-color: $light-red;
+$notice-color: lighten($blue, 40);
+$success-color: $light-green;

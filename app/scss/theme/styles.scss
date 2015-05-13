@@ -2,12 +2,12 @@ input[type="submit"],
 button {
 
     &.primary {
-        background-color: $base-accent-color;
-        color: #fff;
+        background-color: $blue;
+        color: $white;
 
         &:hover {
-            background-color: darken($base-accent-color, 10%);
-            color: darken(#fff, 10%);
+            background-color: darken($blue, 10%);
+            color: darken($white, 10%);
         }
     }
 
@@ -31,15 +31,15 @@ input.ng-invalid {
     display: block;
     padding: .5em;
     background-color: $error-color;
-    border-radius: $base-border-radius;
-    color: darken(#fff, 10%);
+    border-radius: 1px solid $border-radius-10;
+    color: darken($white, 10%);
 }
 
 .notice-feedback {
     display: block;
     padding: .5em;
     background-color: $notice-color;
-    border-radius: $base-border-radius;
+    border-radius: 1px solid $border-radius-10;
     color: $dark-gray;
 }
 
@@ -55,7 +55,7 @@ input.ng-invalid {
 
     .select-dropdown {
         border-radius: .3em;
-        @include css-triangle(.5em, $select-list-border-width, lighten($gray, 10%), top, #fff, absolute);
+        @include css-triangle(.5em, $select-list-border-width, lighten($gray, 10%), top, $white, absolute);
 
         button:first-child {
             border-radius: .2em .2em 0 0;
@@ -68,12 +68,12 @@ input.ng-invalid {
 }
 
 button {
-    background-color: $base-accent-color;
-    color: #fff;
+    background-color: $blue;
+    color: $white;
 
     &:hover {
-        background-color: darken($base-accent-color, 10%);
-        color: darken(#fff, 10%);
+        background-color: darken($blue, 10%);
+        color: darken($white, 10%);
     }
 
     &.secondary {

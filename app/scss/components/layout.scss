@@ -1,13 +1,13 @@
 body {
     margin: 0;
-    background-color: darken(#fff, 10%);
+    background-color: darken($white, 10%);
     color: $dark-gray;
 
     h1,
     h2,
     h3,
     h4 {
-        font-weight: $header-font-weight;
+        font-weight: normal;
     }
 }
 
@@ -152,12 +152,12 @@ div.layout {
                 &:hover {
                     cursor: pointer;
                     background: lighten($dark-gray, 20%);
-                    color: #fff;
+                    color: $white;
                 }
 
                 &.active {
                     background: #000;
-                    color: $base-accent-color;
+                    color: $blue;
                 }
 
                 .badge {
@@ -166,7 +166,7 @@ div.layout {
                     right: .3em;
                     padding: 0 .5em;
                     background: $red;
-                    color: #fff;
+                    color: $white;
                     border-radius: $badge-radius;
                     font-size: .4em;
                 }
@@ -185,7 +185,7 @@ div.layout {
 
                 &:hover,
                 &.active {
-                    color: #fff;
+                    color: $white;
                     background-color: lighten($dark-gray, 20%);
                 }
 
@@ -195,7 +195,7 @@ div.layout {
                 }
 
                 &.active {
-                    border-color: $base-accent-color;
+                    border-color: $blue;
                 }
 
                 .badge {
@@ -204,7 +204,7 @@ div.layout {
                     right: .3em;
                     padding: 0 .5em;
                     background: $red;
-                    color: #fff;
+                    color: $white;
                     border-radius: $badge-radius;
                     font-size: .9em;
                 }

@@ -1,9 +1,9 @@
 .tip {
-    font-family: $base-font-family;
+    font-family: $font-family-body;
     left: 0;
     font-size: .7em;
     background: $dark-gray;
-    color: #fff;
+    color: $white;
     border-radius: $tooltip-border-radius;
     padding: 0 .5em;
     opacity: 0;

@@ -38,18 +38,18 @@
 
             &.selectable:hover {
                 cursor: pointer;
-                background: lighten($base-accent-color, 20%);
-                color: #fff;
+                background: lighten($blue, 20%);
+                color: $white;
 
                 > div.comments {
 
                     span,
                     a {
-                        color: #fff;
+                        color: $white;
                     }
 
                     a.hover {
-                        color: darken(#fff, 10%);
+                        color: darken($white, 10%);
                     }
                 }
             }
@@ -77,7 +77,7 @@
                     margin: (($header-height - $section-header-font-size) / 9.5) $filter-button-padding / 2;
                     margin-bottom: 0;
                     background-color: rgba(#000,.3);
-                    color: #fff;
+                    color: $white;
                     border: 0;
                     min-width: $section-list-input-width;
                     position: absolute;
@@ -146,11 +146,11 @@
     > li.cl > ul li.cl > ul li.cl > div.selectable:hover {
         > div.title > .radial-progress {
             .circle .mask .fill {
-                background: #fff;
+                background: $white;
             }
 
             .inset {
-                background: $base-accent-color;
+                background: $blue;
             }
         }
     }
@@ -166,19 +166,19 @@
             margin-top: 0;
 
             &.selectable:hover {
-                background: lighten($base-accent-color, 20%);
+                background: lighten($blue, 20%);
 
                 > div.comments {
-                    background: lighten($base-accent-color, 20%);
+                    background: lighten($blue, 20%);
                 }
             }
 
             &.active,
             &.active:hover {
-                background: $base-accent-color;
+                background: $blue;
 
                 > div.comments {
-                    background: $base-accent-color;
+                    background: $blue;
                 }
             }
 
@@ -214,7 +214,7 @@
             }
 
             > div.title > .radial-progress {
-                @include radial-progress(1em, .65em, darken(lighten(lighten($gray, 10%), 5%), 8%), #fff, lighten(lighten($gray, 10%), 5%));
+                @include radial-progress(1em, .65em, darken(lighten(lighten($gray, 10%), 5%), 8%), $white, lighten(lighten($gray, 10%), 5%));
                 font-size: $content-list-item-1-progress-size;
 
                 .inset[data-highlight="failed"] {
@@ -247,10 +247,10 @@
                 }
 
                 > a {
-                    color: $base-accent-color;
+                    color: $blue;
 
                     &:hover {
-                        color: darken($base-accent-color, 10%);
+                        color: darken($blue, 10%);
                     }
                 }
 
@@ -279,12 +279,12 @@
                     background: lighten(lighten($gray, 10%), 15%);
 
                     &.selectable:hover {
-                        background: lighten($base-accent-color, 20%);
+                        background: lighten($blue, 20%);
                     }
 
                     &.active,
                     &.active:hover {
-                        background: $base-accent-color;
+                        background: $blue;
                     }
 
                     &.selectable:hover,
@@ -382,7 +382,7 @@
                     }
 
                     > div.title > .radial-progress {
-                        @include radial-progress(1em, .75em, darken(lighten(lighten($gray, 10%), 15%), 8%), #fff, lighten(lighten($gray, 10%), 15%));
+                        @include radial-progress(1em, .75em, darken(lighten(lighten($gray, 10%), 15%), 8%), $white, lighten(lighten($gray, 10%), 15%));
                         font-size: $content-list-item-2-progress-size;
 
                         .inset[data-highlight="failed"] {
@@ -429,11 +429,11 @@
                         }
 
                         &.active {
-                            background: $base-accent-color;
+                            background: $blue;
                         }
 
                         &.selectable:hover {
-                            background: lighten($base-accent-color, 20%);
+                            background: lighten($blue, 20%);
                         }
 
                         > div > button,

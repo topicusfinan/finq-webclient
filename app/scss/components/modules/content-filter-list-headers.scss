@@ -23,7 +23,7 @@
     }
 
     &.selectable:hover {
-        background: lighten($base-accent-color, 20%);
+        background: lighten($blue, 20%);
     }
 
     &.quick:hover,
@@ -37,23 +37,23 @@
 
     &.active,
     &.active:hover {
-        background: $base-accent-color;
-        color: #fff;
+        background: $blue;
+        color: $white;
 
         .select > button {
             background: none;
             border: $select-list-hl-button-border;
 
             span {
-                color: #fff;
+                color: $white;
             }
         }
 
         .comments > span {
-            color: #fff;
+            color: $white;
 
             &.highlight {
-                color: #fff;
+                color: $white;
             }
         }
     }
@@ -75,7 +75,7 @@
         padding: ($filter-button-padding / 2) $filter-button-padding;
 
         span {
-            color: $base-accent-color;
+            color: $blue;
         }
     }
 

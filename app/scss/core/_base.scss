@@ -14,7 +14,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 }
 
 html {
-    color: $color-neutral-70;
+    color: $color-neutral-70; //$base-font-color
     font: 400 $font-size-base $font-family-body;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -26,29 +26,31 @@ html {
 body {
     line-height: 1.5em;
     height: 100%;
+    background-color: $white;
 }
 
 
 // Headings
 h1, h2, legend, h3, h4, h5, h6 {
     font-family: $font-family-heading;
+    text-rendering: optimizeLegibility;
     font-weight: 400;
-    line-height: 1.5em;
-    margin: 0 0 0.25em 0;
+    line-height: 1.25em;
+    margin: 0; //0 0 0.25em 0;
 }
 
-h1 { font-size: 2rem; }
+h1 { font-size: 2.25rem; } //2rem
 
 h2,
 legend {
-    font-size: 1.4rem;
+    font-size: 2rem; //1.4rem
 }
 
-h3 { font-size: 1.3rem; }
+h3 { font-size: 1.75rem; } //1.3rem
 
-h4 { font-size: 1.2rem; }
+h4 { font-size: 1.5rem; } //1.2rem
 
-h5 { font-size: 1.1rem; }
+h5 { font-size: 1.25rem; } //1.1rem
 
 h6 { font-size: 1rem; }
 
@@ -63,12 +65,15 @@ p {
 
 // Links
 a {
+    @include transition(color .1s linear);
     color: $color-brand-50;
     cursor: pointer;
     text-decoration: none;
     transition: color 60ms ease-out;
 
-    &:hover { color: $color-brand-60; }
+    &:hover,
+    &:active,
+    &:focus { color: $color-brand-60; }
 }
 
 
@@ -93,13 +98,39 @@ del { text-decoration: line-through; }
 mark { background-color: lighten(yellow, 35%); }
 
 hr {
-    background-color: transparent;
-    border: solid $color-neutral-30;
-    border-width: 1px 0 0;
-    clear: both;
-    margin: 2.5rem $spacing;
+    border-bottom: 1px solid $light-gray;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    margin: $spacing 0;
+    // background-color: transparent;
+    // border: solid $color-neutral-30;
+    // border-width: 1px 0 0;
+    // clear: both;
+    // margin: 2.5rem $spacing;
 }
 
+blockquote {
+    border-left: 2px solid 1px solid $light-gray;
+    color: lighten($color-neutral-70, 15);
+    margin: $spacing 0;
+    padding-left: $spacing / 2;
+}
+
+cite {
+    color: lighten($color-neutral-70, 25);
+    font-style: italic;
+
+    &:before {
+        content: '\2014 \00A0';
+    }
+}
+
+img,
+picture {
+    margin: 0;
+    max-width: 100%;
+}
 
 // Lists
 ul, ol { margin: 0 0 $spacing 1.5rem; }
@@ -109,10 +140,13 @@ ul { list-style: disc; }
 ol { list-style: decimal; }
 
 dl {
-    margin-bottom: $spacing;
+    margin-bottom: $spacing/2; //$spacing;
 
-    dt { font-weight: bold; }
-    dd { margin-left: $spacing; }
+    dt { 
+        font-weight: bold;
+        margin-top: $spacing / 2; 
+    }
+    dd { margin: 0; }
 
     &.is-advanced {
         @include grid-container;

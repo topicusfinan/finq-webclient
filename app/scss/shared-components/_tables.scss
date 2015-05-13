@@ -1,27 +1,48 @@
 // =========== Tables
 
 table {
-    border: 1px solid $color-neutral-50;
-    border-collapse: separate;
-    border-radius: $border-radius-10;
-    border-spacing: 0;
-    margin-bottom: $spacing;
+    border-collapse: collapse;
+    margin: ($spacing / 2) 0;
+    table-layout: fixed;
     width: 100%;
+
+    // border: 1px solid $color-neutral-50;
+    // border-collapse: separate;
+    // border-radius: $border-radius-10;
+    // border-spacing: 0;
+    // margin-bottom: $spacing;
+    // width: 100%;
 }
 
 thead th {
-    background: $white;
+    border-bottom: 1px solid darken($light-gray, 15);
     font-weight: bold;
-    padding: 0.5rem;
+    padding: ($spacing / 2) 0;
     text-align: left;
+
+    // background: $white;
+    // font-weight: bold;
+    // padding: 0.5rem;
+    // text-align: left;
 }
 
-tbody tr:nth-child(2n+2) { background: $white; }
+// tbody tr:nth-child(2n+2) { background: $white; }
 
 tbody td {
-    border-left: 1px solid $color-neutral-30;
-    border-top: 1px solid $color-neutral-30;
-    padding: 0.5rem;
+    border-bottom: 1px solid $light-gray;
+    padding: ($spacing / 2) 0;
+
+    // border-left: 1px solid $color-neutral-30;
+    // border-top: 1px solid $color-neutral-30;
+    // padding: 0.5rem;
     
-    &:first-child { border-left: 0; }
+    // &:first-child { border-left: 0; }
+}
+
+tr,
+td,
+th {
+    vertical-align: middle; 
+
+    //bestaat niet in taiga
 }

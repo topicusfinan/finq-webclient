@@ -78,7 +78,7 @@
             font-size: $section-header-font-size;
             line-height: $section-header-font-size / 1.5;
             background-color: rgba(#000,.3);
-            color: #fff;
+            color: $white;
             border: 0;
             width: $section-header-input-width;
         }

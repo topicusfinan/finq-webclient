@@ -31,7 +31,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
     }
 
     .header {
-        @include selectable(lighten($base-accent-color, 20%), $base-accent-color);
+        @include selectable(lighten($blue, 20%), $blue);
         border-top: 2px white solid;
 
         display: flex;
@@ -120,7 +120,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 .stories.filter {
     @extend .list-item;
     border: 0;
-    background: $base-accent-color;
+    background: $blue;
 
     .header {
         border-style: none;
@@ -163,7 +163,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
     .book, .prologue, .scenarios, .epilogue {
         background: lighten(lighten($gray, 10%), 5%);
         &.active {
-            background: $base-accent-color;
+            background: $blue;
         }
 
         .title {
@@ -175,7 +175,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         // Story
         background: lighten(lighten($gray, 10%), 15%);
         &.active {
-            background: $base-accent-color;
+            background: $blue;
         }
 
         .title {
@@ -188,7 +188,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         background: lighten(lighten($gray, 10%), 20%);
         border-color: #eaeaea;
         &.active {
-            background: $base-accent-color;
+            background: $blue;
         }
 
         .title {

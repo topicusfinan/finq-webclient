@@ -40,9 +40,6 @@ $login-subtitle-font-size:              modular-scale(1rem, 1, $major-tenth);
 // loader formatting
 $loader-font-size:                      modular-scale(1rem, 1, $perfect-fifth);
 
-// fonts
-$header-font-weight:                    normal;
-
 // section formatting
 $section-header-font-size:              modular-scale(1rem, 1, $perfect-fifth);
 $section-header-icon-top:               .5em;
@@ -71,7 +68,7 @@ $select-list-max-height:                12em;
 $select-list-border:                    lighten($gray, 10%) $select-list-border-width solid;
 $select-list-button-padding:            .4em;
 $select-list-button-border:             $light-gray 2px solid;
-$select-list-hl-button-border:          #fff 2px solid;
+$select-list-hl-button-border:          $white 2px solid;
 $select-list-placeholder-border:        $light-gray 1px dashed;
 
 // content list formatting and colors

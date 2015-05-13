@@ -1,11 +1,50 @@
-// library
-@import 'bourbon';
-@import 'base/base';
-@import 'neat';
-// load the main theme color variables
-@import 'theme/colors';
-// tune the theme by selecting the main theme color
-@import 'theme/tune/blue';
+// =========== Includes via taiga boilerplate
+@import
+
+'bourbon',
+
+// Core
+"core/_settings", // Set up your settings and variables first
+"core/_grid",
+"core/_base",
+"core/_states",
+"core/_layout",
+
+'neat',
+
+// Shared components
+// Components can be used generic through the application and are not connected to content.
+// Example: the component 'buttons' can be used in module 'product', 'blog-article' etc.
+"shared-components/_buttons",
+"shared-components/_figure",
+"shared-components/_forms",
+"shared-components/_icons",
+"shared-components/_labels",
+"shared-components/_list",
+"shared-components/_messages",
+"shared-components/_pagination",
+"shared-components/_panels",
+"shared-components/_quote",
+"shared-components/_tables",
+"shared-components/_tabs",
+
+
+// Modules
+// Modules are connected to a specific piece of content and can't be used without that piece of content.
+// Example: the module 'product' can't be used for a 'blog-article'.
+"modules/_product",
+
+
+// Pattern library (a kind of styleguide)
+"core/_pattern-library",
+
+
+// Print
+"core/_print";
+
+
+//  ========== OLD styles
+
 // load the theme variables so they can be applied to the components
 @import 'theme/variables';
 // load the components

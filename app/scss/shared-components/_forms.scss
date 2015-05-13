@@ -1,38 +1,65 @@
 // =========== Forms
 
-input[type=search] { -webkit-appearance: textfield; }
+input[type=search] { @include appearance(none); }
 
-input[type=search]::-webkit-search-decoration { -webkit-appearance: none; }
-
-input[type=text],
-input[type=number],
-input[type=password],
-input[type=search],
-input[type=email],
-input[type=tel],
-input[type=url],
+#{$all-text-inputs},
 textarea,
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: 1px solid $color-neutral-50;
+    box-sizing: border-box;
+    @include transition(border-color);
+    background-color: $white;
     border-radius: $border-radius-10;
-    color: inherit;
-    display: block;
+    border: 1px solid $light-gray;
+    box-shadow: inset 0 1px 3px rgba(#000, .06);
     font-family: $font-family-body;
-    font-size: $font-size-30;
-    line-height: 1.5em;
-    margin: 0;
-    padding: 0.5rem;
-    vertical-align: baseline;
+    font-size: 1rem;
+    margin-bottom: $spacing / 2;
+    padding: $spacing / 3;
     width: 100%;
+    display: block;
+
+
+    &:hover {
+        border-color: darken($light-gray, 10);
+    }
 
     &:focus {
-        border: 1px solid $color-neutral-50;
-        box-shadow: 0px 0px 3px rgba($black, 0.2);
-        outline: 0;
+        border-color: $blue;
+        box-shadow: inset 0 1px 3px rgba(#000, .06), 0 0 5px rgba(darken($blue, 5), .7);
+        outline: none;
     }
+
+    // -webkit-appearance: none;
+    // -moz-appearance: none;
+    // appearance: none;
+    // border: 1px solid $color-neutral-50;
+    // border-radius: $border-radius-10;
+    // color: inherit;
+    // display: block;
+    // font-family: $font-family-body;
+    // font-size: $font-size-30;
+    // line-height: 1.5em;
+    // margin: 0;
+    // padding: 0.5rem;
+    // vertical-align: baseline;
+    // width: 100%;
+
+    // &:focus {
+    //     border: 1px solid $color-neutral-50;
+    //     box-shadow: 0px 0px 3px rgba($black, 0.2);
+    //     outline: 0;
+    // }
+}
+
+input[type='checkbox'],
+input[type='radio'] {// bestaat niet in taiga
+    display: inline;
+    margin-right: $spacing / 4;
+}
+
+input[type='file'] {// bestaat niet in taiga
+    padding-bottom: $spacing / 2;
+    width: 100%;
 }
 
 textarea {
@@ -43,97 +70,122 @@ textarea {
 }
 
 select {
-    -webkit-appearance: menulist;
-    height: 2.85rem;
+    margin-bottom: $spacing;
+    max-width: 100%;
+    width: auto;
 
-    &[multiple] {
-        -webkit-appearance: none;
-        height: auto;
-    }
+    // -webkit-appearance: menulist;
+    // height: 2.85rem;
+
+    // &[multiple] {
+    //     -webkit-appearance: none;
+    //     height: auto;
+    // }
 }
-
-select
 
 form {  }
 
-fieldset {  }
+fieldset { 
+    background: lighten($light-gray, 10);
+    border: 1px solid $light-gray;
+    margin: 0 0 ($spacing / 2);
+    padding: $spacing;
+
+    // leeg in taiga
+}
 
 legend {
     border: 0;
     display: block;
 }
 
-ul.form {
-    list-style: none;
-    margin: 0 0 $spacing 0;
+label {// bestaat niet in taiga
+    display: block;
+    font-family: $font-family-body;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: $spacing / 4;
 
-    > li { @include grid-container; }
-
-    > li > label {
-        clear: left;
-        cursor: pointer;
-        display: inline-block;
-        font-weight: bold;
-        padding-top: 0.5rem;
-        text-align: left;
-
-        @media (min-width: $breakpoint-10) {
-            @include grid(16, 0, 1);
-        }
-
-        &:hover { color: $color-neutral-90; }
+    &.required:after {
+        content: '*';
     }
 
-    div.form--fields {
-        margin-bottom: 0.5rem;
-
-        @media (min-width: $breakpoint-10) {
-            @include grid(32);
-        }
-
-        p, small {
-            display: block;
-            margin: 0.25rem 0;
-        }
-
-        p.form--description { margin: 0.5rem 0; }
+    abbr {
+        display: none;
     }
 }
 
-ul.form--checklist {
-    list-style: none;
-    margin: 0.5rem 0;
+// ul.form {
+//     list-style: none;
+//     margin: 0 0 $spacing 0;
 
-    li { margin: 0.5rem 0; }
+//     > li { @include grid-container; }
 
-    input { margin-right: 0.5rem; }
+//     > li > label {
+//         clear: left;
+//         cursor: pointer;
+//         display: inline-block;
+//         font-weight: bold;
+//         padding-top: 0.5rem;
+//         text-align: left;
 
-    label {
-        cursor: pointer;
+//         @media (min-width: $breakpoint-10) {
+//             @include grid(16, 0, 1);
+//         }
 
-        &:hover { color: $color-neutral-90; }
-    }
-}
+//         &:hover { color: $color-neutral-90; }
+//     }
 
-li.form--error {
+//     div.form--fields {
+//         margin-bottom: 0.5rem;
 
-    label {
-        color: $color-alert-50;
+//         @media (min-width: $breakpoint-10) {
+//             @include grid(32);
+//         }
 
-        &:hover { color: $color-alert-60; }
-    }
+//         p, small {
+//             display: block;
+//             margin: 0.25rem 0;
+//         }
 
-    input,
-    input:focus {
-        border: 1px solid $color-alert-50;
-        box-shadow: 0px 0px 3px $color-alert-50;
-    }
+//         p.form--description { margin: 0.5rem 0; }
+//     }
+// }
 
-    ul.form--errors {
-        color: $color-alert-50;
-        list-style: none;
-        margin: 0.25rem 0;
+// ul.form--checklist {
+//     list-style: none;
+//     margin: 0.5rem 0;
 
-        li { font-size: $font-size-20; }
-    }
-}
+//     li { margin: 0.5rem 0; }
+
+//     input { margin-right: 0.5rem; }
+
+//     label {
+//         cursor: pointer;
+
+//         &:hover { color: $color-neutral-90; }
+//     }
+// }
+
+// li.form--error {
+
+//     label {
+//         color: $color-alert-50;
+
+//         &:hover { color: $color-alert-60; }
+//     }
+
+//     input,
+//     input:focus {
+//         border: 1px solid $color-alert-50;
+//         box-shadow: 0px 0px 3px $color-alert-50;
+//     }
+
+//     ul.form--errors {
+//         color: $color-alert-50;
+//         list-style: none;
+//         margin: 0.25rem 0;
+
+//         li { font-size: $font-size-20; }
+//     }
+// }

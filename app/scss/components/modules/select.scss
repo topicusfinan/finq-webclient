@@ -34,7 +34,7 @@
         font-size: $select-list-font-size;
         left: 0;
         top: 2.5em / $select-list-font-size + $select-list-button-padding;
-        background: #fff;
+        background: $white;
         width: 100%;
         padding: $select-list-button-padding 0;
         border: $select-list-border;
@@ -53,11 +53,11 @@
 
             &:hover,
             &.active {
-                color: $base-accent-color;
+                color: $blue;
             }
 
             &:hover {
-                background: darken(#fff, 5%);
+                background: darken($white, 5%);
                 cursor: pointer;
             }
 
@@ -89,7 +89,7 @@
             border-radius: 0;
 
             &:hover {
-                background: darken(#fff, 10%);
+                background: darken($white, 10%);
             }
         }
     }
