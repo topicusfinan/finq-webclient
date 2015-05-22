@@ -3,67 +3,6 @@ $view-animate-show-speed: 1s;
 $sidebar-toggle-speed: .18s;
 $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
-div.layout {
-
-    > header {
-
-        .title {
-
-            padding-right: $header-height/6;
-
-            &:after {
-                background-color: darken($dark-gray, 5%);
-                height: 100%;
-                width: $header-height/4;
-                position: absolute;
-                right: -$header-height/10;
-                top: 0;
-                content: ' ';
-                @include transform(skew(-20deg, 0deg));
-            }
-        }
-
-        .search {
-            margin-left: $header-height/2.5;
-
-            i {
-                left: -.7em;
-            }
-
-            &:before {
-                background-color: darken($dark-gray, 10%);
-                border-right: darken($dark-gray, 5%) 3px solid;
-                height: 100%;
-                width: $header-height/2.5;
-                position: absolute;
-                left: -1em;
-                top: 0;
-                content: ' ';
-                @include transform(skew(-20deg, 0deg));
-            }
-        }
-
-        .title,
-        .search {
-            @include transition(opacity linear 1s);
-            opacity: 1;
-
-            &.ng-hide {
-                opacity: 0;
-            }
-        }
-    }
-
-    > nav {
-        @include transition(left cubic-bezier(0, 0, .2, 1) .5s);
-        left: 0;
-
-        &.ng-hide {
-            left: -$menu-size;
-        }
-    }
-}
-
 .view-animate {
 
     &.ng-leave {

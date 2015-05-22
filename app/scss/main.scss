@@ -28,47 +28,50 @@
 'shared-components/tables',
 'shared-components/tabs',
 
+//  OLD STYLES THAT NEED TO BE GONE -->
+	// load the theme variables so they can be applied to the components
+	'theme/variables',
+	// load the components
+	'components/vendor/mixins',
+	'components/vendor/progress',
+	'components/mixins',
+	'components/input',
+	'components/intro',
+	'components/preloader',
+	'components/feedback',
+	'components/icons',
+	'components/modules/content-list',
+	'components/modules/content-filter-list-headers',
+	'components/modules/select',
+	'components/modules/tooltip',
+	'components/modules/hero-notice',
+	'components/modules/pagination',
+	'components/modules/editor/editor-layout',
+	'components/modules/editor/sidebar',
+	'components/modules/editor/variable-blocks',
+	'components/modules/editor/modal',
+	'components/modules/editor/v2/stories-list',
+	'components/modules/editor/v2/sortable',
+
+	// finally enhance the components with some theme magic
+	'theme/styles',
+	'theme/responsive',
+	'theme/fancify',
+	'theme/animate',
+//  <-- OLD STYLES THAT NEED TO BE GONE
+
+'shared-components/top-filter',
 
 // Modules
 // Modules are connected to a specific piece of content and can't be used without that piece of content.
 // Example: the module 'product' can't be used for a 'blog-article'.
-'modules/product',
+'modules/header',
+'modules/navigation',
+'modules/main',
 
 
 // Pattern library (a kind of styleguide)
 'core/pattern-library';
 
 
-//  ========== OLD styles
 
-// load the theme variables so they can be applied to the components
-@import 'theme/variables';
-// load the components
-@import 'components/vendor/mixins';
-@import 'components/vendor/progress';
-@import 'components/mixins';
-@import 'components/input';
-@import 'components/intro';
-@import 'components/preloader';
-@import 'components/layout';
-@import 'components/feedback';
-@import 'components/icons';
-@import 'components/modules/top-filter';
-@import 'components/modules/content-list';
-@import 'components/modules/content-filter-list-headers';
-@import 'components/modules/select';
-@import 'components/modules/tooltip';
-@import 'components/modules/hero-notice';
-@import 'components/modules/pagination';
-@import 'components/modules/editor/editor-layout';
-@import 'components/modules/editor/sidebar';
-@import 'components/modules/editor/variable-blocks';
-@import 'components/modules/editor/modal';
-@import 'components/modules/editor/v2/stories-list';
-@import 'components/modules/editor/v2/sortable';
-
-// finally enhance the components with some theme magic
-@import 'theme/styles';
-@import 'theme/responsive';
-@import 'theme/fancify';
-@import 'theme/animate';

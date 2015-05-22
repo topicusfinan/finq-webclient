@@ -1,0 +1,106 @@
+div.layout > nav {
+    top: $header-height;
+    width: $menu-size;
+    background-color: $color-neutral-70;
+    position: fixed;
+    min-height: 100%;
+    color: $gray;
+    z-index: 2;
+    @include transition(left cubic-bezier(0, 0, .2, 1) .5s);
+    left: 0;
+
+    &.ng-hide {
+        left: -$menu-size;
+    }
+
+    ul.modules {
+        @include display(flex);
+        @include justify-content(flex-start);
+        padding: 10.6px 7.2px;
+        height: $header-height;
+        vertical-align: middle;
+        overflow: hidden;
+
+        li {
+            @include flex(0 0 auto);
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            font-size: 1.8em;
+            margin-left: .15em;
+            width: 3rem;
+            height: 3rem;
+            text-align: center;
+            border-radius: .25em;
+            position: relative;
+
+            &:hover {
+                cursor: pointer;
+                background: lighten($dark-gray, 20%);
+                color: $white;
+            }
+
+            &.active {
+                background: $color-neutral-90;
+                color: $color-brand-50;
+            }
+
+            .badge {
+                position: absolute;
+                top: .2em;
+                right: .3em;
+                padding: 0 .5em;
+                background: $red;
+                color: $white;
+                border-radius: $badge-radius;
+                font-size: .4em;
+            }
+        }
+    }
+
+    .sections {
+        li {
+            //@include row;
+            @include ellipsis;
+            padding: 6px 12px;
+            font-size: 1.4rem;
+            line-height: 2rem;
+            border-left: .3em solid $color-neutral-70;
+            position: relative;
+
+            &:hover,
+            &.active {
+                color: $white;
+                background-color: lighten($dark-gray, 20%);
+            }
+
+            &:hover {
+                cursor: pointer;
+                border-left: .3em solid $color-neutral-30;
+            }
+
+            &.active {
+                border-left: .3em solid $blue;
+            }
+
+            .badge {
+                position: absolute;
+                top: .43em;
+                right: .3em;
+                padding: 0 .5em;
+                background: $red;
+                color: $white;
+                border-radius: $badge-radius;
+                font-size: .9em;
+            }
+        }
+    }
+
+    h1 {
+        font-size: 2.3rem;
+        display: block;
+        padding: 8px 16px;
+        background: darken($dark-gray, 5%);
+        color: lighten($dark-gray, 20%);
+    }
+}

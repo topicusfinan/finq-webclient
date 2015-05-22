@@ -33,7 +33,7 @@ div.editor-content {
     }
 
     .sorting {
-        border: $editor-sort-active-border;
+        border: 2px dashed;
         background: lighten($yellow, 20%);
     }
 }

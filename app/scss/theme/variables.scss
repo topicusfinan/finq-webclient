@@ -12,16 +12,12 @@ $badge-radius:                          .3em;
 
 
 // layout formatting
-$header-height:                         modular-scale(1, 3.75rem, $octave);
 $layout-columns:                        24;
 $layout-menu-col:                       5;
 $layout-main-col-w:                     19;
 $layout-main-col-r:                     13;
 $layout-details-col:                    6;
 
-$header-title-size:                     modular-scale(1, 1rem, $octave);
-$layout-menu-size:                      modular-scale(1, 1rem, $minor-third);
-$layout-menu-header-size:               modular-scale(1, 1rem, $octave);
 $layout-feedback-size:                  1.2em;
 $layout-feedback-padding:               .5em 0;
 $layout-feedback-height:                3.5em;
@@ -41,15 +37,15 @@ $login-subtitle-font-size:              modular-scale(1, 1rem, $major-tenth);
 $loader-font-size:                      modular-scale(1, 1rem, $perfect-fifth);
 
 // section formatting
-$section-header-font-size:              modular-scale(1, 1rem, $perfect-fifth);
+$section-header-font-size:              1.5rem;
 $section-header-icon-top:               .5em;
-$section-header-icon-size:              modular-scale(1, 1rem, $octave);
+$section-header-icon-size:              1.95em;
 $section-header-input-width:            20em;
 $section-list-side-padding:             1em;
-$section-list-icon-left:                $header-height / $section-header-font-size / 5 * 1;
-$section-list-icon-left-invert:         $header-height / $section-header-font-size / 5 * 1.13;
+$section-list-icon-left:                0.53333em;
+$section-list-icon-left-invert:         0.6026629em;
 $section-list-text-pad:                 $section-list-icon-left;
-$section-list-icon-text-pad:            modular-scale($section-list-icon-left, 3, $major-seventh);
+$section-list-icon-text-pad:            3.51562em;
 $section-list-input-width:              10em;
 $section-list-input-padding:            .5em;
 $section-list-input-margin:             -.3em;
@@ -77,9 +73,9 @@ $content-list-det-actions-top:          .7em;
 
 $content-list-1-button-margin-top:      .3em;
 $content-list-1-select-margin-top:      .2em;
-$content-list-item-1-height:            modular-scale(1, 2rem, $minor-seventh);
-$content-list-item-1-font-size:         modular-scale(1, 1rem, $perfect-fourth);
-$content-list-item-1-icon-size:         modular-scale(1, 1rem, $minor-seventh);
+$content-list-item-1-height:            3.16128rem;
+$content-list-item-1-font-size:         1.333rem;
+$content-list-item-1-icon-size:         1.778em;
 $content-list-item-1-progress-size:     1.75em; // to avoid rounding errors we make this a simple number
 $content-list-item-1-icon-top:          .4em;
 $content-list-item-1-icon-left:         1.25;
@@ -89,9 +85,9 @@ $content-list-item-action-icon-top:     .1em;
 
 $content-list-2-button-margin-top:      .27em;
 $content-list-2-select-margin-top:      .17em;
-$content-list-item-2-height:            modular-scale(1, 2rem, $major-sixth);
-$content-list-item-2-det-height:        modular-scale(1, 3rem, $major-sixth);
-$content-list-item-2-font-size:         modular-scale(1, 1rem, $minor-third);
+$content-list-item-2-height:            2.77889rem;
+$content-list-item-2-det-height:        3.77889rem;
+$content-list-item-2-font-size:         1.2rem;
 $content-list-item-2-icon-size:         modular-scale(1, 1rem, $minor-seventh);
 $content-list-item-2-progress-size:     1.5em; // to avoid rounding errors we make this a simple number
 $content-list-item-2-icon-top:          .25em;
@@ -107,6 +103,3 @@ $tooltip-border-radius:                 .3em;
 // sidebar formatting
 $sidebar-expanded-width:                19em;
 $sidebar-collapsed-width:               3em;
-
-// editor formatting
-$editor-sort-active-border:             2px dashed;
