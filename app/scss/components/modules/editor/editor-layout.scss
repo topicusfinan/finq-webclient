@@ -1,7 +1,7 @@
 div.editor-content {
     height: 100%;
     margin-top: $header-height;
-    margin-right: $sidebar-collapsed-width;
+    margin-right: 3em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -29,7 +29,7 @@ div.editor-content {
     }
 
     &.sb-expand {
-        margin-right: $sidebar-expanded-width;
+        margin-right: 19em;
     }
 
     .sorting {

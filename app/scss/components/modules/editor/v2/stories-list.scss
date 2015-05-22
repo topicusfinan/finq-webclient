@@ -53,7 +53,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
             user-select: none;
             min-width: 2em;
             text-align: center;
-            font-size: $content-list-item-1-icon-size;
+            font-size: 1.778em;
             cursor: pointer;
         }
 
@@ -89,7 +89,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
             @extend %button;
             user-select: none;
             background: $dark-gray;
-            border: $filter-button-border;
+            border: none;
         }
 
         a:hover {
@@ -130,7 +130,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         }
 
         .title {
-            @include list-item-height($header-height, $section-header-font-size);
+            @include list-item-height($header-height, 1.5rem);
         }
     }
 }
@@ -167,7 +167,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         }
 
         .title {
-            @include list-item-height($content-list-item-1-height, $content-list-item-1-font-size);
+            @include list-item-height(3.16128rem, 1.333rem);
         }
     }
 
@@ -179,7 +179,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         }
 
         .title {
-            @include list-item-height($content-list-item-2-height, $content-list-item-2-font-size);
+            @include list-item-height(2.77889rem, 1.2rem);
         }
     }
 
@@ -192,7 +192,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         }
 
         .title {
-            @include list-item-height($content-list-item-2-height, $content-list-item-2-font-size);
+            @include list-item-height(2.77889rem, 1.2rem);
         }
     }
 }

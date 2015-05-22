@@ -32,7 +32,7 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         &.sorting {
             //@include transition(max-height none);
 
-            //max-height: calc(10px + #{$content-list-item-2-height});
+            //max-height: calc(10px + #{2.77889rem});
             max-height: 1000px;
             margin-top: -10px;
 

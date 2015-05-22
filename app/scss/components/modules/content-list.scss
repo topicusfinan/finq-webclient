@@ -24,10 +24,10 @@
         }
 
         > div {
-            padding-left: $section-list-text-pad;
+            padding-left: 0.53333em;
             position: relative;
             color: darken($dark-gray, 5%);
-            margin-top: $content-list-item-spacing;
+            margin-top: 2px;
 
             &.selectable:hover,
             .active {
@@ -74,12 +74,12 @@
                 }
 
                 > input {
-                    margin: (($header-height - $section-header-font-size) / 9.5) $filter-button-padding / 2;
+                    margin: (($header-height - 1.5rem) / 9.5) .5em / 2;
                     margin-bottom: 0;
                     background-color: rgba(#000,.3);
                     color: $white;
                     border: 0;
-                    min-width: $section-list-input-width;
+                    min-width: 10em;
                     position: absolute;
                     left: 0;
                     right: 0;
@@ -109,15 +109,15 @@
             }
 
             > div.actions > strong {
-                font-size: $content-list-item-action-icon-size;
+                font-size: modular-scale(1, 1rem, $minor-sixth);
                 position: relative;
-                top: $content-list-item-action-icon-top;
+                top: .1em;
             }
 
             &.detailed.active,
             &.detailed.always {
-                min-height: $content-list-item-2-det-height;
-                max-height: $content-list-item-2-det-height;
+                min-height: 3.77889rem;
+                max-height: 3.77889rem;
 
                 > div.details {
                     display: block;
@@ -128,14 +128,14 @@
                 }
 
                 > div.actions {
-                    top: $content-list-det-actions-top;
+                    top: .7em;
                 }
             }
         }
     }
 
     > li.cl > div > div.details {
-        margin: 0 $filter-button-padding / 2;
+        margin: 0 .5em / 2;
     }
 
     > li.cl > div.active,
@@ -156,12 +156,12 @@
     }
 
     > li.cl {
-        border-top: lighten(lighten($gray, 10%), 20%) $content-list-item-spacing solid;
+        border-top: lighten(lighten($gray, 10%), 20%) 2px solid;
         background: lighten(lighten($gray, 10%), 20%);
 
         > div {
-            min-height: $content-list-item-1-height;
-            max-height: $content-list-item-1-height;
+            min-height: 3.16128rem;
+            max-height: 3.16128rem;
             background: lighten(lighten($gray, 10%), 5%);
             margin-top: 0;
 
@@ -184,38 +184,38 @@
 
             button,
             .select > button {
-                font-size: $content-list-item-1-font-size - .1;
-                margin-top: $content-list-1-button-margin-top;
+                font-size: 1.333rem - .1;
+                margin-top: .3em;
             }
 
             .select > button {
-                margin-top: $content-list-1-select-margin-top;
+                margin-top: .2em;
             }
 
             > div > span,
             > div > a,
             > div > i {
-                margin: 0 $filter-button-padding / 4;
+                margin: 0 .5em / 4;
 
                 &.separate {
-                    margin: 0 $filter-button-padding / 2;
+                    margin: 0 .5em / 2;
                 }
             }
 
             > div.title > i,
             > div.title > .radial-progress {
                 cursor: pointer;
-                left: $section-list-icon-left * $content-list-item-1-icon-left;
-                top: $content-list-item-1-icon-top;
+                left: 0.53333em * 1.25;
+                top: .4em;
             }
 
             > div.title > i {
-                font-size: $content-list-item-1-icon-size;
+                font-size: 1.778em;
             }
 
             > div.title > .radial-progress {
                 @include radial-progress(1em, .65em, darken(lighten(lighten($gray, 10%), 5%), 8%), $white, lighten(lighten($gray, 10%), 5%));
-                font-size: $content-list-item-1-progress-size;
+                font-size: 1.75em;
 
                 .inset[data-highlight="failed"] {
                     background: $light-red;
@@ -230,9 +230,9 @@
             > div.comments > i,
             > div.comments > strong,
             > div.actions > span {
-                font-size: $content-list-item-1-font-size;
-                line-height: $content-list-item-1-font-size;
-                padding: (($content-list-item-1-height - $content-list-item-1-font-size) / 4) 0;
+                font-size: 1.333rem;
+                line-height: 1.333rem;
+                padding: ((3.16128rem - 1.333rem) / 4) 0;
             }
 
             > div.comments {
@@ -240,9 +240,9 @@
 
                 > span,
                 > a {
-                    font-size: $content-list-item-1-com-font-size;
-                    line-height: $content-list-item-1-com-font-size;
-                    padding: (($content-list-item-1-height - $content-list-item-1-com-font-size) / 2) 0;
+                    font-size: 1rem;
+                    line-height: 1rem;
+                    padding: ((3.16128rem - 1rem) / 2) 0;
                     color: lighten($dark-gray, 25%);
                 }
 
@@ -259,7 +259,7 @@
                 }
 
                 > strong.separate {
-                    margin-left: $filter-button-padding / 4;
+                    margin-left: .5em / 4;
                 }
             }
 
@@ -274,8 +274,8 @@
                 background: lighten(lighten($gray, 10%), 5%);
 
                 > div {
-                    min-height: $content-list-item-2-height;
-                    max-height: $content-list-item-2-height;
+                    min-height: 2.77889rem;
+                    max-height: 2.77889rem;
                     background: lighten(lighten($gray, 10%), 15%);
 
                     &.selectable:hover {
@@ -303,44 +303,44 @@
 
                     > div > button,
                     .select > button {
-                        font-size: $content-list-item-2-font-size - .1;
-                        margin-top: $content-list-2-button-margin-top;
+                        font-size: 1.2rem - .1;
+                        margin-top: .27em;
                     }
 
                     .select > button {
-                        margin-top: $content-list-2-select-margin-top;
+                        margin-top: .17em;
                     }
 
                     > div > span {
-                        margin: 0 $filter-button-padding / 2;
+                        margin: 0 .5em / 2;
                     }
 
                     > div.title {
 
                         > i,
                         > .radial-progress {
-                            left: $section-list-icon-left * $content-list-item-2-icon-left;
+                            left: 0.53333em * 1.75;
                         }
 
                         &.editable {
                             > i,
                             > .radial-progress {
-                                left: -$section-list-icon-left-invert * $content-list-item-2-icon-left;
+                                left: -0.6026629em * 1.75;
                             }
 
                             > span.editable {
-                                padding-right: $section-list-input-padding * 2;
+                                padding-right: .5em * 2;
                             }
                         }
                     }
 
                     > div.title > .radial-progress {
-                        top: $content-list-item-2-progress-top;
+                        top: .4em;
                     }
 
                     > div.title > i {
-                        font-size: $content-list-item-2-icon-size;
-                        top: $content-list-item-2-icon-top;
+                        font-size: modular-scale(1, 1rem, $minor-seventh);
+                        top: .25em;
 
                         &.scenario-handle,
                         &.step-handle {
@@ -369,21 +369,21 @@
 
                     > div.title > span,
                     > div.actions > span {
-                        font-size: $content-list-item-2-font-size;
-                        line-height: $content-list-item-2-font-size;
-                        padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 3) 0;
+                        font-size: 1.2rem;
+                        line-height: 1.2rem;
+                        padding: ((2.77889rem - 1.2rem) / 3) 0;
                     }
 
                     > div.title > input[type="text"] {
-                        font-size: $content-list-item-2-font-size;
-                        padding: (($content-list-item-2-height - $content-list-item-2-font-size) / 5) $section-list-input-padding;
-                        margin-left: $section-list-input-margin;
+                        font-size: 1.2rem;
+                        padding: ((2.77889rem - 1.2rem) / 5) .5em;
+                        margin-left: -.3em;
                         opacity: 0;
                     }
 
                     > div.title > .radial-progress {
                         @include radial-progress(1em, .75em, darken(lighten(lighten($gray, 10%), 15%), 8%), $white, lighten(lighten($gray, 10%), 15%));
-                        font-size: $content-list-item-2-progress-size;
+                        font-size: 1.5em;
 
                         .inset[data-highlight="failed"] {
                             background: $light-red;
@@ -402,8 +402,8 @@
 
                     li.cl > div {
                         background: lighten(lighten($gray, 10%), 20%);
-                        padding-top: $content-list-item-3-spacing;
-                        margin-top: $content-list-item-spacing / 2;
+                        padding-top: 1px;
+                        margin-top: 2px / 2;
 
                         &.success {
                             background: lighten($lime, 30%);
@@ -438,17 +438,17 @@
 
                         > div > button,
                         .select > button {
-                            margin-top: $content-list-3-button-margin-top;
+                            margin-top: .20em;
                         }
 
                         .select > button {
-                            margin-top: $content-list-3-select-margin-top;
+                            margin-top: .10em;
                         }
 
                         > div.title > {
 
                             .fa-fw {
-                                left: $section-list-icon-left;
+                                left: 0.53333em;
                             }
 
                             .radial-progress {

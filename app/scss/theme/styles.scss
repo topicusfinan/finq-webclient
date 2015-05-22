@@ -55,7 +55,7 @@ input.ng-invalid {
 
     .select-dropdown {
         border-radius: .3em;
-        @include css-triangle(.5em, $select-list-border-width, lighten($gray, 10%), top, $white, absolute);
+        @include css-triangle(.5em, .1em, lighten($gray, 10%), top, $white, absolute);
 
         button:first-child {
             border-radius: .2em .2em 0 0;

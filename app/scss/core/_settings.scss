@@ -130,3 +130,9 @@ $alert-color: $light-yellow;
 $error-color: $light-red;
 $notice-color: lighten($blue, 40);
 $success-color: $light-green;
+
+$error-color:                           $light-red;
+$notice-color:                          $yellow;
+$alert-color:                           $orange;
+$success-color:                         $green;
+$default-feedback-bg-color:             $gray;

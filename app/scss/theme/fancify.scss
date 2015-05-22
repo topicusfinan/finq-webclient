@@ -68,8 +68,8 @@ footer.feedback {
 
     @include transition(all cubic-bezier(.295, .305, .065, 1.455) .3s);
     opacity: 1;
-    height: $layout-feedback-height*1.1;
-    bottom: -$layout-feedback-height*.1;
+    height: 3.5em*1.1;
+    bottom: -3.5em*.1;
 
     &.ng-hide {
         opacity: 0;

@@ -6,8 +6,8 @@
     max-width: 28em;
 
     h1 {
-        font-size: $login-title-font-size;
-        margin-bottom: $login-title-font-size / 18;
+        font-size: modular-scale(1, 2rem, $octave);
+        margin-bottom: modular-scale(1, 2rem, $octave) / 18;
 
         i {
             margin-right: .25em;
@@ -16,8 +16,8 @@
     }
 
     h2 {
-        font-size: $login-subtitle-font-size;
-        margin-bottom: $login-subtitle-font-size / 3;
+        font-size: modular-scale(1, 1rem, $major-tenth);
+        margin-bottom: modular-scale(1, 1rem, $major-tenth) / 3;
     }
 
     h1,
@@ -30,7 +30,7 @@
     }
 
     input {
-        font-size: $login-font-size;
+        font-size: modular-scale(1, 1rem, $perfect-fifth);
         width: 100%;
     }
 

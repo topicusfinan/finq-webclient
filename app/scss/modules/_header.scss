@@ -103,16 +103,16 @@ div.layout > header {
         @include pad((4.57rem - 2rem)/8 4.57rem/8);
 
         > img {
-            height: $header-account-img-size;
+            height: 3em;
             position: absolute;
-            right: $header-account-img-pad;
-            top: $header-account-img-pad;
+            right: .5em;
+            top: .5em;
             max-width: none;
             cursor: pointer;
         }
 
         .name {
-            @include pad($header-account-name-pad $header-account-name-pad/2);
+            @include pad(.8em .8em/2);
             right: 4em;
             position: absolute;
 
@@ -121,12 +121,12 @@ div.layout > header {
                 text-align: right;
 
                 &.first {
-                    font-size: $header-account-first-size;
-                    line-height: $header-account-first-lh;
+                    font-size: .9em;
+                    line-height: .5em;
                 }
 
                 &.last {
-                    font-size: $header-account-last-size;
+                    font-size: 1.2em;
                 }
             }
         }

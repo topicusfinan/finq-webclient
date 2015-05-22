@@ -3,11 +3,11 @@
     top: $header-height*2;
     right: 0;
     bottom: 0;
-    width: $sidebar-collapsed-width;
+    width: 3em;
     overflow: hidden;
     background-color: darkgray;
 
     &.expand {
-        width: $sidebar-expanded-width;
+        width: 19em;
     }
 }

@@ -21,92 +21,6 @@
         font-size: 1.5rem;
         padding: $spacing/3 $spacing/1.5;
     }
-
-    // cursor: pointer;
-    // min-height: $header-height;
-    // max-height: $header-height;
-    // background: lighten($gray, 10%);
-    // color: darken($dark-gray, 5%);
-    // white-space: nowrap;
-    // padding-left: 8.5px;
-
-    // &.ic {
-    //     padding-left: 4rem;
-    // }
-
-    // &.fixed {
-    //     position: fixed;
-    //     top: 4em;
-    //     z-index: 1;
-    //     right: 0;
-    //     left: $menu-size;
-    // }
-
-    // > .filters {
-    //     float: left;
-    // }
-
-    // > .filters,
-    // > .actions {
-    //     > i {
-    //         margin: (($header-height - $section-header-font-size) / 4.5) 0 0 $filter-button-padding / 2;
-    //         font-size: $section-header-font-size * 1.3;
-    //         line-height: 1;
-
-    //         &.inactive {
-    //             margin-left: $filter-button-padding / 2;
-    //             margin-right: 0;
-    //             color: lighten($dark-gray, 5%);
-
-    //             &:hover {
-    //                 color: darken($dark-gray, 5%);
-    //             }
-    //         }
-    //     }
-    // }
-
-    // > i {
-    //     position: absolute;
-    //     left: $section-list-icon-left;
-    //     top: $section-header-icon-top;
-    //     font-size: $section-header-icon-size;
-    //     color: lighten($dark-gray, 5%);
-    // }
-
-    // > div > span {
-    //     margin: (($header-height - $section-header-font-size) / 4.5) $filter-button-padding / 2;
-    //     font-size: $section-header-font-size;
-    //     line-height: $section-header-font-size;
-    // }
-
-    // > div button,
-    // > div .select > button {
-    //     font-size: $section-header-font-size - .1;
-    // }
-
-    // > div button {
-    //     margin-top: $filter-button-margin-top;
-    // }
-
-    // > div .select > button {
-    //     margin-top: $filter-select-margin-top;
-    // }
-
-    // > .title {
-    //     float: left;
-
-    //     > input {
-    //         margin: (($header-height - $section-header-font-size) / 9.5) $filter-button-padding / 2;
-    //         margin-bottom: 0;
-    //         font-size: $section-header-font-size;
-    //         line-height: $section-header-font-size / 1.5;
-    //         background-color: rgba(#000,.3);
-    //         color: $white;
-    //         border: 0;
-    //         width: $section-header-input-width;
-    //     }
-
-    // }
 }
 
 .actions {
@@ -145,3 +59,92 @@
     }
 
 }
+
+
+// .top-filter {
+    // cursor: pointer;
+    // min-height: $header-height;
+    // max-height: $header-height;
+    // background: lighten($gray, 10%);
+    // color: darken($dark-gray, 5%);
+    // white-space: nowrap;
+    // padding-left: 8.5px;
+
+    // &.ic {
+    //     padding-left: 4rem;
+    // }
+
+    // &.fixed {
+    //     position: fixed;
+    //     top: 4em;
+    //     z-index: 1;
+    //     right: 0;
+    //     left: $menu-size;
+    // }
+
+    // > .filters {
+    //     float: left;
+    // }
+
+    // > .filters,
+    // > .actions {
+    //     > i {
+    //         margin: (($header-height - 1.5rem) / 4.5) 0 0 .5em / 2;
+    //         font-size: 1.5rem * 1.3;
+    //         line-height: 1;
+
+    //         &.inactive {
+    //             margin-left: .5em / 2;
+    //             margin-right: 0;
+    //             color: lighten($dark-gray, 5%);
+
+    //             &:hover {
+    //                 color: darken($dark-gray, 5%);
+    //             }
+    //         }
+    //     }
+    // }
+
+    // > i {
+    //     position: absolute;
+    //     left: 0.53333em;
+    //     top: .5em;
+    //     font-size: 1.95em;
+    //     color: lighten($dark-gray, 5%);
+    // }
+
+    // > div > span {
+    //     margin: (($header-height - 1.5rem) / 4.5) .5em / 2;
+    //     font-size: 1.5rem;
+    //     line-height: 1.5rem;
+    // }
+
+    // > div button,
+    // > div .select > button {
+    //     font-size: 1.5rem - .1;
+    // }
+
+    // > div button {
+    //     margin-top: .45em;
+    // }
+
+    // > div .select > button {
+    //     margin-top: .35em;
+    // }
+
+    // > .title {
+    //     float: left;
+
+    //     > input {
+    //         margin: (($header-height - 1.5rem) / 9.5) .5em / 2;
+    //         margin-bottom: 0;
+    //         font-size: 1.5rem;
+    //         line-height: 1.5rem / 1.5;
+    //         background-color: rgba(#000,.3);
+    //         color: $white;
+    //         border: 0;
+    //         width: 20em;
+    //     }
+
+    // }
+// }

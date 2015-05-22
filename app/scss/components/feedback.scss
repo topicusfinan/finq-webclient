@@ -5,11 +5,11 @@ footer.feedback {
     background: $default-feedback-bg-color;
     text-align: center;
     left: $menu-size;
-    padding: $layout-feedback-padding;
-    height: $layout-feedback-height;
+    padding: .5em 0;
+    height: 3.5em;
 
     span {
-        font-size: $layout-feedback-size;
+        font-size: 1.2em;
     }
 
     &.error {
@@ -34,11 +34,11 @@ footer.feedback {
 
     i {
         opacity: .75;
-        font-size: $layout-feedback-size * 1.5;
+        font-size: 1.2em * 1.5;
         position: absolute;
         right: 0;
         top: 0;
-        padding: $layout-feedback-size / 4  $layout-feedback-size / 3;
+        padding: 1.2em / 4  1.2em / 3;
 
         &:hover {
             opacity: 1;
