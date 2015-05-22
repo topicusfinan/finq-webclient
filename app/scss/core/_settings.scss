@@ -63,12 +63,12 @@ $menu-size: 272px; // ~19.43rem
 // Wanted color palet
 // #7e8f82 GLily pad
 // #418789 Teal
-// #955251 Marsala (brand)
-// #73b9d9 Aqua splash (detail?)
+// #955251 Marsala (detail)
+// #73b9d9 Aqua splash (brand)
 // #5388cd Marina (neutral)
 
 // Color brand
-$color-brand-50: #049cdb; // Default
+$color-brand-50: #418789; // Default
 
 $color-brand-30: lighten($color-brand-50, 20%);
 $color-brand-40: lighten($color-brand-50, 7%);
@@ -76,7 +76,7 @@ $color-brand-60: darken($color-brand-50, 7%);
 $color-brand-70: darken($color-brand-50, 20%);
 
 // Color detail (secondary brand color)
-$color-detail-50: #73b9d9; // Default
+$color-detail-50: #e9b77b; // Default
 
 $color-detail-30: lighten($color-detail-50, 20%);
 $color-detail-40: lighten($color-detail-50, 7%);

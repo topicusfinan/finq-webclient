@@ -20,11 +20,13 @@
     li.cl {
 
         &.ic > div {
-            padding-left: 3.51562em; 
+            padding-left: $spacing/2; 
         }
 
         > div {
-            padding-left: 0.53333em;
+            @include display(flex);
+            @include align-items(center);
+            //padding-left: 0.53333em;
             position: relative;
             color: darken($dark-gray, 5%);
             margin-top: 2px;
@@ -38,8 +40,8 @@
 
             &.selectable:hover {
                 cursor: pointer;
-                background: lighten($blue, 20%);
-                color: $white;
+                background: $color-detail-40;
+                //color: $white;
 
                 > div.comments {
 
@@ -55,7 +57,8 @@
             }
 
             > div.title {
-                float: left;
+                @include display(flex);
+                @include align-items(center);
 
                 &.editable {
                     position: relative;
@@ -94,7 +97,10 @@
             > i,
             > div.title > i,
             > div.title > .radial-progress {
-                position: absolute;
+                //position: absolute;
+                width: 2rem;
+                text-align: center;
+                margin-right: $spacing/2;
             }
 
             > div.details {
@@ -116,8 +122,7 @@
 
             &.detailed.active,
             &.detailed.always {
-                min-height: 3.77889rem;
-                max-height: 3.77889rem;
+                height: 3.77889rem;
 
                 > div.details {
                     display: block;
@@ -150,7 +155,7 @@
             }
 
             .inset {
-                background: $blue;
+                background: $color-detail-50;
             }
         }
     }
@@ -160,25 +165,24 @@
         background: lighten(lighten($gray, 10%), 20%);
 
         > div {
-            min-height: 3.16128rem;
-            max-height: 3.16128rem;
+            height: 3.16128rem;
             background: lighten(lighten($gray, 10%), 5%);
             margin-top: 0;
 
             &.selectable:hover {
-                background: lighten($blue, 20%);
+                background: $color-detail-40;
 
                 > div.comments {
-                    background: lighten($blue, 20%);
+                    background: $color-detail-40;
                 }
             }
 
             &.active,
             &.active:hover {
-                background: $blue;
+                background: $color-detail-50;
 
                 > div.comments {
-                    background: $blue;
+                    background: $color-detail-50;
                 }
             }
 
@@ -274,17 +278,16 @@
                 background: lighten(lighten($gray, 10%), 5%);
 
                 > div {
-                    min-height: 2.77889rem;
-                    max-height: 2.77889rem;
+                    height: 2.77889rem;
                     background: lighten(lighten($gray, 10%), 15%);
 
                     &.selectable:hover {
-                        background: lighten($blue, 20%);
+                        background: $color-detail-40;
                     }
 
                     &.active,
                     &.active:hover {
-                        background: $blue;
+                        background: $color-detail-50;
                     }
 
                     &.selectable:hover,
@@ -304,11 +307,11 @@
                     > div > button,
                     .select > button {
                         font-size: 1.2rem - .1;
-                        margin-top: .27em;
+                        //margin-top: .27em;
                     }
 
                     .select > button {
-                        margin-top: .17em;
+                        margin: .15em 0;
                     }
 
                     > div > span {
@@ -371,7 +374,7 @@
                     > div.actions > span {
                         font-size: 1.2rem;
                         line-height: 1.2rem;
-                        padding: ((2.77889rem - 1.2rem) / 3) 0;
+                        padding: ((2.77889rem - 1.2rem) / 3) $spacing/3;
                     }
 
                     > div.title > input[type="text"] {
@@ -429,7 +432,7 @@
                         }
 
                         &.active {
-                            background: $blue;
+                            background: $color-detail-50;
                         }
 
                         &.selectable:hover {

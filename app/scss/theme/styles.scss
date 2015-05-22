@@ -2,11 +2,11 @@ input[type="submit"],
 button {
 
     &.primary {
-        background-color: $blue;
+        background-color: $color-brand-50;
         color: $white;
 
         &:hover {
-            background-color: darken($blue, 10%);
+            background-color: $color-brand-60;
             color: darken($white, 10%);
         }
     }
@@ -68,11 +68,11 @@ input.ng-invalid {
 }
 
 button {
-    background-color: $blue;
+    background-color: $color-brand-60;
     color: $white;
 
     &:hover {
-        background-color: darken($blue, 10%);
+        background-color: $color-brand-70;
         color: darken($white, 10%);
     }
 
