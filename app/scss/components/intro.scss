@@ -41,6 +41,23 @@
     .view-animate {
         position: absolute;
         width: 100%;
+
+        &.ng-leave {
+            @include transition(all $animate-std-cubic $view-animate-hide-speed);
+
+            &.ng-leave-active {
+                opacity: 0;
+            }
+        }
+
+        &.ng-enter {
+            @include transition(all $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
+            opacity: 0;
+
+            &.ng-enter-active {
+                opacity: 1;
+            }
+        }
     }
 
     .error-feedback,

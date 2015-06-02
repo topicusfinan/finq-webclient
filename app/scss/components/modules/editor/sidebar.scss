@@ -6,6 +6,7 @@
     width: 3em;
     overflow: hidden;
     background-color: darkgray;
+    @include transition(width ease-in $sidebar-toggle-speed);
 
     &.expand {
         width: 19em;

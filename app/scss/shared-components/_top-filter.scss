@@ -6,6 +6,11 @@
     color: $white;
     font-size: 1.5rem;
     width: 100%;
+    @include transition(background $animate-std-cubic .1s, opacity $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
+
+    .actions {
+        @include transition(opacity linear .2s, width linear 0s .2s);
+    }
 
     > * { cursor: pointer; }
 
@@ -66,7 +71,7 @@
     // min-height: $header-height;
     // max-height: $header-height;
     // background: lighten($gray, 10%);
-    // color: darken($dark-gray, 5%);
+    // color: darken($color-neutral-60, 5%);
     // white-space: nowrap;
     // padding-left: 8.5px;
 
@@ -96,10 +101,10 @@
     //         &.inactive {
     //             margin-left: .5em / 2;
     //             margin-right: 0;
-    //             color: lighten($dark-gray, 5%);
+    //             color: lighten($color-neutral-60, 5%);
 
     //             &:hover {
-    //                 color: darken($dark-gray, 5%);
+    //                 color: darken($color-neutral-60, 5%);
     //             }
     //         }
     //     }
@@ -110,7 +115,7 @@
     //     left: 0.53333em;
     //     top: .5em;
     //     font-size: 1.95em;
-    //     color: lighten($dark-gray, 5%);
+    //     color: lighten($color-neutral-60, 5%);
     // }
 
     // > div > span {

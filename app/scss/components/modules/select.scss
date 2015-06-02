@@ -1,9 +1,25 @@
 .select {
     position: relative;
 
+    button span {
+        @include transition(all $animate-std-cubic .3s);
+    }
+
+    .select-dropdown {
+        opacity: 1;
+
+        &.ng-hide {
+            opacity: 0;
+        }
+
+        &.ng-hide-add {
+            @include transition(all linear .1s .1s);
+        }
+    }
+
     > button {
         text-align: left;
-        border: $light-gray 2px solid;
+        border: $color-neutral-20 2px solid;
         position: relative;
 
         &.active span {
@@ -15,7 +31,7 @@
             right: .4em * 1.5;
             top: 25%;
             margin-left: .4em;
-            color: darken($dark-gray, 5%);
+            color: darken($color-neutral-60, 5%);
         }
 
         span {
@@ -29,7 +45,7 @@
     .select-dropdown {
         position: absolute;
         text-align: left;
-        color: lighten($dark-gray, 20%);
+        color: lighten($color-neutral-60, 20%);
         font-weight: normal;
         font-size: 1.1em;
         left: 0;
@@ -69,20 +85,20 @@
                     @extend %icon;
                     line-height: inherit;
                     content: '\f00c';
-                    color: lighten($dark-gray, 20%);
+                    color: lighten($color-neutral-60, 20%);
                     position: absolute;
                     right: 1em;
                 }
             }
 
             &.placeholder {
-                border-bottom: $light-gray 1px dashed;
+                border-bottom: $color-neutral-20 1px dashed;
             }
         }
 
         button {
             background: none;
-            color: lighten($dark-gray, 20%);
+            color: lighten($color-neutral-60, 20%);
             width: 100%;
             padding: 0;
             margin: -.4em 0;

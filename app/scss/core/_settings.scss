@@ -7,10 +7,6 @@
 $font-family-body:  'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;;
 $font-family-heading:  'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;;
 
-// $sans-serif: $helvetica;
-// $serif: $georgia;
-// $font-family-body: $sans-serif;
-// $header-font-family: $font-family-body;
 
 // The base font-size, all other elements will adjust to this value
 $font-size-base: 14px;
@@ -20,6 +16,8 @@ $font-size-20: 0.875rem;
 $font-size-30: 1rem;
 $font-size-40: 1.125rem;
 $font-size-50: 1.313rem;
+$font-size-60: 1.57rem;
+$font-size-80: 2rem;
 
 
 // The grid columns will be used in the grid mixin, 48 is standard
@@ -58,17 +56,12 @@ $menu-size: 272px; // ~19.43rem
 
 
 // Colors
-// Add your own color variables
-
-// Wanted color palet
-// #7e8f82 GLily pad
-// #418789 Teal
-// #955251 Marsala (detail)
-// #73b9d9 Aqua splash (brand)
-// #5388cd Marina (neutral)
+// Add your own color variables)
+// http://www.colourlovers.com/palette/3775667/Enough_Night_Time
+// http://www.colourlovers.com/palette/3774796/Just_enough?widths=1
 
 // Color brand
-$color-brand-50: #418789; // Default
+$color-brand-50: #7DB2C4; // Default
 
 $color-brand-30: lighten($color-brand-50, 20%);
 $color-brand-40: lighten($color-brand-50, 7%);
@@ -76,7 +69,7 @@ $color-brand-60: darken($color-brand-50, 7%);
 $color-brand-70: darken($color-brand-50, 20%);
 
 // Color detail (secondary brand color)
-$color-detail-50: #e9b77b; // Default
+$color-detail-50: #FCD8CC; // Default
 
 $color-detail-30: lighten($color-detail-50, 20%);
 $color-detail-40: lighten($color-detail-50, 7%);
@@ -84,12 +77,12 @@ $color-detail-60: darken($color-detail-50, 7%);
 $color-detail-70: darken($color-detail-50, 20%);
 
 // Color success
-$color-success-50: #39b924; // Default
-$color-success-60: #249c11;
+$color-success-50: #1ca382; // Default
+$color-success-60: darken($color-success-50, 20%);
 
 // Color alert
-$color-alert-50: #f3490d; // Default
-$color-alert-60: #d33e09;
+$color-alert-50: #f85e53; // Default
+$color-alert-60: darken($color-alert-50, 20%);;
 
 // Color neutral
 $color-neutral-10: #E9EAEB; // gray lighten 12%
@@ -98,17 +91,14 @@ $color-neutral-30: #C3CACE; // gray
 $color-neutral-40: #86949B;
 $color-neutral-50: #52656E; // Default
 $color-neutral-60: #404E54;
-$color-neutral-70: #333E42; 
+$color-neutral-70: #333E42; // black
 $color-neutral-90: #1B2224; // almost black
 
 // Color basics
 $black: #000;
 $white: #fff;
 
-// OLD colors 
-$dark-gray: #333;
-$medium-gray: #999;
-$light-gray: #ddd;
+// OLD colors
 $light-red: #fbe3e4;
 $light-yellow: #fff6bf;
 $light-green: #e6efc2;
@@ -124,7 +114,7 @@ $orange:                                #f90;
 $dark-orange:                           #ae4901;
 $pink:                                  #c3325f;
 $purple:                                #7a43b6;
-$gray:                                  darken($light-gray, 20%);
+$gray:                                  darken($color-neutral-20, 20%);
 
 $alert-color: $light-yellow;
 $error-color: $light-red;
@@ -136,3 +126,10 @@ $notice-color:                          $yellow;
 $alert-color:                           $orange;
 $success-color:                         $green;
 $default-feedback-bg-color:             $gray;
+
+
+// Animations
+$view-animate-hide-speed: .7s;
+$view-animate-show-speed: 1s;
+$sidebar-toggle-speed: .18s;
+$animate-std-cubic: cubic-bezier(.250, .460, .450, .940);

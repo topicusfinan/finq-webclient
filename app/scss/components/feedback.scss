@@ -29,7 +29,7 @@ footer.feedback {
 
     &.notice {
         background-color: $notice-color;
-        color: $dark-gray;
+        color: $color-neutral-60;
     }
 
     i {
@@ -44,5 +44,57 @@ footer.feedback {
             opacity: 1;
             cursor: pointer;
         }
+    }
+}
+
+footer.feedback {
+
+    @include transition(all cubic-bezier(.295, .305, .065, 1.455) .3s);
+    opacity: 1;
+    height: 3.5em*1.1;
+    bottom: -3.5em*.1;
+
+    &.ng-hide {
+        opacity: 0;
+    }
+
+    &.ng-hide-remove {
+        animation-name: feedback;
+        animation-duration: 1s;
+    }
+}
+
+@keyframes feedback {
+    0%,
+    40%,
+    80%,
+    100% {
+        transition-timing-function: cubic-bezier(.215, .610, .355, 1);
+    }
+
+    0% {
+        transform: scaleY(.3);
+        bottom: -3.5em;
+    }
+
+    20% {
+        transform: scaleY(1.2);
+        bottom: -3.5em*.1;
+    }
+
+    40% {
+        transform: scaleY(1);
+    }
+
+    60% {
+        transform: scaleY(1.1);
+    }
+
+    80% {
+        transform: scaleY(.98);
+    }
+
+    100% {
+        transform: scaleY(1);
     }
 }

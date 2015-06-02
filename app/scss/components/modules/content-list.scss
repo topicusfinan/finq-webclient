@@ -1,4 +1,25 @@
 .main-content-list {
+    margin-bottom: 6em;
+
+    li.cl > div,
+    li.cl > div > div.comments {
+        @include transition(background $animate-std-cubic .1s);
+    }
+
+    > li.cl > ul li.cl {
+
+        > ul {
+            height: auto;
+            max-height: 0;
+            @include transition(opacity $animate-std-cubic .4s, max-height cubic-bezier(0, .6, .85, 1) .3s);
+        }
+    }
+
+    &.expand > li.cl > ul li.cl > ul,
+    > li.cl > ul.expand li.cl > ul,
+    > li.cl > ul li.cl.expand > ul {
+        max-height: 1000px;
+    }
 
     &.expand > li.cl > ul li.cl,
     > li.cl > ul.expand li.cl,
@@ -14,9 +35,6 @@
         }
     }
 
-
-    margin-bottom: 6em;
-
     li.cl {
 
         &.ic > div {
@@ -28,7 +46,7 @@
             @include align-items(center);
             //padding-left: 0.53333em;
             position: relative;
-            color: darken($dark-gray, 5%);
+            color: darken($color-neutral-60, 5%);
             margin-top: 2px;
 
             &.selectable:hover,
@@ -65,7 +83,7 @@
                 }
 
                 > i {
-                    color: lighten($dark-gray, 5%);
+                    color: lighten($color-neutral-60, 5%);
 
                     &.success {
                         color: $success-color;
@@ -247,7 +265,7 @@
                     font-size: 1rem;
                     line-height: 1rem;
                     padding: ((3.16128rem - 1rem) / 2) 0;
-                    color: lighten($dark-gray, 25%);
+                    color: lighten($color-neutral-60, 25%);
                 }
 
                 > a {
@@ -455,7 +473,7 @@
                             }
 
                             .radial-progress {
-                                @include radial-progress(1em, 0, lighten($light-gray, 4%), darken($light-gray, 8%));
+                                @include radial-progress(1em, 0, lighten($color-neutral-20, 4%), darken($color-neutral-20, 8%));
                             }
                         }
                     }

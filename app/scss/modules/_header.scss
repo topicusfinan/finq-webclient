@@ -1,26 +1,19 @@
 // ============ Header 
 
 div.layout > header {
+    @include display(flex);
     width: 100%;
     height: $header-height;
     min-width: 60rem;
-    background-color: darken($dark-gray, 10%);
+    background-color: $color-brand-70;
     position: fixed;
     z-index: 10000;
 
     .title,
-    .search,
-    .account {
-        color: $light-gray;
-        position: relative;
-        height: 100%;
-    }
-
-    .title,
     .search {
-        font-size: 2.29rem;
-        float: left;
         @include transition(opacity linear 1s);
+        
+        font-size: $font-size-80;
         opacity: 1;
 
         &.ng-hide {
@@ -29,22 +22,28 @@ div.layout > header {
     }
 
     .title {
-        background-color: darken($dark-gray, 5%);
-        width: 15rem;
-        padding: 8px 21.33px 8px 16px;
-        padding-right: 4.57rem/6;
-        position: relative;
+        @include flex(0 0 auto);
+        @include display(flex);
+        @include align-items(center);
 
-        &:after {
-            background-color: darken($dark-gray, 5%);
-            height: 100%;
-            width: 3rem;
-            position: absolute;
-            right: -1rem;
-            top: 0;
-            content: ' ';
-            @include transform(skew(-20deg, 0deg));
-        }
+        background-color: $color-neutral-90;
+        padding-left: $spacing/2;
+        width: $menu-size;
+        padding-right: $spacing/2;
+        position: relative;
+        color: $color-neutral-10;
+        font-weight: 500;
+
+        // &:after {
+        //     background-color: $color-brand-70;
+        //     height: 100%;
+        //     width: 3rem;
+        //     position: absolute;
+        //     right: -2.2rem;
+        //     top: 0;
+        //     content: " ";
+        //     @include transform(skew(20deg, 0deg));
+        // }
 
         span {
             @include ellipsis;
@@ -54,81 +53,74 @@ div.layout > header {
     }
 
     .search {
-        width: 32.5rem;
-        min-height: 100%;
-        padding: 8px 32px;
-        margin-left: 4.5rem;
+        @include flex(1 1 auto);
+        @include display(flex);
+        @include align-items(center);
+        padding: 0 $spacing/2;
+        position: relative;
 
         i {
-            position: absolute;
-            top: .4em;
-            left: -.9em;
-            color: lighten($dark-gray, 20%);
+            display: inline-block;
+            color: $color-brand-40;
+            margin-right: $spacing/2;
         }
 
         input {
-            line-height: 1.45em;
+            display: inline-block;
             margin: 0;
-            padding: 0 .3em;
             background: none;
             border: 0;
             box-shadow: none;
-            color: $light-gray;;
-            border-radius: 0;
-            font-size: 2.29rem;
+            color: $white;
+            font-size: $font-size-80;
+
+            @include placeholder {
+                color: $color-brand-30;
+            }
 
             // temporary fix for webkit issue 46543
             &:-webkit-autofill {
-                -webkit-box-shadow: 0 0 0 50px darken($dark-gray, 10%) inset;
-                -webkit-text-fill-color: $light-gray;
+                -webkit-box-shadow: 0 0 0 50px $color-neutral-70 inset;
+                -webkit-text-fill-color: $color-neutral-20;
             }
-        }
-
-        &:before {
-            background-color: darken($dark-gray, 10%);
-            border-right: darken($dark-gray, 5%) 3px solid;
-            height: 100%;
-            width: 4rem;
-            position: absolute;
-            left: -1em;
-            top: 0;
-            content: ' ';
-            @include transform(skew(-20deg, 0deg));
         }
     }
 
     .account {
-        float: right;
-        min-height: 100%;
-        @include pad((4.57rem - 2rem)/8 4.57rem/8);
+        display: none;
+        // @include flex (0 0 auto);
+        // width: 1px;
+        // float: right;
+        // min-height: 100%;
+        // padding: 0.32rem 0.57rem;
 
-        > img {
-            height: 3em;
-            position: absolute;
-            right: .5em;
-            top: .5em;
-            max-width: none;
-            cursor: pointer;
-        }
+        // > img {
+        //     height: 3em;
+        //     position: absolute;
+        //     right: .5em;
+        //     top: .5em;
+        //     max-width: none;
+        //     cursor: pointer;
+        // }
 
-        .name {
-            @include pad(.8em .8em/2);
-            right: 4em;
-            position: absolute;
+        // .name {
+        //     padding: .8em .8em/2;
+        //     right: 4em;
+        //     position: absolute;
 
-            > span {
-                display: block;
-                text-align: right;
+        //     > span {
+        //         display: block;
+        //         text-align: right;
 
-                &.first {
-                    font-size: .9em;
-                    line-height: .5em;
-                }
+        //         &.first {
+        //             font-size: .9em;
+        //             line-height: .5em;
+        //         }
 
-                &.last {
-                    font-size: 1.2em;
-                }
-            }
-        }
+        //         &.last {
+        //             font-size: 1.2em;
+        //         }
+        //     }
+        // }
     }
 }

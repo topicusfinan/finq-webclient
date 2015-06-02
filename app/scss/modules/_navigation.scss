@@ -15,33 +15,30 @@ div.layout > nav {
 
     ul.modules {
         @include display(flex);
-        @include justify-content(flex-start);
-        padding: 10.6px 7.2px;
-        height: $header-height;
-        vertical-align: middle;
+        //padding-top: $spacing/2;
+        background-color: $color-neutral-90;
         overflow: hidden;
 
         li {
-            @include flex(0 0 auto);
+            @include flex(1 1 auto);
             @include display(flex);
             @include align-items(center);
             @include justify-content(center);
-            font-size: 1.8em;
-            margin-left: .15em;
-            width: 3rem;
-            height: 3rem;
-            text-align: center;
-            border-radius: .25em;
+            font-size: $font-size-60;
+            margin: 0 0.25rem;
+            // height: $header-height - $spacing/2;
+            padding: $spacing/2 0;
+            border-radius: $border-radius-20 $border-radius-20 0 0 ;
             position: relative;
 
             &:hover {
                 cursor: pointer;
-                background: lighten($dark-gray, 20%);
+                background: $color-neutral-60;
                 color: $white;
             }
 
             &.active {
-                background: $color-neutral-90;
+                background: $color-neutral-70;
                 color: $color-brand-50;
             }
 
@@ -71,16 +68,16 @@ div.layout > nav {
             &:hover,
             &.active {
                 color: $white;
-                background-color: lighten($dark-gray, 20%);
+                background-color: $color-neutral-60;
             }
 
             &:hover {
                 cursor: pointer;
-                border-left: .3em solid $color-neutral-30;
+                border-left: .3em solid $color-neutral-50;
             }
 
             &.active {
-                border-left: .3em solid $blue;
+                border-left: .3em solid $color-brand-50;
             }
 
             .badge {
@@ -92,6 +89,18 @@ div.layout > nav {
                 color: $white;
                 border-radius: $border-radius-20;
                 font-size: .9em;
+                @include transition(all cubic-bezier(.295, .305, .065, 1.455) .3s);
+                opacity: 1;
+
+                &.ng-hide {
+                    opacity: 0;
+                    font-size: 0;
+                }
+
+                &.ng-animate {
+                    animation-name: badge;
+                    animation-duration: 1s;
+                }
             }
         }
     }
@@ -100,7 +109,42 @@ div.layout > nav {
         font-size: 2.3rem;
         display: block;
         padding: 8px 16px;
-        background: darken($dark-gray, 5%);
-        color: lighten($dark-gray, 20%);
+        background: darken($color-neutral-60, 5%);
+        color: lighten($color-neutral-60, 20%);
+    }
+}
+
+@keyframes badge {
+    0%,
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+        transition-timing-function: cubic-bezier(.215, .610, .355, 1);
+    }
+
+    0% {
+        transform: scale3d(.3, .3, .3);
+    }
+
+    20% {
+        transform: scale3d(1.2, 1.2, 1.2);
+    }
+
+    40% {
+        transform: scale3d(.9, .9, .9);
+    }
+
+    60% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    80% {
+        transform: scale3d(.95, .95, .95);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
     }
 }

@@ -15,7 +15,7 @@ table {
 }
 
 thead th {
-    border-bottom: 1px solid darken($light-gray, 15);
+    border-bottom: 1px solid darken($color-neutral-20, 15);
     font-weight: bold;
     padding: ($spacing / 2) 0;
     text-align: left;
@@ -29,7 +29,7 @@ thead th {
 // tbody tr:nth-child(2n+2) { background: $white; }
 
 tbody td {
-    border-bottom: 1px solid $light-gray;
+    border-bottom: 1px solid $color-neutral-20;
     padding: ($spacing / 2) 0;
 
     // border-left: 1px solid $color-neutral-30;

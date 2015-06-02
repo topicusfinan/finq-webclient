@@ -88,12 +88,12 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         a, button {
             @extend %button;
             user-select: none;
-            background: $dark-gray;
+            background: $color-neutral-60;
             border: none;
         }
 
         a:hover {
-            background: darken($dark-gray, 10%);
+            background: darken($color-neutral-60, 10%);
         }
 
         .actions {

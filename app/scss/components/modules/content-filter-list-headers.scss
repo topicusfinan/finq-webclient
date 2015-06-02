@@ -62,14 +62,14 @@
     }
 
     > div > button {
-        background: $dark-gray;
+        background: $color-neutral-60;
         border: none;
         padding: (.5em / 2) .5em * 2;
     }
 
     > div .select > button {
         background: none;
-        border: $light-gray 2px solid;
+        border: $color-neutral-20 2px solid;
         padding: .25em .5em .25em .7em;
 
         span {
@@ -78,6 +78,6 @@
     }
 
     > div > button:hover {
-        background: darken($dark-gray, 10%);
+        background: darken($color-neutral-60, 10%);
     }
 }
