@@ -30,6 +30,7 @@ angular.module('finqApp.runner.controller')
             this.filter = {
                 status: {id: 'status', ids: []}
             };
+            this.searchQuery = '';
             this.selectedItem = null;
             this.reportListRef = 'reportList';
             this.maxReports = configProvider.client().report.pagination.client.reportsPerPage;
@@ -42,11 +43,12 @@ angular.module('finqApp.runner.controller')
 
             $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED, function (event, filterInfo) {
                 that.filter[filterInfo.id].ids = filterInfo.keys;
-                reporterFilterService.applyFilter(that.filter.status.ids);
+                reporterFilterService.applyFilter(that.filter.status.ids, that.searchQuery);
             });
 
-            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED, function () {
-                reporterFilterService.applyFilter();
+            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED, function (event, query) {
+                that.searchQuery = query;
+                reporterFilterService.applyFilter(that.filter.set.ids, that.filter.tag.ids, that.searchQuery);
             });
 
             moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORTS);

@@ -36,6 +36,7 @@ angular.module('finqApp.runner.controller')
                 tag: {id: 'tag', ids: []},
                 env: {id: 'env', ids: []}
             };
+            this.searchQuery = '';
             this.storyListRef = 'stories';
             this.envPlaceholder = 'FILTERS.ENVIRONMENTS.NONE';
             this.selectedItem = null;
@@ -49,11 +50,12 @@ angular.module('finqApp.runner.controller')
 
             $scope.$on(EVENTS.SCOPE.FILTER_SELECT_UPDATED, function (event, filterInfo) {
                 that.filter[filterInfo.id].ids = filterInfo.keys;
-                runnerFilterService.applyFilter(that.filter.set.ids, that.filter.tag.ids);
+                runnerFilterService.applyFilter(that.filter.set.ids, that.filter.tag.ids, that.searchQuery);
             });
 
-            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED, function () {
-                runnerFilterService.applyFilter();
+            $scope.$on(EVENTS.SCOPE.SEARCH_UPDATED, function (event, query) {
+                that.searchQuery = query;
+                runnerFilterService.applyFilter(that.filter.set.ids, that.filter.tag.ids, that.searchQuery);
             });
 
             moduleService.setCurrentSection(MODULES.RUNNER.sections.AVAILABLE);

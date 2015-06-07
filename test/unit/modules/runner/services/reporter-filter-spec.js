@@ -57,7 +57,7 @@ describe('Unit: ReporterFilterService', function() {
 
     it('should be able to filter on result status', function (done) {
         backend.expectGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=2&page=0').respond(200, reportMockData);
-        reporterFilterService.applyFilter(['FAILED']).then(function(filteredReports) {
+        reporterFilterService.applyFilter(['FAILED'],'').then(function(filteredReports) {
             expect(filteredReports.length).to.equal(1);
             done();
         });
@@ -66,7 +66,7 @@ describe('Unit: ReporterFilterService', function() {
 
     it('should be able to reapply a previous filter', function (done) {
         backend.expectGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=2&page=0').respond(200, reportMockData);
-        reporterFilterService.applyFilter(['FAILED']).then(function() {
+        reporterFilterService.applyFilter(['FAILED'],'').then(function() {
             reporterFilterService.applyFilter().then(function(filteredReports) {
                 expect(filteredReports.length).to.equal(1);
                 done();

@@ -26,7 +26,8 @@ angular.module('finqApp.runner.service')
                 initializing = false,
                 filteredReports = [],
                 lastFilter = {
-                    statuses: []
+                    statuses: [],
+                    searchQuery: ''
                 };
 
             this.isInitialized = function() {
@@ -48,11 +49,13 @@ angular.module('finqApp.runner.service')
                 return deferred.promise;
             };
 
-            this.applyFilter = function(statuses) {
+            this.applyFilter = function(statuses, searchQuery) {
                 if (!statuses) {
                     statuses = lastFilter.statuses;
+                    searchQuery = lastFilter.searchQuery;
                 } else {
                     lastFilter.statuses = statuses;
+                    lastFilter.searchQuery = searchQuery;
                 }
                 if (!initialized && !initializing) {
                     var deferred = $q.defer();
@@ -61,7 +64,7 @@ angular.module('finqApp.runner.service')
                     });
                     return deferred.promise;
                 } else {
-                    filteredReports = reportSearchFilter(angular.copy(unfilteredReports), valueService.searchQuery);
+                    filteredReports = reportSearchFilter(angular.copy(unfilteredReports), searchQuery);
                     filteredReports = reportStatusFilter(angular.copy(filteredReports), statuses);
                     updateStates(filteredReports);
                     return $q.when(filteredReports);

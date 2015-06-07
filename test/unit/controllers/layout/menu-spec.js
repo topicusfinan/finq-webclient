@@ -6,16 +6,27 @@ describe('Unit: MenuCtrl initialization', function() {
         location,
         scope;
 
-    beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, $location) {
+    beforeEach(function() {
+        module('finqApp');
+        module('finqApp.service');
+    });
+    beforeEach(inject(function ($controller, $rootScope, $location, config, $httpBackend) {
         scope = $rootScope.$new();
         location = $location;
-        MenuCtrl = $controller('MenuCtrl', {
-            $scope: scope
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address : ''
         });
+        $httpBackend.expectGET('/app').respond(200, {
+            subject: 'Test'
+        });
+        config.load().then(function() {
+            MenuCtrl = $controller('MenuCtrl', {$scope: scope});
+        });
+        $httpBackend.flush();
     }));
 
     it('should initially have all main modules loaded', function () {
+        expect(MenuCtrl.title).to.equal('Test');
         expect(MenuCtrl.modules.length).to.equal(3);
         expect(MenuCtrl.modules[0].id).to.equal('RUNNER');
         expect(MenuCtrl.modules[1].id).to.equal('ORGANIZER');
@@ -64,17 +75,24 @@ describe('Unit: MenuCtrl receiving the first navigation event', function() {
         FIRST_TARGET_SECTION = 'RUNNER.AVAILABLE';
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_, config, $httpBackend) {
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
         scope = $rootScope.$new();
-        MenuCtrl = $controller('MenuCtrl', {
-            $scope: scope
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address : ''
         });
-        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
-            module: {id : FIRST_TARGET_MODULE},
-            section: {id : FIRST_TARGET_SECTION}
+        $httpBackend.expectGET('/app').respond(200, {
+            subject: 'Test'
         });
+        config.load().then(function() {
+            MenuCtrl = $controller('MenuCtrl', {$scope: scope});
+            scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+                module: {id : FIRST_TARGET_MODULE},
+                section: {id : FIRST_TARGET_SECTION}
+            });
+        });
+        $httpBackend.flush();
     }));
 
     it('should set the active module to the target module', function() {
@@ -116,21 +134,28 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
         SECOND_TARGET_SECTION = 'WRITER.STEPS';
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_, config, $httpBackend) {
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
         scope = $rootScope.$new();
-        MenuCtrl = $controller('MenuCtrl', {
-            $scope: scope
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address : ''
         });
-        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
-            module: {id : FIRST_TARGET_MODULE},
-            section: {id : FIRST_TARGET_SECTION}
+        $httpBackend.expectGET('/app').respond(200, {
+            subject: 'Test'
         });
-        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
-            module: {id : SECOND_TARGET_MODULE},
-            section: {id : SECOND_TARGET_SECTION}
+        config.load().then(function() {
+            MenuCtrl = $controller('MenuCtrl', {$scope: scope});
+            scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+                module: {id : FIRST_TARGET_MODULE},
+                section: {id : FIRST_TARGET_SECTION}
+            });
+            scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+                module: {id : SECOND_TARGET_MODULE},
+                section: {id : SECOND_TARGET_SECTION}
+            });
         });
+        $httpBackend.flush();
     }));
 
     it('should set the active module to the target module', function() {
@@ -171,21 +196,28 @@ describe('Unit: MenuCtrl receiving two subsequent navigation events to different
         SECOND_TARGET_SECTION = 'RUNNER.RUNNING';
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_, config, $httpBackend) {
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
         scope = $rootScope.$new();
-        MenuCtrl = $controller('MenuCtrl', {
-            $scope: scope
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address : ''
         });
-        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
-            module: {id : FIRST_TARGET_MODULE},
-            section: {id : FIRST_TARGET_SECTION}
+        $httpBackend.expectGET('/app').respond(200, {
+            subject: 'Test'
         });
-        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
-            module: {id : FIRST_TARGET_MODULE},
-            section: {id : SECOND_TARGET_SECTION}
+        config.load().then(function() {
+            MenuCtrl = $controller('MenuCtrl', {$scope: scope});
+            scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+                module: {id : FIRST_TARGET_MODULE},
+                section: {id : FIRST_TARGET_SECTION}
+            });
+            scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+                module: {id : FIRST_TARGET_MODULE},
+                section: {id : SECOND_TARGET_SECTION}
+            });
         });
+        $httpBackend.flush();
     }));
 
     it('should set the active module to the target module', function() {
@@ -223,17 +255,24 @@ describe('Unit: MenuCtrl responding to notification updates', function() {
         scope;
 
     beforeEach(module('finqApp'));
-    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_) {
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, _MODULES_, config, $httpBackend) {
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
         scope = $rootScope.$new();
-        MenuCtrl = $controller('MenuCtrl', {
-            $scope: scope
+        $httpBackend.expectGET('/scripts/config.json').respond(200, {
+            address : ''
         });
-        scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
-            module: {id : MODULES.ORGANIZER.id},
-            section: {id : MODULES.ORGANIZER.sections.SETS.id}
+        $httpBackend.expectGET('/app').respond(200, {
+            subject: 'Test'
         });
+        config.load().then(function() {
+            MenuCtrl = $controller('MenuCtrl', {$scope: scope});
+            scope.$broadcast(EVENTS.SCOPE.SECTION_STATE_CHANGED,{
+                module: {id : MODULES.ORGANIZER.id},
+                section: {id : MODULES.ORGANIZER.sections.SETS.id}
+            });
+        });
+        $httpBackend.flush();
     }));
 
     it('should respond to a section notification update event by updating the badge of a non active section', function() {

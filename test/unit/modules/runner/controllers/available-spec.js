@@ -174,7 +174,7 @@ describe('Unit: AvailableCtrl', function() {
             }
         }
         AvailableCtrl.filter.env.ids = [1];
-        runnerFilterService.applyFilter([],[1]);
+        runnerFilterService.applyFilter([],[1],'');
         AvailableCtrl.run('story',storyId);
         expect(runSpy).to.have.been.calledWith({
             id: storyId,
@@ -186,10 +186,10 @@ describe('Unit: AvailableCtrl', function() {
         var runSpy = sinon.spy(runExecutionService, 'runStories');
         var stories = [
             {id: 46421532, scenarios: [23452345]},
-            {id: 66421532, scenarios: [63452343]},
+            {id: 66421532, scenarios: [63452343]}
         ];
         AvailableCtrl.filter.env.ids = [1];
-        runnerFilterService.applyFilter([],[1,5]);
+        runnerFilterService.applyFilter([],[1,5],'');
         AvailableCtrl.run('all');
         expect(runSpy).to.have.been.calledWith(stories, 1);
     });

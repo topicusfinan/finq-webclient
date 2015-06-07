@@ -31,7 +31,8 @@ angular.module('finqApp.runner.service')
                 filteredBooks = [],
                 lastFilter = {
                     sets: [],
-                    tags: []
+                    tags: [],
+                    searchQuery: ''
                 };
 
             this.isInitialized = function () {
@@ -51,13 +52,15 @@ angular.module('finqApp.runner.service')
                 return deferred.promise;
             };
 
-            this.applyFilter = function (sets, tags) {
+            this.applyFilter = function (sets, tags, searchQuery) {
                 if (!sets) {
                     sets = lastFilter.sets;
                     tags = lastFilter.tags;
+                    searchQuery = lastFilter.searchQuery;
                 } else {
                     lastFilter.sets = sets;
                     lastFilter.tags = tags;
+                    lastFilter.searchQuery = searchQuery;
                 }
                 if (!initialized && !initializing) {
                     var deferred = $q.defer();
@@ -66,11 +69,11 @@ angular.module('finqApp.runner.service')
                     });
                     return deferred.promise;
                 } else {
-                    filteredBooks = storybookSearchFilter(angular.copy(unfilteredBooks), valueService.searchQuery);
+                    filteredBooks = storybookSearchFilter(angular.copy(unfilteredBooks), searchQuery);
                     filteredBooks = storybookSetFilter(filteredBooks, sets);
                     filteredBooks = storybookTagFilter(filteredBooks, tags);
                     angular.forEach(filteredBooks, function (book) {
-                        var stories = storySearchFilter(book.stories, valueService.searchQuery, book.id);
+                        var stories = storySearchFilter(book.stories, searchQuery, book.id);
                         stories = storySetFilter(stories, sets);
                         stories = storyTagFilter(stories, tags);
                         angular.forEach(stories, function (story) {
