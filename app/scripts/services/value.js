@@ -12,5 +12,4 @@ angular.module('finqApp.service')
     .service('value', function () {
         // whether or not the application has multiple pages in the current pagination context
         this.hasMorePages = false;
-        this.searchQuery = '';
     });

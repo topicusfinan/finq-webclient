@@ -22,7 +22,9 @@ angular.module('finqApp.controller')
         'MODULES',
         'EVENTS',
         'page',
-        function ($scope,$translate,$timeout,$location,MODULES,EVENTS,pageFactory) {
+        'authenticate',
+        'config',
+        function ($scope,$translate,$timeout,$location,MODULES,EVENTS,pageFactory,authenticateService,configProvider) {
         var that = this,
             activeSection = pageFactory.getActiveSection(),
             sectionBadge = {},
@@ -31,6 +33,8 @@ angular.module('finqApp.controller')
         this.modules = [];
         this.sections = [];
         this.activeModuleName = '';
+        this.currentUser = authenticateService.getCurrentUser;
+        this.title = configProvider.server().subject;
 
         // private method for the rebuilding of the section list
         var rebuildSectionList = function(sectionList,activeSectionId) {

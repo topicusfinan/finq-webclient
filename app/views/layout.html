@@ -1,20 +1,5 @@
-<header ng-controller="HeaderCtrl as header">
-    <div class="title ng-hide" ng-show="layout.loaded">
-        <span>{{ header.title }}</span>
-    </div>
-    <div class="search ng-hide" ng-show="layout.loaded">
-        <i class="fa fa-search"></i>
-        <input type="text" placeholder="Search" ng-model="header.query" ng-change="header.search()">
-    </div>
-    <div class="account ng-hide" ng-show="header.currentUser()">
-        <img src="http://www.gravatar.com/avatar/{{header.currentUser().gravatarHash}}?d={{header.defaultUserImage}}" />
-        <div class="name">
-            <span class="first">{{header.currentUser().first}}</span>
-            <span class="last">{{header.currentUser().last}}</span>
-        </div>
-    </div>
-</header>
 <nav class="ng-hide" ng-controller="MenuCtrl as menu" ng-show="layout.loaded">
+    <div class="title">{{ menu.title }}</div>
     <ul class="modules">
         <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-click="go(module.url)" ng-class="{'active': module.active}"><i class="fa {{module.id | lowercase}}"></i><span class="badge" ng-show="module.badge > 0">{{module.badge}}</span></li>
     </ul>
@@ -22,6 +7,10 @@
     <ul class="sections">
         <li class="list-animate" ng-repeat="section in menu.sections" ng-click="go(section.url)" ng-class="{'active': section.active}"><span>{{section.title}}</span><span class="badge" ng-show="section.badge > 0">{{section.badge}}</span></li>
     </ul>
+    <div class="account ng-hide" ng-show="menu.currentUser()">
+        <div class="user"></div>
+        <div class="logout"></div>
+    </div>
 </nav>
 <div class="main ng-hide" ng-show="layout.loaded" ng-view></div>
 <footer ng-controller="FeedbackCtrl as fb" class="feedback" ng-class="fb.feedback.type" ng-show="fb.show"><span>{{fb.feedback.message}}</span><i class="fa fa-times" ng-click="fb.hide()"></i></footer>

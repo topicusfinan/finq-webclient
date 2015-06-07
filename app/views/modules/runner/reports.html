@@ -5,6 +5,7 @@
         <div class="select" filter-select="filter.statuses" filter-id="reports.filter.status.id" placeholder="filter.statusPlaceholder" default="filter.statusesDefault" max-items="{{::reports.maxSelectItems}}"></div>
     </div>
 </div>
+<div class="search ng-hide" ng-show="initialized()" search></div>
 <ul id="report-list" class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="runReport in filteredReports = (reportList() | reportPaginationFilter:reports.currentPage:reports.maxReports) track by runReport.id">
         <div class="selectable detailed" ng-class="{'active':reports.selectedItem === 'report'+runReport.id}" ng-click="reports.selectedItem = 'report'+runReport.id">
