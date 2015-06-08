@@ -93,7 +93,6 @@ describe('Unit: PreloaderCtrl', function() {
         httpBackend.expectGET('/environments').respond(200, environments);
         httpBackend.expectGET('/users/current').respond(401);
         httpBackend.expectGET('views/intro/intro.html').respond(404);
-        httpBackend.expectGET('views/intro/login.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loaded).to.be.true;

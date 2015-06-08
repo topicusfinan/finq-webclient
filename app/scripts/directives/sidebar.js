@@ -17,7 +17,7 @@ angular.module('finqApp.directive')
             controller: 'sidebarCtrl'
         };
     })
-    .controller('sidebarCtrl', function ($scope, sidebar, $compile, $element, STATE) {
+    .controller('sidebarCtrl', ['$scope', 'sidebar', '$compile', '$element', 'STATE', function ($scope, sidebar, $compile, $element, STATE) {
         $scope.watchData = watchData;
         $scope.update = reinitialize;
 
@@ -40,4 +40,4 @@ angular.module('finqApp.directive')
 
             element.append($compile(sidebarObject.template)(sidebarObject.scope));
         }
-    });
+    }]);
