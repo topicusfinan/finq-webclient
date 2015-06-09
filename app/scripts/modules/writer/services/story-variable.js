@@ -17,19 +17,22 @@ angular.module('finqApp.writer.service')
         var rootObject;
 
         /**
-         * Look for variables 'upwards' in an attempt to find a declaration
+         * Look for variables 'backwards' in an attempt to find a declaration or 'forwards' to figure
+         * out if the variable is used later on.
          * @param node
          * @param name
-         * @param [first]
+         * @param [backwards]
+         * @param [recursive]
          */
-        function lookupPreviouslyDeclaredVariable(node, name, first) {
+        function treeVariableLookup(node, name, backwards, recursive) {
             var i, result;
-            if (first === false){
+            if (recursive){
                 // Check variables
-                var outputVariables = node.getOutputVariables();
-                for (i = 0; i < outputVariables.length; i++) {
-                    var outputVariable = outputVariables[i];
-                    if (outputVariable.getSetName() === name) {
+                var variables = backwards ? node.getOutputVariables() : node.getInputVariables();
+                for (i = 0; i < variables.length; i++) {
+                    var outputVariable = variables[i];
+                    var reference = backwards ? outputVariable.getSetName() : outputVariable.getSetValue();
+                    if (reference === name) {
                         return outputVariable;
                     }
                 }
@@ -38,7 +41,7 @@ angular.module('finqApp.writer.service')
                 var children = findChildrenProperty(node);
                 if (children !== null) {
                     for (i = children.length; i > 0; i--) {
-                        result = lookupPreviouslyDeclaredVariable(children[i], name, false);
+                        result = treeVariableLookup(children[i], name, backwards, true);
                         if (result !== null) {
                             return result;
                         }
@@ -47,51 +50,9 @@ angular.module('finqApp.writer.service')
             }
 
             // Check previous sibling
-            var previousSibling = node.getPreviousSibling();
-            if (previousSibling !== null) {
-                result = lookupPreviouslyDeclaredVariable(previousSibling, name, false);
-                if (result !== null) {
-                    return result;
-                }
-            }
-
-            return null;
-        }
-
-        /**
-         * Look for variables 'downwards' in an attempt to figure out if this variable is used later
-         * @param node
-         * @param name
-         * @param first
-         */
-        function lookupLaterReferencedVariable(node, name, first){
-            var i, result;
-            if (first === false){
-                // Check variables
-                var inputVariables = node.getInputVariables();
-                for (i = 0; i < inputVariables.length; i++) {
-                    var inputVariable = inputVariables[i];
-                    if (inputVariable.getSetValue() === name) {
-                        return inputVariable;
-                    }
-                }
-
-                // Check child elements
-                var children = findChildrenProperty(node);
-                if (children !== null) {
-                    for (i = 0; i < children.length; i++) {
-                        result = lookupLaterReferencedVariable(children[i], name, false);
-                        if (result !== null) {
-                            return result;
-                        }
-                    }
-                }
-            }
-
-            // Check previous sibling
-            var nextSibling = node.getNextSibling();
-            if (nextSibling !== null) {
-                result = lookupLaterReferencedVariable(nextSibling, name, false);
+            var sibling = backwards ? node.getPreviousSibling() : node.getNextSibling();
+            if (sibling !== null) {
+                result = treeVariableLookup(sibling, name, backwards, true);
                 if (result !== null) {
                     return result;
                 }
@@ -287,9 +248,9 @@ angular.module('finqApp.writer.service')
 
             function getReferenceVariable() {
                 if (inputOutput === INPUT){
-                    return lookupPreviouslyDeclaredVariable(parent, getSetValue());
+                    return treeVariableLookup(parent, getSetValue(), true);
                 } else if (inputOutput === OUTPUT){
-                    return lookupLaterReferencedVariable(parent, getSetName());
+                    return treeVariableLookup(parent, getSetName());
                 }
             }
 

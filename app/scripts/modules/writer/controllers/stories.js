@@ -10,27 +10,24 @@
  */
 angular.module('finqApp.writer.controller')
     .controller('StoriesCtrl', function($scope, module, MODULES, story, config, selectedItem){
-        module.setCurrentSection(MODULES.WRITER.sections.STORIES);
 
         this.selectedItem = {
             setSelectedItem: selectedItem.setSelectedItem,
             isItemSelected: selectedItem.isItemSelected
         };
+        this.currentPage = 0;
+        this.maxScenarios = config.client().available.pagination.client.scenariosPerPage;
 
         $scope.storybooks = [];
 
         story.list().then(function(storyBooks){
             $scope.storybooks = storyBooks;
         });
-        this.currentPage = 0;
-        this.maxScenarios = config.client().available.pagination.client.scenariosPerPage;
 
-        this.newStoryHref = newStory;
+        module.setCurrentSection(MODULES.WRITER.sections.STORIES);
 
-        function newStory(book){
+        this.newStoryHref = function(book){
             return '/writer/new/' + book;
         }
-
-
 
     });
