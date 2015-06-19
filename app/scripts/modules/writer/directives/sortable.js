@@ -14,7 +14,7 @@
  *
  */
 angular.module('finqApp.writer.directive')
-    .directive('sortable', function (EVENTS) {
+    .directive('sortable', function (EVENTS, $timeout) {
         return {
             restrict: 'A',
             controller: 'SortableCtrl',
@@ -25,7 +25,9 @@ angular.module('finqApp.writer.directive')
                     start: function (event, ui) {
                         scope.sortableObjectStart(event, ui, element);
                         scope.setClasses(element, attrs.connectWith);
-                        jqElement.sortable('refresh'); // Required to update positions after styling changes
+                        $timeout(function(){
+                            jqElement.sortable('refresh'); // Required to update positions after styling changes
+                        });
                     },
                     update: function (event, ui) {
                         scope.removeClasses(element, attrs.connectWith);
