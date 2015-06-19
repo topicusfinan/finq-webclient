@@ -1,6 +1,11 @@
 'use strict';
 /**
- * Created by marc.fokkert on 4-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.services:SelectedItem
+ * @description
+ * # Selected item service
+ *
+ * Stores and provides selected items
  */
 angular.module('finqApp.writer.service')
     .service('selectedItem', function () {

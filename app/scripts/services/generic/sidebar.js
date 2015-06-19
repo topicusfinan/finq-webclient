@@ -1,7 +1,12 @@
 /*global $: false */
 'use strict';
 /**
- * Created by marc.fokkert on 6-3-2015.
+ * @ngdoc function
+ * @name finqApp.service:sidebar
+ * @description
+ * # Sidebar service
+ *
+ * Provides interaction for the sidebar. Components can use this service to register directives.
  */
 angular.module('finqApp.runner.service')
     .service('sidebar', function ($rootScope,STATE) {

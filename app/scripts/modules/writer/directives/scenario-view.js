@@ -1,6 +1,11 @@
 'use strict';
 /**
- * Created by marc.fokkert on 2-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.directives:ScenarioView
+ * @description
+ * # Scenario view directive
+ *
+ * Displays a category for Stories (Prologue, Scenarios, Epilogue).
  */
 angular.module('finqApp.writer.directive')
     .directive('scenarioView', function () {

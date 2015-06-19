@@ -1,7 +1,12 @@
 /*global $:false */
 'use strict';
 /**
- * Created by marc.fokkert on 17-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.directive:StoryCollapse
+ * @description
+ * # Story collapse directive
+ *
+ * Provides collapse and expand functionality to lists containing list items with lists.
  */
 angular.module('finqApp.directive')
     .directive('storyCollapse', function () {
@@ -46,7 +51,6 @@ angular.module('finqApp.directive')
                         $bookTrigger.closest('li').children('ul').children().toggleClass('expand');
                     }
                 }
-
             }
         };
     });

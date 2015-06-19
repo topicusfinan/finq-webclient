@@ -1,7 +1,7 @@
 'use strict';
 /**
- * @ngdoc function
- * @name finqApp.writer.service:storyVariables
+ * @ngdoc overview
+ * @name finqApp.writer.services:storyVariables
  * @description
  * # Story variable service
  *

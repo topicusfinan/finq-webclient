@@ -1,6 +1,11 @@
 'use strict';
 /**
- * Created by marc.fokkert on 4-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.directives:ScenarioVariablesView
+ * @description
+ * # Scenario variable view directive
+ *
+ * Displays variables for the selected item in a sidebar.
  */
 angular.module('finqApp.writer.directive')
     .directive('scenarioVariablesView', function () {

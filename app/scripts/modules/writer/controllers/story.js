@@ -3,7 +3,7 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.writer.controller:StoryCtrl
+ * @name finqApp.writer.controllers:StoryCtrl
  * @description
  * # Story editor controller
  *

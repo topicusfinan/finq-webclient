@@ -1,6 +1,12 @@
 'use strict';
+
 /**
- * Created by marc.fokkert on 6-3-2015.
+ * @ngdoc overview
+ * @name finqApp.directives:Sidebar
+ * @description
+ * # Sidebar directive
+ *
+ * Displays a directive with a provided scope in a sidebar container.
  */
 angular.module('finqApp.directive')
     .directive('sidebar', function () {
