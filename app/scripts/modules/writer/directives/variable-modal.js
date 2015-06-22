@@ -34,11 +34,8 @@ angular.module('finqApp.writer.directive')
         this.description = 'test description';
         this.visibleTab = 0;
         this.removeTab = removeTab;
-        this.addTab = addTab;
+        this.addNewTab = addNewTab;
         this.variable = null;
-
-        var originalVariable = null;
-        var emptyTabTemplate = [];
 
         this.close = close;
         this.apply = apply;
@@ -48,24 +45,27 @@ angular.module('finqApp.writer.directive')
 
         this.tabs = [];
         this.getVisible = variableModal.getVisible;
-        this.ignoreUndefined = ignoreUndefined;
 
-        function ignoreUndefined(value) {
+        this.ignoreUndefinedFilter = ignoreUndefinedFilter;
+        function ignoreUndefinedFilter(value) {
             return value !== undefined;
         }
 
+        var originalVariable = null;
+        var emptyTabTemplate = [];
+
         $scope.$watch(function () {
             return variableModal.getVariable();
-        }, function (value) {
-            if (value === null) {
+        }, function (variable) {
+            if (variable === null) {
                 close();
                 return;
             }
 
-            if (value.isTable()) {
-                showTable(value.table.tableData, value.table.tableHeader);
+            if (variable.isTable()) {
+                showTable(variable.table.tableData, variable.table.tableHeader);
             } else {
-                showVariable(value);
+                showVariable(variable);
             }
         });
 
@@ -79,8 +79,19 @@ angular.module('finqApp.writer.directive')
             }
         }
 
-        function addTab() {
-            that.tabs.push(angular.copy(emptyTabTemplate));
+        /**
+         * Add a new tab
+         */
+        function addNewTab() {
+            addTab(angular.copy(emptyTabTemplate));
+        }
+
+        /**
+         * Add a tab and display it
+         * @param tab Tab to be added
+         */
+        function addTab(tab) {
+            that.tabs.push(tab);
             that.visibleTab = that.tabs.length - 1;
         }
 
@@ -90,7 +101,6 @@ angular.module('finqApp.writer.directive')
 
             // Create new copy, including all methods
             that.variable = angular.copy(originalVariable);
-
 
             // Re-setup variable helper methods. Important! Old methods still refer to that.variable scope!
             storyVariable.setupVariable(that.variable);

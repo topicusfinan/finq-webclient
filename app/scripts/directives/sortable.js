@@ -38,16 +38,7 @@ angular.module('finqApp.directive')
                     }
                 };
 
-                var splitSortable = attrs.sortable.split('.');
-                scope.sortable = scope;
-                angular.forEach(splitSortable, function(v){
-                    if (scope.sortable !== undefined){
-                        scope.sortable = scope.sortable[v];
-                    }
-                    if (scope.sortable === undefined){
-                        console.error(v + ' for '+ attrs.sortable +' does not resolve to a value on the scope!');
-                    }
-                });
+                scope.sortable = scope.$eval(attrs.sortable);
 
                 if (attrs.handle !== undefined) {
                     sortableObject.handle = attrs.handle;
