@@ -9,8 +9,7 @@ div.layout > header {
     position: fixed;
     z-index: 10000;
 
-    .title,
-    .search {
+    .title {
         @include transition(opacity linear 1s);
         
         font-size: $font-size-80;
@@ -49,40 +48,6 @@ div.layout > header {
             @include ellipsis;
             font-size: 2.29rem;
             line-height: 1.5em;
-        }
-    }
-
-    .search {
-        @include flex(1 1 auto);
-        @include display(flex);
-        @include align-items(center);
-        padding: 0 $spacing/2;
-        position: relative;
-
-        i {
-            display: inline-block;
-            color: $color-brand-40;
-            margin-right: $spacing/2;
-        }
-
-        input {
-            display: inline-block;
-            margin: 0;
-            background: none;
-            border: 0;
-            box-shadow: none;
-            color: $white;
-            font-size: $font-size-80;
-
-            @include placeholder {
-                color: $color-brand-30;
-            }
-
-            // temporary fix for webkit issue 46543
-            &:-webkit-autofill {
-                -webkit-box-shadow: 0 0 0 50px $color-neutral-70 inset;
-                -webkit-text-fill-color: $color-neutral-20;
-            }
         }
     }
 
