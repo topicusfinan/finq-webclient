@@ -28,7 +28,7 @@
 'shared-components/tables',
 'shared-components/tabs',
 
-//  OLD STYLES THAT NEED TO BE GONE -->
+//  START OLD STYLES THAT NEED TO BE GONE --> 
 	// load the components
 	'components/vendor/mixins',
 	'components/vendor/progress',
@@ -36,7 +36,6 @@
 	'components/input',
 	'components/intro',
 	'components/preloader',
-	'components/feedback',
 	'components/icons',
 	'components/modules/content-list',
 	'components/modules/content-filter-list-headers',
@@ -52,9 +51,8 @@
 	'components/modules/editor/v2/sortable',
 
 	// finally enhance the components with some theme magic
-	'theme/styles',
-	//'theme/responsive',
-//  <-- OLD STYLES THAT NEED TO BE GONE
+	'theme/styles', 
+//  <-- END OLD STYLES THAT NEED TO BE GONE
 
 'shared-components/top-filter',
 
@@ -65,7 +63,11 @@
 'modules/navigation',
 'modules/main',
 
+'modules/feedback',
+
 'modules/radial-progress',
+
+
 
 
 // Pattern library (a kind of styleguide)

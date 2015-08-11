@@ -1,4 +1,4 @@
-div.layout > nav {
+nav {
     width: $menu-size;
     background-color: $color-neutral-70;
     position: fixed;
@@ -41,13 +41,14 @@ div.layout > nav {
 
             .badge {
                 position: absolute;
-                top: .2em;
-                right: .3em;
-                padding: 0 .5em;
+                height: 1.45rem;
+                width: 1.45rem;
+                text-align: center;
+                top: .2rem;
                 background: $red;
                 color: $white;
-                border-radius: $border-radius-20;
-                font-size: .4em;
+                border-radius: 50%;
+                font-size: $font-size-10;
             }
         }
     }
