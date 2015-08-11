@@ -22,7 +22,7 @@
     }
 
     &.selectable:hover {
-        background: $color-detail-50;
+        background: $color-brand-30;
     }
 
     &.quick:hover,
@@ -36,16 +36,7 @@
 
     &.active,
     &.active:hover {
-        background: $color-detail-50;
-
-        .select > button {
-            background: none;
-            border: $white 2px solid;
-
-            span {
-                color: $white;
-            }
-        }
+        background: $color-brand-50;
 
         .comments > span {
             color: $white;
@@ -56,8 +47,7 @@
         }
     }
 
-    > div > button span,
-    > div .select > button span {
+    > div > button span {
         line-height: 1 + .5em;
     }
 
@@ -67,15 +57,6 @@
         padding: (.5em / 2) .5em * 2;
     }
 
-    > div .select > button {
-        background: none;
-        border: $color-neutral-20 2px solid;
-        padding: .25em .5em .25em .7em;
-
-        span {
-            color: $color-detail-70;
-        }
-    }
 
     > div > button:hover {
         background: darken($color-neutral-60, 10%);

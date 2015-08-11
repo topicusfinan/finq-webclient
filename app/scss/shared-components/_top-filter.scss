@@ -20,12 +20,6 @@
         padding: 0 $spacing;
         color: $color-neutral-90;
     }
-
-    .select > button {
-        border-radius: $border-radius-20;
-        font-size: 1.5rem;
-        padding: $spacing/3 $spacing/1.5;
-    }
 }
 
 .actions {
@@ -52,15 +46,18 @@
     @include flex(1 0 auto);
     @include display(flex);
     @include align-items(center);
-    overflow: hidden;
 
     > span { display: none; } 
 
-    > div { margin-right: $spacing; }
+    > div { 
+        margin-right: $spacing; 
+        position: relative;
+        left: -$spacing/2;
+    }
 
     > i { 
         color: $color-neutral-90;
-        margin-right: 0.35rem; 
+        margin-right: $spacing; 
     }
 
 }

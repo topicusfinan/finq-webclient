@@ -44,30 +44,6 @@ input.ng-invalid {
     color: $color-neutral-60;
 }
 
-.select {
-
-    button {
-        border-radius: .45em;
-
-        &:focus {
-            outline: 0;
-        }
-    }
-
-    .select-dropdown {
-        border-radius: .3em;
-        @include css-triangle(.5em, .1em, lighten($gray, 10%), top, $white, absolute);
-
-        button:first-child {
-            border-radius: .2em .2em 0 0;
-        }
-
-        button:last-child {
-            border-radius: 0 0 .2em .2em;
-        }
-    }
-}
-
 button {
     background-color: $color-brand-60;
     color: $white;

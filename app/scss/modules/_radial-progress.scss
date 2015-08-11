@@ -1,0 +1,114 @@
+// ============ Radial Progress
+
+@mixin radial-progress($circle-size, $inset-size, $circle-background, $circle-color, $inset-color: $white) {
+    background: $circle-background;
+    width: $circle-size;
+    height: $circle-size;
+
+    .circle {
+        .mask,
+        .fill {
+            width: $circle-size;
+            height: $circle-size;
+        }
+
+        .mask {
+            clip: rect(0, $circle-size, $circle-size, $circle-size/2);
+
+            .fill {
+                clip: rect(0, $circle-size/2, $circle-size, 0);
+                background: $circle-color;
+            }
+        }
+    }
+
+    .inset {
+        width: $inset-size;
+        height: $inset-size;
+        background: $inset-color;
+    }
+}
+
+
+.radial-progress {
+    @include radial-progress(20px, 12px, $color-neutral-30, $white, $color-neutral-20); //in pixels because it won't work with rem's
+    text-align: center;
+    margin-right: $spacing/2;
+    cursor: pointer;
+
+   	.circle .mask .fill {
+   		background: $white;
+   	}
+
+   	.inset {
+   		position: relative;
+   		top: 4px;
+   		left: 4px;
+        background: $color-brand-50;
+    }
+
+    .inset[data-highlight="failed"] {
+        background: $color-alert-50;
+    }
+
+    .inset[data-highlight="success"] {
+        background: $color-success-50;
+    }
+}
+
+li.cl.failed .radial-progress .circle .mask .fill { background: $color-alert-50; }
+li.cl.success .radial-progress .circle .mask .fill { background: $color-success-50; }
+
+
+
+
+
+.radial-progress {
+    $circle-background: $color-neutral-20;
+    $circle-color: $color-success-50;
+    $transition-length: 1s;
+
+    background-color: $circle-background;
+    border-radius: 50%;
+
+    .circle {
+        .mask,
+        .fill {
+            position: absolute;
+            border-radius: 50%;
+            -webkit-backface-visibility: hidden;
+            transition: -webkit-transform $transition-length;
+            transition: -ms-transform $transition-length;
+            transition: transform $transition-length;
+            border-radius: 50%;
+        }
+    }
+
+    .inset {
+        border-radius: 50%;
+    }
+
+    $i: 0;
+    $steps: 25;
+    $increment: 180deg / 100;
+    @while $i <= 100 {
+        .circle[data-progress="#{$i}"] {
+            .mask.full,
+            .fill {
+                -webkit-transform: rotate($increment * $i);
+                -ms-transform: rotate($increment * $i);
+                transform: rotate($increment * $i);
+            }
+
+            .fill.fix {
+                -webkit-transform: rotate($increment * $i * 2);
+                -ms-transform: rotate($increment * $i * 2);
+                transform: rotate($increment * $i * 2);
+            }
+        }
+
+        $i: $i + 100 / $steps;
+    }
+}
+
+

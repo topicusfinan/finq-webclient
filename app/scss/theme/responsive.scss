@@ -22,9 +22,6 @@ $full-list-item-title-size-bp-2:  new-breakpoint(max-width 65rem);
 
 //         > .main {
 //             margin-left: $full-menu-min-size;
-//             > .top-filter.fixed {
-//                 left: $full-menu-min-size;
-//             }
 //         }
 
 //         > footer.feedback {
@@ -42,90 +39,10 @@ $full-list-item-title-size-bp-2:  new-breakpoint(max-width 65rem);
 
 //         > .main {
 //             margin-left: $full-menu-max-size;
-//             > .top-filter.fixed {
-//                 left: $full-menu-max-size;
-//             }
 //         }
 
 //         > footer.feedback {
 //             left: $full-menu-max-size;
 //         }
-//     }
-// }
-
-// @include media($full-filter-size-bp-1-no-act) {
-//     .main-content-list.filter-1,
-//     .top-filter.filter-1 {
-//         min-width: 30em;
-
-//         .select button {
-//             span {
-//                 max-width: 10em / 1.5;
-//             }
-
-//             &.active span {
-//                 min-width: 10em / 1.5;
-//             }
-//         }
-//     }
-
-//     .top-filter.filter-1 {
-//         .filters {
-//             > i {
-//                 display: inline-block;
-
-//                 &.show {
-//                     margin: (($header-height - 1.5rem) / 4.5) .5em / -2 0 .5em / 2;
-//                 }
-//             }
-
-//             > span {
-//                 width: 0;
-//                 opacity: 0;
-//             }
-
-//         }
-//     }
-// }
-
-// @include media($full-filter-size-bp-2) {
-//     .main-content-list.filter-2,
-//     .top-filter.filter-2 {
-//         min-width: 60em;
-
-//         .select button {
-//             span {
-//                 max-width: 10em / 1.5;
-//             }
-
-//             &.active span {
-//                 min-width: 10em / 1.5;
-//             }
-//         }
-//     }
-
-//     .top-filter.filter-2 {
-//         .filters {
-//             > i {
-//                 display: inline-block;
-
-//                 &.show {
-//                     margin: (($header-height - 1.5rem) / 4.5) .5em / -2 0 .5em / 2;
-//                 }
-//             }
-
-//             > span {
-//                 width: 0;
-//                 opacity: 0;
-//             }
-//         }
-//     }
-// }
-
-// @include media($full-title-size-bp-1) {
-
-//     .top-filter .title > span.verbose {
-//         width: 0;
-//         opacity: 0;
 //     }
 // }
