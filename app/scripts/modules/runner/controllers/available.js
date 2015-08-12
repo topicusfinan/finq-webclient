@@ -1,6 +1,4 @@
 'use strict';
-/*global StoryExpandCollapse:false */
-
 /**
  * @ngdoc overview
  * @name finqApp.runner.controller:AvailableCtrl

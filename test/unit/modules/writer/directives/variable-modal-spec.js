@@ -75,7 +75,7 @@ describe('Unit: Variable modal controller', function () {
         variable = tableVariable;
         scope.$digest();
 
-        controller.addTab();
+        controller.addNewTab();
         // Verify tab has been added
         expect(controller.tabs.length).to.equal(3);
         expect(controller.visibleTab).to.equal(2);
@@ -119,7 +119,7 @@ describe('Unit: Variable modal controller', function () {
 
         controller.tabs[1][0].value = 'foobar';
         controller.removeTab(0);
-        controller.addTab();
+        controller.addNewTab();
         controller.apply();
         expect(variable.table.tableData[0][0].value).to.equal('foobar');
         expect(variable.table.tableData.length).to.equal(2);
@@ -128,8 +128,8 @@ describe('Unit: Variable modal controller', function () {
     it('should filter deleted tabs', function(){
         var tabs = tableVariable.table.tableData;
         delete tabs[1];
-        expect(controller.ignoreUndefined(tabs[0])).to.be.true();
-        expect(controller.ignoreUndefined(tabs[1])).to.be.false();
+        expect(controller.ignoreUndefinedFilter(tabs[0])).to.be.true();
+        expect(controller.ignoreUndefinedFilter(tabs[1])).to.be.false();
     });
 });
 

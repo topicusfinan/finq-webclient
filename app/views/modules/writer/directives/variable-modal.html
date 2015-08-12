@@ -8,13 +8,13 @@
     <div class="table-text-input" ng-hide="variableModalCtrl.simple">
         <form>
             <ul class="tabs">
-                <li ng-repeat="tab in variableModalCtrl.tabs | filter:variableModalCtrl.ignoreUndefined" ng-click="variableModalCtrl.visibleTab = $index" ng-class="{selected: variableModalCtrl.visibleTab === $index}">
+                <li ng-repeat="tab in variableModalCtrl.tabs | filter:variableModalCtrl.ignoreUndefinedFilter" ng-click="variableModalCtrl.visibleTab = $index" ng-class="{selected: variableModalCtrl.visibleTab === $index}">
                     {{$index + 1}}
-                <li ng-click="variableModalCtrl.addTab()">+
+                <li ng-click="variableModalCtrl.addNewTab()">+
             </ul>
 
             <ul class="tab-content">
-                <li ng-repeat="tab in variableModalCtrl.tabs | filter:variableModalCtrl.ignoreUndefined" ng-show="variableModalCtrl.visibleTab === $index">
+                <li ng-repeat="tab in variableModalCtrl.tabs | filter:variableModalCtrl.ignoreUndefinedFilter" ng-show="variableModalCtrl.visibleTab === $index">
                     <label ng-repeat="field in tab">{{field.name}}
                         <input type="text" ng-model="field.value">
                     </label>
