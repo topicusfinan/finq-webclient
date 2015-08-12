@@ -1,8 +1,7 @@
 'use strict';
-
 /**
  * @ngdoc overview
- * @name finqApp.writer.controller:StoriesCtrl
+ * @name finqApp.writer.controllers:StoriesCtrl
  * @description
  * # Stories editor controller
  *
@@ -29,5 +28,4 @@ angular.module('finqApp.writer.controller')
         this.newStoryHref = function(book){
             return '/writer/new/' + book;
         }
-
     });

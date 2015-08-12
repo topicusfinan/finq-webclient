@@ -1,6 +1,12 @@
 'use strict';
 /**
- * Created by marc.fokkert on 17-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.directives:VariableModal
+ * @description
+ * # Variable modal directive
+ *
+ * Displays a modal window where a user can edit simple or complex variables.
+ * Complex variables are collections where the user has one tab for each item.
  */
 angular.module('finqApp.writer.directive')
     .directive('variableModal', function () {

@@ -1,9 +1,12 @@
 'use strict';
 /**
- * Created by marc.fokkert on 27-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.directives:VariableModal
+ * @description
+ * # Variable modal service
+ *
+ * Provides interaction to display a modal where the user can edit variables.
  */
-
-
 angular.module('finqApp.writer.service')
     .service('variableModal', function () {
         var variable = null;

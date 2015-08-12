@@ -1,5 +1,12 @@
 'use strict';
-
+/**
+ * @ngdoc function
+ * @name finqApp.service.story:story
+ * @description
+ * # Story service
+ *
+ * Makes it possible to execute CRUD and list operations on steps.
+ */
 angular.module('finqApp.service')
     .service('step', function (backend,$q) {
         var steps = null;

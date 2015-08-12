@@ -1,8 +1,8 @@
 /*global $: false */
 'use strict';
 /**
- * @ngdoc function
- * @name finqApp.writer.directive:sortable
+ * @ngdoc overview
+ * @name finqApp.writer.directive:Sortable
  * @description
  * # Sortable directive
  *

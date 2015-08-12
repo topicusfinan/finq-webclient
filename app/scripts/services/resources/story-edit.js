@@ -1,6 +1,11 @@
 'use strict';
 /**
- * Created by marc.fokkert on 13-3-2015.
+ * @ngdoc function
+ * @name finqApp.service:storyEdit
+ * @description
+ * # Story edit service
+ *
+ * Makes it possible to execute CRUD and list operations on stories with a volatile cache for editing items.
  */
 angular.module('finqApp.service')
     .service('storyEdit', function (story, storyVariable, config) {
