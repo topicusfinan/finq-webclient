@@ -14,7 +14,7 @@
  *
  */
 angular.module('finqApp.writer.directive')
-    .directive('sortable', ['EVENTS','$timeout', function (EVENTS,$timeout) {
+    .directive('sortable', function (EVENTS, $timeout) {
         return {
             restrict: 'A',
             controller: 'SortableCtrl',
@@ -25,7 +25,7 @@ angular.module('finqApp.writer.directive')
                     start: function (event, ui) {
                         scope.sortableObjectStart(event, ui, element);
                         scope.setClasses(element, attrs.connectWith);
-                        $timeout(function() {
+                        $timeout(function(){
                             jqElement.sortable('refresh'); // Required to update positions after styling changes
                         });
                     },
@@ -63,7 +63,7 @@ angular.module('finqApp.writer.directive')
                 scope.$root.$broadcast(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED);
             }
         };
-    }])
+    })
     .controller('SortableCtrl', ['$scope', 'arrayOperations', '$rootScope', function ($scope, arrayOperations, $rootScope) {
         $scope.sortableObjectStart = sortableObjectStart;
         $scope.sortableObjectEnd = sortableObjectEnd;
