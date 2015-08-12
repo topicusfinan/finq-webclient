@@ -13,7 +13,7 @@
  * *handle*: handle class selector
  *
  */
-angular.module('finqApp.writer.directive')
+angular.module('finqApp.directive')
     .directive('sortable', function (EVENTS, $timeout) {
         return {
             restrict: 'A',
