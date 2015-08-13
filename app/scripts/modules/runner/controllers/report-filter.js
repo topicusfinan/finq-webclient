@@ -9,7 +9,7 @@
  * This filter controller is used in the running stories section to filter the list of running stories.
  */
 angular.module('finqApp.runner.controller')
-    .controller('ReportFilterCtrl', ['STATE','$translate', function (STATE,$translate) {
+    .controller('ReportFilterCtrl', function (STATE,$translate) {
         var that = this;
 
         that.statusPlaceholder = 'FILTERS.STATUSES.ANY';
@@ -24,4 +24,4 @@ angular.module('finqApp.runner.controller')
             });
         });
 
-    }]);
+    });

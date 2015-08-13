@@ -16,15 +16,15 @@ describe('Unit: Story Search Filter execution', function() {
             storySearchFilter = $injector.get('$filter')('storySearchFilter');
         });
     });
-    beforeEach(inject(function (storyServiceMock,$httpBackend,config,storybookSearch) {
+    beforeEach(inject(function (storyServiceMock,$httpBackend,$config,$storybookSearch) {
         storybooks = storyServiceMock.books;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             maxSearchResults: 1000
         });
         $httpBackend.expectGET('/app').respond(200);
-        config.load().then(function() {
-            storybookSearch.initialize(storybooks);
+        $config.load().then(function() {
+            $storybookSearch.initialize(storybooks);
         });
         $httpBackend.flush();
     }));

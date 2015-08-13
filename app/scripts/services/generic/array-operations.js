@@ -8,7 +8,7 @@
  * Makes it possible to execute CRUD and list operations on stories.
  */
 angular.module('finqApp.writer.service')
-    .service('arrayOperations', function () {
+    .service('$arrayOperations', function () {
         this.insertItem = insertItem;
         this.moveItem = moveItem;
         this.removeItem = removeItem;

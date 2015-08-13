@@ -48,8 +48,8 @@ describe('Unit: Sortable directive', function () {
         expect(li1.scope().start).is.equal(li1.index());
     });
 
-    it('should move objects within the same sortable', inject(function (arrayOperations) {
-        sinon.spy(arrayOperations, 'moveItem');
+    it('should move objects within the same sortable', inject(function ($arrayOperations) {
+        sinon.spy($arrayOperations, 'moveItem');
 
         var li1 = element.find('#li1');
         var sortable0 = element.find('#sortable0');
@@ -64,12 +64,12 @@ describe('Unit: Sortable directive', function () {
         // End sort
         sortable0.scope().sortableObjectEnd(undefined, ui, sortable0);
 
-        expect(arrayOperations.moveItem).to.be.calledWith(collection[0], 0, 1);
+        expect($arrayOperations.moveItem).to.be.calledWith(collection[0], 0, 1);
     }));
 
-    it('should move objects between sortables', inject(function (arrayOperations) {
-        sinon.spy(arrayOperations, 'removeItem');
-        sinon.spy(arrayOperations, 'insertItem');
+    it('should move objects between sortables', inject(function ($arrayOperations) {
+        sinon.spy($arrayOperations, 'removeItem');
+        sinon.spy($arrayOperations, 'insertItem');
 
         var li1 = element.find('#li1');
         var sortable0 = element.find('#sortable0');
@@ -90,8 +90,8 @@ describe('Unit: Sortable directive', function () {
         sortable1.scope().sortableObjectEnd(undefined, ui, sortable1);
         scope.$digest();
 
-        expect(arrayOperations.removeItem).to.be.calledOnce;
-        expect(arrayOperations.insertItem).to.be.calledOnce;
+        expect($arrayOperations.removeItem).to.be.calledOnce;
+        expect($arrayOperations.insertItem).to.be.calledOnce;
         expect(collection[0].length).to.equal(1);
         expect(collection[1].length).to.equal(1);
     }));

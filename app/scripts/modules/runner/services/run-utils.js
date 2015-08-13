@@ -9,7 +9,7 @@
  * A service that provides utility functions related to runs.
  */
 angular.module('finqApp.runner.service')
-    .service('runUtils', ['STATE','$translate',function (STATE,$translate) {
+    .service('$runUtils', function (STATE,$translate) {
         var that = this;
 
         this.determineDetailedProgress = function(run) {
@@ -79,4 +79,4 @@ angular.module('finqApp.runner.service')
             }
         };
 
-    }]);
+    });

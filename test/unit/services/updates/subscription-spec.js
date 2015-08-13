@@ -14,9 +14,9 @@ describe('Unit: SubscriptionService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, subscription, _EVENTS_, socket, config) {
-        subscriptionService = subscription;
-        socketService = socket;
+    beforeEach(inject(function ($httpBackend, $subscription, _EVENTS_, $socket, $config) {
+        subscriptionService = $subscription;
+        socketService = $socket;
         EVENTS = _EVENTS_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
@@ -25,7 +25,7 @@ describe('Unit: SubscriptionService', function() {
                 mocked: true
             }
         });
-        config.load();
+        $config.load();
         $httpBackend.flush();
     }));
 

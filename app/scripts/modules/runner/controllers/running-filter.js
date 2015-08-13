@@ -9,12 +9,12 @@
  * This filter controller is used in the running stories section to filter the list of running stories.
  */
 angular.module('finqApp.runner.controller')
-    .controller('RunningFilterCtrl', ['environment', function (environmentService) {
+    .controller('RunningFilterCtrl', function ($environment) {
         var that = this;
 
         that.envPlaceholder = 'FILTERS.ENVIRONMENTS.ANY';
 
-        environmentService.list().then(function (environments) {
+        $environment.list().then(function (environments) {
             that.environments = [];
             angular.forEach(environments, function(environment) {
                 that.environments.push({
@@ -24,4 +24,4 @@ angular.module('finqApp.runner.controller')
             });
         });
 
-    }]);
+    });

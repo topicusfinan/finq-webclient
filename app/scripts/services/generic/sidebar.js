@@ -9,7 +9,7 @@
  * Provides interaction for the sidebar. Components can use this service to register directives.
  */
 angular.module('finqApp.runner.service')
-    .service('sidebar', function ($rootScope,STATE) {
+    .service('$sidebar', function ($rootScope,STATE) {
         var directive = null, expanded = false;
 
         this.setDirective = setDirective;

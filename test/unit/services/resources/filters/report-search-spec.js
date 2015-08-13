@@ -23,10 +23,10 @@ describe('Unit: Report Search Filter execution', function() {
             reportSearchFilter = $injector.get('$filter')('reportSearchFilter');
         });
     });
-    beforeEach(inject(function (reportServiceMock,storyServiceMock,_$httpBackend_,report,config,reportSearch,story,_$q_,_STATE_,_$rootScope_,_$timeout_) {
-        reportSearchService = reportSearch;
+    beforeEach(inject(function (reportServiceMock,storyServiceMock,_$httpBackend_,$report,$config,$reportSearch,$story,_$q_,_STATE_,_$rootScope_,_$timeout_) {
+        reportSearchService = $reportSearch;
         $rootScope = _$rootScope_;
-        reportService = report;
+        reportService = $report;
         $q = _$q_;
         $timeout = _$timeout_;
         STATE = _STATE_;
@@ -38,8 +38,8 @@ describe('Unit: Report Search Filter execution', function() {
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
         $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=2&page=0').respond(200, reportServiceMock);
-        config.load().then(function() {
-            story.list().then(function() {
+        $config.load().then(function() {
+            $story.list().then(function() {
                 reportService.list().then(function(parsedReports){
                     reports = parsedReports;
                     // forcefully overwrite the report titles to avoid issues with the $translation module during tests

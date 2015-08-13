@@ -11,8 +11,8 @@ describe('Unit: sidebar', function () {
         element = $compile(template)(scope);
     }));
 
-    beforeEach(inject(function(_sidebar_, _STATE_){
-        sidebar = _sidebar_;
+    beforeEach(inject(function($sidebar, _STATE_){
+        sidebar = $sidebar;
         STATE = _STATE_;
     }));
 

@@ -21,16 +21,16 @@ describe('Unit: ReportsCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $location, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report, story, storyServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $location, $config, $module, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, $report, $story, storyServiceMock) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
         location = $location;
-        reportService = report;
-        configProvider = config;
+        reportService = $report;
+        configProvider = $config;
         reportMockData = reportServiceMock;
-        moduleSpy = sinon.spy(_module_, 'setCurrentSection');
+        moduleSpy = sinon.spy($module, 'setCurrentSection');
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             selectDropdown: {pagination: {itemsPerPage: 4}},
@@ -42,9 +42,9 @@ describe('Unit: ReportsCtrl', function() {
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
         $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.SUCCESS+'&status='+STATE.RUN.SCENARIO.FAILED+'&size=2&page=0').respond(200, reportMockData);
-        config.load().then(function() {
-            story.list().then(function() {
-                report.list().then(function() {
+        $config.load().then(function() {
+            $story.list().then(function() {
+                $report.list().then(function() {
                     ReportsCtrl = $controller('ReportsCtrl', {$scope: scope});
                 });
             });

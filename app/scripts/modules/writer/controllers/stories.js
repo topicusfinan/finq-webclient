@@ -8,22 +8,22 @@
  * The stories editor controller allows the user to list all available stories to edit.
  */
 angular.module('finqApp.writer.controller')
-    .controller('StoriesCtrl', function($location, $scope, module, MODULES, FEEDBACK, story, config, selectedItem, feedback){
+    .controller('StoriesCtrl', function($location, $scope, $module, MODULES, FEEDBACK, $story, $config, $selectedItem, $feedback){
 
         this.selectedItem = {
-            setSelectedItem: selectedItem.setSelectedItem,
-            isItemSelected: selectedItem.isItemSelected
+            setSelectedItem: $selectedItem.setSelectedItem,
+            isItemSelected: $selectedItem.isItemSelected
         };
         this.currentPage = 0;
-        this.maxScenarios = config.client().available.pagination.client.scenariosPerPage;
+        this.maxScenarios = $config.client().available.pagination.client.scenariosPerPage;
 
         $scope.storybooks = [];
 
-        story.list().then(function(storyBooks){
+        $story.list().then(function(storyBooks){
             $scope.storybooks = storyBooks;
         });
 
-        module.setCurrentSection(MODULES.WRITER.sections.STORIES);
+        $module.setCurrentSection(MODULES.WRITER.sections.STORIES);
 
         this.add = function(bookId) {
             if (bookId !== void 0) {
@@ -44,7 +44,7 @@ angular.module('finqApp.writer.controller')
                 }
             }
             if (!storyFound) {
-                feedback.error(FEEDBACK.ERROR.STORY.UNABLE_TO_LOAD);
+                $feedback.error(FEEDBACK.ERROR.STORY.UNABLE_TO_LOAD);
             }
         };
 

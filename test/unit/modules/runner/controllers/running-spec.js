@@ -22,7 +22,7 @@ describe('Unit: RunningCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, _module_, _STATE_, _MODULES_, _EVENTS_, runner, _$timeout_, story, storyServiceMock, environment, environmentServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $config, $module, _STATE_, _MODULES_, _EVENTS_, $runner, _$timeout_, $story, storyServiceMock, $environment, environmentServiceMock) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
@@ -30,9 +30,9 @@ describe('Unit: RunningCtrl', function() {
         $timeout = _$timeout_;
         storyMockData = storyServiceMock.books;
         environmentMockData = environmentServiceMock.environments;
-        configProvider = config;
-        runnerService = runner;
-        moduleSpy = sinon.spy(_module_, 'setCurrentSection');
+        configProvider = $config;
+        runnerService = $runner;
+        moduleSpy = sinon.spy($module, 'setCurrentSection');
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             run: {
@@ -46,8 +46,8 @@ describe('Unit: RunningCtrl', function() {
         $httpBackend.expectGET('/environments').respond(200, environmentMockData);
         $httpBackend.expectGET('/books').respond(200, storyMockData);
         $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=2&page=0').respond(200, []);
-        config.load().then(function() {
-            environment.list();
+        $config.load().then(function() {
+            $environment.list();
             RunningCtrl = $controller('RunningCtrl', {$scope: scope});
         });
         $httpBackend.flush();

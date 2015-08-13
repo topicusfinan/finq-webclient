@@ -20,21 +20,21 @@ describe('Unit: ReportCtrl initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$controller_, $rootScope, _$httpBackend_, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report) {
+    beforeEach(inject(function (_$controller_, $rootScope, _$httpBackend_, $config, _$module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, $report) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
         $controller = _$controller_;
         reportMockData = reportServiceMock;
-        reportService = report;
-        moduleSpy = sinon.spy(_module_, 'setCurrentSection');
+        reportService = $report;
+        moduleSpy = sinon.spy(_$module_, 'setCurrentSection');
         $httpBackend = _$httpBackend_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: ''
         });
         $httpBackend.expectGET('/app').respond(200);
-        config.load();
+        $config.load();
         $httpBackend.flush();
     }));
     afterEach(function() {
@@ -74,18 +74,18 @@ describe('Unit: ReportCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$controller_, $rootScope, $location, _$httpBackend_, config, _module_, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, report, story, storyServiceMock, runUtils) {
+    beforeEach(inject(function (_$controller_, $rootScope, $location, _$httpBackend_, $config, $module, _STATE_, _MODULES_, _EVENTS_, reportServiceMock, $report, $story, storyServiceMock, $runUtils) {
         scope = $rootScope.$new();
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
         $controller = _$controller_;
         reportMockData = reportServiceMock;
-        reportService = report;
+        reportService = $report;
         location = $location;
-        moduleSpy = sinon.spy(_module_, 'setCurrentSection');
+        moduleSpy = sinon.spy($module, 'setCurrentSection');
         getReportSpy = sinon.spy(reportService, 'getReport');
-        progressSpy = sinon.spy(runUtils, 'determineDetailedProgress');
+        progressSpy = sinon.spy($runUtils, 'determineDetailedProgress');
         $httpBackend = _$httpBackend_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: ''
@@ -93,8 +93,8 @@ describe('Unit: ReportCtrl', function() {
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
         $httpBackend.expectGET('/runs/'+reportMockData.data[0].id).respond(200, reportMockData.data[0]);
-        config.load().then(function() {
-            story.list().then(function() {
+        $config.load().then(function() {
+            $story.list().then(function() {
                 ReportController = $controller('ReportCtrl', {
                     $scope: scope,
                     $routeParams: {reportId: reportMockData.data[0].id}

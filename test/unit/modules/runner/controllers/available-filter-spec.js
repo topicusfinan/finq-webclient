@@ -15,7 +15,7 @@ describe('Unit: AvailableFilterCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, setServiceMock, tagServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $config, setServiceMock, tagServiceMock) {
         scope = $rootScope.$new();
         sets = setServiceMock.sets;
         tags = tagServiceMock.tags;
@@ -28,7 +28,7 @@ describe('Unit: AvailableFilterCtrl', function() {
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/sets').respond(200, sets);
         $httpBackend.expectGET('/tags').respond(200, tags);
-        config.load().then(function() {
+        $config.load().then(function() {
             AvailableFilterCtrl = $controller('AvailableFilterCtrl', {$scope: scope});
         });
         $httpBackend.flush();

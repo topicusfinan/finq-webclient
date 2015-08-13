@@ -19,18 +19,18 @@ angular.module('finqApp.writer.directive')
             controller: 'ScenarioViewCtrl'
         };
     })
-    .controller('ScenarioViewCtrl', function ($scope, selectedItem, arrayOperations) {
+    .controller('ScenarioViewCtrl', function ($scope, $selectedItem, $arrayOperations) {
         $scope.scenarioView = {
             deleteItem: deleteItem,
             isStepIncomplete: isStepIncomplete
         };
 
-        $scope.selectedItem = selectedItem;
+        $scope.selectedItem = $selectedItem;
 
         function deleteItem(collection, index, deletedItem) {
-            arrayOperations.removeItem(collection, index);
-            if (selectedItem.isItemSelected(deletedItem)){
-                selectedItem.clearSelectedItem();
+            $arrayOperations.removeItem(collection, index);
+            if ($selectedItem.isItemSelected(deletedItem)){
+                $selectedItem.clearSelectedItem();
             }
         }
 

@@ -20,13 +20,13 @@ describe('Unit: PreloaderCtrl', function() {
         module('finqApp');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $state, appServiceMock, config) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $state, appServiceMock, $config) {
         scope = $rootScope.$new();
         state = $state;
         httpBackend = $httpBackend;
         controller = $controller;
         appService = appServiceMock;
-        configProvider = config;
+        configProvider = $config;
         emitSpy = sinon.spy(scope, '$emit');
         stateSpy = sinon.spy(state, 'go');
         langData = {

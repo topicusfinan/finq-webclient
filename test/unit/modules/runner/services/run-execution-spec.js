@@ -17,16 +17,16 @@ describe('Unit: RunExecution service', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, runExecution, feedback, _FEEDBACK_, module, _MODULES_, environment, environmentServiceMock) {
+    beforeEach(inject(function ($httpBackend, $runExecution, $feedback, _FEEDBACK_, $module, _MODULES_, $environment, environmentServiceMock) {
         backend = $httpBackend;
-        runExecutionService = runExecution;
-        feedbackService = feedback;
-        moduleService = module;
+        runExecutionService = $runExecution;
+        feedbackService = $feedback;
+        moduleService = $module;
         FEEDBACK = _FEEDBACK_;
         MODULES = _MODULES_;
         environmentMock = environmentServiceMock.environments;
         backend.expectGET('/environments').respond(200, environmentMock);
-        environment.list();
+        $environment.list();
     }));
 
     it('should render a succcess message after the successful running of a single story', function () {

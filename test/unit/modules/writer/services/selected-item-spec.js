@@ -21,8 +21,8 @@ describe('Unit: Scenario view directive', function () {
         step2 = scenario2.steps[0];
     }));
 
-    beforeEach(inject(function (_selectedItem_) {
-        selectedItem = _selectedItem_;
+    beforeEach(inject(function ($selectedItem) {
+        selectedItem = $selectedItem;
     }));
 
     it('should set and match a book', function () {

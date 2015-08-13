@@ -17,25 +17,25 @@ angular.module('finqApp.writer.directive')
             controllerAs: 'scenarioVariablesView'
         };
     })
-    .controller('ScenarioVariablesViewCtrl', function ($scope, selectedItem, variableModal) {
+    .controller('ScenarioVariablesViewCtrl', function ($scope, $selectedItem, $variableModal) {
         $scope.scenarioVariablesView = {
             variableScopes: [],
             editVariable: editVariable
         };
 
         $scope.$watch(function () {
-                return selectedItem.getSelectedItemId();
+                return $selectedItem.getSelectedItemId();
             },
             function (item) {
                 update(item);
             });
 
         function editVariable(variable){
-            variableModal.showModalForVariable(variable);
+            $variableModal.showModalForVariable(variable);
         }
 
         function update(itemId) {
-            var item = selectedItem.getSelectedItem();
+            var item = $selectedItem.getSelectedItem();
             var variableScopes = [];
             if (itemId !== null && item.getParent !== undefined) {
                 if (itemId.indexOf('step') !== -1) {

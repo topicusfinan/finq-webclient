@@ -12,50 +12,39 @@
  * is immediately "moved" to the reports section.
  */
 angular.module('finqApp.runner.controller')
-    .controller('ReportCtrl', [
-        '$scope',
-        '$routeParams',
-        '$location',
-        'report',
-        'module',
-        'MODULES',
-        'FEEDBACK',
-        'feedback',
-        'STATE',
-        'runUtils',
-        function ($scope,$routeParams,$location,reportService,moduleService,MODULES,FEEDBACK,feedbackService,STATE,runUtils) {
-            var that = this;
-            this.selectedItem = null;
-            this.loaded = false;
-            this.runCompleted = true;
+    .controller('ReportCtrl', function ($scope, $routeParams, $location, MODULES, FEEDBACK, STATE, $report, $module, $feedback, $runUtils) {
+        var that = this;
+        this.selectedItem = null;
+        this.loaded = false;
+        this.runCompleted = true;
 
-            this.list = function() {
-                $location.path('/'+MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.','/'));
-            };
+        this.list = function () {
+            $location.path('/' + MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.', '/'));
+        };
 
-            reportService.getReport($routeParams.reportId).then(function(report) {
-                $scope.run = report;
-                that.loaded = true;
-                if (report.status === STATE.RUN.RUNNING) {
-                    that.runCompleted = false;
-                }
-                setupRunProgress(report);
-            }, function() {
-                feedbackService.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
-            });
+        $report.getReport($routeParams.reportId).then(function (report) {
+            $scope.run = report;
+            that.loaded = true;
+            if (report.status === STATE.RUN.RUNNING) {
+                that.runCompleted = false;
+            }
+            setupRunProgress(report);
+        }, function () {
+            $feedback.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
+        });
 
-            moduleService.setCurrentSection(MODULES.RUNNER.sections.REPORTS);
+        $module.setCurrentSection(MODULES.RUNNER.sections.REPORTS);
 
-            var setupRunProgress = function(report) {
-                angular.forEach(report.stories, function(story) {
-                    story.scenariosCompleted = 0;
-                    angular.forEach(story.scenarios, function(scenario) {
-                        if (scenario.status === STATE.SUCCESS) {
-                            story.scenariosCompleted++;
-                        }
-                    });
+        var setupRunProgress = function (report) {
+            angular.forEach(report.stories, function (story) {
+                story.scenariosCompleted = 0;
+                angular.forEach(story.scenarios, function (scenario) {
+                    if (scenario.status === STATE.SUCCESS) {
+                        story.scenariosCompleted++;
+                    }
                 });
-                runUtils.determineDetailedProgress(report);
-            };
+            });
+            $runUtils.determineDetailedProgress(report);
+        };
 
-        }]);
+    });

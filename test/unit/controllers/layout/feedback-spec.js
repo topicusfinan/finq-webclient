@@ -13,11 +13,11 @@ describe('Unit: FeedbackCtrl', function() {
     beforeEach(function() {
         module('finqApp');
     });
-    beforeEach(inject(function ($controller, _$timeout_, $httpBackend, $rootScope, config, _EVENTS_, _FEEDBACK_) {
+    beforeEach(inject(function ($controller, _$timeout_, $httpBackend, $rootScope, $config, _EVENTS_, _FEEDBACK_) {
         scope = $rootScope.$new();
         backend = $httpBackend;
         $timeout = _$timeout_;
-        configProvider = config;
+        configProvider = $config;
         EVENTS = _EVENTS_;
         FEEDBACK = _FEEDBACK_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -30,7 +30,7 @@ describe('Unit: FeedbackCtrl', function() {
             }
         });
         $httpBackend.expectGET('/app').respond(200);
-        config.load().then(function() {
+        $config.load().then(function() {
             FeedbackCtrl = $controller('FeedbackCtrl', {$scope: scope});
         });
         $httpBackend.flush();

@@ -9,7 +9,7 @@
  * A service that provides general utilities for the application.
  */
 angular.module('finqApp.service')
-    .service('utils', function () {
+    .service('$utils', function () {
 
         this.getTimeElapsed = function(now,past) {
             var deltaSec = Math.floor((now-past)/1000);

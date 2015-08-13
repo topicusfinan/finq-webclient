@@ -15,9 +15,9 @@ describe('Unit: SocketService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (_$rootScope_, $httpBackend, socket, config, feedback, _FEEDBACK_, _EVENTS_) {
-        socketService = socket;
-        feedbackService = feedback;
+    beforeEach(inject(function (_$rootScope_, $httpBackend, $socket, $config, $feedback, _FEEDBACK_, _EVENTS_) {
+        socketService = $socket;
+        feedbackService = $feedback;
         FEEDBACK = _FEEDBACK_;
         EVENTS = _EVENTS_;
         $rootScope = _$rootScope_;
@@ -33,7 +33,7 @@ describe('Unit: SocketService', function() {
                 mocked: true
             }
         });
-        config.load();
+        $config.load();
         $httpBackend.flush();
     }));
 

@@ -58,10 +58,10 @@ describe('Unit: AppCtrl receiving controller updated event', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, MODULES, page) {
+    beforeEach(inject(function ($controller, $rootScope, _EVENTS_, MODULES, $page) {
         EVENTS = _EVENTS_;
         MOD = MODULES;
-        pageFactory = page;
+        pageFactory = $page;
         eventData = {
             module: MOD.RUNNER,
             section: MOD.RUNNER.sections.AVAILABLE

@@ -9,7 +9,6 @@ describe('Unit: Scenario view directive', function () {
     var element, scope;
     var scenarios;
 
-    var titleInput;
     var childScope;
 
     beforeEach(module('views/modules/writer/directives/scenario-view.html'));
@@ -18,9 +17,9 @@ describe('Unit: Scenario view directive', function () {
         scenarios = [angular.copy(storyServiceMock.books[0].stories[0].scenarios[0])];
     }));
 
-    beforeEach(inject(function ($rootScope, $compile, storyVariable) {
+    beforeEach(inject(function ($rootScope, $compile, $storyVariable) {
         var template = angular.element('<scenario-view scenarios="scenarios" ></div>');
-        storyVariable.setupVariables(scenarios[0]);
+        $storyVariable.setupVariables(scenarios[0]);
 
         scope = $rootScope.$new();
         scope.scenarios = scenarios;
@@ -37,17 +36,17 @@ describe('Unit: Scenario view directive', function () {
         expect(isIncomplete).to.be.calledOnce;
     });
 
-    it('should delete an item', inject(function(arrayOperations){
-        var removeItem = sinon.spy(arrayOperations, 'removeItem');
+    it('should delete an item', inject(function($arrayOperations){
+        var removeItem = sinon.spy($arrayOperations, 'removeItem');
         childScope.scenarioView.deleteItem(scenarios[0].steps, 0, scenarios[0].steps[0]);
         expect(scenarios[0].steps.length).to.equal(2);
         expect(removeItem).to.be.calledWith(scenarios[0].steps, 0);
     }));
 
-    it('should delete a selected item', inject(function(selectedItem, arrayOperations){
-        var clearSelectedItem = sinon.spy(selectedItem, 'clearSelectedItem');
-        var removeItem = sinon.spy(arrayOperations, 'removeItem');
-        selectedItem.setSelectedItem(scenarios[0].steps[0]);
+    it('should delete a selected item', inject(function($selectedItem, $arrayOperations){
+        var clearSelectedItem = sinon.spy($selectedItem, 'clearSelectedItem');
+        var removeItem = sinon.spy($arrayOperations, 'removeItem');
+        $selectedItem.setSelectedItem(scenarios[0].steps[0]);
         childScope.scenarioView.deleteItem(scenarios[0].steps, 0, scenarios[0].steps[0]);
         expect(clearSelectedItem).to.be.calledOnce;
         expect(removeItem).to.be.calledWith(scenarios[0].steps, 0);

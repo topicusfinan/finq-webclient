@@ -8,7 +8,7 @@
  * Provides interaction to display a modal where the user can edit variables.
  */
 angular.module('finqApp.writer.service')
-    .service('variableModal', function () {
+    .service('$variableModal', function () {
         var variable = null;
         var isTable = false;
         var visible = false;

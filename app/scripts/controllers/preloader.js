@@ -13,16 +13,7 @@
  * Application state will be changed to 'loaded' after all content has been successfully preloaded.
  */
 angular.module('finqApp.controller')
-    .controller('PreloaderCtrl', [
-        '$state',
-        '$scope',
-        'config',
-        'EVENTS',
-        'translate',
-        'authenticate',
-        'environment',
-        'setup',
-        function ($state,$scope,configProvider,EVENTS,translateService,authenticateService,environmentService,setup) {
+    .controller('PreloaderCtrl', function ($state, $scope, $config, EVENTS, $translation, $authenticate, $environment, $setup) {
         var that = this;
         this.progress = '0%';
         this.loaded = false;
@@ -34,71 +25,71 @@ angular.module('finqApp.controller')
         var defaultLang = 'en';
         var loadedText = 'Loaded!';
         var loaded = {
-           translations: false,
-           config: false,
-           user: false,
-           environments: false
+            translations: false,
+            config: false,
+            user: false,
+            environments: false
         };
 
-        translateService.load(defaultLang).then(function(data) {
+        $translation.load(defaultLang).then(function (data) {
             loaded.translations = true;
-            console.debug('Translations loaded for language: '+data.LANG);
+            console.debug('Translations loaded for language: ' + data.LANG);
             loadedText = data.LOADER.LOADED;
             evalLoaded();
-        },function(error) {
+        }, function (error) {
             that.loadError = error;
-        },function(notice) {
+        }, function (notice) {
             that.loadNotice = notice;
         });
 
-        configProvider.load().then(function(serverConfigData) {
+        $config.load().then(function (serverConfigData) {
             loaded.config = true;
-            console.debug(serverConfigData.title+' application configuration loaded');
-            $scope.$emit(EVENTS.SCOPE.CONFIG_LOADED,serverConfigData);
+            console.debug(serverConfigData.title + ' application configuration loaded');
+            $scope.$emit(EVENTS.SCOPE.CONFIG_LOADED, serverConfigData);
             loadEnvironments();
-            authenticateService.setAddress(configProvider.client().authAddress);
+            $authenticate.setAddress($config.client().authAddress);
             authorize(serverConfigData.authenticate);
-        },function(error) {
+        }, function (error) {
             that.loadError = error;
-        },function(notice) {
+        }, function (notice) {
             that.loadNotice = notice;
         });
 
-        var authorize = function(authenticationRequired) {
+        var authorize = function (authenticationRequired) {
             if (!authenticationRequired) {
                 that.authorized = true;
                 loaded.user = true;
                 evalLoaded();
                 return;
             }
-            authenticateService.load().then(function(user) {
+            $authenticate.load().then(function (user) {
                 that.authorized = true;
-                console.debug('Authentication completed: user '+user.name+' authenticated successfully');
-            }, function() {
+                console.debug('Authentication completed: user ' + user.name + ' authenticated successfully');
+            }, function () {
                 that.authorized = false;
                 console.debug('Automatic authentication failed: no user found, login required');
-            }).finally(function() {
+            }).finally(function () {
                 loaded.user = true;
                 evalLoaded();
             });
         };
 
-        var loadEnvironments = function() {
-            environmentService.load().then(function(environments) {
+        var loadEnvironments = function () {
+            $environment.load().then(function (environments) {
                 loaded.environments = true;
-                console.debug('Loaded '+environments.length+' environments for story execution');
+                console.debug('Loaded ' + environments.length + ' environments for story execution');
                 evalLoaded();
-            },function(error) {
+            }, function (error) {
                 that.loadError = error;
-            },function(notice) {
+            }, function (notice) {
                 that.loadNotice = notice;
             });
         };
 
-        var evalLoaded = function() {
+        var evalLoaded = function () {
             var allLoaded = true;
             var stepsComplete = 0;
-            angular.forEach(loaded, function(value) {
+            angular.forEach(loaded, function (value) {
                 if (!value) {
                     allLoaded = false;
                 } else {
@@ -111,14 +102,14 @@ angular.module('finqApp.controller')
             }
         };
 
-        var loadComplete = function() {
+        var loadComplete = function () {
             that.loadingText = loadedText;
             that.loaded = true;
-            setup.finalize();
+            $setup.finalize();
             if (that.authorized) {
                 $state.go('authorized');
             } else {
                 $state.go('intro.login');
             }
         };
-    }]);
+    });

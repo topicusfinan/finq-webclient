@@ -10,13 +10,9 @@
  * within the available story section.
  */
 angular.module('finqApp.runner.controller')
-    .controller('AvailableFilterCtrl', [
-        'set',
-        'tag',
-        'runnerFilter',
-        function (setService,tagService,runnerFilterService) {
+    .controller('AvailableFilterCtrl', function ($set, $tag, $runnerFilter) {
         var that = this,
-            currentActiveFilter = runnerFilterService.getLastFilter();
+            currentActiveFilter = $runnerFilter.getLastFilter();
 
         this.expand = {
             set: true,
@@ -25,20 +21,20 @@ angular.module('finqApp.runner.controller')
         this.tagPlaceholder = 'FILTERS.TAGS.ANY';
         this.setPlaceholder = 'FILTERS.SETS.ANY';
 
-        var loadFilter = function() {
+        var loadFilter = function () {
             var stepsLoaded = 0,
                 totalSteps = 2;
 
-            var evalLoaded = function() {
+            var evalLoaded = function () {
                 stepsLoaded++;
                 if (totalSteps === stepsLoaded) {
                     that.loaded = true;
                 }
             };
 
-            setService.list().then(function (sets) {
+            $set.list().then(function (sets) {
                 that.sets = [];
-                angular.forEach(sets, function(set) {
+                angular.forEach(sets, function (set) {
                     that.sets.push({
                         key: set.id,
                         value: set.name
@@ -48,9 +44,9 @@ angular.module('finqApp.runner.controller')
                 evalLoaded();
             });
 
-            tagService.list().then(function (tags) {
+            $tag.list().then(function (tags) {
                 that.tags = [];
-                angular.forEach(tags, function(tag) {
+                angular.forEach(tags, function (tag) {
                     that.tags.push({
                         key: tag.id,
                         value: tag.value
@@ -64,4 +60,4 @@ angular.module('finqApp.runner.controller')
 
         loadFilter();
 
-    }]);
+    });

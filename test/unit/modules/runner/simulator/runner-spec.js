@@ -18,14 +18,14 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$rootScope_, _$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_, story, storyServiceMock, _STATE_) {
-        socketService = socket;
+    beforeEach(inject(function (_$rootScope_, _$timeout_, $httpBackend, $socket, $runnerMockSimulator, $config, _EVENTS_, $story, storyServiceMock, _STATE_) {
+        socketService = $socket;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
         $rootScope = _$rootScope_;
         $timeout = _$timeout_;
         storyMockData = storyServiceMock.books;
-        simulator = runnerMockSimulator;
+        simulator = $runnerMockSimulator;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             mock: {
@@ -44,10 +44,10 @@ describe('Unit: StoryRunnerMockSimulator scenario always succeeds on the first t
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
-        config.load();
-        story.list();
+        $config.load();
+        $story.list();
         $httpBackend.flush();
-        socket.connect();
+        $socket.connect();
     }));
 
     it('should publish an update with all steps as successful', function (done) {
@@ -135,14 +135,14 @@ describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', f
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$rootScope_, _$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_, story, storyServiceMock, _STATE_) {
-        socketService = socket;
+    beforeEach(inject(function (_$rootScope_, _$timeout_, $httpBackend, $socket, $runnerMockSimulator, $config, _EVENTS_, $story, storyServiceMock, _STATE_) {
+        socketService = $socket;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
         $timeout = _$timeout_;
         $rootScope = _$rootScope_;
         storyMockData = storyServiceMock.books;
-        simulator = runnerMockSimulator;
+        simulator = $runnerMockSimulator;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             mock: {
@@ -161,10 +161,10 @@ describe('Unit: StoryRunnerMockSimulator steps always fails on the first try', f
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
-        config.load();
-        story.list();
+        $config.load();
+        $story.list();
         $httpBackend.flush();
-        socket.connect();
+        $socket.connect();
     }));
 
     it('should publish an update with all scenarios as failed', function (done) {
@@ -227,13 +227,13 @@ describe('Unit: StoryRunnerMockSimulator run should continue to run in case it w
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$timeout_, $httpBackend, socket, runnerMockSimulator, config, _EVENTS_, story, storyServiceMock, _STATE_) {
-        socketService = socket;
+    beforeEach(inject(function (_$timeout_, $httpBackend, $socket, $runnerMockSimulator, $config, _EVENTS_, $story, storyServiceMock, _STATE_) {
+        socketService = $socket;
         EVENTS = _EVENTS_;
         STATE = _STATE_;
         $timeout = _$timeout_;
         storyMockData = storyServiceMock.books;
-        simulator = runnerMockSimulator;
+        simulator = $runnerMockSimulator;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             mock: {
@@ -252,10 +252,10 @@ describe('Unit: StoryRunnerMockSimulator run should continue to run in case it w
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
-        config.load();
-        story.list();
+        $config.load();
+        $story.list();
         $httpBackend.flush();
-        socket.connect();
+        $socket.connect();
     }));
 
     it('should not publish an event in case the run did not change', function (done) {

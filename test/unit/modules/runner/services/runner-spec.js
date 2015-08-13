@@ -20,9 +20,9 @@ describe('Unit: RunnerService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, module, runner, _EVENTS_, _STATE_, _MODULES_, story, storyServiceMock, subscription, config, runServiceMock, _$rootScope_) {
-        runnerService = runner;
-        moduleService = module;
+    beforeEach(inject(function ($httpBackend, $module, $runner, _EVENTS_, _STATE_, _MODULES_, $story, storyServiceMock, $subscription, $config, runServiceMock, _$rootScope_) {
+        runnerService = $runner;
+        moduleService = $module;
         storyMockData = storyServiceMock.books;
         runMockData = runServiceMock;
         backend = $httpBackend;
@@ -30,7 +30,7 @@ describe('Unit: RunnerService', function() {
         STATE = _STATE_;
         MODULES = _MODULES_;
         $rootScope = _$rootScope_;
-        subscriptionService = subscription;
+        subscriptionService = $subscription;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             socket: {
@@ -40,8 +40,8 @@ describe('Unit: RunnerService', function() {
             run: {pagination: {server: {runsPerRequest: 50}}}
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
-        config.load();
-        story.list();
+        $config.load();
+        $story.list();
         $httpBackend.flush();
     }));
 

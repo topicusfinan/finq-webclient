@@ -11,8 +11,8 @@ describe('Unit: ValueService base values', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (value) {
-        valueService = value;
+    beforeEach(inject(function ($value) {
+        valueService = $value;
     }));
 
     it('should properly load all initial values', function () {

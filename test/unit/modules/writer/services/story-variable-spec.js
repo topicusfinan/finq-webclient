@@ -15,9 +15,9 @@ describe('Unit: Scenario view directive', function () {
         scenario1 = story.scenarios[1];
     }));
 
-    beforeEach(inject(function (_storyVariable_, _arrayOperations_) {
-        storyVariable = _storyVariable_;
-        arrayOperations = _arrayOperations_;
+    beforeEach(inject(function ($storyVariable, $arrayOperations) {
+        storyVariable = $storyVariable;
+        arrayOperations = $arrayOperations;
         storyVariable.setupVariables(scenario1);
     }));
 
@@ -100,9 +100,6 @@ describe('Unit: Scenario view directive', function () {
         expect(scenario1.steps[1].getInputVariables()[1].isReference()).to.be.true();
         expect(scenario1.steps[1].getInputVariables()[0].isReference()).to.be.false();
     });
-
-
-
 
 
 });

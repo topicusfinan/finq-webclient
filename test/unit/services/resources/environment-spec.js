@@ -15,8 +15,8 @@ describe('Unit: EnvironmentService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, environment, environmentServiceMock, _$rootScope_) {
-        environmentService = environment;
+    beforeEach(inject(function ($httpBackend, $environment, environmentServiceMock, _$rootScope_) {
+        environmentService = $environment;
         environmentMockData = environmentServiceMock.environments;
         $rootScope = _$rootScope_;
         $httpBackend.expectGET('/environments').respond(200, environmentMockData);

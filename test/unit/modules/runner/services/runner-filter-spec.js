@@ -13,8 +13,8 @@ describe('Unit: RunnerFilterService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, runnerFilter, storyServiceMock, config) {
-        runnerFilterService = runnerFilter;
+    beforeEach(inject(function ($httpBackend, $runnerFilter, storyServiceMock, $config) {
+        runnerFilterService = $runnerFilter;
         storyMockData = storyServiceMock.books;
         backend = $httpBackend;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -22,7 +22,7 @@ describe('Unit: RunnerFilterService', function() {
             maxSearchResults: 200
         });
         $httpBackend.expectGET('/app').respond(200);
-        config.load();
+        $config.load();
         $httpBackend.flush();
     }));
 

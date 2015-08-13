@@ -24,19 +24,19 @@ describe('Unit: AvailableCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, config, environment, environmentServiceMock, storyServiceMock, runExecution, feedback, story, runnerFilter, _module_) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, _EVENTS_, _MODULES_, _FEEDBACK_, $config, $environment, environmentServiceMock, storyServiceMock, $runExecution, $feedback, $story, $runnerFilter, $module) {
         scope = $rootScope.$new();
-        runnerFilterService = runnerFilter;
+        runnerFilterService = $runnerFilter;
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         FEEDBACK = _FEEDBACK_;
         storybooks = storyServiceMock.books;
         environments = environmentServiceMock.environments;
         httpBackend = $httpBackend;
-        runExecutionService = runExecution;
-        feedbackService = feedback;
+        runExecutionService = $runExecution;
+        feedbackService = $feedback;
         emitSpy = sinon.spy(scope, '$emit');
-        moduleSpy = sinon.spy(_module_, 'setCurrentSection');
+        moduleSpy = sinon.spy($module, 'setCurrentSection');
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             selectDropdown: {pagination: {itemsPerPage: 4}},
@@ -45,11 +45,11 @@ describe('Unit: AvailableCtrl', function() {
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/environments').respond(200, environments);
         $httpBackend.expectGET('/books').respond(200, storybooks);
-        config.load().then(function() {
-            environment.load().then(function() {
-                story.list().then(function() {
+        $config.load().then(function() {
+            $environment.load().then(function() {
+                $story.list().then(function() {
                     AvailableCtrl = $controller('AvailableCtrl', {$scope: scope});
-                    runnerFilter.initialize();
+                    $runnerFilter.initialize();
                 });
             });
         });

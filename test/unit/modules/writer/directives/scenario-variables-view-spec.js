@@ -11,12 +11,12 @@ describe('Unit: Scenario variables view directive', function () {
     var variable, step, scenario;
     var childScope;
 
-    beforeEach(inject(function(storyServiceMock, storyVariable){
+    beforeEach(inject(function(storyServiceMock, $storyVariable){
         scenario = angular.copy(storyServiceMock.books[1].stories[0].scenarios[0]);
         step = scenario.steps[0];
         variable = step.variables.input[0];
 
-        storyVariable.setupVariables(scenario);
+        $storyVariable.setupVariables(scenario);
     }));
 
     beforeEach(inject(function($rootScope, $compile){
@@ -28,29 +28,29 @@ describe('Unit: Scenario variables view directive', function () {
         childScope = scope.$$childHead;
     }));
 
-    it('should show variable modal when editing a variable', inject(function(variableModal){
-        var showModalForVariable = sinon.spy(variableModal, 'showModalForVariable');
+    it('should show variable modal when editing a variable', inject(function($variableModal){
+        var showModalForVariable = sinon.spy($variableModal, 'showModalForVariable');
 
         childScope.scenarioVariablesView.editVariable(variable);
         expect(showModalForVariable).to.be.calledWith(variable);
     }));
 
-    it('should update the variableScopes when a new item is selected', inject(function(selectedItem){
-        selectedItem.setSelectedItem(step);
+    it('should update the variableScopes when a new item is selected', inject(function($selectedItem){
+        $selectedItem.setSelectedItem(step);
         scope.$digest();
 
         expect(childScope.scenarioVariablesView.variableScopes.length).to.equal(2);
     }));
 
-    it('should not update the variableScopes when no item is selected', inject(function(selectedItem){
-        selectedItem.clearSelectedItem();
+    it('should not update the variableScopes when no item is selected', inject(function($selectedItem){
+        $selectedItem.clearSelectedItem();
         scope.$digest();
 
         expect(childScope.scenarioVariablesView.variableScopes.length).to.equal(0);
     }));
 
-    it('should not show varibles on scenarios', inject(function(selectedItem){
-        selectedItem.setSelectedItem(scenario);
+    it('should not show varibles on scenarios', inject(function($selectedItem){
+        $selectedItem.setSelectedItem(scenario);
         scope.$digest();
 
         expect(childScope.scenarioVariablesView.variableScopes.length).to.equal(0);

@@ -15,8 +15,8 @@ describe('Unit: RunService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock, STATE, config) {
-        runService = run;
+    beforeEach(inject(function ($httpBackend, _$rootScope_, $run, runServiceMock, STATE, $config) {
+        runService = $run;
         $rootScope = _$rootScope_;
         runMockData = runServiceMock;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -25,7 +25,7 @@ describe('Unit: RunService', function() {
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
-        config.load().then(function() {
+        $config.load().then(function() {
             runService.list().then(function(runData) {
                 runs = runData;
             });
@@ -90,15 +90,15 @@ describe('Unit: RunService with an unstable backend', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, run, STATE, config) {
-        runService = run;
+    beforeEach(inject(function ($httpBackend, $run, STATE, $config) {
+        runService = $run;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             run: {pagination: {server: {runsPerRequest: 50}}}
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(503);
-        config.load().then(function() {
+        $config.load().then(function() {
             runService.list().then(null,function(error) {
                 feedback = error;
             });

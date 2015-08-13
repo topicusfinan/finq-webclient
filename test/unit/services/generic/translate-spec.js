@@ -12,8 +12,8 @@ describe('Unit: TranslateService initialization', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, translate) {
-        translateService = translate;
+    beforeEach(inject(function ($httpBackend, $translation) {
+        translateService = $translation;
         $httpBackend.expectGET('/lang/en.json').respond(200, {LANG : 'US English'});
         translateService.load('en').then(function(translateData) {
             translations = translateData;

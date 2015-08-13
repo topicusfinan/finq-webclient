@@ -18,17 +18,17 @@ describe('Unit: StorybookSearch initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_EVENTS_, _MODULES_, $httpBackend, config, storybookSearch, storyServiceMock) {
+    beforeEach(inject(function (_EVENTS_, _MODULES_, $httpBackend, $config, $storybookSearch, storyServiceMock) {
         MODULES = _MODULES_;
         EVENTS = _EVENTS_;
         storybooks = storyServiceMock.books;
-        storySearchService = storybookSearch;
+        storySearchService = $storybookSearch;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             maxSearchResults: 1000
         });
         $httpBackend.expectGET('/app').respond(200);
-        config.load().then(function() {
+        $config.load().then(function() {
             storySearchService.initialize(storybooks);
         });
         $httpBackend.flush();

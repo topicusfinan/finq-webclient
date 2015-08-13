@@ -12,15 +12,15 @@
  * on screen at once.
  */
 angular.module('finqApp.runner.filter')
-    .filter('storybookPaginationFilter', ['value', function(valueService) {
-        return function(books, iteration, maxScenarios) {
+    .filter('storybookPaginationFilter', function ($value) {
+        return function (books, iteration, maxScenarios) {
             var filteredBooks = [],
                 scenarioCnt = 0,
                 loopIteration = 0,
                 morePagesAvailable = false,
                 i, j;
-            for (i=0; i<books.length; i++) {
-                for (j=0; j<books[i].stories.length; j++) {
+            for (i = 0; i < books.length; i++) {
+                for (j = 0; j < books[i].stories.length; j++) {
                     scenarioCnt += books[i].stories[j].scenarios.length;
                 }
                 if (loopIteration === iteration) {
@@ -28,7 +28,7 @@ angular.module('finqApp.runner.filter')
                 }
                 if (scenarioCnt >= maxScenarios) {
                     if (loopIteration === iteration) {
-                        morePagesAvailable = i<books.length-1;
+                        morePagesAvailable = i < books.length - 1;
                         break;
                     } else {
                         scenarioCnt = 0;
@@ -37,8 +37,8 @@ angular.module('finqApp.runner.filter')
                 }
             }
 
-            valueService.hasMorePages = morePagesAvailable;
+            $value.hasMorePages = morePagesAvailable;
 
             return filteredBooks;
         };
-    }]);
+    });

@@ -14,7 +14,7 @@
  * relative to the server address.
  */
 angular.module('finqApp.service')
-    .provider('backend', function () {
+    .provider('$backend', function () {
         var serverAddress = '';
 
         var transformGetParameters = function(url,queryData) {

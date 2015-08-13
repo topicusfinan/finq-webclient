@@ -15,8 +15,8 @@ describe('Unit: StoryService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, story, storyServiceMock, _$rootScope_) {
-        storyService = story;
+    beforeEach(inject(function ($httpBackend, $story, storyServiceMock, _$rootScope_) {
+        storyService = $story;
         $rootScope = _$rootScope_;
         storyMockData = storyServiceMock.books;
         $httpBackend.expectGET('/books').respond(200, storyMockData);
@@ -86,8 +86,8 @@ describe('Unit: StoryService initialization with an unstable backend', function(
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, story) {
-        storyService = story;
+    beforeEach(inject(function ($httpBackend, $story) {
+        storyService = $story;
         $httpBackend.expectGET('/books').respond(503);
         storyService.list().then(null,function(error) {
             feedback = error;

@@ -10,10 +10,10 @@ describe('Unit: Story Edit', function () {
         module('finqApp.mock');
     });
 
-    beforeEach(inject(function (_storyEdit_, _$httpBackend_, _story_, storyServiceMock, config) {
-        storyEdit = _storyEdit_;
+    beforeEach(inject(function ($storyEdit, _$httpBackend_, $story, storyServiceMock, $config) {
+        storyEdit = $storyEdit;
         $httpBackend = _$httpBackend_;
-        story = _story_;
+        story = $story;
         storyMockData = storyServiceMock.books;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
@@ -22,7 +22,7 @@ describe('Unit: Story Edit', function () {
             }
         });
         $httpBackend.expectGET('/books').respond(200, storyMockData);
-        config.load();
+        $config.load();
         story.list();
         $httpBackend.flush();
     }));

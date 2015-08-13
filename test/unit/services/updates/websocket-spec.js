@@ -11,9 +11,9 @@ describe('Unit: Websocket', function() {
     beforeEach(function() {
         module('finqApp');
     });
-    beforeEach(inject(function (_EVENTS_, websocket) {
+    beforeEach(inject(function (_EVENTS_, $websocket) {
         EVENTS = _EVENTS_;
-        websocketService = websocket;
+        websocketService = $websocket;
     }));
 
     it('should be able to register to an event and trigger its handler several times', function (done) {

@@ -9,7 +9,7 @@
  * Creates page level informaton based on current application state.
  */
 angular.module('finqApp.service')
-    .factory('page', function () {
+    .factory('$page', function () {
         var activeModule = null;
         var activeSection = null;
 

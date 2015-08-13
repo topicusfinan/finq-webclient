@@ -7,8 +7,8 @@ describe('Unit: Variable modal service', function () {
     var variableModal;
     var simpleVariable;
 
-    beforeEach(inject(function(_variableModal_, storyServiceMock){
-        variableModal = _variableModal_;
+    beforeEach(inject(function($variableModal, storyServiceMock){
+        variableModal = $variableModal;
         simpleVariable = angular.copy(storyServiceMock.books[0].stories[1].scenarios[1].steps[1].variables.input[0]);
     }));
 

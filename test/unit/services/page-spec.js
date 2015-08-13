@@ -11,8 +11,8 @@ describe('Unit: PageService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, page) {
-        pageService = page;
+    beforeEach(inject(function ($httpBackend, $page) {
+        pageService = $page;
     }));
 
     it('should initially not have an active module or section', function () {

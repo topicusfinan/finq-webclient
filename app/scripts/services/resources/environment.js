@@ -10,27 +10,27 @@
  * actions on the environments themselves, but rather on the configuration of environments in the backend routing.
  */
 angular.module('finqApp.service')
-    .service('environment', ['backend','$q', function (backend,$q) {
+    .service('$environment', function ($backend, $q) {
         var that = this,
             environments = null;
 
-        this.load = function() {
+        this.load = function () {
             var deferred = $q.defer();
             var notice = setTimeout(function () {
                 deferred.notify('Loading environments is taking too long');
-            },5000);
-            backend.get('/environments').success(function(environmentData) {
+            }, 5000);
+            $backend.get('/environments').success(function (environmentData) {
                 environments = environmentData;
                 deferred.resolve(environments);
-            }).error(function() {
+            }).error(function () {
                 deferred.reject('Loading environments failed');
-            }).finally(function() {
+            }).finally(function () {
                 clearTimeout(notice);
             });
             return deferred.promise;
         };
 
-        this.list = function(forceReload) {
+        this.list = function (forceReload) {
             if (forceReload || environments === null) {
                 return that.load();
             } else {
@@ -38,11 +38,11 @@ angular.module('finqApp.service')
             }
         };
 
-        this.getById = function(id) {
+        this.getById = function (id) {
             if (!environments) {
                 return null;
             }
-            for (var i=0; i<environments.length; i++) {
+            for (var i = 0; i < environments.length; i++) {
                 if (environments[i].id === id) {
                     return environments[i];
                 }
@@ -50,4 +50,4 @@ angular.module('finqApp.service')
             return null;
         };
 
-    }]);
+    });

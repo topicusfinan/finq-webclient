@@ -14,7 +14,7 @@
  *
  */
 angular.module('finqApp.directive')
-    .directive('sortable', function (EVENTS, $timeout) {
+    .directive('sortable', function ($timeout, EVENTS) {
         return {
             restrict: 'A',
             controller: 'SortableCtrl',
@@ -25,7 +25,7 @@ angular.module('finqApp.directive')
                     start: function (event, ui) {
                         scope.sortableObjectStart(event, ui, element);
                         scope.setClasses(element, attrs.connectWith);
-                        $timeout(function(){
+                        $timeout(function () {
                             jqElement.sortable('refresh'); // Required to update positions after styling changes
                         });
                     },
@@ -55,7 +55,7 @@ angular.module('finqApp.directive')
             }
         };
     })
-    .controller('SortableCtrl', ['$scope', 'arrayOperations', '$rootScope', function ($scope, arrayOperations, $rootScope) {
+    .controller('SortableCtrl', function ($scope, $arrayOperations, $rootScope) {
         $scope.sortableObjectStart = sortableObjectStart;
         $scope.sortableObjectEnd = sortableObjectEnd;
         $scope.removeClasses = removeClasses;
@@ -90,13 +90,13 @@ angular.module('finqApp.directive')
             // TODO refactor to use 'receive' and 'remove' events
             if (movedOnParent) {
                 // Move on the same item so move in sortable
-                arrayOperations.moveItem($scope.sortable, ngElementScope.start, ui.item.index());
+                $arrayOperations.moveItem($scope.sortable, ngElementScope.start, ui.item.index());
             } else if (ui.sender === null) {
                 // Item has to be removed
-                ngElementScope.removedItem = arrayOperations.removeItem($scope.sortable, ngElementScope.start);
+                ngElementScope.removedItem = $arrayOperations.removeItem($scope.sortable, ngElementScope.start);
             } else {
                 // Item has to be added on the correct location
-                arrayOperations.insertItem($scope.sortable, ui.item.index(), ngElementScope.removedItem);
+                $arrayOperations.insertItem($scope.sortable, ui.item.index(), ngElementScope.removedItem);
 
                 // Remove item injected by sortable
                 ui.item.remove();
@@ -107,4 +107,4 @@ angular.module('finqApp.directive')
 
             animatedElements.addClass('list-animate');
         }
-    }]);
+    });

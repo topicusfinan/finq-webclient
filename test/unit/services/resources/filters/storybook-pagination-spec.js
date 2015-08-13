@@ -17,9 +17,9 @@ describe('Unit: Storybook Pagination Filter execution', function() {
             storybookPaginationFilter = $injector.get('$filter')('storybookPaginationFilter');
         });
     });
-    beforeEach(inject(function (storyServiceMock,value) {
+    beforeEach(inject(function (storyServiceMock,$value) {
         storybooks = storyServiceMock.books;
-        valueService = value;
+        valueService = $value;
     }));
 
     it('should keep all books listed in case we allow a great lot of scenarios on one page', function () {

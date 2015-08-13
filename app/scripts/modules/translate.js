@@ -7,9 +7,9 @@ angular.module('finqApp.translate', ['pascalprecht.translate'])
     .config(function($translateProvider) {
         $translateProvider.preferredLanguage('en');
         $translateProvider.useLoader('customLoader');
-    }).factory('customLoader', ['translate', function (translate) {
+    }).factory('customLoader', function ($translation) {
 	    // return loaderFn
 	    return function () {
-	        return translate.getTranslations();
+	        return $translation.getTranslations();
 	    };
-	}]);
+	});

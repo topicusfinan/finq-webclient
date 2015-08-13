@@ -8,7 +8,7 @@
  * Stores and provides selected items
  */
 angular.module('finqApp.writer.service')
-    .service('selectedItem', function () {
+    .service('$selectedItem', function () {
         var selectedItemId, selectedItem;
 
         clearSelectedItem();
