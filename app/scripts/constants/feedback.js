@@ -36,6 +36,9 @@ angular.module('finqApp')
             'SOCKET': {
                 'UNABLE_TO_CONNECT': {'key': 'SOCKET.UNABLE_TO_CONNECT'},
                 'UNABLE_TO_RECONNECT': {'key': 'SOCKET.UNABLE_TO_RECONNECT'}
+            },
+            'STORY': {
+                'UNABLE_TO_LOAD': {'key':'STORY.UNABLE_TO_LOAD'}
             }
         },
         'NOTICE': {

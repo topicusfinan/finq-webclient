@@ -24,6 +24,9 @@
             "SOCKET" : {
                 "UNABLE_TO_RECONNECT" : "Unable to reconnect to the server",
                 "UNABLE_TO_CONNECT" : "Unable to connect to the server run updates"
+            },
+            "STORY" : {
+                "UNABLE_TO_LOAD" : "The story you selected could not be loaded"
             }
         },
         "SUCCESS" : {

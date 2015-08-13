@@ -15,6 +15,7 @@ angular.module('finqApp.writer.service')
 
         this.setSelectedItem = setSelectedItem;
         this.isItemSelected = isItemSelected;
+        this.isNoItemSelected = isNoItemSelected;
         this.getSelectedItem = getSelectedItem;
         this.getSelectedItemId = getSelectedItemId;
         this.clearSelectedItem = clearSelectedItem;
@@ -41,6 +42,14 @@ angular.module('finqApp.writer.service')
          */
         function isItemSelected(item){
             return getPrefixedId(item) === selectedItemId;
+        }
+
+        /**
+         * Check if no item is selected
+         * @returns {boolean}
+         */
+        function isNoItemSelected() {
+            return selectedItemId === null;
         }
 
         /**
