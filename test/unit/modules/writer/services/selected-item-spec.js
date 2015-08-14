@@ -3,7 +3,7 @@
  */
 'use strict';
 
-describe('Unit: Scenario view directive', function () {
+describe('Unit: Selected item service', function () {
     beforeEach(module('finqApp'));
 
     var selectedItem;
@@ -60,6 +60,24 @@ describe('Unit: Scenario view directive', function () {
         selectedItem.setSelectedItem(book);
         selectedItem.clearSelectedItem();
         expect(selectedItem.isItemSelected(book)).to.be.false();
-        expect(selectedItem.getSelectedItem()).to.be.undefined();
-    })
+        expect(selectedItem.getSelectedItem()).to.be.null();
+    });
+
+    it('should set and match a contextual selection of a step and a scenario', function() {
+        selectedItem.setSelectedItem([step,scenario]);
+        expect(selectedItem.isItemSelected([step,scenario])).to.be.true();
+        expect(selectedItem.isItemSelected(step)).to.be.false();
+    });
+
+    it('should allow the selection of an item identified as a string', function() {
+        selectedItem.setSelectedItem('test');
+        expect(selectedItem.isItemSelected('test')).to.be.true();
+    });
+
+    it('should set and match a contextual selection of a scenario and a number', function() {
+        selectedItem.setSelectedItem([scenario,2]);
+        expect(selectedItem.isItemSelected([scenario,2])).to.be.true();
+        expect(selectedItem.isItemSelected([scenario])).to.be.false();
+    });
+
 });

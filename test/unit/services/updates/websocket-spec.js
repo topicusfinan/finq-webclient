@@ -113,7 +113,7 @@ describe('Unit: Websocket', function() {
         setTimeout(function() {
             websocketService.disconnect();
             setTimeout(function() {
-                expect(reconnecting).to.be.false;
+                expect(reconnecting).to.be.false();
                 done();
             },8);
         },8);
@@ -144,7 +144,7 @@ describe('Unit: Websocket', function() {
         setTimeout(function() {
             socket.onclose();
             setTimeout(function() {
-                expect(reconnecting).to.be.false;
+                expect(reconnecting).to.be.false();
                 done();
             },8);
         },8);

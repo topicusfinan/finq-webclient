@@ -17,8 +17,8 @@ describe('Unit: PageService', function() {
 
     it('should initially not have an active module or section', function () {
         var activeSection = pageService.getActiveSection();
-        expect(activeSection.moduleId).to.be.null;
-        expect(activeSection.sectionId).to.be.null;
+        expect(activeSection.moduleId).to.be.null();
+        expect(activeSection.sectionId).to.be.null();
     });
 
     it('should initially not have an active module or section', function () {

@@ -27,8 +27,8 @@ describe('Unit: EnvironmentService', function() {
     }));
 
     it('should properly load the environment list', function () {
-        expect(environments).to.not.be.undefined;
-        expect(environments).to.not.be.empty;
+        expect(environments).to.not.be.undefined();
+        expect(environments).to.not.be.empty();
         expect(environments[0]).to.deep.equal(environmentMockData[0]);
     });
 
@@ -39,7 +39,7 @@ describe('Unit: EnvironmentService', function() {
 
     it('should return null when retrieving an environment value by its key reference when the environment could not be found', function () {
         var environment = environmentService.getById('xyz');
-        expect(environment).to.be.null;
+        expect(environment).to.be.null();
     });
 
     it('should retrieve a loaded enviroment list in case the listing function is called again', function (done) {

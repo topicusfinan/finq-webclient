@@ -12,9 +12,9 @@
  * is immediately "moved" to the reports section.
  */
 angular.module('finqApp.runner.controller')
-    .controller('ReportCtrl', function ($scope, $routeParams, $location, MODULES, FEEDBACK, STATE, $report, $module, $feedback, $runUtils) {
+    .controller('ReportCtrl', function ($scope, $routeParams, $location, MODULES, FEEDBACK, STATE, $report, $module, $feedback, $runUtils, $selectedItem) {
         var that = this;
-        this.selectedItem = null;
+        this.selectedItem = $selectedItem;
         this.loaded = false;
         this.runCompleted = true;
 

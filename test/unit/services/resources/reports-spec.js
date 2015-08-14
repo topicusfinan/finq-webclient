@@ -58,8 +58,8 @@ describe('Unit: ReportService', function() {
 
     it('should properly load the reports list', function (done) {
         loadReports().then(function(reportData) {
-            expect(reportData).to.not.be.undefined;
-            expect(reportData).to.not.be.empty;
+            expect(reportData).to.not.be.undefined();
+            expect(reportData).to.not.be.empty();
             expect(reportData).to.deep.equal([
                 {
                     id: firstResponse.data[0].id,

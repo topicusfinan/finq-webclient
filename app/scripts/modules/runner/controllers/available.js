@@ -10,7 +10,7 @@
  * either be run in the background or in debug mode.
  */
 angular.module('finqApp.runner.controller')
-    .controller('AvailableCtrl', function ($scope, $timeout, $filter, EVENTS, FEEDBACK, MODULES, $config, $value, $feedback, $module, $runnerFilter, $story, $storybookSearch, $runExecution, $environment) {
+    .controller('AvailableCtrl', function ($scope, $timeout, $filter, EVENTS, FEEDBACK, MODULES, $config, $value, $feedback, $module, $runnerFilter, $story, $storybookSearch, $runExecution, $environment, $selectedItem) {
         var that = this;
 
         this.filter = {
@@ -21,7 +21,7 @@ angular.module('finqApp.runner.controller')
         this.searchQuery = '';
         this.storyListRef = 'stories';
         this.envPlaceholder = 'FILTERS.ENVIRONMENTS.NONE';
-        this.selectedItem = null;
+        this.selectedItem = $selectedItem;
         this.maxScenarios = $config.client().available.pagination.client.scenariosPerPage;
         this.maxSelectItems = $config.client().selectDropdown.pagination.itemsPerPage;
         this.currentPage = 0;

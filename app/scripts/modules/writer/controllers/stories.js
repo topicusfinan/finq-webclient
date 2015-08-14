@@ -10,10 +10,7 @@
 angular.module('finqApp.writer.controller')
     .controller('StoriesCtrl', function($location, $scope, $module, MODULES, FEEDBACK, $story, $config, $selectedItem, $feedback){
 
-        this.selectedItem = {
-            setSelectedItem: $selectedItem.setSelectedItem,
-            isItemSelected: $selectedItem.isItemSelected
-        };
+        this.selectedItem = $selectedItem;
         this.currentPage = 0;
         this.maxScenarios = $config.client().available.pagination.client.scenariosPerPage;
 

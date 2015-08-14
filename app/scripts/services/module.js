@@ -10,7 +10,7 @@
  * and other forms of state indicators for sections and modules.
  */
 angular.module('finqApp.service')
-    .service('$module', function ($rootScope, EVENTS, MODULES) {
+    .service('$module', function ($rootScope, EVENTS, MODULES, $selectedItem) {
         var moduleServices = {};
 
         this.linkModule = function (module, moduleSpecificService) {
@@ -48,6 +48,7 @@ angular.module('finqApp.service')
                 module: module,
                 section: section
             });
+            $selectedItem.setGroupPrefix(section.id);
         };
 
     });

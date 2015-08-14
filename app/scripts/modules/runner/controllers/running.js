@@ -12,11 +12,11 @@
  * either be run in the background or in debug mode.
  */
 angular.module('finqApp.runner.controller')
-    .controller('RunningCtrl', function ($scope, $timeout, EVENTS, MODULES, $module, $config, $runner, $utils, $runUtils) {
+    .controller('RunningCtrl', function ($scope, $timeout, EVENTS, MODULES, $module, $config, $runner, $utils, $runUtils, $selectedItem) {
         var that = this,
             updateTimer;
 
-        this.selectedItem = null;
+        this.selectedItem = $selectedItem;
         this.maxSelectItems = $config.client().selectDropdown.pagination.itemsPerPage;
         this.filter = {
             env: {id: 'env', ids: []}

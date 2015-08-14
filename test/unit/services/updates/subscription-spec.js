@@ -43,7 +43,7 @@ describe('Unit: SubscriptionService', function() {
         subscriptionService.register(EVENTS.SOCKET.RUN.UPDATED,'test');
         socketService.connect();
         setTimeout(function() {
-            onSpy.should.have.been.called.once;
+            onSpy.should.have.been.calledOnce;
             done();
         },15);
     });
@@ -53,9 +53,9 @@ describe('Unit: SubscriptionService', function() {
         var offSpy = sinon.spy(socketService,'off');
         socketService.connect();
         setTimeout(function() {
-            expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN.UPDATED,reference)).to.be.true;
-            expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN.UPDATED,reference)).to.be.false;
-            offSpy.should.have.been.called.once;
+            expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN.UPDATED,reference)).to.be.true();
+            expect(subscriptionService.unRegister(EVENTS.SOCKET.RUN.UPDATED,reference)).to.be.false();
+            offSpy.should.have.been.calledOnce;
             done();
         },15);
     });

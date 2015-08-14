@@ -27,8 +27,8 @@ describe('Unit: TagService initialization', function() {
     }));
 
     it('should properly load the tag list', function () {
-        expect(tags).to.not.be.undefined;
-        expect(tags).to.not.be.empty;
+        expect(tags).to.not.be.undefined();
+        expect(tags).to.not.be.empty();
         expect(tags[0]).to.deep.equal(tagMockData[0]);
     });
 
@@ -61,7 +61,7 @@ describe('Unit: TagService initialization with an unstable backend', function() 
     }));
 
     it('should fail to load the tags', function () {
-        expect(feedback).to.not.be.undefined;
+        expect(feedback).to.not.be.undefined();
     });
 
 });

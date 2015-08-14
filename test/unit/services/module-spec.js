@@ -42,7 +42,7 @@ describe('Unit: ModuleService', function() {
         var handleSpy = sinon.spy(runnerService, 'handle');
         moduleService.linkModule(MODULES.RUNNER,runnerService);
         moduleService.handleEvent(EVENTS.INTERNAL.SCENARIO_RUN_STARTED,{scenarios: []});
-        handleSpy.should.have.been.called.once;
+        handleSpy.should.have.been.calledOnce;
     });
 
     it('should trigger a section notifications update event', function () {

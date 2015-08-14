@@ -22,7 +22,7 @@ describe('Unit: TranslateService initialization', function() {
     }));
 
     it('should properly load the translation file', function () {
-        expect(translations).to.not.be.undefined;
+        expect(translations).to.not.be.undefined();
         expect(translations.LANG).to.equal('US English');
     });
 

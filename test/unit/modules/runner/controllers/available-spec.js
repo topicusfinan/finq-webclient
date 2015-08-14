@@ -57,7 +57,7 @@ describe('Unit: AvailableCtrl', function() {
     }));
 
     it('should initially not have any item selected', function () {
-        expect(AvailableCtrl.selectedItem).to.be.null;
+        expect(AvailableCtrl.selectedItem.getSelectedItem()).to.be.null();
     });
 
     it('should register itself as the active module and section', function () {
@@ -83,7 +83,7 @@ describe('Unit: AvailableCtrl', function() {
     });
 
     it('should initially not have any more pages than the current page for pagination', function () {
-        expect(AvailableCtrl.hasMorePages).to.not.be.true;
+        expect(AvailableCtrl.hasMorePages).to.not.be.true();
     });
 
     it('should load a list of environments to populate the environment filter', function () {

@@ -48,12 +48,12 @@ describe('Unit: AvailableFilterCtrl', function() {
             {key: tags[2].id, value: tags[2].value},
             {key: tags[3].id, value: tags[3].value},
             {key: tags[4].id, value: tags[4].value},
-            {key: tags[5].id, value: tags[5].value},
+            {key: tags[5].id, value: tags[5].value}
         ]);
     });
 
     it('should set the filter to fully loaded', function () {
-        expect(AvailableFilterCtrl.loaded).to.be.true;
+        expect(AvailableFilterCtrl.loaded).to.be.true();
     });
 
 });

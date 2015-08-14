@@ -16,7 +16,7 @@ describe('Unit: ValueService base values', function() {
     }));
 
     it('should properly load all initial values', function () {
-        expect(valueService.hasMorePages).to.not.be.undefined;
+        expect(valueService.hasMorePages).to.not.be.undefined();
     });
 
 });

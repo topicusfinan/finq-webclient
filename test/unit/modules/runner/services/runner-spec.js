@@ -71,7 +71,7 @@ describe('Unit: RunnerService', function() {
                 id: 46421532,
                 scenarios: [23452343,23452345]
             }]);
-        subscribeSpy.should.have.been.called.once;
+        subscribeSpy.should.have.been.calledOnce;
     });
 
     it('should handle a progress update for a run that is subscribed to', function () {
@@ -225,7 +225,7 @@ describe('Unit: RunnerService', function() {
             status: STATE.RUN.SCENARIO.FAILED,
             steps: [{status: STATE.RUN.SCENARIO.SUCCESS},{status: STATE.RUN.SCENARIO.FAILED},{status: STATE.RUN.SCENARIO.QUEUED}]
         });
-        subscribeSpy.should.have.been.called.once;
+        subscribeSpy.should.have.been.calledOnce;
     });
 
     it('should update section badges for completed runs by reducing badge count for currently running, and increasing badge count for reports', function () {

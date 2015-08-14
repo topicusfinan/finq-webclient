@@ -57,7 +57,7 @@ describe('Unit: RunningCtrl', function() {
     });
 
     it('should initially not have any item selected', function () {
-        expect(RunningCtrl.selectedItem).to.be.null;
+        expect(RunningCtrl.selectedItem.getSelectedItem()).to.be.null();
     });
 
     it('should initially set the maximum selectable items for a dropdown to the standard configured value', function () {
@@ -81,7 +81,7 @@ describe('Unit: RunningCtrl', function() {
     it('should be able to explicitly purge completed stories on request', function () {
         var clearSessionsSpy = sinon.spy(runnerService, 'clearCompletedSessions');
         RunningCtrl.purge();
-        clearSessionsSpy.should.have.been.called.once;
+        clearSessionsSpy.should.have.been.calledOnce;
     });
 
     it('should update its runs in case the runservice has changed its runs', function (done) {

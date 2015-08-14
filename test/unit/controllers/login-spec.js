@@ -30,8 +30,8 @@ describe('Unit: LoginCtrl', function() {
     }));
 
     it('should initially set its variables properly', function () {
-        expect(LoginCtrl.submitted).to.be.false;
-        expect(LoginCtrl.hasError).to.be.false;
+        expect(LoginCtrl.submitted).to.be.false();
+        expect(LoginCtrl.hasError).to.be.false();
         expect(LoginCtrl.title).to.equal('Test');
     });
 

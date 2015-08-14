@@ -38,19 +38,19 @@ describe('Unit: SocketService', function() {
     }));
 
     it('should initially not be connected', function () {
-        expect(socketService.isConnected()).to.be.false;
+        expect(socketService.isConnected()).to.be.false();
     });
 
     it('should initialize a connection if requested to do so', function () {
         socketService.connect();
-        expect(socketService.isConnected()).to.be.true;
+        expect(socketService.isConnected()).to.be.true();
     });
 
     it('should lose its connection if requested to disconnect after establishing a connection', function () {
         socketService.connect();
         socketService.emit('connect');
         socketService.emit('disconnect');
-        expect(socketService.isConnected()).to.be.false;
+        expect(socketService.isConnected()).to.be.false();
     });
 
     it('should respond to a socket error by notifying the user with an error message', function () {
@@ -94,7 +94,7 @@ describe('Unit: SocketService', function() {
         socketService.connect();
         socketService.on('test',testFn.test);
         socketService.emit('test');
-        testSpy.should.have.been.called.once;
+        testSpy.should.have.been.calledOnce;
     });
 
     it('should be able to remove a listener from a custom event', function () {
@@ -104,7 +104,7 @@ describe('Unit: SocketService', function() {
         socketService.on('test',testFn.test);
         socketService.off('test');
         socketService.emit('test');
-        testSpy.should.not.have.been.called.once;
+        testSpy.should.not.have.been.calledOnce;
     });
 
     it('should be possible to add a listener to a custom event for only one event cycle', function () {

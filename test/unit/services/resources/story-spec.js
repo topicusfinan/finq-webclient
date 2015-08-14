@@ -27,8 +27,8 @@ describe('Unit: StoryService', function() {
     }));
 
     it('should properly load the storybook list', function () {
-        expect(storybooks).to.not.be.undefined;
-        expect(storybooks).to.not.be.empty;
+        expect(storybooks).to.not.be.undefined();
+        expect(storybooks).to.not.be.empty();
         expect(storybooks).to.deep.equal(storyMockData);
     });
 
@@ -44,7 +44,7 @@ describe('Unit: StoryService', function() {
 
     it('should return null in case no story was found by id', function () {
         var story = storyService.findStoryById(null);
-        expect(story).to.be.null;
+        expect(story).to.be.null();
     });
 
     it('should be possible to find a scenario by id', function () {
@@ -54,7 +54,7 @@ describe('Unit: StoryService', function() {
 
     it('should return null in case no scenario was found by id', function () {
         var scenario = storyService.findScenarioById(null);
-        expect(scenario).to.be.null;
+        expect(scenario).to.be.null();
     });
 
     it('should be possible to find a story by a scenario id', function () {
@@ -64,7 +64,7 @@ describe('Unit: StoryService', function() {
 
     it('should return null in case no story was found by a scenario id', function () {
         var story = storyService.findStoryByScenarioId(null);
-        expect(story).to.be.null;
+        expect(story).to.be.null();
     });
 
     it('should retrieve a loaded story list in case the listing function is called again', function (done) {
@@ -96,7 +96,7 @@ describe('Unit: StoryService initialization with an unstable backend', function(
     }));
 
     it('should fail to load the storybooks', function () {
-        expect(feedback).to.not.be.undefined;
+        expect(feedback).to.not.be.undefined();
     });
 
 });

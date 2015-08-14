@@ -9,7 +9,7 @@
  */
 angular.module('finqApp.writer.service')
     .service('$selectedItem', function () {
-        var selectedItemId, selectedItem;
+        var selectedItemId, selectedItem, groupPrefix;
 
         clearSelectedItem();
 
@@ -19,6 +19,7 @@ angular.module('finqApp.writer.service')
         this.getSelectedItem = getSelectedItem;
         this.getSelectedItemId = getSelectedItemId;
         this.clearSelectedItem = clearSelectedItem;
+        this.setGroupPrefix = setGroupPrefix;
 
         /**
          * Set selectedItem to reference the new item with a prefix based on its type
@@ -32,7 +33,7 @@ angular.module('finqApp.writer.service')
 
         function clearSelectedItem(){
             selectedItemId = null;
-            selectedItem = undefined;
+            selectedItem = null;
         }
 
         /**
@@ -59,28 +60,42 @@ angular.module('finqApp.writer.service')
             if (item === null){
                 return null;
             }
-            return getPrefix(item) + item.id;
+            return groupPrefix+getPrefix(item);
         }
 
         /**
          * Get the prefix for the item
-         * @param {Object} item
+         * @param {Object|Object[]} item
          * @returns {string}
          */
         function getPrefix(item){
-            var prefix;
-            if (item.stories !== undefined){
-                prefix = 'book';
-            } else if (item.scenarios !== undefined){
-                prefix = 'story';
-            } else if (item.steps !== undefined){
-                prefix = 'scenario';
-            } else if (item.template !== undefined) {
-                prefix = 'step';
+            var itemPrefix = '';
+            if (Array.isArray(item)) {
+                for (var i=item.length-1; i>=0; i--) {
+                    itemPrefix += getPrefix(item[i]);
+                }
             } else {
-                prefix = 'section';
+                if (typeof item !== 'object') {
+                    itemPrefix = '-item-'+item;
+                } else {
+                    if (item.stories !== undefined){
+                        if (item.environment !== undefined) {
+                            itemPrefix = '-run-'+item.id;
+                        } else {
+                            itemPrefix = '-book-'+item.id;
+                        }
+                    } else if (item.scenarios !== undefined){
+                        itemPrefix = '-story-'+item.id;
+                    } else if (item.steps !== undefined){
+                        itemPrefix = '-scenario-'+item.id;
+                    } else if (item.template !== undefined) {
+                        itemPrefix = '-step-'+item.id;
+                    } else {
+                        itemPrefix = '-section-'+item.id;
+                    }
+                }
             }
-            return prefix;
+            return itemPrefix;
         }
 
         function getSelectedItem(){
@@ -89,6 +104,10 @@ angular.module('finqApp.writer.service')
 
         function getSelectedItemId(){
             return selectedItemId;
+        }
+
+        function setGroupPrefix(targetPrefix) {
+            groupPrefix = targetPrefix;
         }
 
 

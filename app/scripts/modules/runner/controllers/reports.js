@@ -11,14 +11,14 @@
  * is immediately "moved" to the reports section.
  */
 angular.module('finqApp.runner.controller')
-    .controller('ReportsCtrl', function ($scope, $timeout, $location, MODULES, EVENTS, FEEDBACK, $config, $value, $report, $reporterFilter, $module, $feedback) {
+    .controller('ReportsCtrl', function ($scope, $timeout, $location, MODULES, EVENTS, FEEDBACK, $config, $value, $report, $reporterFilter, $module, $feedback, $selectedItem) {
         var that = this;
 
         this.filter = {
             status: {id: 'status', ids: []}
         };
         this.searchQuery = '';
-        this.selectedItem = null;
+        this.selectedItem = $selectedItem;
         this.reportListRef = 'reportList';
         this.maxReports = $config.client().report.pagination.client.reportsPerPage;
         this.maxSelectItems = $config.client().selectDropdown.pagination.itemsPerPage;

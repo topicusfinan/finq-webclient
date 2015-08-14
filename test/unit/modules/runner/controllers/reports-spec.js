@@ -56,7 +56,7 @@ describe('Unit: ReportsCtrl', function() {
     });
 
     it('should initially not have any item selected', function () {
-        expect(ReportsCtrl.selectedItem).to.be.null;
+        expect(ReportsCtrl.selectedItem.getSelectedItem()).to.be.null();
     });
 
     it('should initially set the maximum selectable items for a dropdown to the standard configured value', function () {

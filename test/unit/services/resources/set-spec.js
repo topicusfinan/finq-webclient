@@ -27,8 +27,8 @@ describe('Unit: SetService initialization', function() {
     }));
 
     it('should properly load the set list', function () {
-        expect(sets).to.not.be.null;
-        expect(sets).to.not.be.empty;
+        expect(sets).to.not.be.null();
+        expect(sets).to.not.be.empty();
         expect(sets[0]).to.deep.equal(setMockData[0]);
     });
 
@@ -61,7 +61,7 @@ describe('Unit: SetService initialization with an unstable backend', function() 
     }));
 
     it('should fail to load the sets', function () {
-        expect(feedback).to.not.be.undefined;
+        expect(feedback).to.not.be.undefined();
     });
 
 });

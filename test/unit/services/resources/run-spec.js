@@ -34,8 +34,8 @@ describe('Unit: RunService', function() {
     }));
 
     it('should properly load the running stories list', function () {
-        expect(runs).to.not.be.undefined;
-        expect(runs).to.not.be.empty;
+        expect(runs).to.not.be.undefined();
+        expect(runs).to.not.be.empty();
         expect(runs).to.deep.equal(runMockData.data);
     });
 
@@ -49,22 +49,22 @@ describe('Unit: RunService', function() {
 
     it('should be able to validate if a run is completed', function () {
         var completed = runService.runIsCompleted(runs[0]);
-        expect(completed).to.be.false;
+        expect(completed).to.be.false();
     });
 
     it('should be able to find a particular story in a run', function () {
         var story = runService.findStoryInRun(runs[0],runs[0].stories[0].id);
-        expect(story).to.not.be.null;
+        expect(story).to.not.be.null();
     });
 
     it('should be able to find a particular scenario in a story', function () {
         var scenario = runService.findScenarioInStory(runs[0].stories[0],runs[0].stories[0].scenarios[0].id);
-        expect(scenario).to.not.be.null;
+        expect(scenario).to.not.be.null();
     });
 
     it('should be possible to not be able to find a scenario in a story', function () {
         var scenario = runService.findScenarioInStory(runs[0].stories[0],'test');
-        expect(scenario).to.be.null;
+        expect(scenario).to.be.null();
     });
 
     it('should be able to remove a run from the current list of runs', function (done) {
@@ -107,7 +107,7 @@ describe('Unit: RunService with an unstable backend', function() {
     }));
 
     it('should fail to load the runs', function () {
-        expect(feedback).to.not.be.undefined;
+        expect(feedback).to.not.be.undefined();
     });
 
 });

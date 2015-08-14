@@ -1,4 +1,4 @@
-<div class="top-filter filter-1 ic selectable" ng-show="report.loaded" ng-class="{'active':report.selectedItem === null}" ng-click="report.selectedItem = null">
+<div class="top-filter filter-1 ic selectable" ng-show="report.loaded" ng-class="{'active':report.selectedItem.isNoItemSelected()}" ng-click="report.selectedItem.clearSelectedItem()">
     <i class="fa fa-chevron-left" ng-click="report.list()"></i>
     <div class="filters">
         <span>{{ run.title }}</span>
@@ -14,7 +14,7 @@
         </div>
         <ul>
             <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
-                <div class="selectable {{scenario.highlight}}" ng-class="{'active':report.selectedItem === 'scenario-'+scenario.id}" ng-click="report.selectedItem = 'scenario-'+scenario.id" data-toggle="story">
+                <div class="selectable {{scenario.highlight}}" ng-class="{'active':report.selectedItem.isItemSelected(scenario)}" ng-click="report.selectedItem.setSelectedItem(scenario)" data-toggle="story">
                     <div class="title">
                         <div class="radial-progress" progress="scenario.percentage" highlight="scenario.highlight"></div>
                         <span class="separate">{{::scenario.title}}</span>
@@ -22,7 +22,7 @@
                 </div>
                 <ul>
                     <li class="ic cl" ng-repeat="step in scenario.steps track by $index">
-                        <div class="selectable {{step.highlight}}" ng-class="{'active':report.selectedItem === 'step-'+run.id+'-'+scenario.id+'-'+$index, 'detailed always':step.message != null}" ng-click="report.selectedItem = 'step-'+run.id+'-'+scenario.id+'-'+$index">
+                        <div class="selectable {{step.highlight}}" ng-class="{'active':report.selectedItem.isItemSelected([run,scenario,$index]), 'detailed always':step.message != null}" ng-click="report.selectedItem.setSelectedItem([run,scenario,$index])">
                             <div class="title">
                                 <i class="fa fa-fw {{step.highlight}}"></i>
                                 <span>{{::step.title}}</span>
