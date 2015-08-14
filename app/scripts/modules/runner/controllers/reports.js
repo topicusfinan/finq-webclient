@@ -49,7 +49,7 @@ angular.module('finqApp.runner.controller')
             $report.getReport(reportId).then(function () {
                 $location.path('/' + MODULES.RUNNER.sections.REPORTS.id.toLowerCase().replace('.', '/') + '/' + reportId);
             }, function () {
-                $feedback.error(FEEDBACK.ERROR.REPORT.UNABLE_TO_LOAD);
+                $feedback.error(FEEDBACK.ERROR.RESOURCE.REPORT.UNABLE_TO_LOAD);
             });
         };
 

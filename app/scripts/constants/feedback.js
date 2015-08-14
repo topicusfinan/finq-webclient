@@ -30,15 +30,23 @@ angular.module('finqApp')
                     'PLURAL': {'key': 'RUN.COMPLETED.SINGULAR'}
                 }
             },
-            'REPORT': {
-                'UNABLE_TO_LOAD': {'key':'REPORT.UNABLE_TO_LOAD'}
-            },
             'SOCKET': {
                 'UNABLE_TO_CONNECT': {'key': 'SOCKET.UNABLE_TO_CONNECT'},
                 'UNABLE_TO_RECONNECT': {'key': 'SOCKET.UNABLE_TO_RECONNECT'}
             },
-            'STORY': {
-                'UNABLE_TO_LOAD': {'key':'STORY.UNABLE_TO_LOAD'}
+            'RESOURCE': {
+                'REPORT': {
+                    'UNABLE_TO_LOAD': {'key':'REPORT.UNABLE_TO_LOAD'}
+                },
+                'SCENARIO': {
+                    'UNABLE_TO_LOAD': {'key':'SCENARIO.UNABLE_TO_LOAD'}
+                },
+                'STORY': {
+                    'UNABLE_TO_LOAD': {'key':'STORY.UNABLE_TO_LOAD'}
+                },
+                'BOOK': {
+                    'UNABLE_TO_LOAD': {'key':'BOOK.UNABLE_TO_LOAD'}
+                }
             }
         },
         'NOTICE': {

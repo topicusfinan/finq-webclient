@@ -40,15 +40,9 @@
                 </div>
                 <ul>
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
-                        <div class="selectable" ng-class="{'active':stories.selectedItem.isItemSelected(scenario)}" ng-click="stories.selectedItem.setSelectedItem(scenario)">
+                        <div>
                             <div class="title">
                                 <span class="separate">{{::scenario.title}}</span>
-                            </div>
-                            <div class="actions">
-                                <button ng-click="stories.edit(story.id, scenario.id)">
-                                    <i class="fa fa-plus"></i>
-                                    <span translate="WRITER.STORIES.EDIT"></span>
-                                </button>
                             </div>
                         </div>
                     </li>

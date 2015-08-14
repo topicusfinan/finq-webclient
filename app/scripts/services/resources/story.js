@@ -41,6 +41,17 @@ angular.module('finqApp.service')
             return stories;
         };
 
+        this.findBookById = function (bookId) {
+            if (storybooks !== null) {
+                for (var i = 0; i < storybooks.length; i++) {
+                    if (storybooks[i].id === bookId) {
+                        return storybooks[i];
+                    }
+                }
+            }
+            return null;
+        };
+
         this.findStoryById = function (storyId) {
             if (storybooks !== null) {
                 var i, j;

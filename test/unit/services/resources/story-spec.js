@@ -37,6 +37,11 @@ describe('Unit: StoryService', function() {
         expect(stories).to.deep.equal(storybooks[0].stories);
     });
 
+    it('should be possible to find a book by id', function () {
+        var book = storyService.findBookById(storybooks[0].id);
+        expect(book).to.deep.equal(storybooks[0]);
+    });
+
     it('should be possible to find a story by id', function () {
         var story = storyService.findStoryById(storybooks[0].stories[0].id);
         expect(story).to.deep.equal(storybooks[0].stories[0]);
