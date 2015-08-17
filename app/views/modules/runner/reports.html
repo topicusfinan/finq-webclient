@@ -6,7 +6,7 @@
     </div>
 </div>
 <div class="search ng-hide" ng-show="initialized()" search></div>
-<ul id="report-list" class="main-content-list filter-1">
+<ul id="report-list" class="main-content-list filter-1 report-list">
     <li class="ic cl list-animate" ng-repeat="runReport in filteredReports = (reportList() | reportPaginationFilter:reports.currentPage:reports.maxReports) track by runReport.id">
         <div class="selectable detailed" ng-click="reports.get(runReport.id)">
             <div class="title">

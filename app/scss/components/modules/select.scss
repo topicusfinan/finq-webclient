@@ -2,15 +2,13 @@
     position: relative;
 
     > button {
-        text-align: left;
-        border: $color-neutral-20 2px solid;
         position: relative;
 
-        background: none;
-        padding: .25em .5em .25em .7em;
+        padding: 0.35rem $spacing/2;
         border: $white 2px solid;
         border-radius: $border-radius-20;
-        font-size: 1.5rem;
+        font-size: $font-size-40;
+        margin: 0;
 
         span {
             @include transition(all $animate-std-cubic .3s);

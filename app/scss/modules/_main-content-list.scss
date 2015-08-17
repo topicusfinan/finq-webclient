@@ -157,11 +157,6 @@
                 }
             }
 
-            button {
-                font-size: 1.333rem - .1;
-                margin-top: .3em;
-            }
-
             > div > span,
             > div > a,
             > div > i {
@@ -255,11 +250,6 @@
                             }
                         }
                     }
-
-                    > div > button {
-                        font-size: 1.2rem - .1;
-                    }
-
 
                     > div > span {
                         margin: 0 .5em / 2;
@@ -357,10 +347,6 @@
 
                         &.selectable:hover {
                             background: $color-brand-30;
-                        }
-
-                        > div > button {
-                            margin-top: .20em;
                         }
 
                         > div.title > {
