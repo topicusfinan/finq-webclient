@@ -14,7 +14,7 @@ describe('Unit: ReportFilterCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, _STATE_) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $config, _STATE_) {
         scope = $rootScope.$new();
         STATE = _STATE_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -24,7 +24,7 @@ describe('Unit: ReportFilterCtrl', function() {
             }
         });
         $httpBackend.expectGET('/app').respond(200);
-        config.load().then(function() {
+        $config.load().then(function() {
             ReportFilterCtrl = $controller('ReportFilterCtrl', {$scope: scope});
         });
         $httpBackend.flush();

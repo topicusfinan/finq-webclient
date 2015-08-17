@@ -13,8 +13,8 @@ describe('Unit: UtilsService time elapsed determination', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (utils) {
-        utilsService = utils;
+    beforeEach(inject(function ($utils) {
+        utilsService = $utils;
         currentTime = new Date();
         adjustedTime = new Date();
     }));
@@ -49,8 +49,8 @@ describe('Unit: UtilsService pluralization', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (utils) {
-        utilsService = utils;
+    beforeEach(inject(function ($utils) {
+        utilsService = $utils;
         currentTime = new Date();
         adjustedTime = new Date();
     }));

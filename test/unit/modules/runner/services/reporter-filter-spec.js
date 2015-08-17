@@ -14,8 +14,8 @@ describe('Unit: ReporterFilterService', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, reporterFilter, reportServiceMock, config, _STATE_, story, storyServiceMock) {
-        reporterFilterService = reporterFilter;
+    beforeEach(inject(function ($httpBackend, $reporterFilter, reportServiceMock, $config, _STATE_, $story, storyServiceMock) {
+        reporterFilterService = $reporterFilter;
         reportMockData = reportServiceMock;
         backend = $httpBackend;
         STATE = _STATE_;
@@ -25,8 +25,8 @@ describe('Unit: ReporterFilterService', function() {
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
-        config.load().then(function() {
-            story.list();
+        $config.load().then(function() {
+            $story.list();
         });
         $httpBackend.flush();
     }));

@@ -18,14 +18,10 @@ angular.module('finqApp.directive')
             templateUrl: 'views/directives/search.html'
         };
     })
-    .controller('searchCtrl', [
-        '$scope',
-        'config',
-        'EVENTS',
-        function ($scope, configProvider, EVENTS) {
+    .controller('searchCtrl', function ($scope, $config, EVENTS) {
             var that = this,
                 searchTimeout = null;
-            this.timeout = configProvider.client().searchWait;
+            this.timeout = $config.client().searchWait;
             this.query = '';
             this.currentSearch = '';
 
@@ -41,4 +37,4 @@ angular.module('finqApp.directive')
                     }
                 }, that.timeout);
             };
-        }]);
+        });

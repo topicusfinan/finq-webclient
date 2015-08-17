@@ -16,10 +16,10 @@ describe('Unit: ModuleService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, _MODULES_, _EVENTS_, module, runner, config) {
+    beforeEach(inject(function ($httpBackend, _$rootScope_, _MODULES_, _EVENTS_, $module, $runner, $config) {
         $rootScope = _$rootScope_;
-        moduleService = module;
-        runnerService = runner;
+        moduleService = $module;
+        runnerService = $runner;
         EVENTS = _EVENTS_;
         MODULES = _MODULES_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -33,7 +33,7 @@ describe('Unit: ModuleService', function() {
                 reconnectAlertCnt: 3
             }
         });
-        config.load();
+        $config.load();
         $httpBackend.flush();
 
     }));
@@ -42,7 +42,7 @@ describe('Unit: ModuleService', function() {
         var handleSpy = sinon.spy(runnerService, 'handle');
         moduleService.linkModule(MODULES.RUNNER,runnerService);
         moduleService.handleEvent(EVENTS.INTERNAL.SCENARIO_RUN_STARTED,{scenarios: []});
-        handleSpy.should.have.been.called.once;
+        handleSpy.should.have.been.calledOnce;
     });
 
     it('should trigger a section notifications update event', function () {

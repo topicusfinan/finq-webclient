@@ -15,7 +15,7 @@ describe('Unit: AvailableFilterCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, setServiceMock, tagServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $config, setServiceMock, tagServiceMock) {
         scope = $rootScope.$new();
         sets = setServiceMock.sets;
         tags = tagServiceMock.tags;
@@ -28,7 +28,7 @@ describe('Unit: AvailableFilterCtrl', function() {
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/sets').respond(200, sets);
         $httpBackend.expectGET('/tags').respond(200, tags);
-        config.load().then(function() {
+        $config.load().then(function() {
             AvailableFilterCtrl = $controller('AvailableFilterCtrl', {$scope: scope});
         });
         $httpBackend.flush();
@@ -48,12 +48,12 @@ describe('Unit: AvailableFilterCtrl', function() {
             {key: tags[2].id, value: tags[2].value},
             {key: tags[3].id, value: tags[3].value},
             {key: tags[4].id, value: tags[4].value},
-            {key: tags[5].id, value: tags[5].value},
+            {key: tags[5].id, value: tags[5].value}
         ]);
     });
 
     it('should set the filter to fully loaded', function () {
-        expect(AvailableFilterCtrl.loaded).to.be.true;
+        expect(AvailableFilterCtrl.loaded).to.be.true();
     });
 
 });

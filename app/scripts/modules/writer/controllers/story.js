@@ -3,19 +3,18 @@
 
 /**
  * @ngdoc overview
- * @name finqApp.writer.controller:StoryCtrl
+ * @name finqApp.writer.controllers:StoryCtrl
  * @description
  * # Story editor controller
  *
  * The story editor controller allows the user to edit or create a new story.
  */
 angular.module('finqApp.writer.controller')
-    .controller('StoryCtrl',
-    function ($scope, selectedItem, $routeParams, storyEdit, sidebar, step, storyVariable, module, MODULES, STATE, $location) {
+    .controller('StoryCtrl', function ($scope, $selectedItem, $routeParams, $storyEdit, $sidebar, $step, $storyVariable, $module, MODULES, STATE, $location) {
         var that = this;
         this.selectedItem = {
-            setSelectedItem: selectedItem.setSelectedItem,
-            isItemSelected: selectedItem.isItemSelected
+            setSelectedItem: $selectedItem.setSelectedItem,
+            isItemSelected: $selectedItem.isItemSelected
         };
         this.loaded = true;
         this.createNew = true;
@@ -29,13 +28,13 @@ angular.module('finqApp.writer.controller')
         //this.tags = [];
         this.model = null;
 
-        module.setCurrentSection(MODULES.WRITER.sections.STORIES);
+        $module.setCurrentSection(MODULES.WRITER.sections.STORIES);
 
 
         // TODO move logic to service
         this.inputPlaceholder = 'Scenario title';
         $scope.$watch(function () {
-            return selectedItem.getSelectedItemId();
+            return $selectedItem.getSelectedItemId();
         }, function (value) {
             if (value !== undefined && value !== null) {
                 if (value.indexOf('scenario') !== -1) {
@@ -47,12 +46,12 @@ angular.module('finqApp.writer.controller')
         });
 
         this.toggleSidebar = function () {
-            switch (sidebar.getStatus()) {
+            switch ($sidebar.getStatus()) {
                 case STATE.SIDEBAR.COLLAPSED:
-                    sidebar.expand();
+                    $sidebar.expand();
                     break;
                 case STATE.SIDEBAR.EXPANDED:
-                    sidebar.collapse();
+                    $sidebar.collapse();
                     break;
                 default:
                     break;
@@ -60,15 +59,15 @@ angular.module('finqApp.writer.controller')
         };
 
         this.sidebarIsExpanded = function () {
-            return sidebar.getStatus() === STATE.SIDEBAR.EXPANDED;
+            return $sidebar.getStatus() === STATE.SIDEBAR.EXPANDED;
         };
 
-        var foundStory = storyEdit.getStory(parseInt($routeParams.storyId));
+        var foundStory = $storyEdit.getStory(parseInt($routeParams.storyId));
         if (foundStory === null) {
             // TODO alert the user to no story found
         } else {
             that.createNew = false;
-            storyVariable.setupVariables(foundStory);
+            $storyVariable.setupVariables(foundStory);
             this.model = foundStory;
 
             //this.id = foundStory.id;
@@ -80,17 +79,17 @@ angular.module('finqApp.writer.controller')
             //this.prologue = foundStory.prologue;
         }
 
-        sidebar.setDirective({
+        $sidebar.setDirective({
             'scenario-variables-view': null
         });
 
         this.back = function () {
-            storyEdit.cancel(this.model.id);
+            $storyEdit.cancel(this.model.id);
             $location.url('/writer/stories');
         };
 
         this.save = function () {
-            storyEdit.apply(this.model.id);
+            $storyEdit.apply(this.model.id);
         };
 
 
@@ -127,7 +126,7 @@ angular.module('finqApp.writer.controller')
         this.isString = angular.isString;
 
 
-        step.list().then(function (steps) {
+        $step.list().then(function (steps) {
             stepsBloodhound.add(steps);
         });
 

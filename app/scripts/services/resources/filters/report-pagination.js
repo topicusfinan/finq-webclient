@@ -12,17 +12,17 @@
  * on screen at once.
  */
 angular.module('finqApp.runner.filter')
-    .filter('reportPaginationFilter', ['value', function(valueService) {
-        return function(reports, iteration, maxReports) {
+    .filter('reportPaginationFilter', function ($value) {
+        return function (reports, iteration, maxReports) {
             var filteredReports = [],
-                maxIndex = Math.min(maxReports*(iteration+1),reports.length);
+                maxIndex = Math.min(maxReports * (iteration + 1), reports.length);
 
-            for (var i=iteration*maxReports; i<maxIndex; i++) {
+            for (var i = iteration * maxReports; i < maxIndex; i++) {
                 filteredReports.push(reports[i]);
             }
 
-            valueService.hasMorePages = maxIndex < reports.length;
+            $value.hasMorePages = maxIndex < reports.length;
 
             return filteredReports;
         };
-    }]);
+    });

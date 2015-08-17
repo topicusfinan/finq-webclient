@@ -14,13 +14,13 @@
  * has been initialized with the booklist to use.
  */
 angular.module('finqApp.runner.filter')
-    .filter('reportSearchFilter', function(reportSearch) {
+    .filter('reportSearchFilter', function($reportSearch) {
         return function(reports, query) {
             var filteredReports = [];
             if (query === '') {
                 return reports;
             }
-            var reportIds = reportSearch.suggest(query);
+            var reportIds = $reportSearch.suggest(query);
             angular.forEach(reports, function(report) {
                 if (reportIds.indexOf(report.id) !== -1) {
                     filteredReports.push(report);

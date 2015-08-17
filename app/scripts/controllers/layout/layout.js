@@ -9,7 +9,7 @@
  * Handles the layout logic.
  */
 angular.module('finqApp.controller')
-    .controller('LayoutCtrl', function ($timeout, sidebar, STATE) {
+    .controller('LayoutCtrl', function ($timeout) {
         var that = this;
 
         // delay the loaded indication to allow for appear effects

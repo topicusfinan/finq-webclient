@@ -1,6 +1,12 @@
 'use strict';
 /**
- * Created by marc.fokkert on 17-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.directives:VariableModal
+ * @description
+ * # Variable modal directive
+ *
+ * Displays a modal window where a user can edit simple or complex variables.
+ * Complex variables are collections where the user has one tab for each item.
  */
 angular.module('finqApp.writer.directive')
     .directive('variableModal', function () {
@@ -22,17 +28,14 @@ angular.module('finqApp.writer.directive')
             templateUrl: 'views/modules/writer/directives/variable-modal.html'
         };
     })
-    .controller('variableModalCtrl', function (arrayOperations, variableModal, $scope, storyVariable) {
+    .controller('variableModalCtrl', function ($arrayOperations, $variableModal, $scope, $storyVariable) {
         var that = this;
         this.title = 'test title';
         this.description = 'test description';
         this.visibleTab = 0;
         this.removeTab = removeTab;
-        this.addTab = addTab;
+        this.addNewTab = addNewTab;
         this.variable = null;
-
-        var originalVariable = null;
-        var emptyTabTemplate = [];
 
         this.close = close;
         this.apply = apply;
@@ -41,25 +44,28 @@ angular.module('finqApp.writer.directive')
         this.simple = false;
 
         this.tabs = [];
-        this.getVisible = variableModal.getVisible;
-        this.ignoreUndefined = ignoreUndefined;
+        this.getVisible = $variableModal.getVisible;
 
-        function ignoreUndefined(value) {
+        this.ignoreUndefinedFilter = ignoreUndefinedFilter;
+        function ignoreUndefinedFilter(value) {
             return value !== undefined;
         }
 
+        var originalVariable = null;
+        var emptyTabTemplate = [];
+
         $scope.$watch(function () {
-            return variableModal.getVariable();
-        }, function (value) {
-            if (value === null) {
+            return $variableModal.getVariable();
+        }, function (variable) {
+            if (variable === null) {
                 close();
                 return;
             }
 
-            if (value.isTable()) {
-                showTable(value.table.tableData, value.table.tableHeader);
+            if (variable.isTable()) {
+                showTable(variable.table.tableData, variable.table.tableHeader);
             } else {
-                showVariable(value);
+                showVariable(variable);
             }
         });
 
@@ -73,8 +79,19 @@ angular.module('finqApp.writer.directive')
             }
         }
 
-        function addTab() {
-            that.tabs.push(angular.copy(emptyTabTemplate));
+        /**
+         * Add a new tab
+         */
+        function addNewTab() {
+            addTab(angular.copy(emptyTabTemplate));
+        }
+
+        /**
+         * Add a tab and display it
+         * @param tab Tab to be added
+         */
+        function addTab(tab) {
+            that.tabs.push(tab);
             that.visibleTab = that.tabs.length - 1;
         }
 
@@ -85,9 +102,8 @@ angular.module('finqApp.writer.directive')
             // Create new copy, including all methods
             that.variable = angular.copy(originalVariable);
 
-
             // Re-setup variable helper methods. Important! Old methods still refer to that.variable scope!
-            storyVariable.setupVariable(that.variable);
+            $storyVariable.setupVariable(that.variable);
         }
 
         function showTable(table, emptyTableRow) {
@@ -101,7 +117,7 @@ angular.module('finqApp.writer.directive')
             that.tabs = [];
             emptyTabTemplate = [];
             that.variable = null;
-            variableModal.setVisible(false);
+            $variableModal.setVisible(false);
         }
 
         function apply() {
@@ -115,8 +131,8 @@ angular.module('finqApp.writer.directive')
                 // Remove all deleted items from both collections (undefined in tabs, but can have a value in originalTabs)
                 for (var i = 0; i < that.tabs.length; i++) {
                     if (that.tabs[i] === undefined) {
-                        arrayOperations.removeItem(originalTabs, i);
-                        arrayOperations.removeItem(that.tabs, i);
+                        $arrayOperations.removeItem(originalTabs, i);
+                        $arrayOperations.removeItem(that.tabs, i);
                     }
                 }
             }

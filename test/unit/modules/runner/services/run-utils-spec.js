@@ -12,8 +12,8 @@ describe('Unit: RunUtils service', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (runUtils,_STATE_) {
-        runUtilsService = runUtils;
+    beforeEach(inject(function ($runUtils,_STATE_) {
+        runUtilsService = $runUtils;
         STATE = _STATE_;
     }));
 

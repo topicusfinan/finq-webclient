@@ -10,23 +10,16 @@
  * and other forms of state indicators for sections and modules.
  */
 angular.module('finqApp.service')
-    .service('setup', [
-        '$state',
-        'MODULES',
-        'module',
-        'runner',
-        'socket',
-        'story',
-        function ($state,MODULES,moduleService,runnerService,socketService,storyService) {
+    .service('$setup', function ($state, MODULES, $module, $runner, $socket, $story) {
 
-            this.initialize = function() {
-                $state.go('intro.loading');
-            };
+        this.initialize = function () {
+            $state.go('intro.loading');
+        };
 
-            this.finalize = function() {
-                moduleService.linkModule(MODULES.RUNNER,runnerService);
-                socketService.connect();
-                storyService.list();
-            };
+        this.finalize = function () {
+            $module.linkModule(MODULES.RUNNER, $runner);
+            $socket.connect();
+            $story.list();
+        };
 
-        }]);
+    });

@@ -19,8 +19,8 @@ describe('Unit: ReportService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function (_$httpBackend_, _$rootScope_, report, story, reportServiceMock, storyServiceMock, runServiceMock, _STATE_, config, _$q_) {
-        reportService = report;
+    beforeEach(inject(function (_$httpBackend_, _$rootScope_, $report, $story, reportServiceMock, storyServiceMock, runServiceMock, _STATE_, $config, _$q_) {
+        reportService = $report;
         $rootScope = _$rootScope_;
         reportServiceMock.pageSize = 1;
         firstResponse = angular.copy(reportServiceMock);
@@ -38,8 +38,8 @@ describe('Unit: ReportService', function() {
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/books').respond(200, storyServiceMock.books);
-        config.load().then(function() {
-            story.list();
+        $config.load().then(function() {
+            $story.list();
         });
         $httpBackend.flush();
     }));
@@ -58,8 +58,8 @@ describe('Unit: ReportService', function() {
 
     it('should properly load the reports list', function (done) {
         loadReports().then(function(reportData) {
-            expect(reportData).to.not.be.undefined;
-            expect(reportData).to.not.be.empty;
+            expect(reportData).to.not.be.undefined();
+            expect(reportData).to.not.be.empty();
             expect(reportData).to.deep.equal([
                 {
                     id: firstResponse.data[0].id,

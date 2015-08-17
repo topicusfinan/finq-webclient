@@ -14,7 +14,7 @@ describe('Unit: RunningFilterCtrl', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, config, environmentServiceMock) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $config, environmentServiceMock) {
         scope = $rootScope.$new();
         environments = environmentServiceMock.environments;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -25,7 +25,7 @@ describe('Unit: RunningFilterCtrl', function() {
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/environments').respond(200, environments);
-        config.load().then(function() {
+        $config.load().then(function() {
             RunningFilterCtrl = $controller('RunningFilterCtrl', {$scope: scope});
         });
         $httpBackend.flush();

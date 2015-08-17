@@ -8,23 +8,23 @@ describe('Unit: Variable modal controller', function () {
     var controller, scope, variableModalMock;
     var variable, simpleVariable, tableVariable;
 
-    beforeEach(inject(function (storyServiceMock, storyVariable) {
+    beforeEach(inject(function (storyServiceMock, $storyVariable) {
         simpleVariable = angular.copy(storyServiceMock.books[0].stories[1].scenarios[1].steps[1].variables.input[0]);
         tableVariable = angular.copy(storyServiceMock.books[0].stories[1].scenarios[0].steps[1].variables.input[0]);
 
-        storyVariable.setupVariable(simpleVariable);
-        storyVariable.setupVariable(tableVariable);
+        $storyVariable.setupVariable(simpleVariable);
+        $storyVariable.setupVariable(tableVariable);
     }));
 
-    beforeEach(inject(function ($controller, $rootScope, variableModal) {
+    beforeEach(inject(function ($controller, $rootScope, $variableModal) {
         scope = $rootScope.$new();
-        variableModalMock = angular.copy(variableModal);
+        variableModalMock = angular.copy($variableModal);
         sinon.spy(variableModalMock, 'setVisible');
         sinon.stub(variableModalMock, 'getVariable', function () {
             return variable;
         });
 
-        controller = $controller('variableModalCtrl', {$scope: scope, variableModal: variableModalMock});
+        controller = $controller('variableModalCtrl', {$scope: scope, $variableModal: variableModalMock});
     }));
 
     it('should close the modal window when variable is null', function () {
@@ -75,7 +75,7 @@ describe('Unit: Variable modal controller', function () {
         variable = tableVariable;
         scope.$digest();
 
-        controller.addTab();
+        controller.addNewTab();
         // Verify tab has been added
         expect(controller.tabs.length).to.equal(3);
         expect(controller.visibleTab).to.equal(2);
@@ -119,7 +119,7 @@ describe('Unit: Variable modal controller', function () {
 
         controller.tabs[1][0].value = 'foobar';
         controller.removeTab(0);
-        controller.addTab();
+        controller.addNewTab();
         controller.apply();
         expect(variable.table.tableData[0][0].value).to.equal('foobar');
         expect(variable.table.tableData.length).to.equal(2);
@@ -128,8 +128,8 @@ describe('Unit: Variable modal controller', function () {
     it('should filter deleted tabs', function(){
         var tabs = tableVariable.table.tableData;
         delete tabs[1];
-        expect(controller.ignoreUndefined(tabs[0])).to.be.true();
-        expect(controller.ignoreUndefined(tabs[1])).to.be.false();
+        expect(controller.ignoreUndefinedFilter(tabs[0])).to.be.true();
+        expect(controller.ignoreUndefinedFilter(tabs[1])).to.be.false();
     });
 });
 
@@ -139,8 +139,8 @@ describe('Unit: Variable modal directive', function () {
     var variableModal;
     beforeEach(module('views/modules/writer/directives/variable-modal.html'));
 
-    beforeEach(inject(function ($compile, $rootScope, _variableModal_) {
-        variableModal = _variableModal_;
+    beforeEach(inject(function ($compile, $rootScope, $variableModal) {
+        variableModal = $variableModal;
         scope = $rootScope.$new();
         var template = "<div variable-modal></div>";
         template = $compile(template)(scope);

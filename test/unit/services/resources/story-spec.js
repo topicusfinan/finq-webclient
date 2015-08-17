@@ -15,8 +15,8 @@ describe('Unit: StoryService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, story, storyServiceMock, _$rootScope_) {
-        storyService = story;
+    beforeEach(inject(function ($httpBackend, $story, storyServiceMock, _$rootScope_) {
+        storyService = $story;
         $rootScope = _$rootScope_;
         storyMockData = storyServiceMock.books;
         $httpBackend.expectGET('/books').respond(200, storyMockData);
@@ -27,14 +27,19 @@ describe('Unit: StoryService', function() {
     }));
 
     it('should properly load the storybook list', function () {
-        expect(storybooks).to.not.be.undefined;
-        expect(storybooks).to.not.be.empty;
+        expect(storybooks).to.not.be.undefined();
+        expect(storybooks).to.not.be.empty();
         expect(storybooks).to.deep.equal(storyMockData);
     });
 
     it('should make it possible to list stories by referencing a book id', function () {
         var stories = storyService.listStoriesByBook([storybooks[0].id]);
         expect(stories).to.deep.equal(storybooks[0].stories);
+    });
+
+    it('should be possible to find a book by id', function () {
+        var book = storyService.findBookById(storybooks[0].id);
+        expect(book).to.deep.equal(storybooks[0]);
     });
 
     it('should be possible to find a story by id', function () {
@@ -44,7 +49,7 @@ describe('Unit: StoryService', function() {
 
     it('should return null in case no story was found by id', function () {
         var story = storyService.findStoryById(null);
-        expect(story).to.be.null;
+        expect(story).to.be.null();
     });
 
     it('should be possible to find a scenario by id', function () {
@@ -54,7 +59,7 @@ describe('Unit: StoryService', function() {
 
     it('should return null in case no scenario was found by id', function () {
         var scenario = storyService.findScenarioById(null);
-        expect(scenario).to.be.null;
+        expect(scenario).to.be.null();
     });
 
     it('should be possible to find a story by a scenario id', function () {
@@ -64,7 +69,7 @@ describe('Unit: StoryService', function() {
 
     it('should return null in case no story was found by a scenario id', function () {
         var story = storyService.findStoryByScenarioId(null);
-        expect(story).to.be.null;
+        expect(story).to.be.null();
     });
 
     it('should retrieve a loaded story list in case the listing function is called again', function (done) {
@@ -86,8 +91,8 @@ describe('Unit: StoryService initialization with an unstable backend', function(
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, story) {
-        storyService = story;
+    beforeEach(inject(function ($httpBackend, $story) {
+        storyService = $story;
         $httpBackend.expectGET('/books').respond(503);
         storyService.list().then(null,function(error) {
             feedback = error;
@@ -96,7 +101,7 @@ describe('Unit: StoryService initialization with an unstable backend', function(
     }));
 
     it('should fail to load the storybooks', function () {
-        expect(feedback).to.not.be.undefined;
+        expect(feedback).to.not.be.undefined();
     });
 
 });

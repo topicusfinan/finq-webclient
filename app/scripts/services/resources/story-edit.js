@@ -1,9 +1,14 @@
 'use strict';
 /**
- * Created by marc.fokkert on 13-3-2015.
+ * @ngdoc function
+ * @name finqApp.service:storyEdit
+ * @description
+ * # Story edit service
+ *
+ * Makes it possible to execute CRUD and list operations on stories with a volatile cache for editing items.
  */
 angular.module('finqApp.service')
-    .service('storyEdit', function (story, storyVariable, config) {
+    .service('$storyEdit', function ($story, $storyVariable, $config) {
         var storyList = [];
 
         this.getStory = getStory;
@@ -16,7 +21,7 @@ angular.module('finqApp.service')
             if (foundStory !== null) {
                 return foundStory.working;
             }
-            var originalStory = story.findStoryById(storyId);
+            var originalStory = $story.findStoryById(storyId);
             foundStory = {
                 id: storyId,
                 original: originalStory,
@@ -27,7 +32,7 @@ angular.module('finqApp.service')
         }
 
         function addStoryToList(story) {
-            var maxCachedItems = config.client().editor.maxStoryCache;
+            var maxCachedItems = $config.client().editor.maxStoryCache;
             if (storyList > 0 && !isDirty(storyList.peek().id)) {
                 storyList.pop(); // Remove last item if pristine
             }
@@ -71,7 +76,7 @@ angular.module('finqApp.service')
         function cloneAndParse(b, a) {
             a = a || {};
             var workingStory = angular.merge(a, b);
-            storyVariable.setupVariables(workingStory);
+            $storyVariable.setupVariables(workingStory);
             return workingStory;
         }
 

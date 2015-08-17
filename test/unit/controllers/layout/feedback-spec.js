@@ -13,11 +13,11 @@ describe('Unit: FeedbackCtrl', function() {
     beforeEach(function() {
         module('finqApp');
     });
-    beforeEach(inject(function ($controller, _$timeout_, $httpBackend, $rootScope, config, _EVENTS_, _FEEDBACK_) {
+    beforeEach(inject(function ($controller, _$timeout_, $httpBackend, $rootScope, $config, _EVENTS_, _FEEDBACK_) {
         scope = $rootScope.$new();
         backend = $httpBackend;
         $timeout = _$timeout_;
-        configProvider = config;
+        configProvider = $config;
         EVENTS = _EVENTS_;
         FEEDBACK = _FEEDBACK_;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -30,14 +30,14 @@ describe('Unit: FeedbackCtrl', function() {
             }
         });
         $httpBackend.expectGET('/app').respond(200);
-        config.load().then(function() {
+        $config.load().then(function() {
             FeedbackCtrl = $controller('FeedbackCtrl', {$scope: scope});
         });
         $httpBackend.flush();
     }));
 
     it('should initially set its variables properly', function () {
-        expect(FeedbackCtrl.show).to.be.false;
+        expect(FeedbackCtrl.show).to.be.false();
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: '',
             type: ''
@@ -50,7 +50,7 @@ describe('Unit: FeedbackCtrl', function() {
             type: FEEDBACK.TYPE.ERROR
         });
         $timeout.flush();
-        expect(FeedbackCtrl.show).to.be.true;
+        expect(FeedbackCtrl.show).to.be.true();
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: 'test (untranslated)',
             reference: 'test',
@@ -68,7 +68,7 @@ describe('Unit: FeedbackCtrl', function() {
         });
         $timeout.flush();
         setTimeout(function() {
-            expect(FeedbackCtrl.show).to.be.false;
+            expect(FeedbackCtrl.show).to.be.false();
             done();
         },10);
     });
@@ -80,7 +80,7 @@ describe('Unit: FeedbackCtrl', function() {
         });
         $timeout.flush();
         FeedbackCtrl.hide();
-        expect(FeedbackCtrl.show).to.be.false;
+        expect(FeedbackCtrl.show).to.be.false();
     });
 
     it('should hide feedback after the default amount of time in case not otherwise specified', function (done) {
@@ -90,10 +90,10 @@ describe('Unit: FeedbackCtrl', function() {
         });
         $timeout.flush();
         setTimeout(function() {
-            expect(FeedbackCtrl.show).to.be.true;
+            expect(FeedbackCtrl.show).to.be.true();
         },25);
         setTimeout(function() {
-            expect(FeedbackCtrl.show).to.be.false;
+            expect(FeedbackCtrl.show).to.be.false();
             done();
         },35);
     });
@@ -108,7 +108,7 @@ describe('Unit: FeedbackCtrl', function() {
             message: {key: 'test2'},
             type: FEEDBACK.TYPE.SUCCESS
         });
-        expect(FeedbackCtrl.show).to.be.true;
+        expect(FeedbackCtrl.show).to.be.true();
         expect(FeedbackCtrl.feedback).to.deep.equal({
             message: 'test (untranslated)',
             reference: 'test',
@@ -172,7 +172,7 @@ describe('Unit: FeedbackCtrl', function() {
                 // we should not have a timeout to flush here because the next notice in line is not to be shown yet
                 $timeout.flush();
             } catch (error) {
-                expect(error).to.not.be.null;
+                expect(error).to.not.be.null();
                 done();
             }
         },45);

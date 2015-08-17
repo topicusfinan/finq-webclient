@@ -42,7 +42,12 @@ angular.module('finqApp')
             id: 'WRITER',
             sections: {
                 'STORIES': {
-                    id: 'WRITER.STORIES'
+                    id: 'WRITER.STORIES',
+                    'actions': {
+                        'NEW': {
+                            id: 'WRITER.STORIES.NEW'
+                        }
+                    }
                 },
                 'STEPS': {
                     id: 'WRITER.STEPS'

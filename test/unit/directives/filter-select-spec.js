@@ -29,20 +29,20 @@ describe('Unit: FilterSelect directive controller', function() {
     }));
 
     it('should initially be collapsed', function() {
-        expect(scope.show).to.be.false;
+        expect(scope.show).to.be.false();
     });
 
     it('should toggle between collapsed and expanded', function() {
         scope.toggle();
-        expect(scope.show).to.be.true;
+        expect(scope.show).to.be.true();
         scope.toggle();
-        expect(scope.show).to.be.false;
+        expect(scope.show).to.be.false();
     });
 
     it('should delay a request to hide the selection dropdown', function() {
         scope.toggle();
         scope.hide();
-        expect(scope.show).to.be.true;
+        expect(scope.show).to.be.true();
     });
 
     it('should select only the target in case of a single select', function() {
@@ -124,18 +124,18 @@ describe('Unit: FilterSelect directive controller', function() {
     });
 
     it('should mark a selected item as active in case of a single select', function() {
-        expect(scope.isActive(scope.options[0].key)).to.be.true;
+        expect(scope.isActive(scope.options[0].key)).to.be.true();
         scope.select(scope.options[1].key,scope.options[1].value);
-        expect(scope.isActive(scope.options[0].key)).to.be.false;
-        expect(scope.isActive(scope.options[1].key)).to.be.true;
+        expect(scope.isActive(scope.options[0].key)).to.be.false();
+        expect(scope.isActive(scope.options[1].key)).to.be.true();
     });
 
     it('should mark a selected items as active in case of a multiple select', function() {
         scope.multiple = true;
-        expect(scope.isActive(scope.options[0].key)).to.be.true;
+        expect(scope.isActive(scope.options[0].key)).to.be.true();
         scope.select(scope.options[1].key,scope.options[1].value);
-        expect(scope.isActive(scope.options[0].key)).to.be.true;
-        expect(scope.isActive(scope.options[1].key)).to.be.true;
+        expect(scope.isActive(scope.options[0].key)).to.be.true();
+        expect(scope.isActive(scope.options[1].key)).to.be.true();
     });
 
     it('should automatically select the placeholder in case no other option is active in a multiple select', function() {
@@ -145,8 +145,8 @@ describe('Unit: FilterSelect directive controller', function() {
             value: 'placeholder'
         }].concat(scope.options);
         scope.select(scope.options[1].key,scope.options[1].value);
-        expect(scope.isActive(scope.options[0].key)).to.be.true;
-        expect(scope.isActive(scope.options[1].key)).to.be.false;
+        expect(scope.isActive(scope.options[0].key)).to.be.true();
+        expect(scope.isActive(scope.options[1].key)).to.be.false();
     });
 
     it('should automatically unselect any other option in case a placeholder is selected in a multiple select', function() {
@@ -156,12 +156,12 @@ describe('Unit: FilterSelect directive controller', function() {
             value: 'placeholder'
         }].concat(scope.options);
         scope.select(scope.options[2].key,scope.options[2].value);
-        expect(scope.isActive(scope.options[1].key)).to.be.true;
-        expect(scope.isActive(scope.options[2].key)).to.be.true;
+        expect(scope.isActive(scope.options[1].key)).to.be.true();
+        expect(scope.isActive(scope.options[2].key)).to.be.true();
         scope.select(scope.options[0].key,scope.options[0].value);
-        expect(scope.isActive(scope.options[0].key)).to.be.true;
-        expect(scope.isActive(scope.options[1].key)).to.be.false;
-        expect(scope.isActive(scope.options[2].key)).to.be.false;
+        expect(scope.isActive(scope.options[0].key)).to.be.true();
+        expect(scope.isActive(scope.options[1].key)).to.be.false();
+        expect(scope.isActive(scope.options[2].key)).to.be.false();
     });
 
     it('should add the placeholder to the options list during initialization in case a placeholder was provided', function() {
@@ -189,7 +189,7 @@ describe('Unit: FilterSelect directive controller', function() {
         } catch (err) {
             error = err;
         }
-        expect(error).to.not.be.undefined;
+        expect(error).to.not.be.undefined();
     });
 
     it('should synchronize itself with pushed keys', function() {
@@ -214,14 +214,14 @@ describe('Unit: FilterSelect directive controller', function() {
         scope.defkey = '1';
         scope.maxItems = 1;
         scope.initialize();
-        expect(scope.hasNext()).to.be.true;
+        expect(scope.hasNext()).to.be.true();
     });
 
     it('should not paginate in case the amount of items in the list does not exceed the configured maximum', function() {
         scope.defkey = '1';
         scope.maxItems = 4;
         scope.initialize();
-        expect(scope.hasNext()).to.be.false;
+        expect(scope.hasNext()).to.be.false();
     });
 
     it('should not sort the active items on top, just below the placeholder, until after a toggle', function() {

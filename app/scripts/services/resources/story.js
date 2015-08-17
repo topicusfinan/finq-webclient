@@ -9,21 +9,21 @@
  * Makes it possible to execute CRUD and list operations on stories.
  */
 angular.module('finqApp.service')
-    .service('story', ['backend','$q',function (backend,$q) {
+    .service('$story', function ($q, $backend) {
         var storybooks = null;
 
-        var load = function() {
+        var load = function () {
             var deferred = $q.defer();
-            backend.get('/books').success(function(storyData) {
+            $backend.get('/books').success(function (storyData) {
                 storybooks = storyData;
                 deferred.resolve(storybooks);
-            }).error(function() {
+            }).error(function () {
                 deferred.reject('Loading storybooks failed');
             });
             return deferred.promise;
         };
 
-        this.list = function(forceReload) {
+        this.list = function (forceReload) {
             if (forceReload || storybooks === null) {
                 return load();
             } else {
@@ -31,9 +31,9 @@ angular.module('finqApp.service')
             }
         };
 
-        this.listStoriesByBook = function(bookIds) {
+        this.listStoriesByBook = function (bookIds) {
             var stories = [];
-            angular.forEach(storybooks, function(book) {
+            angular.forEach(storybooks, function (book) {
                 if (bookIds === null || bookIds.indexOf(book.id) > -1) {
                     stories = stories.concat(book.stories);
                 }
@@ -41,7 +41,18 @@ angular.module('finqApp.service')
             return stories;
         };
 
-        this.findStoryById = function(storyId) {
+        this.findBookById = function (bookId) {
+            if (storybooks !== null) {
+                for (var i = 0; i < storybooks.length; i++) {
+                    if (storybooks[i].id === bookId) {
+                        return storybooks[i];
+                    }
+                }
+            }
+            return null;
+        };
+
+        this.findStoryById = function (storyId) {
             if (storybooks !== null) {
                 var i, j;
                 for (i = 0; i < storybooks.length; i++) {
@@ -55,7 +66,7 @@ angular.module('finqApp.service')
             return null;
         };
 
-        this.findScenarioById = function(scenarioId) {
+        this.findScenarioById = function (scenarioId) {
             if (storybooks !== null) {
                 var i, j, k;
                 for (i = 0; i < storybooks.length; i++) {
@@ -71,7 +82,7 @@ angular.module('finqApp.service')
             return null;
         };
 
-        this.findStoryByScenarioId = function(scenarioId) {
+        this.findStoryByScenarioId = function (scenarioId) {
             if (storybooks !== null) {
                 var i, j, k;
                 for (i = 0; i < storybooks.length; i++) {
@@ -86,4 +97,4 @@ angular.module('finqApp.service')
             }
             return null;
         };
-    }]);
+    });

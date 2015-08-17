@@ -14,8 +14,8 @@ describe('Unit: AuthenticateService initialization', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, authenticate, authServiceMock) {
-        authenticateService = authenticate;
+    beforeEach(inject(function ($httpBackend, $authenticate, authServiceMock) {
+        authenticateService = $authenticate;
         backend = $httpBackend;
         authenticateMock = authServiceMock;
     }));

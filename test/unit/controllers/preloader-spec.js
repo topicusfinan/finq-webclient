@@ -20,13 +20,13 @@ describe('Unit: PreloaderCtrl', function() {
         module('finqApp');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $state, appServiceMock, config) {
+    beforeEach(inject(function ($controller, $rootScope, $httpBackend, $state, appServiceMock, $config) {
         scope = $rootScope.$new();
         state = $state;
         httpBackend = $httpBackend;
         controller = $controller;
         appService = appServiceMock;
-        configProvider = config;
+        configProvider = $config;
         emitSpy = sinon.spy(scope, '$emit');
         stateSpy = sinon.spy(state, 'go');
         langData = {
@@ -44,9 +44,9 @@ describe('Unit: PreloaderCtrl', function() {
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loadError.length).to.be.above(0);
-        expect(PreloaderCtrl.loaded).to.be.false;
+        expect(PreloaderCtrl.loaded).to.be.false();
         scope.$emit('test');
-        emitSpy.should.have.been.called.once;
+        emitSpy.should.have.been.calledOnce;
     });
 
     it('should fail to load in case of missing app configuration', function () {
@@ -55,9 +55,9 @@ describe('Unit: PreloaderCtrl', function() {
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loadError.length).to.be.above(0);
-        expect(PreloaderCtrl.loaded).to.be.false;
+        expect(PreloaderCtrl.loaded).to.be.false();
         scope.$emit('test');
-        emitSpy.should.have.been.called.once;
+        emitSpy.should.have.been.calledOnce;
     });
 
     it('should fail to load in case of missing server configuration', function () {
@@ -67,9 +67,9 @@ describe('Unit: PreloaderCtrl', function() {
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loadError.length).to.be.above(0);
-        expect(PreloaderCtrl.loaded).to.be.false;
+        expect(PreloaderCtrl.loaded).to.be.false();
         scope.$emit('test');
-        emitSpy.should.have.been.called.once;
+        emitSpy.should.have.been.calledOnce;
     });
 
     it('should fail to load in case a missing environment list', function () {
@@ -80,9 +80,8 @@ describe('Unit: PreloaderCtrl', function() {
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
         expect(PreloaderCtrl.loadError.length).to.be.above(0);
-        expect(PreloaderCtrl.loaded).to.be.false;
-        scope.$emit('test');
-        emitSpy.should.have.been.called.once;
+        expect(PreloaderCtrl.loaded).to.be.false();
+        emitSpy.should.have.been.calledOnce;
     });
 
     it('should succeed in loading if all data is retrieved properly but go to login if authorization fails', function () {
@@ -95,8 +94,8 @@ describe('Unit: PreloaderCtrl', function() {
         httpBackend.expectGET('views/intro/intro.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
-        expect(PreloaderCtrl.loaded).to.be.true;
-        expect(PreloaderCtrl.authorized).to.be.false;
+        expect(PreloaderCtrl.loaded).to.be.true();
+        expect(PreloaderCtrl.authorized).to.be.false();
         stateSpy.should.have.been.calledWith('intro.login');
     });
 
@@ -110,8 +109,8 @@ describe('Unit: PreloaderCtrl', function() {
         httpBackend.expectGET('views/layout.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
-        expect(PreloaderCtrl.loaded).to.be.true;
-        expect(PreloaderCtrl.authorized).to.be.true;
+        expect(PreloaderCtrl.loaded).to.be.true();
+        expect(PreloaderCtrl.authorized).to.be.true();
         expect(PreloaderCtrl.progress).to.equal('100%');
         stateSpy.should.have.been.calledWith('authorized');
     });
@@ -125,8 +124,8 @@ describe('Unit: PreloaderCtrl', function() {
         httpBackend.expectGET('views/layout.html').respond(404);
         var PreloaderCtrl = controller('PreloaderCtrl', {$scope: scope});
         httpBackend.flush();
-        expect(PreloaderCtrl.loaded).to.be.true;
-        expect(PreloaderCtrl.authorized).to.be.true;
+        expect(PreloaderCtrl.loaded).to.be.true();
+        expect(PreloaderCtrl.authorized).to.be.true();
         stateSpy.should.have.been.calledWith('authorized');
     });
 

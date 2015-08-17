@@ -14,8 +14,8 @@ describe('Unit: FeedbackService initialization', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function (feedback,$rootScope,_FEEDBACK_,_EVENTS_) {
-        feedbackService = feedback;
+    beforeEach(inject(function ($feedback,$rootScope,_FEEDBACK_,_EVENTS_) {
+        feedbackService = $feedback;
         FEEDBACK = _FEEDBACK_;
         EVENTS = _EVENTS_;
         broadcastSpy = sinon.spy($rootScope, '$broadcast');

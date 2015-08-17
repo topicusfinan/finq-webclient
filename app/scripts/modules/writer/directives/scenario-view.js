@@ -1,6 +1,11 @@
 'use strict';
 /**
- * Created by marc.fokkert on 2-3-2015.
+ * @ngdoc overview
+ * @name finqApp.writer.directives:ScenarioView
+ * @description
+ * # Scenario view directive
+ *
+ * Displays a category for Stories (Prologue, Scenarios, Epilogue).
  */
 angular.module('finqApp.writer.directive')
     .directive('scenarioView', function () {
@@ -14,18 +19,18 @@ angular.module('finqApp.writer.directive')
             controller: 'ScenarioViewCtrl'
         };
     })
-    .controller('ScenarioViewCtrl', function ($scope, selectedItem, arrayOperations) {
+    .controller('ScenarioViewCtrl', function ($scope, $selectedItem, $arrayOperations) {
         $scope.scenarioView = {
             deleteItem: deleteItem,
             isStepIncomplete: isStepIncomplete
         };
 
-        $scope.selectedItem = selectedItem;
+        $scope.selectedItem = $selectedItem;
 
         function deleteItem(collection, index, deletedItem) {
-            arrayOperations.removeItem(collection, index);
-            if (selectedItem.isItemSelected(deletedItem)){
-                selectedItem.clearSelectedItem();
+            $arrayOperations.removeItem(collection, index);
+            if ($selectedItem.isItemSelected(deletedItem)){
+                $selectedItem.clearSelectedItem();
             }
         }
 

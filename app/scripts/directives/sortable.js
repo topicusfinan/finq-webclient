@@ -1,8 +1,8 @@
 /*global $: false */
 'use strict';
 /**
- * @ngdoc function
- * @name finqApp.writer.directive:sortable
+ * @ngdoc overview
+ * @name finqApp.writer.directive:Sortable
  * @description
  * # Sortable directive
  *
@@ -13,8 +13,8 @@
  * *handle*: handle class selector
  *
  */
-angular.module('finqApp.writer.directive')
-    .directive('sortable', ['EVENTS','$timeout', function (EVENTS,$timeout) {
+angular.module('finqApp.directive')
+    .directive('sortable', function ($timeout, EVENTS) {
         return {
             restrict: 'A',
             controller: 'SortableCtrl',
@@ -25,7 +25,7 @@ angular.module('finqApp.writer.directive')
                     start: function (event, ui) {
                         scope.sortableObjectStart(event, ui, element);
                         scope.setClasses(element, attrs.connectWith);
-                        $timeout(function() {
+                        $timeout(function () {
                             jqElement.sortable('refresh'); // Required to update positions after styling changes
                         });
                     },
@@ -38,16 +38,7 @@ angular.module('finqApp.writer.directive')
                     }
                 };
 
-                var splitSortable = attrs.sortable.split('.');
-                scope.sortable = scope;
-                angular.forEach(splitSortable, function(v){
-                    if (scope.sortable !== undefined){
-                        scope.sortable = scope.sortable[v];
-                    }
-                    if (scope.sortable === undefined){
-                        console.error(v + ' for '+ attrs.sortable +' does not resolve to a value on the scope!');
-                    }
-                });
+                scope.sortable = scope.$eval(attrs.sortable);
 
                 if (attrs.handle !== undefined) {
                     sortableObject.handle = attrs.handle;
@@ -63,8 +54,8 @@ angular.module('finqApp.writer.directive')
                 scope.$root.$broadcast(EVENTS.SCOPE.SORTABLE_ELEMENT_ADDED);
             }
         };
-    }])
-    .controller('SortableCtrl', ['$scope', 'arrayOperations', '$rootScope', function ($scope, arrayOperations, $rootScope) {
+    })
+    .controller('SortableCtrl', function ($scope, $arrayOperations, $rootScope) {
         $scope.sortableObjectStart = sortableObjectStart;
         $scope.sortableObjectEnd = sortableObjectEnd;
         $scope.removeClasses = removeClasses;
@@ -99,13 +90,13 @@ angular.module('finqApp.writer.directive')
             // TODO refactor to use 'receive' and 'remove' events
             if (movedOnParent) {
                 // Move on the same item so move in sortable
-                arrayOperations.moveItem($scope.sortable, ngElementScope.start, ui.item.index());
+                $arrayOperations.moveItem($scope.sortable, ngElementScope.start, ui.item.index());
             } else if (ui.sender === null) {
                 // Item has to be removed
-                ngElementScope.removedItem = arrayOperations.removeItem($scope.sortable, ngElementScope.start);
+                ngElementScope.removedItem = $arrayOperations.removeItem($scope.sortable, ngElementScope.start);
             } else {
                 // Item has to be added on the correct location
-                arrayOperations.insertItem($scope.sortable, ui.item.index(), ngElementScope.removedItem);
+                $arrayOperations.insertItem($scope.sortable, ui.item.index(), ngElementScope.removedItem);
 
                 // Remove item injected by sortable
                 ui.item.remove();
@@ -116,4 +107,4 @@ angular.module('finqApp.writer.directive')
 
             animatedElements.addClass('list-animate');
         }
-    }]);
+    });

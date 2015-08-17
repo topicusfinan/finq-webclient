@@ -1,4 +1,4 @@
-<div class="top-filter filter-1 selectable" ng-class="{'active':running.selectedItem === null}" ng-click="running.selectedItem = null" ng-controller="RunningFilterCtrl as filter">
+<div class="top-filter filter-1 selectable" ng-class="{'active':running.selectedItem.isNoItemSelected()}" ng-click="running.selectedItem.clearSelectedItem()" ng-controller="RunningFilterCtrl as filter">
     <div class="filters">
         <i class="fa fa-globe" ng-class="{'inactive':!running.filter.env.keys.length}"></i>
         <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
@@ -28,7 +28,7 @@
         </div>
         <ul class="running-list--items">
             <li class="ic cl" ng-repeat="story in run.stories track by (run.id+'-'+story.id)">
-                <div class="selectable" ng-class="{'active':running.selectedItem === 'story-'+run.id+'-'+story.id}" ng-click="running.selectedItem = 'story-'+run.id+'-'+story.id" data-toggle="story">
+                <div class="selectable" ng-class="{'active':running.selectedItem.isItemSelected([run,story])}" ng-click="running.selectedItem.setSelectedItem([run,story])" data-toggle="story">
                     <div class="title">
                         <div class="radial-progress" progress="story.percentage" highlight="story.highlight"></div>
                         <span class="separate">{{::story.title}}</span>
@@ -36,7 +36,7 @@
                 </div>
                 <ul class="running-list--item-detail">
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by (run.id+'-'+scenario.id)">
-                        <div class="selectable detailed {{scenario.highlight}}" ng-class="{'active':running.selectedItem === 'scenario-'+run.id+'-'+scenario.id}" ng-click="running.selectedItem = 'scenario-'+run.id+'-'+scenario.id">
+                        <div class="selectable detailed {{scenario.highlight}}" ng-class="{'active':running.selectedItem.isItemSelected([run,scenario])}" ng-click="running.selectedItem.setSelectedItem([run,scenario])">
                             <div class="title">
                                 <div class="radial-progress" progress="scenario.percentage" highlight="scenario.highlight"></div>
                                 <span class="separate">{{::scenario.title}}</span>

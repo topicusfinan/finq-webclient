@@ -1,4 +1,4 @@
-<div class="top-filter filter-1 selectable" ng-class="{'active':reports.selectedItem === null}" ng-click="reports.selectedItem = null" ng-controller="ReportFilterCtrl as filter">
+<div class="top-filter filter-1" ng-class="{'active':reports.selectedItem.isNoItemSelected()}" ng-click="reports.selectedItem.clearSelectedItem()" ng-controller="ReportFilterCtrl as filter">
     <div class="filters">
         <i class="fa fa-check-square-o" ng-class="{'inactive':!reports.filter.status.ids.length}"></i>
         <span translate="RUNNER.REPORTS.FILTER.BEFORE_STATUS"></span>
@@ -8,7 +8,7 @@
 <div class="search ng-hide" ng-show="initialized()" search></div>
 <ul id="report-list" class="main-content-list filter-1">
     <li class="ic cl list-animate" ng-repeat="runReport in filteredReports = (reportList() | reportPaginationFilter:reports.currentPage:reports.maxReports) track by runReport.id">
-        <div class="selectable detailed" ng-class="{'active':reports.selectedItem === 'report'+runReport.id}" ng-click="reports.selectedItem = 'report'+runReport.id">
+        <div class="selectable detailed" ng-click="reports.get(runReport.id)">
             <div class="title">
                 <i class="fa" ng-class="runReport.status" data-toggle="collection"></i>
                 <span class="separate">{{::runReport.title}}</span>
@@ -19,15 +19,6 @@
                 <span>{{::runReport.runtime}}</span>
                 <strong class="hint--left separate" data-hint="{{::runReport.environment.name}}"><i class="fa fa-globe"></i></strong>
                 <strong class="hint--left" data-hint="{{::runReport.startedBy.name}}"><i class="fa fa-user"></i></strong>
-            </div>
-            <div class="details">
-                <span class="legend">{{::runReport.message}}</span>
-            </div>
-            <div class="actions">
-                <button ng-click="reports.get(runReport.id)">
-                    <i class="fa fa-search-plus"></i>
-                    <span translate="RUNNER.REPORTS.DETAILS"></span>
-                </button>
             </div>
         </div>
     </li>

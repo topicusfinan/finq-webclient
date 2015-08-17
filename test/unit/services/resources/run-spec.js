@@ -15,8 +15,8 @@ describe('Unit: RunService', function() {
         module('finqApp.service');
         module('finqApp.mock');
     });
-    beforeEach(inject(function ($httpBackend, _$rootScope_, run, runServiceMock, STATE, config) {
-        runService = run;
+    beforeEach(inject(function ($httpBackend, _$rootScope_, $run, runServiceMock, STATE, $config) {
+        runService = $run;
         $rootScope = _$rootScope_;
         runMockData = runServiceMock;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
@@ -25,7 +25,7 @@ describe('Unit: RunService', function() {
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(200, runMockData);
-        config.load().then(function() {
+        $config.load().then(function() {
             runService.list().then(function(runData) {
                 runs = runData;
             });
@@ -34,8 +34,8 @@ describe('Unit: RunService', function() {
     }));
 
     it('should properly load the running stories list', function () {
-        expect(runs).to.not.be.undefined;
-        expect(runs).to.not.be.empty;
+        expect(runs).to.not.be.undefined();
+        expect(runs).to.not.be.empty();
         expect(runs).to.deep.equal(runMockData.data);
     });
 
@@ -49,22 +49,22 @@ describe('Unit: RunService', function() {
 
     it('should be able to validate if a run is completed', function () {
         var completed = runService.runIsCompleted(runs[0]);
-        expect(completed).to.be.false;
+        expect(completed).to.be.false();
     });
 
     it('should be able to find a particular story in a run', function () {
         var story = runService.findStoryInRun(runs[0],runs[0].stories[0].id);
-        expect(story).to.not.be.null;
+        expect(story).to.not.be.null();
     });
 
     it('should be able to find a particular scenario in a story', function () {
         var scenario = runService.findScenarioInStory(runs[0].stories[0],runs[0].stories[0].scenarios[0].id);
-        expect(scenario).to.not.be.null;
+        expect(scenario).to.not.be.null();
     });
 
     it('should be possible to not be able to find a scenario in a story', function () {
         var scenario = runService.findScenarioInStory(runs[0].stories[0],'test');
-        expect(scenario).to.be.null;
+        expect(scenario).to.be.null();
     });
 
     it('should be able to remove a run from the current list of runs', function (done) {
@@ -90,15 +90,15 @@ describe('Unit: RunService with an unstable backend', function() {
         module('finqApp');
         module('finqApp.service');
     });
-    beforeEach(inject(function ($httpBackend, run, STATE, config) {
-        runService = run;
+    beforeEach(inject(function ($httpBackend, $run, STATE, $config) {
+        runService = $run;
         $httpBackend.expectGET('/scripts/config.json').respond(200, {
             address: '',
             run: {pagination: {server: {runsPerRequest: 50}}}
         });
         $httpBackend.expectGET('/app').respond(200);
         $httpBackend.expectGET('/runs?status='+STATE.RUN.SCENARIO.RUNNING+'&size=50&page=0').respond(503);
-        config.load().then(function() {
+        $config.load().then(function() {
             runService.list().then(null,function(error) {
                 feedback = error;
             });
@@ -107,7 +107,7 @@ describe('Unit: RunService with an unstable backend', function() {
     }));
 
     it('should fail to load the runs', function () {
-        expect(feedback).to.not.be.undefined;
+        expect(feedback).to.not.be.undefined();
     });
 
 });

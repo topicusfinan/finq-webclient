@@ -1,7 +1,7 @@
 'use strict';
 /**
- * @ngdoc function
- * @name finqApp.writer.service:storyVariables
+ * @ngdoc overview
+ * @name finqApp.writer.services:storyVariables
  * @description
  * # Story variable service
  *
@@ -9,7 +9,7 @@
  *
  */
 angular.module('finqApp.writer.service')
-    .service('storyVariable', function () {
+    .service('$storyVariable', function () {
         var INPUT = 'input', OUTPUT = 'output';
         this.setupVariables = setupVariables;
         this.setupVariable = setupVariable;
