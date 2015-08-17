@@ -8,7 +8,7 @@ nav.navigation {
     left: 0;
     border-right: 1px solid rgba($black, 0.7);
     
-    background-image: url('../images/iphone.jpg');
+    background-image: url('../images/nav-bg.jpg');
     background-color: $color-neutral-90;
     background-size: cover;
     background-repeat: no-repeat;
@@ -53,6 +53,7 @@ nav.navigation {
 ul.navigation--modules {
     @include display(flex);
     overflow: hidden;
+    margin-bottom: $spacing/2;
 
     li {
         @include flex(1 1 auto);
