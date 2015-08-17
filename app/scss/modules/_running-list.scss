@@ -1,0 +1,63 @@
+// ============ Running list
+
+ul.running-list {
+
+	li > div {
+		@include display(flex);
+		@include align-items(center);
+	}
+
+	.title {
+		@include flex(1 1 auto);
+	}
+
+	.comments {
+		@include display(flex); 		// needed for the icons
+		@include align-items(center); 	// needed for the icons
+
+		span {
+			margin-right: 0.25rem;
+		}
+
+		strong {
+			margin-left: $spacing/2;
+		}
+	}
+
+}
+
+ul.running-list--items {
+	
+}
+
+ul.running-list--item-detail {
+
+	
+
+	.details {
+        display: none;
+        padding: 0 $spacing/2;
+        color: $color-neutral-10;
+        font-size: $font-size-20
+
+        span + span {
+        	margin-left: 0.25rem;
+        }
+	}
+
+	.detailed.active,
+    .detailed.always {
+
+        > div.details {
+            display: block;
+        }
+
+        > div.comments {
+            display: none;
+        }
+
+        > div.actions {
+            top: .7em;
+        }
+    }
+}

@@ -11,7 +11,7 @@
         </button>
     </div>
 </div>
-<ul id="run-list" story-collapse class="main-content-list filter-1">
+<ul id="run-list" story-collapse class="main-content-list filter-1 running-list">
     <li class="ic cl list-animate" ng-repeat="run in filteredRuns = (runs() | runEnvironmentFilter:running.filter.env.ids) track by run.id">
         <div>
             <div class="title limited">
@@ -26,7 +26,7 @@
                 <strong class="hint--left" data-hint="{{::run.startedBy.name}}"><i class="fa fa-user"></i></strong>
             </div>
         </div>
-        <ul>
+        <ul class="running-list--items">
             <li class="ic cl" ng-repeat="story in run.stories track by (run.id+'-'+story.id)">
                 <div class="selectable" ng-class="{'active':running.selectedItem === 'story-'+run.id+'-'+story.id}" ng-click="running.selectedItem = 'story-'+run.id+'-'+story.id" data-toggle="story">
                     <div class="title">
@@ -34,7 +34,7 @@
                         <span class="separate">{{::story.title}}</span>
                     </div>
                 </div>
-                <ul>
+                <ul class="running-list--item-detail">
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by (run.id+'-'+scenario.id)">
                         <div class="selectable detailed {{scenario.highlight}}" ng-class="{'active':running.selectedItem === 'scenario-'+run.id+'-'+scenario.id}" ng-click="running.selectedItem = 'scenario-'+run.id+'-'+scenario.id">
                             <div class="title">

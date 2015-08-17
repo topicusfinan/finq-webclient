@@ -37,7 +37,6 @@
 	'components/intro',
 	'components/preloader',
 	'components/icons',
-	'components/modules/content-list',
 	'components/modules/content-filter-list-headers',
 	'components/modules/select',
 	'components/modules/tooltip',
@@ -67,7 +66,8 @@
 
 'modules/radial-progress',
 
-
+'modules/main-content-list', // Old en ugly css. Try and rewrite this!
+'modules/running-list',
 
 
 // Pattern library (a kind of styleguide)

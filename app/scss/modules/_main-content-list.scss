@@ -1,3 +1,5 @@
+// ============ Main content list
+
 .main-content-list {
     margin-bottom: 6em;
 
@@ -59,7 +61,6 @@
             &.selectable:hover {
                 cursor: pointer;
                 background: $color-brand-30;
-                //color: $white;
 
                 > div.comments {
 
@@ -114,51 +115,21 @@
 
             > i,
             > div.title > i {
-                //position: absolute;
                 width: 2rem;
                 text-align: center;
                 margin-right: $spacing/2;
             }
 
-            > div.details {
-                display: none;
-                float: left;
-                clear: both;
-                font-size: .9em;
-
-                .legend {
-                    opacity: .7;
-                }
-            }
+            
 
             > div.actions > strong {
                 font-size: modular-scale(1, 1rem, $minor-sixth);
                 position: relative;
                 top: .1em;
             }
-
-            &.detailed.active,
-            &.detailed.always {
-                height: 3.77889rem;
-
-                > div.details {
-                    display: block;
-                }
-
-                > div.comments {
-                    display: none;
-                }
-
-                > div.actions {
-                    top: .7em;
-                }
-            }
         }
     }
 
-    > li.cl > div > div.details {
-        margin: 0 .5em / 2;
-    }
 
     > li.cl {
         border-top: lighten(lighten($gray, 10%), 20%) 2px solid;
