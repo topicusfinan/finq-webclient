@@ -4,7 +4,7 @@ div.layout {
     width: 100%;
 
     > .main {
-        margin-left: $menu-size;
+        margin-left: $navigation-width;
         position: relative;
     }
 }

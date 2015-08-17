@@ -1,123 +1,154 @@
-nav {
-    width: $menu-size;
-    background-color: $color-neutral-70;
+nav.navigation {
+    @include transition(left cubic-bezier(0, 0, .2, 1) .5s);
+    width: $navigation-width;
     position: fixed;
     min-height: 100%;
     color: $gray;
     z-index: 2;
-    @include transition(left cubic-bezier(0, 0, .2, 1) .5s);
     left: 0;
+    border-right: 1px solid rgba($black, 0.7);
+    
+    background-image: url('../images/iphone.jpg');
+    background-color: $color-neutral-90;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
 
-    &.ng-hide {
-        left: -$menu-size;
-    }
-
-    ul.modules {
-        @include display(flex);
-        background-color: $color-neutral-90;
-        overflow: hidden;
-
-        li {
-            @include flex(1 1 auto);
-            @include display(flex);
-            @include align-items(center);
-            @include justify-content(center);
-            font-size: $font-size-60;
-            margin: 0 0.25rem;
-            padding: $spacing/2 0;
-            border-radius: $border-radius-20 $border-radius-20 0 0 ;
-            position: relative;
-
-            &:hover {
-                cursor: pointer;
-                background: $color-neutral-60;
-                color: $white;
-            }
-
-            &.active {
-                background: $color-neutral-70;
-                color: $color-brand-50;
-            }
-
-            .badge {
-                position: absolute;
-                height: 1.45rem;
-                width: 1.45rem;
-                text-align: center;
-                top: .2rem;
-                background: $red;
-                color: $white;
-                border-radius: 50%;
-                font-size: $font-size-10;
-            }
-        }
-    }
-
-    .sections {
-        li {
-            //@include row;
-            @include ellipsis;
-            padding: 6px $spacing - .3rem;
-            font-size: 1.4rem;
-            line-height: 2rem;
-           //border-left: .3rem solid $color-neutral-70;
-            position: relative;
-
-            &:hover,
-            &.active {
-                color: $white;
-                background-color: $color-neutral-60;
-            }
-
-            &:hover {
-                cursor: pointer;
-                //border-left: .3em solid $color-neutral-50;
-            }
-
-            &.active {
-                //border-left: .3em solid $color-brand-50;
-            }
-
-            .badge {
-                position: absolute;
-                top: .43em;
-                right: .3em;
-                padding: 0 .5em;
-                background: $red;
-                color: $white;
-                border-radius: $border-radius-20;
-                font-size: .9em;
-                @include transition(all cubic-bezier(.295, .305, .065, 1.455) .3s);
-                opacity: 1;
-
-                &.ng-hide {
-                    opacity: 0;
-                    font-size: 0;
-                }
-
-                &.ng-animate {
-                    animation-name: badge;
-                    animation-duration: 1s;
-                }
-            }
-        }
-    }
-
-    h1 {
-        font-size: 1.7rem;
-        font-weight: 600;
+    &:after {
         display: block;
-        padding: 8px $spacing/2;
-        background: darken($color-neutral-60, 5%);
-        color: lighten($color-neutral-60, 20%);
+        content: " ";
+        position: absolute;
+        z-index: 8;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        width: $navigation-width;
+        background-color: rgba($color-neutral-90, 0.8);
     }
 
-    .title {
-        background: $color-neutral-90;
-        color: $color-neutral-10;
-        font-size: 2rem;
-        padding: $spacing $spacing/2 $spacing*1.5;
-        font-weight: 300;
+    &.ng-hide,
+    &.is-hidden {
+        left: -$navigation-width;
+    }
+
+    > * {
+        position: relative;
+        z-index: 10;
+    }
+}
+
+.navigation--title {
+    background: rgba($color-neutral-90, 0.5);
+    color: $color-neutral-10;
+    font-size: $font-size-60;
+    padding: $spacing $spacing/2 $spacing;
+    font-weight: 300;
+    height: $header-height;
+}
+
+ul.navigation--modules {
+    @include display(flex);
+    overflow: hidden;
+
+    li {
+        @include flex(1 1 auto);
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+
+        font-size: $font-size-50;
+        padding: $spacing/2 0;
+        //border-radius: $border-radius-20 $border-radius-20 0 0 ;
+        position: relative;
+
+        &:not(:first-of-type) { border-left: 1px solid $color-neutral-70; }
+
+        &:hover {
+            cursor: pointer;
+            color: $white;
+        }
+
+        &.active {
+            color: $color-brand-50;
+            border-bottom: 4px solid $color-brand-50;
+        }
+
+        .badge {
+            position: absolute;
+            height: 1.45rem;
+            width: 1.45rem;
+            text-align: center;
+            top: .2rem;
+            background: $red;
+            color: $white;
+            border-radius: 50%;
+            font-size: $font-size-10;
+        }
+    }
+}
+
+
+.navigation--module-title {
+    margin: 0 0.35rem;
+    padding: $spacing/2 $spacing/2 0.15rem;
+
+    font-size: $font-size-40;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba($white, 0.3);
+}
+
+
+.navigation--sections {
+    //background: $color-neutral-70;
+    padding: 0.35rem;
+
+    li {
+        @include ellipsis;
+        padding: 0.35rem $spacing/2;
+        position: relative;
+
+        &:hover,
+        &.active {
+            color: $white;
+            //background-color: $color-neutral-60;
+        }
+
+        &:hover {
+            cursor: pointer;
+            //border-left: .3em solid $color-neutral-50;
+        }
+
+        &.active {
+            color: $color-brand-50;
+            background: rgba($white, 0.05);
+        }
+
+        .badge {
+            position: absolute;
+            top: .43em;
+            right: .3em;
+            padding: 0 .5em;
+            background: $red;
+            color: $white;
+            border-radius: $border-radius-20;
+            font-size: .9em;
+            @include transition(all cubic-bezier(.295, .305, .065, 1.455) .3s);
+            opacity: 1;
+
+            &.ng-hide {
+                opacity: 0;
+                font-size: 0;
+            }
+
+            &.ng-animate {
+                animation-name: badge;
+                animation-duration: 1s;
+            }
+        }
     }
 }
 

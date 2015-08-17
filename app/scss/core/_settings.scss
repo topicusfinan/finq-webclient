@@ -9,7 +9,7 @@ $font-family-heading:  'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;;
 
 
 // The base font-size, all other elements will adjust to this value
-$font-size-base: 14px;
+$font-size-base: 16px;
 
 $font-size-10: 0.75rem;
 $font-size-20: 0.875rem;
@@ -51,16 +51,14 @@ $z-index-30: 30;
 
 // Menu and header sizes
 $header-height: 4.57rem;
-$menu-size: 272px; // ~19.43rem
+$navigation-width: 270px;
 
 
 // Colors
 // Add your own color variables)
-// http://www.colourlovers.com/palette/3775667/Enough_Night_Time
-// http://www.colourlovers.com/palette/3774796/Just_enough?widths=1
 
 // Color brand
-$color-brand-50: #7DB2C4; // Default
+$color-brand-50: #369d8a; // Default
 
 $color-brand-30: lighten($color-brand-50, 20%);
 $color-brand-40: lighten($color-brand-50, 7%);
@@ -68,7 +66,7 @@ $color-brand-60: darken($color-brand-50, 7%);
 $color-brand-70: darken($color-brand-50, 20%);
 
 // Color detail (secondary brand color)
-$color-detail-50: #FCD8CC; // Default
+$color-detail-50: #ee7147; // Default
 
 $color-detail-30: lighten($color-detail-50, 20%);
 $color-detail-40: lighten($color-detail-50, 7%);
@@ -76,22 +74,22 @@ $color-detail-60: darken($color-detail-50, 7%);
 $color-detail-70: darken($color-detail-50, 20%);
 
 // Color success
-$color-success-50: #1ca382; // Default
+$color-success-50: #369d8a; // Default
 $color-success-60: darken($color-success-50, 20%);
 
 // Color alert
-$color-alert-50: #f85e53; // Default
+$color-alert-50: #da5c5c; // Default
 $color-alert-60: darken($color-alert-50, 20%);;
 
 // Color neutral
-$color-neutral-10: #E9EAEB; // gray lighten 12%
-$color-neutral-20: #D6DADC;
-$color-neutral-30: #C3CACE; // gray
-$color-neutral-40: #86949B;
-$color-neutral-50: #52656E; // Default
-$color-neutral-60: #404E54;
-$color-neutral-70: #333E42; // black
-$color-neutral-90: #1B2224; // almost black
+$color-neutral-10: #eeeeee; // almost white
+$color-neutral-20: #d0d3d2;	
+$color-neutral-30: #a2a7a6; // gray
+$color-neutral-40: #848b92;
+$color-neutral-50: #697783; // Default
+$color-neutral-60: #525e69; 
+$color-neutral-70: #2f3439;
+$color-neutral-90: #2b2b2b; // almost black
 
 // Color basics
 $black: #000;
