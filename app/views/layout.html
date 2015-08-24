@@ -1,11 +1,17 @@
 <nav class="ng-hide navigation" ng-controller="MenuCtrl as menu" ng-show="layout.loaded">
     <div class="navigation--title">{{ menu.title }}</div>
     <ul class="navigation--modules">
-        <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-click="go(module.url)" ng-class="{'active': module.active}"><i class="fa {{module.id | lowercase}}"></i><span class="badge" ng-show="module.badge > 0">{{module.badge}}</span></li>
+        <li ng-repeat="module in menu.modules" title="{{module.title}}" ng-click="go(module.url)" ng-class="{'active': module.active}">
+            <i class="fa {{module.id | lowercase}}"></i>
+            <span class="badge" ng-show="module.badge > 0">{{module.badge}}</span>
+        </li>
     </ul>
     <h1 class="navigation--module-title">{{menu.activeModuleName}}</h1>
     <ul class="navigation--sections">
-        <li class="list-animate" ng-repeat="section in menu.sections" ng-click="go(section.url)" ng-class="{'active': section.active}"><span>{{section.title}}</span><span class="badge" ng-show="section.badge > 0">{{section.badge}}</span></li>
+        <li class="list-animate" ng-repeat="section in menu.sections" ng-click="go(section.url)" ng-class="{'active': section.active}">
+            <span>{{section.title}}</span>
+            <span class="badge" ng-show="section.badge > 0">{{section.badge}}</span>
+        </li>
     </ul>
     <div class="account ng-hide" ng-show="menu.currentUser()">
         <div class="user"></div>
@@ -13,4 +19,7 @@
     </div>
 </nav>
 <div class="main ng-hide" ng-show="layout.loaded" ng-view></div>
-<footer ng-controller="FeedbackCtrl as fb" class="feedback" ng-class="fb.feedback.type" ng-show="fb.show"><span>{{fb.feedback.message}}</span><i class="fa fa-times" ng-click="fb.hide()"></i></footer>
+<footer ng-controller="FeedbackCtrl as fb" class="feedback" ng-class="fb.feedback.type" ng-show="fb.show">
+    <span>{{fb.feedback.message}}</span>
+    <i class="fa fa-times" ng-click="fb.hide()"></i>
+</footer>
