@@ -174,7 +174,7 @@
             }
 
             > div.title > i {
-                font-size: 1.778em;
+                font-size: $font-size-50;
             }
 
             > div.title > span,
@@ -278,7 +278,7 @@
 
                         &.scenario-handle,
                         &.step-handle {
-                            font-size: 1.5em;
+                            font-size: $font-size-50;
                             color: #bbb;
                         }
 
