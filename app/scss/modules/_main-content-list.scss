@@ -181,7 +181,7 @@
             > div.comments > i,
             > div.comments > strong,
             > div.actions > span {
-                font-size: 1.333rem;
+                font-size: $font-size-40;
                 line-height: 1.333rem;
                 padding: ((3.16128rem - 1.333rem) / 4) 0;
             }
@@ -191,7 +191,7 @@
 
                 > span,
                 > a {
-                    font-size: 1rem;
+                    font-size: $font-size-30;
                     line-height: 1rem;
                     padding: ((3.16128rem - 1rem) / 2) 0;
                     color: lighten($color-neutral-60, 25%);
@@ -303,9 +303,9 @@
 
                     > div.title > span,
                     > div.actions > span {
-                        font-size: 1.2rem;
+                        font-size: $font-size-30;
                         line-height: 1.2rem;
-                        padding: ((2.77889rem - 1.2rem) / 3) $spacing/3;
+                        padding: $spacing/2 0;
                     }
 
                     > div.title > input[type="text"] {

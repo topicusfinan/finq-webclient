@@ -52,40 +52,40 @@ div.layout > header {
     }
 
     .account {
-        display: none;
-        // @include flex (0 0 auto);
-        // width: 1px;
-        // float: right;
-        // min-height: 100%;
-        // padding: 0.32rem 0.57rem;
+        // display: none;
+        @include flex (0 0 auto);
+        width: 1px;
+        float: right;
+        min-height: 100%;
+        padding: 0.32rem 0.57rem;
 
-        // > img {
-        //     height: 3em;
-        //     position: absolute;
-        //     right: .5em;
-        //     top: .5em;
-        //     max-width: none;
-        //     cursor: pointer;
-        // }
+        > img {
+            height: 3em;
+            position: absolute;
+            right: .5em;
+            top: .5em;
+            max-width: none;
+            cursor: pointer;
+        }
 
-        // .name {
-        //     padding: .8em .8em/2;
-        //     right: 4em;
-        //     position: absolute;
+        .name {
+            padding: .8em .8em/2;
+            right: 4em;
+            position: absolute;
 
-        //     > span {
-        //         display: block;
-        //         text-align: right;
+            > span {
+                display: block;
+                text-align: right;
 
-        //         &.first {
-        //             font-size: .9em;
-        //             line-height: .5em;
-        //         }
+                &.first {
+                    font-size: .9em;
+                    line-height: .5em;
+                }
 
-        //         &.last {
-        //             font-size: 1.2em;
-        //         }
-        //     }
-        // }
+                &.last {
+                    font-size: 1.2em;
+                }
+            }
+        }
     }
 }
