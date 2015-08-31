@@ -54,6 +54,7 @@
 //  <-- END OLD STYLES THAT NEED TO BE GONE
 
 'shared-components/top-filter',
+'shared-components/story-list', 
 
 // Modules
 // Modules are connected to a specific piece of content and can't be used without that piece of content.
@@ -61,6 +62,7 @@
 'modules/header',
 'modules/navigation',
 'modules/main',
+'modules/search',
 
 'modules/feedback',
 
@@ -68,7 +70,7 @@
 
 'modules/main-content-list', // Old en ugly css. Try and rewrite this!
 'modules/running-list',
-
+'modules/report-list',
 
 // Pattern library (a kind of styleguide)
 'core/pattern-library';

@@ -39,17 +39,11 @@
 
     li.cl {
 
-        &.ic > div {
-            padding-left: $spacing/2; 
-        }
-
         > div {
             @include display(flex);
             @include align-items(center);
-            //padding-left: 0.53333em;
             position: relative;
-            color: darken($color-neutral-60, 5%);
-            margin-top: 2px;
+            //color: darken($color-neutral-60, 5%);
 
             &.selectable:hover,
             .active {
@@ -115,7 +109,7 @@
 
             > i,
             > div.title > i {
-                width: 2rem;
+                //width: 2rem;
                 text-align: center;
                 margin-right: $spacing/2;
             }
@@ -132,28 +126,28 @@
 
 
     > li.cl {
-        border-top: lighten(lighten($gray, 10%), 20%) 2px solid;
-        background: lighten(lighten($gray, 10%), 20%);
+        // border-top: lighten(lighten($gray, 10%), 20%) 2px solid;
+        // background: lighten(lighten($gray, 10%), 20%);
 
         > div {
-            height: 3.16128rem;
-            background: lighten(lighten($gray, 10%), 5%);
-            margin-top: 0;
+            // height: 3.16128rem;
+            // background: lighten(lighten($gray, 10%), 5%);
+            // margin-top: 0;
 
-            &.selectable:hover {
-                background: $color-brand-30;
+            // &.selectable:hover {
+            //     background: $color-brand-30;
 
-                > div.comments {
-                    background: $color-brand-30;
-                }
-            }
+            //     > div.comments {
+            //         background: $color-brand-30;
+            //     }
+            // }
 
             &.active,
             &.active:hover {
-                background: $color-brand-50;
+                background: $color-detail-50;
 
                 > div.comments {
-                    background: $color-brand-50;
+                    background: $color-detail-50;
                 }
             }
 
@@ -187,14 +181,14 @@
             }
 
             > div.comments {
-                background: lighten(lighten($gray, 10%), 5%);
+                color: $white;
 
                 > span,
                 > a {
                     font-size: $font-size-30;
                     line-height: 1rem;
                     padding: ((3.16128rem - 1rem) / 2) 0;
-                    color: lighten($color-neutral-60, 25%);
+                    color: $color-neutral-60;
                 }
 
                 > a {
@@ -234,7 +228,7 @@
 
                     &.active,
                     &.active:hover {
-                        background: $color-brand-50;
+                        background: $color-brand-20;
                     }
 
                     &.selectable:hover,
@@ -305,7 +299,7 @@
                     > div.actions > span {
                         font-size: $font-size-30;
                         line-height: 1.2rem;
-                        padding: $spacing/2 0;
+                        // padding: $spacing/2 0;
                     }
 
                     > div.title > input[type="text"] {

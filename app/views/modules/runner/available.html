@@ -18,7 +18,7 @@
     </div>
 </div>
 <div class="search ng-hide" ng-show="initialized()" search></div>
-<ul id="story-list" story-collapse class="main-content-list filter-2">
+<ul id="story-list" story-collapse class="main-content-list story-list filter-2">
     <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | storybookPaginationFilter:available.currentPage:available.maxScenarios) track by book.id">
         <div class="selectable" ng-class="{'active':available.selectedItem.isItemSelected(book)}" ng-click="available.selectedItem.setSelectedItem(book)">
             <div class="title">

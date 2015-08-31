@@ -1,6 +1,7 @@
 div.layout {
     position: absolute;
-    height: 100%;
+    min-height:100%;
+    height: auto;
     width: 100%;
 
     > .main {
@@ -9,40 +10,4 @@ div.layout {
     }
 }
 
-div.main {
-
-    .search {
-        @include flex(1 1 auto);
-        @include display(flex);
-        @include align-items(center);
-        padding: 0 $spacing;
-        position: relative;
-        font-size: $font-size-60;
-
-        i {
-            display: inline-block;
-            color: $color-brand-40;
-            margin-right: $spacing/2;
-        }
-
-        input {
-            display: inline-block;
-            margin: 0;
-            background: none;
-            border: 0;
-            box-shadow: none;
-            color: $color-neutral-60;
-            font-size: $font-size-50;
-
-            @include placeholder {
-                color: $color-brand-40;
-            }
-
-            // temporary fix for webkit issue 46543
-            &:-webkit-autofill {
-                -webkit-box-shadow: 0 0 0 50px $color-neutral-70 inset;
-                -webkit-text-fill-color: $color-neutral-20;
-            }
-        }
-    }
-}
+div.main { }

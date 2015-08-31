@@ -60,6 +60,7 @@ $navigation-width: 270px;
 // Color brand
 $color-brand-50: #369d8a; // Default
 
+$color-brand-20: lighten($color-brand-50, 30%);
 $color-brand-30: lighten($color-brand-50, 20%);
 $color-brand-40: lighten($color-brand-50, 7%);
 $color-brand-60: darken($color-brand-50, 7%);
@@ -88,7 +89,7 @@ $color-neutral-30: #a2a7a6; // gray
 $color-neutral-40: #848b92;
 $color-neutral-50: #697783; // Default
 $color-neutral-60: #525e69; 
-$color-neutral-70: #2f3439;
+$color-neutral-70: #2f3439; 
 $color-neutral-90: #2b2b2b; // almost black
 
 // Color basics
