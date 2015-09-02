@@ -3,31 +3,36 @@ nav.navigation {
     width: $navigation-width;
     position: fixed;
     min-height: 100%;
-    color: $gray;
     z-index: 2;
     left: 0;
-    border-right: 1px solid rgba($black, 0.7);
+    border-right: 1px solid rgba($color-neutral-50, 0.7);
     
-    background-image: url('../images/nav-bg.jpg');
-    background-color: $color-neutral-90;
+    //background-image: url('../images/nav-bg-v2.jpg');
+    background-color: $color-detail-50;
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; 
     background-position: center;
     position: absolute;
     top: 0;
     bottom: 0;
-
-    &:after {
+    overflow: hidden;
+    
+    &:before {
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f058";
         display: block;
-        content: " ";
+        color: $color-detail-60;
         position: absolute;
-        z-index: 8;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        width: $navigation-width;
-        background-color: rgba($color-neutral-90, 0.8);
+        z-index: 100;
+        right: -2rem;
+        bottom: -3rem;
+        font-size: 16rem;
+        opacity: 0.4;
     }
 
     &.ng-hide,
@@ -44,7 +49,7 @@ nav.navigation {
 .navigation--title {
     @include display(flex);
     @include align-items(center);
-    background: rgba($color-neutral-90, 0.5);
+    background: $color-detail-70, ; //rgba($white, 0.3);
     color: $color-neutral-10;
     font-size: $font-size-60;
     padding: 0 $spacing/2;
@@ -56,6 +61,8 @@ ul.navigation--modules {
     @include display(flex);
     overflow: hidden;
     margin-bottom: $spacing/2;
+    background: $color-detail-70;
+    padding: 0 0.35rem;
 
     li {
         @include flex(1 1 auto);
@@ -66,11 +73,12 @@ ul.navigation--modules {
         font-size: $font-size-50;
         padding: $spacing/2 0;
         position: relative;
-        border-bottom: 1px solid $color-neutral-70;
-        box-shadow: inset 0 -1px 2px 0 rgba($black, 0.2);
-        background: rgba($color-neutral-90, 0.3);
+        color: $color-detail-30;
 
-        &:not(:first-of-type) { border-left: 1px solid $color-neutral-70; }
+        &:not(.active) {
+            border-bottom: 1px solid $color-detail-70;
+            box-shadow: inset 0 -1px 1px 0 rgba($color-detail-70, 0.2);
+        }
 
         &:hover {
             cursor: pointer;
@@ -78,9 +86,9 @@ ul.navigation--modules {
         }
 
         &.active {
-            color: $color-brand-50;
-            border-bottom: 4px solid $color-brand-50;
-            background: none;
+            color: rgba($color-neutral-20, 0.7);
+            background: $color-detail-50;
+            border-radius: $border-radius-20 $border-radius-20 0 0;
         }
 
         .badge {
@@ -104,13 +112,14 @@ ul.navigation--modules {
 
     font-size: $font-size-40;
     text-transform: uppercase;
-    border-bottom: 1px solid rgba($white, 0.3);
+    border-bottom: 1px solid rgba($color-neutral-20, 0.7);
+    color: rgba($color-neutral-20, 0.7);
 }
 
 
 .navigation--sections {
-    //background: $color-neutral-70;
     padding: 0.35rem;
+    color: rgba($color-neutral-20, 0.7);
 
     li {
         @include ellipsis;
@@ -119,18 +128,16 @@ ul.navigation--modules {
 
         &:hover,
         &.active {
-            color: $white;
-            //background-color: $color-neutral-60;
+            color: $color-detail-70;
         }
 
         &:hover {
             cursor: pointer;
-            //border-left: .3em solid $color-neutral-50;
         }
 
         &.active {
-            color: $color-brand-50;
-            background: rgba($white, 0.05);
+            color: $white;
+            font-weight: 600;
         }
 
         .badge {

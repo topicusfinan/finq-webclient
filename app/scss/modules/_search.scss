@@ -1,0 +1,38 @@
+// ============ Search
+
+.search {
+    @include linear-gradient(top, lighten($color-neutral-20, 3%), $color-neutral-20);
+    @include flex(1 1 auto);
+    @include display(flex);
+    @include justify-content(flex-end);
+    @include align-items(center);
+    padding: 0.25rem $spacing;
+    position: relative;
+    margin-bottom: $spacing;
+
+    i {
+        display: inline-block;
+        color: $color-neutral-60;
+        margin-right: $spacing/2;
+        font-size: $font-size-40;
+    }
+
+    input {
+        display: inline-block;
+        width: 16rem;
+        padding: 0.25em 0.75em;
+        font-size: $font-size-20;
+        border-radius: 20px;
+
+        &:focus { 
+            border-color: $color-neutral-60;
+            box-shadow: none;
+        }
+
+        // temporary fix for webkit issue 46543
+        &:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 50px $color-neutral-70 inset;
+            -webkit-text-fill-color: $color-neutral-20;
+        }
+    }
+}
