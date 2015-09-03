@@ -1,91 +1,91 @@
-// ============ Header 
+// // ============ Header 
 
-div.layout > header {
-    @include display(flex);
-    width: 100%;
-    height: $header-height;
-    min-width: 60rem;
-    background-color: $color-brand-70;
-    position: fixed;
-    z-index: 10000;
+// div.layout > header {
+//     @include display(flex);
+//     width: 100%;
+//     height: $header-height;
+//     min-width: 60rem;
+//     background-color: $color-brand-70;
+//     position: fixed;
+//     z-index: 10000;
 
-    .title {
-        @include transition(opacity linear 1s);
+//     .title {
+//         @include transition(opacity linear 1s);
         
-        font-size: $font-size-80;
-        opacity: 1;
+//         font-size: $font-size-80;
+//         opacity: 1;
 
-        &.ng-hide {
-            opacity: 0;
-        }
-    }
+//         &.ng-hide {
+//             opacity: 0;
+//         }
+//     }
 
-    .title {
-        @include flex(0 0 auto);
-        @include display(flex);
-        @include align-items(center);
+//     .title {
+//         @include flex(0 0 auto);
+//         @include display(flex);
+//         @include align-items(center);
 
-        background-color: $color-neutral-90;
-        padding-left: $spacing/2;
-        width: $navigation-width;
-        padding-right: $spacing/2;
-        position: relative;
-        color: $color-neutral-10;
-        font-weight: 500;
+//         background-color: $color-neutral-90;
+//         padding-left: $spacing/2;
+//         width: $navigation-width;
+//         padding-right: $spacing/2;
+//         position: relative;
+//         color: $color-neutral-10;
+//         font-weight: 500;
 
-        // &:after {
-        //     background-color: $color-brand-70;
-        //     height: 100%;
-        //     width: 3rem;
-        //     position: absolute;
-        //     right: -2.2rem;
-        //     top: 0;
-        //     content: " ";
-        //     @include transform(skew(20deg, 0deg));
-        // }
+//         // &:after {
+//         //     background-color: $color-brand-70;
+//         //     height: 100%;
+//         //     width: 3rem;
+//         //     position: absolute;
+//         //     right: -2.2rem;
+//         //     top: 0;
+//         //     content: " ";
+//         //     @include transform(skew(20deg, 0deg));
+//         // }
 
-        span {
-            @include ellipsis;
-            font-size: 2.29rem;
-            line-height: 1.5em;
-        }
-    }
+//         span {
+//             @include ellipsis;
+//             font-size: 2.29rem;
+//             line-height: 1.5em;
+//         }
+//     }
 
-    .account {
-        // display: none;
-        @include flex (0 0 auto);
-        width: 1px;
-        float: right;
-        min-height: 100%;
-        padding: 0.32rem 0.57rem;
+//     .account {
+//         // display: none;
+//         @include flex (0 0 auto);
+//         width: 1px;
+//         float: right;
+//         min-height: 100%;
+//         padding: 0.32rem 0.57rem;
 
-        > img {
-            height: 3em;
-            position: absolute;
-            right: .5em;
-            top: .5em;
-            max-width: none;
-            cursor: pointer;
-        }
+//         > img {
+//             height: 3em;
+//             position: absolute;
+//             right: .5em;
+//             top: .5em;
+//             max-width: none;
+//             cursor: pointer;
+//         }
 
-        .name {
-            padding: .8em .8em/2;
-            right: 4em;
-            position: absolute;
+//         .name {
+//             padding: .8em .8em/2;
+//             right: 4em;
+//             position: absolute;
 
-            > span {
-                display: block;
-                text-align: right;
+//             > span {
+//                 display: block;
+//                 text-align: right;
 
-                &.first {
-                    font-size: .9em;
-                    line-height: .5em;
-                }
+//                 &.first {
+//                     font-size: .9em;
+//                     line-height: .5em;
+//                 }
 
-                &.last {
-                    font-size: 1.2em;
-                }
-            }
-        }
-    }
-}
+//                 &.last {
+//                     font-size: 1.2em;
+//                 }
+//             }
+//         }
+//     }
+// }

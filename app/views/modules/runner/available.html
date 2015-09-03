@@ -19,7 +19,7 @@
 </div>
 <div class="search ng-hide" ng-show="initialized()" search></div>
 <ul id="story-list" story-collapse class="main-content-list story-list filter-2">
-    <li class="ic cl list-animate" ng-repeat="book in filteredBooks = (storybooks() | storybookPaginationFilter:available.currentPage:available.maxScenarios) track by book.id">
+    <li class="ic cl list-animate story-list--header" ng-repeat="book in filteredBooks = (storybooks() | storybookPaginationFilter:available.currentPage:available.maxScenarios) track by book.id">
         <div class="selectable" ng-class="{'active':available.selectedItem.isItemSelected(book)}" ng-click="available.selectedItem.setSelectedItem(book)">
             <div class="title">
                 <i class="fa fa-bars" data-toggle="collection"></i>
@@ -50,7 +50,7 @@
                         <div class="select" filter-select="available.environments" filter-id="available.filter.env.id" placeholder="available.envPlaceholder" synchronize="true" max-items="{{::available.maxSelectItems}}"></div>
                     </div>
                 </div>
-                <ul>
+                <ul class="story-list--stories">
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
                         <div class="selectable" ng-class="{'active':available.selectedItem.isItemSelected(scenario)}" ng-click="available.selectedItem.setSelectedItem(scenario)">
                             <div class="title">

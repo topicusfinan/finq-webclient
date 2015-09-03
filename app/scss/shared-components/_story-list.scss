@@ -7,23 +7,69 @@ ul.story-list {
 	padding: $spacing;
 	border-radius: $border-radius-10;
 
-	> li:not(:last-of-type) {
-		margin-bottom: $spacing;
-	}	
+	li > div {
+		@include display(flex);
+        @include align-items(center);
+        position: relative;
+        padding: 0 $spacing/2;
+        height: 3rem;
 
-	> li > div {
-		background: $color-neutral-30;
+        &.active {
+			background: $color-brand-60;
+			color: $white;
+
+			i:after, i:before { color: $white; }
+		}
+
+		&.selectable:not(.active) {
+			cursor: pointer;
+
+			&:hover {
+				background: $color-brand-30;
+				color: $color-neutral-60;
+			}
+		}
+	}
+
+	div.title {
+        @include display(flex);
+        @include align-items(center);
+    }
+
+    .actions {
+        @include display(flex);
+        @include align-items(center);
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+        height: 100%;
+        padding: $spacing/2;
+
+        .separate { margin: 0 0.25rem;}
+    }
+}
+
+li.story-list--header {
+
+	&:not(:last-of-type) { margin-bottom: $spacing; }	
+
+	> div {
+		background: $color-neutral-40;
 		color: $white;
 		margin: 0;
 		padding-left: $spacing/2;
-		height: 3rem;
+		box-shadow: 0 1px 2px 0 rgba($color-neutral-90, 0.34);
 	}
 
-	ul { 
-		border: 1px solid $color-neutral-20;
+	> ul { 
+		border: 1px solid $color-neutral-40;
+	}
 
-		> li > div {
-			padding: 0 $spacing/2;
-		}
+}
+
+ul.story-list--stories {
+
+	li > div {
+		background: $color-neutral-10;
 	}
 }

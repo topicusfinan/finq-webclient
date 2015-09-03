@@ -12,7 +12,7 @@
     </div>
 </div>
 <ul id="run-list" story-collapse class="main-content-list story-list filter-1 running-list">
-    <li class="ic cl list-animate" ng-repeat="run in filteredRuns = (runs() | runEnvironmentFilter:running.filter.env.ids) track by run.id">
+    <li class="ic cl list-animate story-list--header" ng-repeat="run in filteredRuns = (runs() | runEnvironmentFilter:running.filter.env.ids) track by run.id">
         <div>
             <div class="title limited">
                 <div class="radial-progress" data-toggle="collection" progress="run.percentage" highlight="run.highlight"></div>
@@ -34,7 +34,7 @@
                         <span class="separate">{{::story.title}}</span>
                     </div>
                 </div>
-                <ul class="running-list--item-detail">
+                <ul class="running-list--item-detail story-list--stories">
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by (run.id+'-'+scenario.id)">
                         <div class="selectable detailed {{scenario.highlight}}" ng-class="{'active':running.selectedItem.isItemSelected([run,scenario])}" ng-click="running.selectedItem.setSelectedItem([run,scenario])">
                             <div class="title">

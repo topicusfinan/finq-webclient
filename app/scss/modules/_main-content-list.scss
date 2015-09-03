@@ -1,7 +1,7 @@
 // ============ Main content list
 
 .main-content-list {
-    margin-bottom: 6em;
+    // margin-bottom: 6em;
 
     li.cl > div,
     li.cl > div > div.comments {
@@ -40,38 +40,8 @@
     li.cl {
 
         > div {
-            @include display(flex);
-            @include align-items(center);
-            position: relative;
-            //color: darken($color-neutral-60, 5%);
-
-            &.selectable:hover,
-            .active {
-                > div.title {
-                    max-width: calc(100% - 8em);
-                }
-            }
-
-            &.selectable:hover {
-                cursor: pointer;
-                background: $color-brand-30;
-
-                > div.comments {
-
-                    span,
-                    a {
-                        color: $white;
-                    }
-
-                    a.hover {
-                        color: darken($white, 10%);
-                    }
-                }
-            }
 
             > div.title {
-                @include display(flex);
-                @include align-items(center);
 
                 &.editable {
                     position: relative;
@@ -126,30 +96,8 @@
 
 
     > li.cl {
-        // border-top: lighten(lighten($gray, 10%), 20%) 2px solid;
-        // background: lighten(lighten($gray, 10%), 20%);
 
         > div {
-            // height: 3.16128rem;
-            // background: lighten(lighten($gray, 10%), 5%);
-            // margin-top: 0;
-
-            // &.selectable:hover {
-            //     background: $color-brand-30;
-
-            //     > div.comments {
-            //         background: $color-brand-30;
-            //     }
-            // }
-
-            &.active,
-            &.active:hover {
-                background: $color-detail-50;
-
-                > div.comments {
-                    background: $color-detail-50;
-                }
-            }
 
             > div > span,
             > div > a,
@@ -177,7 +125,6 @@
             > div.actions > span {
                 font-size: $font-size-40;
                 line-height: 1.333rem;
-                padding: ((3.16128rem - 1.333rem) / 4) 0;
             }
 
             > div.comments {
@@ -219,31 +166,6 @@
                 background: lighten(lighten($gray, 10%), 5%);
 
                 > div {
-                    height: 2.77889rem;
-                    background: lighten(lighten($gray, 10%), 15%);
-
-                    &.selectable:hover {
-                        background: $color-brand-30;
-                    }
-
-                    &.active,
-                    &.active:hover {
-                        background: $color-brand-20;
-                    }
-
-                    &.selectable:hover,
-                    &.active,
-                    &.active:hover {
-                        > div.title {
-                            > input[type="text"] {
-                                opacity: 1;
-                            }
-
-                            > span.editable {
-                                opacity: 0;
-                            }
-                        }
-                    }
 
                     > div > span {
                         margin: 0 .5em / 2;
@@ -299,7 +221,6 @@
                     > div.actions > span {
                         font-size: $font-size-30;
                         line-height: 1.2rem;
-                        // padding: $spacing/2 0;
                     }
 
                     > div.title > input[type="text"] {
@@ -316,9 +237,6 @@
                     overflow-y: hidden;
 
                     li.cl > div {
-                        background: lighten(lighten($gray, 10%), 20%);
-                        padding-top: 1px;
-                        margin-top: 2px / 2;
 
                         &.success {
                             background: lighten($lime, 30%);
@@ -333,14 +251,6 @@
                             > div.i {
                                 opacity: .4;
                             }
-                        }
-
-                        &.active {
-                            background: $color-brand-50;
-                        }
-
-                        &.selectable:hover {
-                            background: $color-brand-30;
                         }
 
                         > div.title > {

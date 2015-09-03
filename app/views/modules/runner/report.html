@@ -13,14 +13,14 @@
             </div>
         </div>
         <ul>
-            <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
+            <li class="ic cl story-list--header" ng-repeat="scenario in story.scenarios track by scenario.id">
                 <div class="selectable {{scenario.highlight}}" ng-class="{'active':report.selectedItem.isItemSelected(scenario)}" ng-click="report.selectedItem.setSelectedItem(scenario)" data-toggle="story">
                     <div class="title">
                         <div class="radial-progress" progress="scenario.percentage" highlight="scenario.highlight"></div>
                         <span class="separate">{{::scenario.title}}</span>
                     </div>
                 </div>
-                <ul>
+                <ul class="story-list--stories">
                     <li class="ic cl" ng-repeat="step in scenario.steps track by $index">
                         <div class="selectable {{step.highlight}}" ng-class="{'active':report.selectedItem.isItemSelected([run,scenario,$index]), 'detailed always':step.message != null}" ng-click="report.selectedItem.setSelectedItem([run,scenario,$index])">
                             <div class="title">

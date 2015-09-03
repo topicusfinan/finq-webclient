@@ -10,8 +10,8 @@
         </button>
     </div>
 </div>
-<ul class="main-content-list filter-2" story-collapse>
-    <li class="ic cl list-animate" ng-repeat="book in storybooks track by book.id">
+<ul class="main-content-list filter-2 story-list" story-collapse>
+    <li class="ic cl list-animate story-list--header" ng-repeat="book in storybooks track by book.id">
         <div class="selectable" ng-class="{'active':stories.selectedItem.isItemSelected(book)}" ng-click="stories.selectedItem.setSelectedItem(book)">
             <div class="title">
                 <i class="fa fa-bars" data-toggle="collection"></i>
@@ -38,7 +38,7 @@
                         </button>
                     </div>
                 </div>
-                <ul>
+                <ul class="story-list--stories">
                     <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
                         <div>
                             <div class="title">
