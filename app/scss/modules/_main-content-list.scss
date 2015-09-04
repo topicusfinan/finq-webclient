@@ -99,34 +99,6 @@
 
         > div {
 
-            > div > span,
-            > div > a,
-            > div > i {
-                margin: 0 .5em / 4;
-
-                &.separate {
-                    margin: 0 .5em / 2;
-                }
-            }
-
-            > div.title > i {
-                cursor: pointer;
-                left: 0.53333em * 1.25;
-                top: .4em;
-            }
-
-            > div.title > i {
-                font-size: $font-size-50;
-            }
-
-            > div.title > span,
-            > div.comments > i,
-            > div.comments > strong,
-            > div.actions > span {
-                font-size: $font-size-40;
-                line-height: 1.333rem;
-            }
-
             > div.comments {
                 color: $white;
 
@@ -173,14 +145,7 @@
 
                     > div.title {
 
-                        > i {
-                            left: 0.53333em * 1.75;
-                        }
-
                         &.editable {
-                            > i {
-                                left: -0.6026629em * 1.75;
-                            }
 
                             > span.editable {
                                 padding-right: .5em * 2;

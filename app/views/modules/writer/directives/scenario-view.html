@@ -1,4 +1,4 @@
-<ul class="story-content-list" sortable="scenarios" handle=".scenario-handle" connect-with=".story-content-list">
+<ul sortable="scenarios" handle=".scenario-handle" connect-with=".story-content-list">
     <li class="list-item scenario" ng-repeat="scenario in scenarios track by scenario.id">
         <div class="header selectable" ng-class="{'active':selectedItem.isItemSelected(scenario)}"
              ng-click="selectedItem.setSelectedItem(scenario)">
@@ -16,7 +16,7 @@
                 </button>
             </div>
         </div>
-        <ul class="scenario-content-list list-animate" sortable="scenario.steps" handle=".step-handle" connect-with=".scenario-content-list">
+        <ul class="scenario-content-list list-animate story-list--stories" sortable="scenario.steps" handle=".step-handle" connect-with=".scenario-content-list">
             <li class="list-item step" ng-repeat="step in scenario.steps">
                 <div class="header selectable" ng-class="{'active': selectedItem.isItemSelected(step)}"
                      ng-click="selectedItem.setSelectedItem(step);">

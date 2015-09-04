@@ -5,7 +5,7 @@
     </div>
 </div>
 <ul id="run-report" story-collapse class="main-content-list story-list filter-1">
-    <li class="ic cl list-animate" ng-repeat="story in run.stories track by story.id">
+    <li class="ic cl list-animate story-list--header" ng-repeat="story in run.stories track by story.id">
         <div>
             <div class="title limited">
                 <div class="radial-progress" data-toggle="collection" progress="story.percentage" highlight="story.highlight"></div>
@@ -13,7 +13,7 @@
             </div>
         </div>
         <ul>
-            <li class="ic cl story-list--header" ng-repeat="scenario in story.scenarios track by scenario.id">
+            <li class="ic cl" ng-repeat="scenario in story.scenarios track by scenario.id">
                 <div class="selectable {{scenario.highlight}}" ng-class="{'active':report.selectedItem.isItemSelected(scenario)}" ng-click="report.selectedItem.setSelectedItem(scenario)" data-toggle="story">
                     <div class="title">
                         <div class="radial-progress" progress="scenario.percentage" highlight="scenario.highlight"></div>

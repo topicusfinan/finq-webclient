@@ -2,11 +2,11 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
 .list-item {
     // Provide dropable space for top level list
-    > ul {
-        margin-top: -10px;
-        padding-top: 10px;
-        min-height: 10px;
-    }
+    // > ul {
+    //     margin-top: -10px;
+    //     padding-top: 10px;
+    //     min-height: 10px;
+    // }
 
     > ul > li > ul {
         @include transition(max-height $animate-std-cubic .5s);

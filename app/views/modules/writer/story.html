@@ -1,30 +1,28 @@
-<div class="stories filter list-item">
-    <div class="header selectable">
-        <div class="prefix">
-            <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}"
-               ng-click="story.back()"></i>
-        </div>
-        <div class="title">
-            <span ng-show="story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
-            <span ng-show="!story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_TITLE"></span>
-            <input type="text" ng-model="story.model.title">
-        </div>
-        <div class="actions">
-            <button ng-click="story.save()">
-                <i class="fa fa-check"></i>
-                <span translate="WRITER.STORIES.SAVE"></span>
-            </button>
-            <span ng-click="story.toggleSidebar()">
-            <i class="fa"
-               ng-class="{'fa-search-minus': story.sidebarIsExpanded(), 'inactive fa-search-plus': !story.sidebarIsExpanded()}"></i>
-            </span>
-        </div>
+<div class="top-filter">
+    <div class="prefix">
+        <i class="fa" ng-class="{'fa-chevron-left': !story.createNew, 'fa-times': story.createNew}"
+           ng-click="story.back()"></i>
+    </div>
+    <div class="title">
+        <span ng-show="story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_NEW_TITLE"></span>
+        <span ng-show="!story.createNew" class="verbose" translate="WRITER.STORIES.BEFORE_TITLE"></span>
+        <input type="text" ng-model="story.model.title">
+    </div>
+    <div class="actions">
+        <button ng-click="story.save()">
+            <i class="fa fa-check"></i>
+            <span translate="WRITER.STORIES.SAVE"></span>
+        </button>
+        <span ng-click="story.toggleSidebar()">
+        <i class="fa"
+           ng-class="{'fa-search-minus': story.sidebarIsExpanded(), 'inactive fa-search-plus': !story.sidebarIsExpanded()}"></i>
+        </span>
     </div>
 </div>
 <div class="has-aside">
     <div class="content">
-        <ul class="stories list" story-collapse>
-            <li class="list-item prologue">
+        <ul class="story-list" story-collapse>
+            <li class="list-item prologue story-list--header">
                 <div class="header selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:0})}"
                      ng-click="story.selectedItem.setSelectedItem(null)">
                     <div class="prefix">
@@ -36,7 +34,7 @@
                 </div>
                 <scenario-view scenarios="story.model.prologue"></scenario-view>
             </li>
-            <li class="list-item scenarios">
+            <li class="list-item scenarios story-list--header">
                 <div class="header selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:1})}"
                      ng-click="story.selectedItem.setSelectedItem(null)">
                     <div class="prefix">
@@ -48,7 +46,7 @@
                 </div>
                 <scenario-view scenarios="story.model.scenarios"></scenario-view>
             </li>
-            <li class="list-item epilogue">
+            <li class="list-item epilogue story-list--header">
                 <div class="header selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:2})}"
                      ng-click="story.selectedItem.setSelectedItem(null)">
                     <div class="prefix">

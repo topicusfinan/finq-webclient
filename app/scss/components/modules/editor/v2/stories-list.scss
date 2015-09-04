@@ -1,16 +1,5 @@
-$animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
-
 @mixin selectable($base-hover-color, $selected-hover-color) {
-    &.selectable:hover {
-        background: $base-hover-color;
-    }
-
-    &.active,
-    &.active:hover {
-        background: $selected-hover-color;
-    }
-
-    @include transition(background $animate-std-cubic .1s);
+    @include transition(background cubic-bezier(.250, .460, .450, .940) .1s);
 }
 
 @mixin list-item-height($height, $font-size) {
@@ -22,6 +11,12 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 
 .list-item {
 
+    .active input { 
+        color: $white;
+
+        &:focus, &:active, &:hover { color: $color-neutral-60; }
+    }
+
     // Collapse expand arrow
     i.fa.expand:after {
         content: '\f0da'
@@ -31,47 +26,41 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
     }
 
     .header {
-        @include selectable(lighten($blue, 20%), $blue);
-        border-top: 2px white solid;
 
-        display: flex;
-        align-items: center;
+        // .prefix {
+        //    @include display(flex);
+        //     @include justify-content(space-around);
 
-        .prefix {
-            display: flex;
-            justify-content: space-around;
+        //     * {
+        //         @include flex(1 1 auto);
+        //     }
 
-            * {
-                flex: 1;
-            }
+        //     // .scenario-handle, .step-handle {
+        //     //     padding-left: 0.2em;
+        //     //     text-align: left;
+        //     // }
 
-            .scenario-handle, .step-handle {
-                padding-left: 0.2em;
-                text-align: left;
-            }
-
-            user-select: none;
-            min-width: 2em;
-            text-align: center;
-            font-size: 1.778em;
-            cursor: pointer;
-        }
+        //     user-select: none;
+        //     min-width: 2em;
+        //     text-align: center;
+        //     font-size: 1.778em;
+        //     cursor: pointer;
+        // }
 
         .title {
-            display: flex;
-            flex: 1;
-            align-items: center;
+            @include display(flex);
+            @include flex(1 1 auto);        
+            @include align-items(center);
             cursor: default;
 
             span {
-                max-width: fit-content;
+                @include flex(1 1 auto);  
                 padding-right: 1.5em;
-                flex: 1;
             }
 
             input {
+                @include flex(1 1 auto);  
                 margin: 0;
-                flex: 1;
             }
         }
 
@@ -85,13 +74,6 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
             }
         }
 
-        a, button {
-            @extend %button;
-            user-select: none;
-            background: $color-neutral-60;
-            border: none;
-        }
-
         a:hover {
             background: darken($color-neutral-60, 10%);
         }
@@ -99,19 +81,16 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         .actions {
             display: none;
             max-width: fit-content;
-            padding: 0 1.5em 0 1.2em;
+            padding: 0;
             user-select: none;
-
-            * {
-                margin-right: 0.3em;
-            }
 
             .fa {
                 font-size: 1.5em;
             }
         }
 
-        &.active .actions, &:hover .actions {
+        &.active .actions, 
+        &:hover .actions {
             display: block;
         }
     }
@@ -136,13 +115,13 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 }
 
 .has-aside {
-    display: flex;
-    flex-flow: row;
+    @include display(flex);
+    @include flex-direction(row);
 
     .content {
-        display: flex;
-        flex-flow: column;
-        flex: 1;
+        @include display(flex);
+        @include flex-direction(column);
+        @include flex(1 1 auto);
     }
 
     aside {
@@ -157,8 +136,8 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
 }
 
 .stories.list {
-    display: flex;
-    flex-flow: column;
+    @include display(flex);
+    @include flex-direction(column);
 
     .book, .prologue, .scenarios, .epilogue {
         background: lighten(lighten($gray, 10%), 5%);
@@ -196,7 +175,3 @@ $animate-std-cubic: cubic-bezier(.250, .460, .450, .940);
         }
     }
 }
-
-
-
-

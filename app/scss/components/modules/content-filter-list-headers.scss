@@ -1,12 +1,6 @@
 .main-content-list li.cl > div {
     position: relative;
 
-    > .comments,
-    > .actions {
-        position: absolute;
-        right: 0;
-    }
-
     &.quick:hover,
     &.active {
         .actions {

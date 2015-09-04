@@ -125,14 +125,11 @@ ul.navigation--modules {
         @include ellipsis;
         padding: 0.35rem $spacing/2;
         position: relative;
+        cursor: pointer;
 
         &:hover,
         &.active {
-            color: $color-detail-70;
-        }
-
-        &:hover {
-            cursor: pointer;
+            color: $white;
         }
 
         &.active {

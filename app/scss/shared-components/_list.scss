@@ -3,7 +3,7 @@
 ul.list,
 ol.list {
     list-style: none;
-    margin: -0.3rem 0 $spacing - 0.3rem 0;
+    // margin: -0.3rem 0 $spacing - 0.3rem 0;
 
     li {
         padding: .3rem 0 .3rem 2rem;
@@ -27,12 +27,12 @@ ol.list {
 
 ul.list {
 
-    li:before {
-        top: 0.95rem;
-        height: 2px;
-        width: 8px;
-        background-color: $color-brand-50;
-    }
+    // li:before {
+    //     top: 0.95rem;
+    //     height: 2px;
+    //     width: 8px;
+    //     background-color: $color-brand-50;
+    // }
 }
 
 ol.list {
