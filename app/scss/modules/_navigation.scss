@@ -1,18 +1,13 @@
 nav.navigation {
     @include transition(left cubic-bezier(0, 0, .2, 1) .5s);
+    @include flex(0 0 auto);
     width: $navigation-width;
-    position: fixed;
     min-height: 100%;
     z-index: 2;
     left: 0;
     border-right: 1px solid rgba($color-neutral-50, 0.7);
-    
-    //background-image: url('../images/nav-bg-v2.jpg');
     background-color: $color-detail-50;
-    background-size: cover;
-    background-repeat: no-repeat; 
-    background-position: center;
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     overflow: hidden;

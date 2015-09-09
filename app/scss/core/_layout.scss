@@ -1,4 +1,13 @@
 // =========== Layout
+div.layout {
+    height: 100%;
+    width: 100%;
+    @include display(flex);
+    @include flex-direction(row);
+}
+
+
+
 // Build up your container to get your website centered
 .l-container {
     margin: auto;

@@ -1,13 +1,9 @@
-div.layout {
-    position: absolute;
-    min-height:100%;
-    height: auto;
-    width: 100%;
+// ============ Main
 
-    > .main {
-        margin-left: $navigation-width;
-        position: relative;
-    }
+.main {
+    @include flex(1 1 auto);
+
+    z-index: 101;
+    display: block;
+    position: relative;
 }
-
-div.main { }

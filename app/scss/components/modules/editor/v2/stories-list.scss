@@ -114,27 +114,6 @@
     }
 }
 
-.has-aside {
-    @include display(flex);
-    @include flex-direction(row);
-
-    .content {
-        @include display(flex);
-        @include flex-direction(column);
-        @include flex(1 1 auto);
-    }
-
-    aside {
-        @include transition(opacity $animate-std-cubic .4s, min-width cubic-bezier(0, .6, .85, 1) .2s);
-        max-width: 3em;
-    }
-
-    aside.expand {
-        max-width: 15em;
-        min-width: 15em;
-    }
-}
-
 .stories.list {
     @include display(flex);
     @include flex-direction(column);

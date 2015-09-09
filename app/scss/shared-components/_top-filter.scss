@@ -8,6 +8,9 @@
     width: 100%;
     padding: 0 $spacing;
     position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 2000;
     @include transition(background $animate-std-cubic .1s, opacity $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
 
