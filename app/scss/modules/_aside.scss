@@ -1,0 +1,60 @@
+// ============= Aside
+
+.aside {
+    @include transition(width ease-in $sidebar-toggle-speed);
+    position: relative;
+    top: 0;
+    bottom:0;
+    margin: 0;
+    overflow: hidden;
+    background-color: $white;
+    border-left: 1px solid $color-neutral-10;
+    box-shadow: -1px 0 2px 0 rgba($color-neutral-40, 0.13);
+
+    &.expand {
+        width: 19rem;
+    }
+
+    .header {
+        @include display(flex);
+        @include align-content(center);
+        font-size: $font-size-40;
+        line-height: 1.5em;
+        padding: $spacing/2 0;
+
+        .actions {
+            @include flex(0 0 auto);
+
+            a { 
+                font-size: $font-size-60;
+                position: relative;
+                top: -1px;
+            }
+        }
+    }
+
+    .variable-view > div {
+        padding: 0 $spacing/2;
+        border-bottom: 1px solid rgba($color-neutral-30, 0.4);
+    }
+}
+
+.has-aside {
+    @include display(flex);
+    @include flex-direction(row);
+    .content {
+        @include display(flex);
+        @include flex-direction(column);
+        @include flex(1 1 auto);
+    }
+
+    aside {
+        @include transition(opacity $animate-std-cubic .4s, min-width cubic-bezier(0, .6, .85, 1) .2s);
+        max-width: 3em;
+    }
+
+    aside.expand {
+        max-width: 15em;
+        min-width: 15em;
+    }
+}
