@@ -5,7 +5,7 @@
   "license": {
 	"type": "GPLv2",
 	"url": "https://github.com/topicusfinan/finq-webclient/blob/design/license.md"
-  }
+  },
   "version": "0.0.0",
   "repository": {
     "type": "git",
