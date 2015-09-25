@@ -11,10 +11,8 @@
 
 .list-item {
 
-    .active input { 
+    .active input {
         color: $white;
-
-        &:focus, &:active, &:hover { color: $color-neutral-60; }
     }
 
     // Collapse expand arrow
@@ -27,39 +25,18 @@
 
     .header {
 
-        // .prefix {
-        //    @include display(flex);
-        //     @include justify-content(space-around);
-
-        //     * {
-        //         @include flex(1 1 auto);
-        //     }
-
-        //     // .scenario-handle, .step-handle {
-        //     //     padding-left: 0.2em;
-        //     //     text-align: left;
-        //     // }
-
-        //     user-select: none;
-        //     min-width: 2em;
-        //     text-align: center;
-        //     font-size: 1.778em;
-        //     cursor: pointer;
-        // }
-
         .title {
             @include display(flex);
-            @include flex(1 1 auto);        
+            @include flex(1 1 auto);
             @include align-items(center);
-            cursor: default;
 
             span {
-                @include flex(1 1 auto);  
+                @include flex(1 1 auto);
                 padding-right: 1.5em;
             }
 
             input {
-                @include flex(1 1 auto);  
+                @include flex(1 1 auto);
                 margin: 0;
             }
         }
@@ -89,7 +66,7 @@
             }
         }
 
-        &.active .actions, 
+        &.active .actions,
         &:hover .actions {
             display: block;
         }

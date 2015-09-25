@@ -29,9 +29,7 @@ select {
     width: 100%;
 
     &:focus {
-        color: $color-neutral-70;
         border-color: $color-brand-50;
-        box-shadow: inset 0 1px 3px rgba(#000, .06), 0 0 5px rgba(darken($blue, 5), .7);
         outline: 0;
     }
 
@@ -51,10 +49,10 @@ select::-ms-expand {
     display: none;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
     @include appearance(none);
-    margin: 0; 
+    margin: 0;
 }
 
 input[type=number] {
@@ -86,7 +84,7 @@ select {
 
 form {  }
 
-fieldset { // is leeg in taiga 
+fieldset { // is leeg in taiga
     background: lighten($color-neutral-20, 10);
     border: 1px solid $color-neutral-20;
     margin: 0 0 ($spacing / 2);

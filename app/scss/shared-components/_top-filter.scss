@@ -37,12 +37,19 @@
     @include align-items(center);
     margin-right: $spacing;
 
-    span { 
+    span {
         @include flex(0 0 auto);
         margin-right: $spacing/2;
     }
 
-    input { display: inline-block; }
+    input {
+        display: inline-block;
+        background-color: $color-brand-40;
+        border: 0;
+        border-bottom: #86949B 1px dashed;
+        box-shadow: none;
+        color: inherit;
+    }
 }
 
 .actions {
@@ -71,7 +78,7 @@
     > span { margin-right: $spacing/2; }
     > span:not(:only-child) { display: none; }
 
-    > i { 
+    > i {
         color: $white;
         margin-right: $spacing/2;
     }

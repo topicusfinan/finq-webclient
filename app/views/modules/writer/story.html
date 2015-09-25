@@ -43,8 +43,28 @@
                     <div class="title">
                         <span class="separate" translate="WRITER.STORIES.LIST.SCENARIOS"></span>
                     </div>
+                    <div class="actions">
+                        <button ng-click="story.add()">
+                            <i class="fa fa-plus"></i>
+                            <span translate="WRITER.STORIES.NEW_SCENARIO"></span>
+                        </button>
+                    </div>
                 </div>
                 <scenario-view scenarios="story.model.scenarios"></scenario-view>
+                <div class="tools">
+                    <input class="typeahead" type="text" placeholder="{{story.inputPlaceholder}}" sf-typeahead
+                           options="story.typeAheadOptions" datasets="story.stepsDataset" ng-model="story.inputValue">
+                    <div class="select"></div>
+                    <div class="actions">
+                        <button ng-show="story.isString(story.inputValue)">
+                            <i class="fa fa-chain-broken"></i>
+                            <span>Add pending</span>
+                        </button>
+                        <button ng-click="story.insertObject()" ng-hide="story.isString(story.inputValue)">
+                            <span>Insert</span>
+                        </button>
+                    </div>
+                </div>
             </li>
             <li class="list-item epilogue story-list--header">
                 <div class="header selectable" ng-class="{'active':story.selectedItem.isItemSelected({id:2})}"
@@ -59,20 +79,6 @@
                 <scenario-view scenarios="story.model.epilogue"></scenario-view>
             </li>
         </ul>
-        <div class="tools">
-            <input class="typeahead" type="text" placeholder="{{story.inputPlaceholder}}" sf-typeahead
-                   options="story.typeAheadOptions" datasets="story.stepsDataset" ng-model="story.inputValue">
-            <div class="select"></div>
-            <div class="actions">
-                <button ng-show="story.isString(story.inputValue)">
-                    <i class="fa fa-chain-broken"></i>
-                    <span>Add pending</span>
-                </button>
-                <button ng-click="story.insertObject()" ng-hide="story.isString(story.inputValue)">
-                    <span>Insert</span>
-                </button>
-            </div>
-        </div>
     </div>
     <aside ng-class="{'expand' : story.sidebarIsExpanded()}" sidebar="false" class="aside"></aside>
 </div>

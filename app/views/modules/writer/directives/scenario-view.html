@@ -10,10 +10,8 @@
                 <input type="text" ng-model="scenario.title">
             </div>
             <div class="actions">
-                <button ng-click="scenarioView.deleteItem(scenarios, $index, scenario)">
-                    <i class="fa fa-trash-o"></i>
-                    <span translate="WRITER.STORIES.SCENARIOS.DELETE"></span>
-                </button>
+                <strong class="hint--left" data-hint="{{'WRITER.STORIES.SCENARIOS.DELETE' | translate}}"><i
+                    class="fa fa-trash-o" ng-click="scenarioView.deleteItem(scenario.steps, $index, step)"></i></strong>
             </div>
         </div>
         <ul class="scenario-content-list list-animate story-list--stories" sortable="scenario.steps" handle=".step-handle" connect-with=".scenario-content-list">
