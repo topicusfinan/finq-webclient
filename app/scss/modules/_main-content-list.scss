@@ -204,11 +204,21 @@
                     li.cl > div {
 
                         &.success {
-                            background: lighten($lime, 30%);
+                            background: lighten($color-success-50, 30%);
+
+                            &.active { 
+                                background: $color-success-60;
+                                color: $white;
+                            }
                         }
 
                         &.failed {
-                            background: lighten($light-red, 30%);
+                            background: lighten($color-alert-50, 30%);
+
+                            &.active { 
+                                background: $color-alert-60;
+                                color: $white;
+                            }
                         }
 
                         &.skipped:not(.active) {

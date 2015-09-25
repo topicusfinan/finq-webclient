@@ -18,7 +18,7 @@ ul.story-list {
 			i:after, i:before { color: $white; }
 		}
 
-		&.selectable:not(.active) {
+		&.selectable {
 			cursor: pointer;
 
 			&:hover {
@@ -70,14 +70,14 @@ li.story-list--header {
 		color: $white;
 		margin: 0;
 		padding-left: $spacing/2;
-		box-shadow: 0 1px 2px 0 rgba($color-neutral-90, 0.34);
+		box-shadow: 0 1px 2px 0 rgba($color-neutral-90, 0.04);
 
 
     	.prefix i { margin-right: $spacing/2; }
 
 	}
 
-	li {
+	> ul > li {
 		background: #c8ced0; 
 	}
 
