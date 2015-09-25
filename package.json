@@ -2,6 +2,10 @@
   "name": "finq",
   "author": "Christian Kramer <cmkramer@gmail.com>",
   "homepage": "http://finq.io",
+  "license": {
+	"type": "GPLv2",
+	"url": "https://github.com/topicusfinan/finq-webclient/blob/design/license.md"
+  }
   "version": "0.0.0",
   "repository": {
     "type": "git",
@@ -43,6 +47,7 @@
     "karma-ng-html2js-preprocessor": "^0.1.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sinon": "^1.0.3",
+	"chai": "^1.9.2",
     "karma-sinon-chai": "^0.3.0",
     "main-bower-files": "^2.5.0",
     "merge-stream": "^0.1.7",
