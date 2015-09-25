@@ -18,32 +18,26 @@ angular.module('finqApp.writer.controller')
         };
         this.loaded = true;
         this.createNew = true;
-
-        //this.id = null;
-        //this.title = null;
-        //this.scenarios = [];
-        //this.prologue = [];
-        //this.epilogue = [];
-        //this.sets = [];
-        //this.tags = [];
+        this.collections = {
+            prologue: {
+                id: 0,
+                isAdding: false,
+                inputValue: ''
+            },
+            scenarios: {
+                id: 1,
+                isAdding: false,
+                inputValue: ''
+            },
+            epilogue: {
+                id: 2,
+                isAdding: false,
+                inputValue: ''
+            }
+        };
         this.model = null;
 
         $module.setCurrentSection(MODULES.WRITER.sections.STORIES);
-
-
-        // TODO move logic to service
-        this.inputPlaceholder = 'Scenario title';
-        $scope.$watch(function () {
-            return $selectedItem.getSelectedItemId();
-        }, function (value) {
-            if (value !== undefined && value !== null) {
-                if (value.indexOf('scenario') !== -1) {
-                    that.inputPlaceholder = 'Scenario title';
-                } else if (value.indexOf('step') !== -1) {
-                    that.inputPlaceholder = 'Step title';
-                }
-            }
-        });
 
         this.toggleSidebar = function () {
             switch ($sidebar.getStatus()) {
@@ -69,19 +63,20 @@ angular.module('finqApp.writer.controller')
             that.createNew = false;
             $storyVariable.setupVariables(foundStory);
             this.model = foundStory;
-
-            //this.id = foundStory.id;
-            //this.title = foundStory.title;
-            //this.sets = foundStory.sets;
-            //this.tags = foundStory.tags;
-            //this.scenarios = foundStory.scenarios;
-            //this.epilogue = foundStory.epilogue;
-            //this.prologue = foundStory.prologue;
         }
 
         $sidebar.setDirective({
             'scenario-variables-view': null
         });
+
+        this.add = function(collection) {
+            collection.isAdding = true;
+        };
+
+        this.clear = function(collection) {
+            collection.isAdding = false;
+            collection.inputValue = '';
+        };
 
         this.back = function () {
             $storyEdit.cancel(this.model.id);
@@ -101,9 +96,6 @@ angular.module('finqApp.writer.controller')
         function insertObject(array, object, insertPosition) {
             array.splice(insertPosition, 0, object);
         }
-
-        // TODO move this to a service
-        this.inputValue = '';
 
         var stepsBloodhound = new Bloodhound({
             datumTokenizer: function (d) {

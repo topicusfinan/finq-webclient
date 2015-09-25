@@ -81,6 +81,27 @@ li.story-list--header {
 		background: #c8ced0;
 	}
 
+    .story-list--tools {
+
+        background: $color-brand-60;
+        color: $white;
+
+        .twitter-typeahead {
+            @include display(flex);
+            @include flex(1 1 auto);
+            @include align-items(center);
+        }
+
+        .actions {
+            max-width: fit-content;
+        }
+
+        input {
+            @include flex(1 1 auto);
+            margin: 0;
+        }
+    }
+
 }
 
 ul.story-list--stories {

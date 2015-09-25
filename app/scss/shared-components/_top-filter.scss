@@ -31,7 +31,7 @@
     i { margin-top: 2px; }
 }
 
-.title {
+.title, .story-list--tools {
     @include flex(1 1 auto);
     @include display(flex);
     @include align-items(center);
@@ -43,12 +43,19 @@
     }
 
     input {
+        @include placeholder {
+            color: $color-neutral-60;
+        }
         display: inline-block;
         background-color: $color-brand-40;
         border: 0;
         border-bottom: #86949B 1px dashed;
         box-shadow: none;
         color: inherit;
+
+        &.tt-hint {
+            color: $color-neutral-60;
+        }
     }
 }
 

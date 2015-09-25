@@ -156,8 +156,11 @@
             "BEFORE_NEW_TITLE": "Create a new story named",
             "NEW_STORY": "New story",
             "NEW_SCENARIO": "New scenario",
+            "ENTER_SCENARIO_TITLE": "Set a scenario title",
+            "TYPE_TO_SEARCH_STEP": "Find an existing step or create a pending step",
             "EDIT": "Edit",
             "SAVE": "Save",
+            "INSERT": "Insert",
             "FILTER": {
                 "ALL_STORIES": "All stories",
                 "PENDING_STORIES": "Stories with pending steps",
