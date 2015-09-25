@@ -50,7 +50,7 @@ angular.module('finqApp.service')
                 throw new Error('Report search has not been initialized');
             }
             var ids = [];
-            searchList.engine.get(query, function (suggestions) {
+            searchList.engine.search(query, function (suggestions) {
                 angular.forEach(suggestions, function (suggestion) {
                     ids.push(suggestion.report);
                 });

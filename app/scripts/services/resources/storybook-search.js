@@ -79,7 +79,7 @@ angular.module('finqApp.service')
             }
             var ids = [];
             var searchEngine = bookId === undefined ? searchList.global.engine : searchList.books[bookId].engine;
-            searchEngine.get(query, function (suggestions) {
+            searchEngine.search(query, function (suggestions) {
                 angular.forEach(suggestions, function (suggestion) {
                     if (ids.indexOf(suggestion[resultType]) === -1) {
                         ids.push(suggestion[resultType]);
