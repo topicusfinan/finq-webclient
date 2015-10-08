@@ -1,9 +1,9 @@
-<div class="top-filter filter-1 ic selectable" ng-show="report.loaded" ng-class="{'active':report.selectedItem.isNoItemSelected()}" ng-click="report.selectedItem.clearSelectedItem()">
+<header ng-show="report.loaded">
     <i class="fa fa-chevron-left" ng-click="report.list()"></i>
     <div class="filters">
         <span>{{ run.title }}</span>
     </div>
-</div>
+</header>
 <ul id="run-report" story-collapse class="main-content-list story-list filter-1">
     <li class="ic cl list-animate story-list--header" ng-repeat="story in run.stories track by story.id">
         <div>

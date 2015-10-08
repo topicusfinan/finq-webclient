@@ -1,10 +1,10 @@
-<div class="top-filter filter-1" ng-class="{'active':reports.selectedItem.isNoItemSelected()}" ng-click="reports.selectedItem.clearSelectedItem()" ng-controller="ReportFilterCtrl as filter">
+<header ng-controller="ReportFilterCtrl as filter">
     <div class="filters">
         <i class="fa fa-check-square-o" ng-class="{'inactive':!reports.filter.status.ids.length}"></i>
         <span translate="RUNNER.REPORTS.FILTER.BEFORE_STATUS"></span>
         <div class="select" filter-select="filter.statuses" filter-id="reports.filter.status.id" placeholder="filter.statusPlaceholder" default="filter.statusesDefault" max-items="{{::reports.maxSelectItems}}"></div>
     </div>
-</div>
+</header>
 <div class="search ng-hide" ng-show="initialized()" search></div>
 <ul id="report-list" class="main-content-list story-list filter-1 report-list">
     <li class="ic cl list-animate story-list--header" ng-repeat="runReport in filteredReports = (reportList() | reportPaginationFilter:reports.currentPage:reports.maxReports) track by runReport.id">

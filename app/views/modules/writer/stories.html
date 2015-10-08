@@ -1,4 +1,4 @@
-<div class="top-filter ic filter-2 selectable" ng-class="{'active':stories.selectedItem.isNoItemSelected()}" ng-click="stories.selectedItem.clearSelectedItem()">
+<header ng-class="{'active':stories.selectedItem.isNoItemSelected()}" ng-click="stories.selectedItem.clearSelectedItem()">
     <i class="fa fa-bars" ng-click="toggleAll()"></i>
     <div class="filters">
         <span class="verbose" translate="WRITER.STORIES.BEFORE_STORIES_FILTER"></span>
@@ -9,7 +9,7 @@
             <span translate="WRITER.STORIES.NEW_STORY"></span>
         </button>
     </div>
-</div>
+</header>
 <ul class="main-content-list filter-2 story-list" story-collapse>
     <li class="ic cl list-animate story-list--header" ng-repeat="book in storybooks track by book.id">
         <div class="selectable" ng-class="{'active':stories.selectedItem.isItemSelected(book)}" ng-click="stories.selectedItem.setSelectedItem(book)">

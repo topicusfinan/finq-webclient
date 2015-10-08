@@ -1,7 +1,6 @@
-<div class="top-filter filter-1 selectable" ng-class="{'active':running.selectedItem.isNoItemSelected()}" ng-click="running.selectedItem.clearSelectedItem()" ng-controller="RunningFilterCtrl as filter">
+<header ng-controller="RunningFilterCtrl as filter">
     <div class="filters">
         <i class="fa fa-globe" ng-class="{'inactive':!running.filter.env.keys.length}"></i>
-        <span translate="RUNNER.RUNNING.FILTER.BEFORE_ENVIRONMENT"></span>
         <div class="select" filter-select="filter.environments" filter-id="running.filter.env.id" placeholder="filter.envPlaceholder" max-items="{{::running.maxSelectItems}}"></div>
     </div>
     <div class="actions">
@@ -10,7 +9,7 @@
             <span translate="RUNNER.RUNNING.FILTER.PURGE"></span>
         </button>
     </div>
-</div>
+</header>
 <ul id="run-list" story-collapse class="main-content-list story-list filter-1 running-list">
     <li class="ic cl list-animate story-list--header" ng-repeat="run in filteredRuns = (runs() | runEnvironmentFilter:running.filter.env.ids) track by run.id">
         <div>
