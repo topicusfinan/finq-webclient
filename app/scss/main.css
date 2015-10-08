@@ -962,6 +962,10 @@ ul.story-list {
     ul.story-list li > div.active {
       background: #46aa92;
       color: #fff; }
+      ul.story-list li > div.active .action {
+        opacity: 1;
+        width: auto;
+        overflow: visible; }
       ul.story-list li > div.active i:after, ul.story-list li > div.active i:before {
         color: #fff; }
     ul.story-list li > div.selectable {
@@ -2042,8 +2046,8 @@ li.cl.success .radial-progress .circle .mask .fill {
         padding: 0; }
       .select .select-dropdown button:last-child {
         border-radius: 0 0 .2em .2em;
-        vertical-align: bottom;
-        margin-bottom: 0; }
+        display: block;
+        padding: 0; }
       .select .select-dropdown button:hover {
         background: #e6e6e6; }
       .select .select-dropdown button:disabled {

@@ -15,6 +15,12 @@ ul.story-list {
 			background: $color-brand-60;
 			color: $white;
 
+			.actions { 
+				opacity: 1;
+				width: auto;
+				overflow: visible;
+			}
+
 			i:after, i:before { color: $white; }
 		}
 
