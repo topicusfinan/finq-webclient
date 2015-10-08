@@ -37,3 +37,13 @@ i.organizer:before {
 i.writer:before {
     content: '\f040';
 }
+
+i.expand:before {
+    content: '\f0da';
+}
+
+.expand {
+    i.expand:before {
+        content: '\f0d7';
+    }
+}

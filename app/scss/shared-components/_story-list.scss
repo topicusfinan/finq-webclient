@@ -34,11 +34,20 @@ ul.story-list {
 		}
 	}
 
+	ul.expand,
+	li.expand {
+		ul {
+			opacity: 1;
+            height: auto;
+            overflow-y: visible;
+		}
+	}
+
 	div.title {
         @include display(flex);
         @include align-items(center);
         @include flex(1 1 auto);
-    }
+     }
 
     .actions {
         @include display(flex);
@@ -48,8 +57,13 @@ ul.story-list {
         overflow: hidden;
         height: 100%;
         padding: $spacing/2;
+    }
 
-        .separate { margin: 0 0.25rem;}
+    .comments {
+    	font-size: $font-size-30;
+    	color: $color-neutral-40;
+
+    	i { margin: 2px 0 0 0.25rem; }
     }
 }
 
@@ -66,35 +80,32 @@ li.story-list--header {
 		box-shadow: 0 1px 2px 0 rgba($color-neutral-90, 0.04);
 
 
-    	.prefix i { margin-right: $spacing/2; }
+    	i { 
+    		margin-right: $spacing/3; 
+    		margin: 2px $spacing/2 0 0;
+			color: $color-neutral-60;
+
+    		&.success { color: $success-color; }
+
+            &.failed { color: $error-color; }
+    	}
 
 	}
 
 	> ul > li {
 		background: #c8ced0;
+
+		div > i { margin-right: $spacing/3; }
 	}
 
-    .story-list--tools {
-
-        background: $color-brand-60;
-        color: $white;
-
-        .twitter-typeahead {
-            @include display(flex);
-            @include flex(1 1 auto);
-            @include align-items(center);
+	ul, li {
+		ul { 
+			opacity: .5;
+            height: 0;
+            overflow-y: hidden;
+                        @include transition(opacity $animate-std-cubic .4s, max-height cubic-bezier(0, .6, .85, 1) .3s);
         }
-
-        .actions {
-            max-width: fit-content;
-        }
-
-        input {
-            @include flex(1 1 auto);
-            margin: 0;
-        }
-    }
-
+	}
 }
 
 ul.story-list--stories {
@@ -118,4 +129,25 @@ ul.story-list--stories {
 			margin-right: $spacing/2;
 		}
 	}
+}
+
+.story-list--tools {
+
+    background: $color-brand-60;
+    color: $white;
+
+    .twitter-typeahead {
+        @include display(flex);
+        @include flex(1 1 auto);
+        @include align-items(center);
+    }
+
+    .actions {
+        max-width: fit-content;
+    }
+
+    input {
+        @include flex(1 1 auto);
+        margin: 0;
+    }
 }
