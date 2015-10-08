@@ -68,8 +68,6 @@
         "AVAILABLE" : {
             "TITLE" : "Available scenarios",
             "FILTER" : {
-                "BEFORE_SET" : "Stories in",
-                "BEFORE_TAG" : "tagged with",
                 "RUN_ALL" : "Run all",
                 "BEFORE_ENVIRONMENT" : "on",
                 "RUN" : "Run"
