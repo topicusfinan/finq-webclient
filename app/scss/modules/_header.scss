@@ -36,6 +36,12 @@ header {
 
 	    }
 
-	    > div { margin-right: $spacing*2; }
+	    > div { margin-right: $spacing; }
+
+	    .select { 
+	    	@media (min-width: $breakpoint-30) { 
+	    		display: block!important; 
+	    	}
+	    }
 	}
 }
