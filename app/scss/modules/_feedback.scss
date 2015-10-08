@@ -60,6 +60,30 @@ footer.feedback {
 }
 
 
+// ========== Feedback
+
+.error-feedback,
+.notice-feedback {
+    margin-top: 1em;
+    text-align: center;
+}
+
+.error-feedback {
+    display: block;
+    padding: .5em;
+    background-color: $error-color;
+    border-radius: 1px solid $border-radius-10;
+    color: darken($white, 10%);
+}
+
+.notice-feedback {
+    display: block;
+    padding: .5em;
+    background-color: $notice-color;
+    border-radius: 1px solid $border-radius-10;
+    color: $color-neutral-60;
+}
+
 @keyframes feedback {
     0%,
     40%,

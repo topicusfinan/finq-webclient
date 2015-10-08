@@ -17,10 +17,6 @@ button {
     }
 }
 
-.fa-spin {
-    @include animation(spin 1.4s infinite linear);
-}
-
 input.ng-invalid {
     border-color: $error-color;
     background-color: lighten($error-color, 45%);
@@ -28,21 +24,7 @@ input.ng-invalid {
     @include transition(all linear .1s);
 }
 
-.error-feedback {
-    display: block;
-    padding: .5em;
-    background-color: $error-color;
-    border-radius: 1px solid $border-radius-10;
-    color: darken($white, 10%);
-}
 
-.notice-feedback {
-    display: block;
-    padding: .5em;
-    background-color: $notice-color;
-    border-radius: 1px solid $border-radius-10;
-    color: $color-neutral-60;
-}
 
 button {
     background-color: $color-brand-60;

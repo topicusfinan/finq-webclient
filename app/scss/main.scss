@@ -18,7 +18,7 @@
 'shared-components/buttons',
 'shared-components/figure',
 'shared-components/forms',
-'shared-components/icons',
+// 'shared-components/icons',
 'shared-components/labels',
 'shared-components/list',
 'shared-components/messages',
@@ -59,6 +59,9 @@
 // Modules are connected to a specific piece of content and can't be used without that piece of content.
 // Example: the module 'product' can't be used for a 'blog-article'.
 'modules/header',
+'modules/actions',
+'modules/title',
+
 'modules/navigation',
 'modules/main',
 'modules/search',

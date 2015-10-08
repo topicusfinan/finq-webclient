@@ -1,91 +1,41 @@
-// // ============ Header 
+// ============ Header 
+header {
+    @include display(flex);
+    @include align-items(center);
+    @include transition(background $animate-std-cubic .1s, opacity $animate-std-cubic $view-animate-show-speed $view-animate-hide-speed);
 
-// div.layout > header {
-//     @include display(flex);
-//     width: 100%;
-//     height: $header-height;
-//     min-width: 60rem;
-//     background-color: $color-brand-70;
-//     position: fixed;
-//     z-index: 10000;
+    height: $header-height;
+    background: $color-brand-60;
+    color: $white;
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 0 $spacing;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    
+    > * { cursor: pointer; }
 
-//     .title {
-//         @include transition(opacity linear 1s);
-        
-//         font-size: $font-size-80;
-//         opacity: 1;
+    .filters {
+	    @include flex(1 0 auto);
+	    @include display(flex);
+	    @include align-items(center);
 
-//         &.ng-hide {
-//             opacity: 0;
-//         }
-//     }
+	    > span { margin-right: $spacing/2; }
+	    > span:not(:only-child) { display: none; }
 
-//     .title {
-//         @include flex(0 0 auto);
-//         @include display(flex);
-//         @include align-items(center);
+	    > i {
+	        @include flex(0 0 auto);
+	    	margin-top: 2px; 
+	        font-size: $font-size-60;
+	        margin-right: $spacing;
+	        color: $white;
+	        margin: 0 $spacing/2 0 0;
 
-//         background-color: $color-neutral-90;
-//         padding-left: $spacing/2;
-//         width: $navigation-width;
-//         padding-right: $spacing/2;
-//         position: relative;
-//         color: $color-neutral-10;
-//         font-weight: 500;
+	    }
 
-//         // &:after {
-//         //     background-color: $color-brand-70;
-//         //     height: 100%;
-//         //     width: 3rem;
-//         //     position: absolute;
-//         //     right: -2.2rem;
-//         //     top: 0;
-//         //     content: " ";
-//         //     @include transform(skew(20deg, 0deg));
-//         // }
-
-//         span {
-//             @include ellipsis;
-//             font-size: 2.29rem;
-//             line-height: 1.5em;
-//         }
-//     }
-
-//     .account {
-//         // display: none;
-//         @include flex (0 0 auto);
-//         width: 1px;
-//         float: right;
-//         min-height: 100%;
-//         padding: 0.32rem 0.57rem;
-
-//         > img {
-//             height: 3em;
-//             position: absolute;
-//             right: .5em;
-//             top: .5em;
-//             max-width: none;
-//             cursor: pointer;
-//         }
-
-//         .name {
-//             padding: .8em .8em/2;
-//             right: 4em;
-//             position: absolute;
-
-//             > span {
-//                 display: block;
-//                 text-align: right;
-
-//                 &.first {
-//                     font-size: .9em;
-//                     line-height: .5em;
-//                 }
-
-//                 &.last {
-//                     font-size: 1.2em;
-//                 }
-//             }
-//         }
-//     }
-// }
+	    > div { margin-right: $spacing*2; }
+	}
+}
