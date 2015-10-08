@@ -84,6 +84,7 @@
 
         li {
             @include ellipsis;
+            display: block;
             border: 0;
             padding: .3em 1em;
             margin: 0;

@@ -117,7 +117,8 @@ ul.navigation--modules {
     color: rgba($color-neutral-20, 0.7);
 
     li {
-        @include ellipsis;
+        @include ellipsis();
+        display: block;
         padding: 0.35rem $spacing/2;
         position: relative;
         cursor: pointer;

@@ -18,6 +18,9 @@ header {
     
     > * { cursor: pointer; }
 
+    > i,
+    > .prefix > i { margin: 2px $spacing/2 0 0; }
+
     .filters {
 	    @include flex(1 0 auto);
 	    @include display(flex);

@@ -16,7 +16,7 @@
 'shared-components/buttons',
 // 'shared-components/figure',
 'shared-components/forms',
-// 'shared-components/icons',
+'shared-components/icons',
 // 'shared-components/labels',
 // 'shared-components/list',
 // 'shared-components/messages',
@@ -28,32 +28,6 @@
 
 'shared-components/actions',
 'shared-components/title',
-
-//  START OLD STYLES THAT NEED TO BE GONE --> 
-	// load the components
-	'components/vendor/mixins',
-	'components/vendor/progress',
-	'components/mixins',
-	'components/input',
-	'components/intro',
-	'components/preloader',
-	'components/icons',
-	'components/modules/content-filter-list-headers',
-	'components/modules/select',
-	'components/modules/tooltip',
-	'components/modules/hero-notice',
-	'components/modules/pagination',
-	'components/modules/editor/editor-layout',
-	'components/modules/editor/variable-blocks',
-	'components/modules/editor/modal',
-	'components/modules/editor/v2/stories-list',
-	'components/modules/editor/v2/sortable',
-
-	// finally enhance the components with some theme magic
-	'theme/styles', 
-//  <-- END OLD STYLES THAT NEED TO BE GONE
-
-//'shared-components/top-filter',
 'shared-components/story-list', 
 
 // Modules
@@ -69,6 +43,7 @@
 'modules/aside',
 
 'modules/radial-progress',
+'modules/select',
 
 'modules/main-content-list', // Old en ugly css. Try and rewrite this!
 'modules/running-list',

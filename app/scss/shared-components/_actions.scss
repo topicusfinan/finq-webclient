@@ -1,0 +1,35 @@
+// ========== Actions
+
+.actions {
+    @include flex(0 0 auto);
+    @include display(flex);
+    @include align-items(center);
+
+
+    > button {
+        background: $color-neutral-90;
+        border: solid 2px $color-neutral-90;
+        border-radius: $border-radius-20;
+        // font-size: 0.876rem;
+        padding: $spacing/3 $spacing/1.5;
+    }
+    
+    i {
+        margin: 0 0.25rem 0 0;
+        color: $white;
+    }
+
+    > span {
+        padding: 0 $spacing/3;
+    }
+
+    .hint--left {
+        border: solid 2px transparent;
+        border-radius: $border-radius-20;
+        padding: $spacing/3 $spacing/1.5;
+        background: $color-neutral-90;
+        
+        i { margin: 0;}
+    }
+
+}

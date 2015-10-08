@@ -38,6 +38,21 @@ input[type='submit'] {
     user-select: none;
     vertical-align: middle;
     white-space: nowrap;
+    background-color: $color-brand-60;
+    color: $white;
+
+    &:hover {
+        background-color: $color-brand-70;
+        color: darken($white, 10%);
+    }
+
+    &.secondary {
+        background-color: $color-neutral-60;
+
+        &:hover {
+            background-color: darken($color-neutral-60, 10%);
+        }
+    }
 }
 
 // %button {
