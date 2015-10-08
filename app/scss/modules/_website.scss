@@ -1,0 +1,133 @@
+// ============ Website
+
+.website--wrapper {
+
+}
+
+.website--header {
+	@include grid-reset;
+	width: 100%;
+	padding: 3em 1.5em;
+	min-width: 14em;
+	background: $white;
+
+	> div {
+		@include grid-reset;
+		margin: 0 auto;
+		width: 100%;
+		max-width: 1000px;
+		text-align: center;
+	}
+
+	h1 {
+		padding: .3em 0 .5em 0;
+		margin-bottom: 0;
+		letter-spacing: -1.5px;
+		color: $color-detail-50;
+		font-weight: 400;
+	}
+
+	p { margin-bottom: 0; }
+	
+	small { color: $color-neutral-40;}
+}
+
+.website--body { 
+	@include grid-reset;
+	width: 100%;
+	background: $color-neutral-10;
+	padding: 3em 1.5em;
+	min-width: 14em;
+	
+	.bodycontainer {
+		@include grid-reset;
+		margin: 0 auto;
+		width: 100%;
+		max-width: 1000px;
+		text-align: center;
+	}
+
+	ul {
+		@include display(flex);
+	}
+
+	li {
+		display: inline-block;
+		margin: 2%;
+		width: 20%;
+		text-align: left;
+		
+		i {
+			margin-right: .3em;
+		}
+
+		h3 {
+			overflow: hidden;
+		  	white-space: nowrap;
+		  	text-overflow: ellipsis;
+		}
+	}
+}
+
+
+
+.website--footer {
+	@include grid-reset;
+	width: 100%;
+	padding: 3em 1.5em;
+	min-width: 14em;
+	background: $color-neutral-90;
+
+	.bodycontainer {
+		@include grid-reset;
+		margin: 0 auto;
+		width: 100%;
+		max-width: 1000px;
+		text-align: center;
+	}
+
+	p {
+		color: $color-neutral-20;
+	}
+
+	ul {
+		width: 100%;
+		margin: 0 0 1.5em 0;
+	}
+
+	li {
+		display: inline-block;
+		list-style-type: none;
+		margin: 0 .25em;
+
+		a {
+			font-size: 0.9em;
+			color: #efefef;
+			width: 11rem;
+			border-radius: .4em;
+			background: rgba(239, 239, 239, 0.3);
+			padding: .3em .5em;
+			position: relative;
+			display: inline-block;
+
+			&:hover {
+				background: $color-neutral-60;
+			}
+		}
+
+		i {
+			font-size: 2.2em;
+			float: left;
+			margin-left: 3px;
+		}
+
+		span {
+			position: absolute;
+			left: 3rem;
+			top: .2em;
+			line-height: 1.2em;
+			text-align: left;
+			width: 7.5rem;
+		}
+	}
+}

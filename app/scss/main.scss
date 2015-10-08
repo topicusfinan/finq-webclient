@@ -33,6 +33,8 @@
 // Modules
 // Modules are connected to a specific piece of content and can't be used without that piece of content.
 // Example: the module 'product' can't be used for a 'blog-article'.
+'modules/login',
+'modules/website',
 'modules/header',
 
 'modules/navigation',

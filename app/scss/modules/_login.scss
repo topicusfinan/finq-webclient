@@ -1,0 +1,92 @@
+// ========== Login
+
+.login--wrapper {
+	width: 100%;
+}
+
+.login {
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
+	padding-bottom: $spacing*4;
+	background-color: rgba($color-detail-50, 0.93);
+	color: $white;
+	overflow:hidden;
+
+	&:before {
+		font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f058";
+        display: block;
+        color: $color-detail-60;
+        position: absolute;
+        z-index: 100;
+        right: -4rem;
+        bottom: -6rem;
+        font-size: 28rem;
+        opacity: 0.4;
+        z-index: 1;
+
+	}
+
+    > * {
+    	position: relative;
+    	z-index: 2;
+    }
+}
+
+.login--form {
+	max-width: 24rem;
+	padding: 0 $spacing;
+	margin: 0 auto;
+
+	fieldset {
+		background: transparent;
+		border: none;
+		padding: 0;
+	}
+
+	input[type="email"],
+	input[type="password"] {
+		margin-bottom: 0px;
+		height: auto;
+		font-size: $font-size-30;
+		background-color: $white;
+		box-sizing: border-box;
+		height: auto;
+		border: none;
+		box-shadow: none;
+	}
+
+	input[type="email"] { 
+		border-radius: $border-radius-10 $border-radius-10 0 0; 
+		border-bottom: 1px solid $color-detail-30;
+	}
+	
+	input[type="password"] { border-radius: 0 0 $border-radius-10 $border-radius-10; }
+
+	input[type="submit"] {
+		width: 100%;
+	}
+
+
+	a { 
+		width: 100%!important; 
+		font-size: $font-size-30;
+		margin-bottom: $spacing;
+	}
+}
+
+.login--logo {
+	opacity: .8;
+	display: block;
+	text-align: center;
+	margin: $spacing*2 auto $spacing/2;
+	font-size: 2rem;
+	font-weight: 300;
+}
+
