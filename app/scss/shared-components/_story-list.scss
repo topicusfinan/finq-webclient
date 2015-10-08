@@ -132,6 +132,7 @@ ul.story-list--stories {
 }
 
 .story-list--tools {
+	@extend .title;
 
     background: $color-brand-60;
     color: $white;
