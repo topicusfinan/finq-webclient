@@ -718,7 +718,7 @@ select[disabled] {
   font-weight: 400;
   color: #86949B; }
 
-input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea,
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input:not([type]), textarea,
 textarea,
 select {
   -webkit-transition: border-color;
@@ -742,33 +742,33 @@ select {
   padding: 0.5em;
   vertical-align: baseline;
   width: 100%; }
-  input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, textarea:focus,
+  input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="email"]:focus, input[type="month"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="time"]:focus, input[type="url"]:focus, input[type="week"]:focus, input:not([type]):focus, textarea:focus,
   textarea:focus,
   select:focus {
     border-color: #59bba3;
     outline: 0; }
-  input[type="color"]:disabled, input[type="date"]:disabled, input[type="datetime"]:disabled, input[type="datetime-local"]:disabled, input[type="email"]:disabled, input[type="month"]:disabled, input[type="number"]:disabled, input[type="password"]:disabled, input[type="search"]:disabled, input[type="tel"]:disabled, input[type="text"]:disabled, input[type="time"]:disabled, input[type="url"]:disabled, input[type="week"]:disabled, textarea:disabled,
+  input[type="color"]:disabled, input[type="date"]:disabled, input[type="datetime"]:disabled, input[type="datetime-local"]:disabled, input[type="email"]:disabled, input[type="month"]:disabled, input[type="number"]:disabled, input[type="password"]:disabled, input[type="search"]:disabled, input[type="tel"]:disabled, input[type="text"]:disabled, input[type="time"]:disabled, input[type="url"]:disabled, input[type="week"]:disabled, input:not([type]):disabled, textarea:disabled,
   textarea:disabled,
   select:disabled {
     box-shadow: none;
     background: #E9EAEB;
     color: #86949B; }
-  input[type="color"]::-webkit-input-placeholder, input[type="date"]::-webkit-input-placeholder, input[type="datetime"]::-webkit-input-placeholder, input[type="datetime-local"]::-webkit-input-placeholder, input[type="email"]::-webkit-input-placeholder, input[type="month"]::-webkit-input-placeholder, input[type="number"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder, input[type="search"]::-webkit-input-placeholder, input[type="tel"]::-webkit-input-placeholder, input[type="text"]::-webkit-input-placeholder, input[type="time"]::-webkit-input-placeholder, input[type="url"]::-webkit-input-placeholder, input[type="week"]::-webkit-input-placeholder, textarea::-webkit-input-placeholder,
+  input[type="color"]::-webkit-input-placeholder, input[type="date"]::-webkit-input-placeholder, input[type="datetime"]::-webkit-input-placeholder, input[type="datetime-local"]::-webkit-input-placeholder, input[type="email"]::-webkit-input-placeholder, input[type="month"]::-webkit-input-placeholder, input[type="number"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder, input[type="search"]::-webkit-input-placeholder, input[type="tel"]::-webkit-input-placeholder, input[type="text"]::-webkit-input-placeholder, input[type="time"]::-webkit-input-placeholder, input[type="url"]::-webkit-input-placeholder, input[type="week"]::-webkit-input-placeholder, input:not([type])::-webkit-input-placeholder, textarea::-webkit-input-placeholder,
   textarea::-webkit-input-placeholder,
   select::-webkit-input-placeholder {
     font-weight: 400;
     color: #86949B; }
-  input[type="color"]::-moz-placeholder, input[type="date"]::-moz-placeholder, input[type="datetime"]::-moz-placeholder, input[type="datetime-local"]::-moz-placeholder, input[type="email"]::-moz-placeholder, input[type="month"]::-moz-placeholder, input[type="number"]::-moz-placeholder, input[type="password"]::-moz-placeholder, input[type="search"]::-moz-placeholder, input[type="tel"]::-moz-placeholder, input[type="text"]::-moz-placeholder, input[type="time"]::-moz-placeholder, input[type="url"]::-moz-placeholder, input[type="week"]::-moz-placeholder, textarea::-moz-placeholder,
+  input[type="color"]::-moz-placeholder, input[type="date"]::-moz-placeholder, input[type="datetime"]::-moz-placeholder, input[type="datetime-local"]::-moz-placeholder, input[type="email"]::-moz-placeholder, input[type="month"]::-moz-placeholder, input[type="number"]::-moz-placeholder, input[type="password"]::-moz-placeholder, input[type="search"]::-moz-placeholder, input[type="tel"]::-moz-placeholder, input[type="text"]::-moz-placeholder, input[type="time"]::-moz-placeholder, input[type="url"]::-moz-placeholder, input[type="week"]::-moz-placeholder, input:not([type])::-moz-placeholder, textarea::-moz-placeholder,
   textarea::-moz-placeholder,
   select::-moz-placeholder {
     font-weight: 400;
     color: #86949B; }
-  input[type="color"]:-moz-placeholder, input[type="date"]:-moz-placeholder, input[type="datetime"]:-moz-placeholder, input[type="datetime-local"]:-moz-placeholder, input[type="email"]:-moz-placeholder, input[type="month"]:-moz-placeholder, input[type="number"]:-moz-placeholder, input[type="password"]:-moz-placeholder, input[type="search"]:-moz-placeholder, input[type="tel"]:-moz-placeholder, input[type="text"]:-moz-placeholder, input[type="time"]:-moz-placeholder, input[type="url"]:-moz-placeholder, input[type="week"]:-moz-placeholder, textarea:-moz-placeholder,
+  input[type="color"]:-moz-placeholder, input[type="date"]:-moz-placeholder, input[type="datetime"]:-moz-placeholder, input[type="datetime-local"]:-moz-placeholder, input[type="email"]:-moz-placeholder, input[type="month"]:-moz-placeholder, input[type="number"]:-moz-placeholder, input[type="password"]:-moz-placeholder, input[type="search"]:-moz-placeholder, input[type="tel"]:-moz-placeholder, input[type="text"]:-moz-placeholder, input[type="time"]:-moz-placeholder, input[type="url"]:-moz-placeholder, input[type="week"]:-moz-placeholder, input:not([type]):-moz-placeholder, textarea:-moz-placeholder,
   textarea:-moz-placeholder,
   select:-moz-placeholder {
     font-weight: 400;
     color: #86949B; }
-  input[type="color"]:-ms-input-placeholder, input[type="date"]:-ms-input-placeholder, input[type="datetime"]:-ms-input-placeholder, input[type="datetime-local"]:-ms-input-placeholder, input[type="email"]:-ms-input-placeholder, input[type="month"]:-ms-input-placeholder, input[type="number"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder, input[type="search"]:-ms-input-placeholder, input[type="tel"]:-ms-input-placeholder, input[type="text"]:-ms-input-placeholder, input[type="time"]:-ms-input-placeholder, input[type="url"]:-ms-input-placeholder, input[type="week"]:-ms-input-placeholder, textarea:-ms-input-placeholder,
+  input[type="color"]:-ms-input-placeholder, input[type="date"]:-ms-input-placeholder, input[type="datetime"]:-ms-input-placeholder, input[type="datetime-local"]:-ms-input-placeholder, input[type="email"]:-ms-input-placeholder, input[type="month"]:-ms-input-placeholder, input[type="number"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder, input[type="search"]:-ms-input-placeholder, input[type="tel"]:-ms-input-placeholder, input[type="text"]:-ms-input-placeholder, input[type="time"]:-ms-input-placeholder, input[type="url"]:-ms-input-placeholder, input[type="week"]:-ms-input-placeholder, input:not([type]):-ms-input-placeholder, textarea:-ms-input-placeholder,
   textarea:-ms-input-placeholder,
   select:-ms-input-placeholder {
     font-weight: 400;
@@ -1158,13 +1158,17 @@ ul.story-list--stories {
     margin: 0; }
 
 .login--wrapper {
-  width: 100%; }
+  width: 100%;
+  height: 100%; }
+  .login--wrapper > div {
+    height: 100%; }
 
 .login {
   width: 100%;
+  height: 100%;
   margin: 0 auto;
   position: relative;
-  padding-bottom: 6rem;
+  padding: 4.5rem 0 6rem;
   background-color: rgba(66, 54, 82, 0.93);
   color: #fff;
   overflow: hidden; }
@@ -1192,7 +1196,10 @@ ul.story-list--stories {
 .login--form {
   max-width: 24rem;
   padding: 0 1.5rem;
-  margin: 0 auto; }
+  margin: 0 auto;
+  background: #272030;
+  border-radius: 0.313rem;
+  padding: 1.5rem; }
   .login--form fieldset {
     background: transparent;
     border: none;
@@ -1226,129 +1233,6 @@ ul.story-list--stories {
   margin: 3rem auto 0.75rem;
   font-size: 2rem;
   font-weight: 300; }
-
-.website--header {
-  clear: both;
-  float: none;
-  margin-left: 0;
-  margin-right: 0;
-  width: auto;
-  width: 100%;
-  padding: 3em 1.5em;
-  min-width: 14em;
-  background: #fff; }
-  .website--header > div {
-    clear: both;
-    float: none;
-    margin-left: 0;
-    margin-right: 0;
-    width: auto;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1000px;
-    text-align: center; }
-  .website--header h1 {
-    padding: .3em 0 .5em 0;
-    margin-bottom: 0;
-    letter-spacing: -1.5px;
-    color: #423652;
-    font-weight: 400; }
-  .website--header p {
-    margin-bottom: 0; }
-  .website--header small {
-    color: #86949B; }
-
-.website--body {
-  clear: both;
-  float: none;
-  margin-left: 0;
-  margin-right: 0;
-  width: auto;
-  width: 100%;
-  background: #E9EAEB;
-  padding: 3em 1.5em;
-  min-width: 14em; }
-  .website--body .bodycontainer {
-    clear: both;
-    float: none;
-    margin-left: 0;
-    margin-right: 0;
-    width: auto;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1000px;
-    text-align: center; }
-  .website--body ul {
-    display: -webkit-box;
-    display: -moz-box;
-    display: box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex; }
-  .website--body li {
-    display: inline-block;
-    margin: 2%;
-    width: 20%;
-    text-align: left; }
-    .website--body li i {
-      margin-right: .3em; }
-    .website--body li h3 {
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis; }
-
-.website--footer {
-  clear: both;
-  float: none;
-  margin-left: 0;
-  margin-right: 0;
-  width: auto;
-  width: 100%;
-  padding: 3em 1.5em;
-  min-width: 14em;
-  background: #1B2224; }
-  .website--footer .bodycontainer {
-    clear: both;
-    float: none;
-    margin-left: 0;
-    margin-right: 0;
-    width: auto;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 1000px;
-    text-align: center; }
-  .website--footer p {
-    color: #D6DADC; }
-  .website--footer ul {
-    width: 100%;
-    margin: 0 0 1.5em 0; }
-  .website--footer li {
-    display: inline-block;
-    list-style-type: none;
-    margin: 0 .25em; }
-    .website--footer li a {
-      font-size: 0.9em;
-      color: #efefef;
-      width: 11rem;
-      border-radius: .4em;
-      background: rgba(239, 239, 239, 0.3);
-      padding: .3em .5em;
-      position: relative;
-      display: inline-block; }
-      .website--footer li a:hover {
-        background: #404E54; }
-    .website--footer li i {
-      font-size: 2.2em;
-      float: left;
-      margin-left: 3px; }
-    .website--footer li span {
-      position: absolute;
-      left: 3rem;
-      top: .2em;
-      line-height: 1.2em;
-      text-align: left;
-      width: 7.5rem; }
 
 header {
   display: -webkit-box;

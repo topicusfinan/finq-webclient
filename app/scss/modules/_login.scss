@@ -2,13 +2,17 @@
 
 .login--wrapper {
 	width: 100%;
+	height: 100%;
+
+	> div { height: 100%;}
 }
 
 .login {
 	width: 100%;
+	height: 100%;
 	margin: 0 auto;
 	position: relative;
-	padding-bottom: $spacing*4;
+	padding: $spacing*3 0 $spacing*4;
 	background-color: rgba($color-detail-50, 0.93);
 	color: $white;
 	overflow:hidden;
@@ -43,6 +47,9 @@
 	max-width: 24rem;
 	padding: 0 $spacing;
 	margin: 0 auto;
+	background: $color-detail-70;
+	border-radius: $border-radius-20;
+	padding: $spacing;
 
 	fieldset {
 		background: transparent;
